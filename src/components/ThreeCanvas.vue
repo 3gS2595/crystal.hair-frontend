@@ -56,6 +56,8 @@ export default {
       const geometry = new SphereGeometry(5, 50, 50)
       const material = new MeshStandardMaterial({ color: '#F00' })
       mesh = new Mesh(geometry, material)
+
+      // Creates post-api reception
       if (apij.value !== null) {
         mesh.addEventListener('click', (event) => {
           console.log(store.filter)
