@@ -65,7 +65,6 @@ export default {
 
       // Lights
       light = new PointLight(0xffffff, 1)
-      // light = new HemisphereLight(0xffff, 0x080820, 1);
       light.position.set(50, 50, 50)
       scene.add(light)
 
