@@ -57,9 +57,9 @@ export default {
       const material = new MeshStandardMaterial({ color: '#F00' })
       mesh = new Mesh(geometry, material)
       if (apij.value !== null) {
-          mesh.addEventListener ( 'click', (event) => {
-					  console.log(store.filter)
-          })
+        mesh.addEventListener('click', (event) => {
+          console.log(store.filter)
+        })
         scene.add(mesh)
       }
 
