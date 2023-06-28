@@ -1,4 +1,5 @@
 # crystal_hair_vue
+vue, threejs implemented ui rendering datasets served by rails api  
 
 ## Project setup
 ```
