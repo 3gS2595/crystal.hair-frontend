@@ -7,5 +7,5 @@
 </template>
 
 <style lang="scss" scoped>
-  @import "./style/main.scss"; //Here i add extra "./"(current directory)
+  @import "./style/main.scss";
 </style>
