@@ -14,7 +14,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import TableModule from '@/components/TableModule.vue' // @ is an alias to /src
+import TableModule from '@/table/TableModule.vue' // @ is an alias to /src
 import TheCanvas from '@/components/ThreeCanvas.vue'
 
 export default defineComponent({

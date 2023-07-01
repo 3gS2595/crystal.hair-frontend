@@ -2,7 +2,7 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 import { watch, onMounted, ref, computed } from 'vue'
 
 export const useCounterStore = defineStore('counter', () => {
-  const filter = ref('')
+  const filter = ref('tron')
   function setFilter (newFilter: string) {
     filter.value = newFilter
   }
