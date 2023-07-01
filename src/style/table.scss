@@ -2,13 +2,18 @@ table {
   border-top: 1px solid lightgray;
 }
 .card{
-	width:600px;
+	width:auto;
+	max-width:800px;
   border-top: 1px solid lightgray;
   border-left: 1px solid lightgray;
 }
 .p-dropdown-panel{
       background: white;
 		
+  border: 3px solid lightgray;
+}
+.p-column-filter-row-items{
+      background: white;
   border: 3px solid lightgray;
 }
 .p-paginator {
@@ -39,4 +44,9 @@ tfoot {
 
 tfoot th {
   font-weight: normal;
+}
+div {
+  border: .1px solid purple;
+}
+#app{
 }

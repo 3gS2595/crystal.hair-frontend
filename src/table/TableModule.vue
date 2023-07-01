@@ -2,7 +2,7 @@
 <template>
     <div class="card">
         <DataTable v-model:filters="filters" :value="customers" paginator :rows="10" dataKey="id" filterDisplay="row" :loading="loading"
-                :globalFilterFields="['name', 'country.name', 'representative.name', 'status']">
+                :globalFilterFields="['date', 'title', 'url']">
             <template #header>
                 <div class="flex justify-content-end">
                     <span class="p-input-icon-left">
@@ -11,35 +11,37 @@
                     </span>
                 </div>
             </template>
-            <template #empty> No customers found. </template>
+            <template #empty> empty placeholder </template>
             <template #loading> Loading customers data. Please wait. </template>
-            <Column field="name" header="Name" style="min-width: 12rem">
+            <Column field="date" header="date" style="min-width: 12rem">
                 <template #body="{ data }">
-                    {{ data.name }}
+                    {{ data.date }}
                 </template>
                 <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
                 </template>
             </Column>
-            <Column header="Country" filterField="country.name" style="min-width: 12rem">
+            <Column header="title" filterField="title" style="min-width: 12rem">
                 <template #body="{ data }">
                     <div class="flex align-items-center gap-2">
-                        <span>{{ data.country.name }}</span>
+                        <span>{{ data.title }}</span>
                     </div>
                 </template>
                 <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by country" />
                 </template>
             </Column>
-            <Column field="status" header="Status" :showFilterMenu="false" :filterMenuStyle="{ width: '14rem' }" style="min-width: 12rem">
+            <Column header="url" filterField="url" style="min-width: 12rem">
+                <template #body="{ data }">
+                    <div class="flex align-items-center gap-2">
+                        <span>{{ data.url }}</span>
+                    </div>
+                </template>
                 <template #filter="{ filterModel, filterCallback }">
-                    <Dropdown v-model="filterModel.value" @change="filterCallback()" :options="statuses" placeholder="Select One" class="p-column-filter" style="min-width: 12rem" :showClear="true">
-                        <template #option="slotProps">
-                            <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)" />
-                        </template>
-                    </Dropdown>
+                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by country" />
                 </template>
             </Column>
+
           </DataTable>
     </div>
 </template>
@@ -63,50 +65,31 @@ const store = useCounterStore()
 const customers = ref()
 const filters = ref({
   global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS },
-  name: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  'country.name': { value: null, matchMode: FilterMatchMode.CONTAINS },
-  representative: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  status: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  verified: { value: null, matchMode: FilterMatchMode.CONTAINS }
+  date: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  title: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  url: { value: null, matchMode: FilterMatchMode.CONTAINS }
 })
 const statuses = ref(['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'])
 const loading = ref(true)
 
 onMounted(() => {
-  const filter = computed(() => store.filter.value)
-  CustomerService.getCustomersMedium().then((data) => {
+  CustomerService.getCustomers().then((data) => {
     customers.value = getCustomers(data)
     loading.value = false
   })
 })
-
+watch(
+  () => store.filter,
+  () => {
+    console.log('download text has changed new value ' + store.filter)
+    filters.value.global.value = store.filter
+  })
 const getCustomers = (data) => {
+  console.log(data)
   return [...(data || [])].map((d) => {
-    d.date = new Date(d.date)
-
+    // d.date = new Date(d.date)
     return d
   })
 }
 
-const formatCurrency = (value) => {
-  return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
-}
-const getSeverity = (status) => {
-  switch (status) {
-    case 'unqualified':
-      return 'danger'
-
-    case 'qualified':
-      return 'success'
-
-    case 'new':
-      return 'info'
-
-    case 'negotiation':
-      return 'warning'
-
-    case 'renewal':
-      return null
-  }
-}
 </script>
