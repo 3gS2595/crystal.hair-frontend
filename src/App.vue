@@ -8,4 +8,8 @@
 
 <style lang="scss" scoped>
   @import "./style/main.scss";
+  @import "./style/canvas.scss";
+</style>
+<style lang="css" scoped>
+  @import "./style/table.scss";
 </style>

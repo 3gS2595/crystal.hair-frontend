@@ -1,0 +1,42 @@
+table {
+  border-top: 1px solid lightgray;
+}
+.card{
+	width:600px;
+  border-top: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+}
+.p-dropdown-panel{
+      background: white;
+		
+  border: 3px solid lightgray;
+}
+.p-paginator {
+	display: block!important;
+}
+.p-column-filter-row {
+	display: block!important;
+}
+.p-column-filter-menu-button, .p-column-filter-clear-button {
+	display: block!important;
+	padding: 0px;
+}
+.p-datatable-header {
+  border-right: 1px solid lightgray;
+}
+th {
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
+td {
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
+
+tfoot {
+  color: gray;
+}
+
+tfoot th {
+  font-weight: normal;
+}

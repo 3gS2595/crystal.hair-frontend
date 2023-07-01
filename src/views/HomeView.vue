@@ -1,10 +1,17 @@
-<template>
-  <div class="home">
-    <TableModule/>
-    <TheCanvas/>
-  </div>
-</template>
 
+<template>
+ <Suspense>
+   <template #default>
+     <div class="home">
+      <TheCanvas/>
+      <TableModule/>
+     </div>
+   </template>
+   <template #fallback>
+     <span>Loading...</span>
+   </template>
+ </Suspense>
+</template>
 <script lang="ts">
 import { defineComponent } from 'vue'
 import TableModule from '@/components/TableModule.vue' // @ is an alias to /src

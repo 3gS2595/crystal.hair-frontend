@@ -1,6 +1,12 @@
 
 <template >
-  <canvas ref='webGl' class='webGl' />
+<Suspense>
+   <template #default>
+      <canvas ref='webGl' class='webGl' />   </template>
+   <template #fallback>
+     <a>Loading...</a>
+   </template>
+ </Suspense>
 </template>
 
 <script lang='ts'>
@@ -10,6 +16,7 @@ import {
   MeshBasicMaterial,
   MeshStandardMaterial,
   Mesh,
+  Material,
   PointLight,
   PerspectiveCamera,
   WebGLRenderer,
@@ -22,27 +29,27 @@ import axios from 'axios'
 import { useCounterStore } from '../store/GlobalStore'
 import { InteractionManager } from 'three.interactive'
 // import { useWindowSize } from "@vueuse/core";
+var interactionManager: InteractionManager
 
 export default {
   setup () {
     const store = useCounterStore()
     const manager = new THREE.LoadingManager()
     const loaderJPG = new THREE.TextureLoader(manager)
-    store.setFilter('testing3')
-    console.log(store.filter)
     const webGl = ref()
-    const forms = []
+    const forms: Mesh[] = []
 
-    store.setFilter('test3')
-    console.log(store.filter)
     const img = '../assets/images/earth.jpg'
-    const width = 600
-    const height = 600
+    const width = 700
+    const height = 300
     const aspectRatio = computed(() => {
       return 100 / 100
     })
-    let camera: PerspectiveCamera
+    const gridx = -40
+    const gridy = 16
+    const gridxI = 10.85 // x axis iterative distance    let camera: PerspectiveCamera
     let renderer: WebGLRenderer
+    let camera: PerspectiveCamera
     let scene: Scene
     let mesh: Mesh
     let light: PointLight
@@ -50,10 +57,26 @@ export default {
       // Create Scene
       scene = new Scene()
 
-      // Create Object
-      const geometry = new SphereGeometry(5, 50, 50)
-      const material = new MeshStandardMaterial({ color: '#F00' })
-      mesh = new Mesh(geometry, material)
+      // Camera
+      camera = new PerspectiveCamera(40, aspectRatio.value, 10, 80)
+      camera.position.z = 63
+      scene.add(camera)
+
+      // Lights
+      light = new PointLight(0xffffff, 1)
+      light.position.set(50, 50, 50)
+      scene.add(light)
+
+      // Renderer
+      const canvas = webGl.value
+      renderer = new WebGLRenderer({ canvas, alpha: true, antialias: true })
+      renderer.setSize(width, height)
+      renderer.render(scene, camera)
+      interactionManager = new InteractionManager(
+        renderer,
+        camera,
+        renderer.domElement
+      )
 
       // Creates post-api reception
       const apij = ref()
@@ -70,71 +93,36 @@ export default {
           for (let i = 0; i < apij.value.length; i++) {
             console.log(i)
             const obj = JSON.parse(JSON.stringify(apij.value[i]))
-            const path = ('require(\'@/src/assets/' + JSON.stringify(obj.path) + '\')').replace('"', '').replace('"', '')
+            const path = ('/img/' + JSON.stringify(obj.path)).replace('"', '').replace('"', '')
             console.log(path)
             const pathClick = (JSON.stringify(obj.title)).replace('"', '').replace('"', '')
             const img = new Image()
-            img.src = path
-            img.onload = function(){
-              let material = new THREE.MeshLambertMaterial({map:loaderJPG.load(path), transparent: true})
-              var plane = new THREE.PlaneGeometry( 10, 10, 1)
-              forms[i] = new THREE.Mesh(plane,material)
-              forms[i].position.x += gridx + ((i+1) * gridxI) //grid placement
-				    	forms[i].position.y += gridy
-				  	  forms[i].name = JSON.stringify(obj.title)
-				  	  forms[i].userData = { URL: pathClick}
+            img.src = (path)
+            img.onload = function () {
+              const material = new THREE.MeshLambertMaterial({ map: loaderJPG.load(path), transparent: true })
+              var plane = new THREE.PlaneGeometry(10, 10, 1)
+              forms[i] = new THREE.Mesh(plane, material)
+              forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
+              forms[i].position.y += gridy
+              forms[i].name = JSON.stringify(obj.title)
+              forms[i].userData = { URL: pathClick }
 
-				  	  //initial animation
-					    forms[i].rotation.y = 1
+              // initial animation
+              forms[i].rotation.y = 1
 
-					    forms[i].addEventListener('mouseover', (event) => {
-				  		  if (forms[i].material) {
-					  	  	forms[i].userData.materialEmissiveHex = forms[i].material.emissive.getHex()
-						     	forms[i].material.emissive.setHex(0xff0000)
-						    	forms[i].material.emissiveIntensity = 0.1
-						     	forms[i].rotation.x += .2
-				  	  	}
-			  	  	});
-
-			  	  	forms[i].addEventListener('mouseout', (event) => {
-				    		if (forms[i].material) {
-				    			forms[i].material.emissive.setHex( forms[i].userData.materialEmissiveHex )
-				    			forms[i].rotation.x -= .2
-				     		}
-			    		});
-
-				     	interactionManager.add(forms[i])
-			  		  console.log('\'' + pathClick + '\'')
-			  		  forms[i].addEventListener('click', (event) => {
-			  			  if(filter == pathClick) setFilter('')
-				  		  else setFilter(pathClick)
-			  		  });
-			  		  scene.add(forms[i])
-		  		  }
+              interactionManager.add(forms[i])
+              console.log('\'' + pathClick + '\'')
+              forms[i].addEventListener('click', (event) => {
+                console.log(store.filter)
+                if (store.filter === pathClick) store.setFilter('')
+                else store.setFilter(pathClick)
+                console.log(store.filter)
+              })
+              scene.add(forms[i])
+            }
           }
-          // mesh.addEventListener('click', (event) => {
-          //  console.log(store.filter)
-          // })
-          scene.add(mesh)
         }
       })()
-
-      // Lights
-      light = new PointLight(0xffffff, 1)
-      light.position.set(50, 50, 50)
-      scene.add(light)
-
-      // Camera
-      camera = new PerspectiveCamera(45, aspectRatio.value, 0.1, 100)
-      camera.position.z = 30
-      scene.add(camera)
-      camera.add(light)
-
-      // Renderer
-      const canvas = webGl.value
-      renderer = new WebGLRenderer({ canvas, alpha: true, antialias: true })
-      renderer.setSize(width, height)
-      renderer.render(scene, camera)
     }
 
     const updateCamera = () => {
@@ -155,7 +143,9 @@ export default {
     })
 
     const animate = () => {
-      mesh.rotation.y += 0.01
+      for (var i = 0; i < forms.length; i++) {
+        forms[i].rotation.z += 0.001
+      }
       renderer.render(scene, camera)
       requestAnimationFrame(animate)
     }
