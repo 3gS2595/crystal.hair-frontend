@@ -45,9 +45,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { FilterMatchMode, FilterService } from 'primevue/api'
-import { CustomerService } from '@/table/CustomerService'
+import { CustomerService } from '@/table/GetRss'
 import TriStateCheckbox from 'primevue/tristatecheckbox'
 import InputText from 'primevue/inputtext'
 import Column from 'primevue/column'
@@ -59,22 +59,21 @@ import PrimeVue from 'primevue/config'
 import { useCounterStore } from '../store/GlobalStore'
 
 const store = useCounterStore()
-FilterService.filters.contains(store.filter, 'Vue')
-console.log(store.filter)
+
 const customers = ref()
 const filters = ref({
-  global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  'country.name': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  representative: { value: null, matchMode: FilterMatchMode.IN },
-  status: { value: null, matchMode: FilterMatchMode.EQUALS },
-  verified: { value: null, matchMode: FilterMatchMode.EQUALS }
+  global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS },
+  name: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  'country.name': { value: null, matchMode: FilterMatchMode.CONTAINS },
+  representative: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  status: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  verified: { value: null, matchMode: FilterMatchMode.CONTAINS }
 })
-
 const statuses = ref(['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'])
 const loading = ref(true)
 
 onMounted(() => {
+  const filter = computed(() => store.filter.value)
   CustomerService.getCustomersMedium().then((data) => {
     customers.value = getCustomers(data)
     loading.value = false
@@ -91,5 +90,23 @@ const getCustomers = (data) => {
 
 const formatCurrency = (value) => {
   return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+}
+const getSeverity = (status) => {
+  switch (status) {
+    case 'unqualified':
+      return 'danger'
+
+    case 'qualified':
+      return 'success'
+
+    case 'new':
+      return 'info'
+
+    case 'negotiation':
+      return 'warning'
+
+    case 'renewal':
+      return null
+  }
 }
 </script>

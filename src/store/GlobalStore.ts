@@ -3,6 +3,7 @@ import { watch, onMounted, ref, computed } from 'vue'
 
 export const useCounterStore = defineStore('counter', () => {
   const filter = ref('tron')
+  console.log(filter.value)
   function setFilter (newFilter: string) {
     filter.value = newFilter
   }
