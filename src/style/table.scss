@@ -45,8 +45,12 @@ tfoot {
 tfoot th {
   font-weight: normal;
 }
-div {
-  border: .1px solid purple;
-}
+
 #app{
 }
+canvas{
+	width:50vw;
+	height: 20vh;
+	user-select: none;
+}
+

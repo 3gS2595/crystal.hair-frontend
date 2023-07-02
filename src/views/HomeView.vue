@@ -3,8 +3,8 @@
  <Suspense>
    <template #default>
      <div class="home">
-      <TheCanvas/>
-      <TableModule/>
+       <div ref="can" id="can"><TheCanvas /></div>
+      <TableModule data="second"/>
      </div>
    </template>
    <template #fallback>

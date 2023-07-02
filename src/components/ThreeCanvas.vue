@@ -28,7 +28,7 @@ import { watch, onMounted, ref, computed } from 'vue'
 import axios from 'axios'
 import { useCounterStore } from '../store/GlobalStore'
 import { InteractionManager } from 'three.interactive'
-// import { useWindowSize } from "@vueuse/core";
+import { useElementSize } from '@vueuse/core'
 var interactionManager: InteractionManager
 
 export default {
@@ -36,14 +36,15 @@ export default {
     const store = useCounterStore()
     const manager = new THREE.LoadingManager()
     const loaderJPG = new THREE.TextureLoader(manager)
-    const webGl = ref()
+    var webGl = ref()
     const forms: Mesh[] = []
-
+    var width = ref()
+    var height = ref()
     const img = '../assets/images/earth.jpg'
-    const width = 700
-    const height = 300
-    const aspectRatio = computed(() => {
-      return 100 / 100
+    width.value = 700
+    height.value = 300
+    var aspectRatio = computed(() => {
+      return width.value / height.value
     })
     const gridx = -40
     const gridy = 16
@@ -69,8 +70,10 @@ export default {
 
       // Renderer
       const canvas = webGl.value
-      renderer = new WebGLRenderer({ canvas, alpha: true, antialias: true })
-      renderer.setSize(width, height)
+      width.value = webGl.value.clientWidth
+      height.value = webGl.value.clientHeight
+      renderer = new WebGLRenderer({ canvas, alpha: true })
+      renderer.setSize(width.value, height.value)
       renderer.render(scene, camera)
       interactionManager = new InteractionManager(
         renderer,
@@ -84,14 +87,9 @@ export default {
         const res = await fetch('http://192.168.1.180:3000//site_images').then(res => res.json())
         apij.value = res
         console.log(res)
-        if (apij.value === undefined) {
-          console.log('hddelp')
-          console.log(apij.value.length)
-        }
+
         if (apij.value !== undefined) {
-          console.log(apij.value.length)
           for (let i = 0; i < apij.value.length; i++) {
-            console.log(i)
             const obj = JSON.parse(JSON.stringify(apij.value[i]))
             const path = ('/img/' + JSON.stringify(obj.path)).replace('"', '').replace('"', '')
             console.log(path)
@@ -104,6 +102,7 @@ export default {
               forms[i] = new THREE.Mesh(plane, material)
               forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
               forms[i].position.y += gridy
+              forms[i].rotation.y = 0.51
               forms[i].name = JSON.stringify(obj.title)
               forms[i].userData = { URL: pathClick }
 
@@ -113,10 +112,8 @@ export default {
               interactionManager.add(forms[i])
               console.log('\'' + pathClick + '\'')
               forms[i].addEventListener('click', (event) => {
-                console.log(store.filter)
                 if (store.filter === pathClick) store.setFilter('')
                 else store.setFilter(pathClick)
-                console.log(store.filter)
               })
               scene.add(forms[i])
             }
@@ -131,21 +128,24 @@ export default {
     }
 
     const updateRenderer = () => {
-      renderer.setSize(width, height)
+      renderer.setSize(width.value, height.value)
       renderer.render(scene, camera)
     }
 
     watch(aspectRatio, (val) => {
+      console.log(webGl.value)
       if (val) {
         updateCamera()
         updateRenderer()
       }
     })
-
     const animate = () => {
-      for (var i = 0; i < forms.length; i++) {
-        forms[i].rotation.z += 0.001
+      for (let i = 0, j = forms.length; i < j; i++) {
+        if (forms[i].rotation.y > 0) forms[i].rotation.y -= 0.27
       }
+      width.value = webGl.value.clientWidth
+      height.value = webGl.value.clientHeight
+      camera.aspect = aspectRatio.value
       renderer.render(scene, camera)
       requestAnimationFrame(animate)
     }
@@ -154,8 +154,7 @@ export default {
       setCanvas()
       animate()
     })
-
-    return { webGl }
+    return { webGl, height, width }
   }
 }
 </script>

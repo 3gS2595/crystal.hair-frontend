@@ -1,4 +1,3 @@
-
 <template>
     <div class="card">
         <DataTable v-model:filters="filters" :value="customers" paginator :rows="10" dataKey="id" filterDisplay="row" :loading="loading"
@@ -13,41 +12,22 @@
             </template>
             <template #empty> empty placeholder </template>
             <template #loading> Loading customers data. Please wait. </template>
-            <Column field="date" header="date" style="min-width: 12rem">
-                <template #body="{ data }">
-                    {{ data.date }}
-                </template>
+            <Column
+              v-for="col of columns"
+              :key="col.field"
+              :field="col.field"
+              :header="col.header"
+            >
                 <template #filter="{ filterModel, filterCallback }">
                     <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
                 </template>
             </Column>
-            <Column header="title" filterField="title" style="min-width: 12rem">
-                <template #body="{ data }">
-                    <div class="flex align-items-center gap-2">
-                        <span>{{ data.title }}</span>
-                    </div>
-                </template>
-                <template #filter="{ filterModel, filterCallback }">
-                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by country" />
-                </template>
-            </Column>
-            <Column header="url" filterField="url" style="min-width: 12rem">
-                <template #body="{ data }">
-                    <div class="flex align-items-center gap-2">
-                        <span>{{ data.url }}</span>
-                    </div>
-                </template>
-                <template #filter="{ filterModel, filterCallback }">
-                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by country" />
-                </template>
-            </Column>
-
           </DataTable>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed, watch, defineProps, toRefs } from 'vue'
 import { FilterMatchMode, FilterService } from 'primevue/api'
 import { CustomerService } from '@/table/GetRss'
 import TriStateCheckbox from 'primevue/tristatecheckbox'
@@ -60,8 +40,14 @@ import DataTable from 'primevue/datatable'
 import PrimeVue from 'primevue/config'
 import { useCounterStore } from '../store/GlobalStore'
 
-const store = useCounterStore()
+const container = ref()
+const title = ref()
 
+const props = defineProps({
+  data: String
+})
+const { data } = toRefs(props)
+const store = useCounterStore()
 const customers = ref()
 const filters = ref({
   global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS },
@@ -72,17 +58,31 @@ const filters = ref({
 const statuses = ref(['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'])
 const loading = ref(true)
 
+const columns = [
+  { field: 'date', header: 'date' },
+  { field: 'title', header: 'title' },
+  { field: 'url', header: 'url' }
+]
 onMounted(() => {
   CustomerService.getCustomers().then((data) => {
     customers.value = getCustomers(data)
+    // columns = CustomerService.getColumns(data)
     loading.value = false
   })
 })
 watch(
   () => store.filter,
   () => {
-    console.log('download text has changed new value ' + store.filter)
+    console.log('globalFilter: ' + store.filter)
     filters.value.global.value = store.filter
+  })
+watch(
+  () => filters.value.global.value,
+  () => {
+    if ((store.filter !== filters.value.global.value)) {
+      console.log('globalFilter: ' + store.filter)
+      store.setFilter(filters.value.global.value)
+    }
   })
 const getCustomers = (data) => {
   console.log(data)
