@@ -5,21 +5,38 @@ export const ContentService = {
     )
   },
   getColumns (params) {
-    console.log(Object.keys(params[0]))
-    console.log(Object.keys(params[0]).length)
     var jsonArr = []
-    for (var i = 0; i < Object.keys(params[0]).length; i++) {
-      console.log(Object.keys(params[0])[i])
-      const key = Object.keys(params[0])[i]
+    console.log(Object.keys(params[0]))
+    var ret = structuredClone(params[0])
+    var c = 'date'
+    if (Object.keys(params[0]).indexOf(c) > -1) {
+      const index = Object.keys(ret).indexOf(c)
+      jsonArr.push({
+        field: Object.keys(ret)[index],
+        header: Object.keys(ret)[index]
+      })
+      delete ret.date
+    }
+
+    c = 'title'
+    if (Object.keys(ret).indexOf(c) > -1) {
+      const index = Object.keys(ret).indexOf(c)
+      jsonArr.push({
+        field: Object.keys(ret)[index],
+        header: Object.keys(ret)[index]
+      })
+      delete ret.title
+    }
+
+    for (var i = 0; i < Object.keys(ret).length; i++) {
+      const key = Object.keys(ret)[i]
       if (key !== 'id' && key !== 'created_at' && key !== 'updated_at') {
         jsonArr.push({
-          field: Object.keys(params[0])[i],
-          header: Object.keys(params[0])[i]
+          field: key,
+          header: key
         })
       }
     }
-    console.log(jsonArr)
     return jsonArr
   }
-
 }

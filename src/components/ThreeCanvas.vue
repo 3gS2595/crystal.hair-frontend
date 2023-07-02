@@ -29,9 +29,12 @@ import axios from 'axios'
 import { useCounterStore } from '../store/GlobalStore'
 import { InteractionManager } from 'three.interactive'
 import { useWindowSize } from '@vueuse/core'
-let interactionManager: InteractionManager
+
 const wratio = 0.5
 const hratio = 0.3
+
+let interactionManager: InteractionManager
+
 export default {
   setup () {
     const store = useCounterStore()
@@ -39,7 +42,6 @@ export default {
     const loaderJPG = new THREE.TextureLoader(manager)
     const webGl = ref()
     const forms: Mesh[] = []
-    const img = '../assets/images/earth.jpg'
     const { width, height } = useWindowSize()
     const aspectRatio = computed(() => {
       return (width.value * wratio) / (width.value * hratio)
@@ -53,6 +55,8 @@ export default {
     let mesh: Mesh
     let light: PointLight
     const setCanvas = () => {
+      const canvas = webGl.value
+
       // Create Scene
       scene = new Scene()
 
@@ -62,33 +66,29 @@ export default {
       scene.add(camera)
 
       // Lights
-      light = new PointLight(0xffffff, 1)
+      light = new PointLight(0xfffeff, 1.8)
       light.position.set(50, 50, 50)
       scene.add(light)
 
       // Renderer
-      const canvas = webGl.value
       renderer = new WebGLRenderer({ canvas, alpha: true })
       renderer.setSize((width.value * wratio), (width.value * hratio))
       renderer.render(scene, camera)
-      interactionManager = new InteractionManager(
-        renderer,
-        camera,
-        renderer.domElement
-      )
+
+      // Interaction Manager
+      interactionManager = new InteractionManager(renderer, camera, renderer.domElement)
 
       // Creates post-api reception
       const apij = ref()
       ;(async () => {
         const res = await fetch('http://192.168.1.180:3000//site_images').then(res => res.json())
         apij.value = res
-        console.log(res)
+        // console.log(res)
 
         if (apij.value !== undefined) {
           for (let i = 0; i < apij.value.length; i++) {
             const obj = JSON.parse(JSON.stringify(apij.value[i]))
             const path = ('/img/' + JSON.stringify(obj.path)).replace('"', '').replace('"', '')
-            console.log(path)
             const pathClick = (JSON.stringify(obj.title)).replace('"', '').replace('"', '')
             const img = new Image()
             img.src = (path)
@@ -106,7 +106,6 @@ export default {
               forms[i].rotation.y = 1
 
               interactionManager.add(forms[i])
-              console.log('\'' + pathClick + '\'')
               forms[i].addEventListener('click', (event) => {
                 if (store.filter === pathClick) store.setFilter('')
                 else store.setFilter(pathClick)
@@ -129,7 +128,6 @@ export default {
     }
 
     watch(aspectRatio, (val) => {
-      console.log(webGl.value)
       if (val) {
         const w = width.value * wratio
         const h = width.value * hratio

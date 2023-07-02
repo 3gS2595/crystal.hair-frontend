@@ -1,12 +1,12 @@
 <template>
     <div class="card">
-        <DataTable v-model:filters="filters" :value="content" paginator :rows="10" dataKey="id" filterDisplay="row" :loading="loading"
+        <DataTable v-model:filters="filters" :value="content" resizableColumns columnResizeMode="expand" paginator :rows="30" dataKey="id" filterDisplay="row" :loading="loading"
                 :globalFilterFields="['date', 'title', 'url']">
             <template #header>
                 <div class="flex justify-content-end">
                     <span class="p-input-icon-left">
                         <i class="pi pi-search" />
-                        <InputText v-model="filters['global'].value" placeholder="search query" />
+                        <InputText v-model="filters['global'].value" placeholder="searchQuery" />
                     </span>
                 </div>
             </template>
@@ -18,9 +18,12 @@
               :field="col.field"
               :header="col.header"
             >
-                <template #filter="{ filterModel, filterCallback }">
-                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="search query" />
-                </template>
+              <template #body="slotProps">
+                <a :href="slotProps.data.url" target="_blank" v-text="slotProps.data[col.field]" />
+              </template>
+              <template #filter="{ filterModel, filterCallback }">
+                <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="searchQuery" />
+              </template>
             </Column>
           </DataTable>
     </div>
@@ -58,7 +61,7 @@ onMounted(() => {
 watch(
   () => store.filter,
   () => {
-    console.log('globalFilter: ' + store.filter)
+    console.log('store.filter=' + store.filter)
     filters.value.global.value = store.filter
   }
 )
@@ -67,7 +70,7 @@ watch(
   () => filters.value.global.value,
   () => {
     if ((store.filter !== filters.value.global.value)) {
-      console.log('globalFilter: ' + store.filter)
+      console.log('store.filter=' + store.filter)
       store.setFilter(filters.value.global.value)
     }
   }
