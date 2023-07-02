@@ -139,7 +139,7 @@ export default {
     })
     const animate = () => {
       for (let i = 0, j = forms.length; i < j; i++) {
-        if (forms[i].rotation.y > 0) forms[i].rotation.y -= 0.27
+        if (forms[i].rotation.y > 0) forms[i].rotation.y -= 0.2
       }
       renderer.render(scene, camera)
       requestAnimationFrame(animate)

@@ -6,7 +6,7 @@
                 <div class="flex justify-content-end">
                     <span class="p-input-icon-left">
                         <i class="pi pi-search" />
-                        <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+                        <InputText v-model="filters['global'].value" placeholder="search query" />
                     </span>
                 </div>
             </template>
@@ -19,7 +19,7 @@
               :header="col.header"
             >
                 <template #filter="{ filterModel, filterCallback }">
-                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="Search by name" />
+                    <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" placeholder="search query" />
                 </template>
             </Column>
           </DataTable>
@@ -29,13 +29,14 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { FilterMatchMode } from 'primevue/api'
-import { ContentService } from '@/table/GetRss'
 import InputText from 'primevue/inputtext'
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
-import { useCounterStore } from '../store/GlobalStore'
 
-const container = ref()
+import { useCounterStore } from '../store/GlobalStore'
+import { ContentService } from '@/table/GetRss'
+
+const loading = ref(true)
 const store = useCounterStore()
 const content = ref()
 const columns = ref()
@@ -45,7 +46,6 @@ const filters = ref({
   title: { value: null, matchMode: FilterMatchMode.CONTAINS },
   url: { value: null, matchMode: FilterMatchMode.CONTAINS }
 })
-const loading = ref(true)
 
 onMounted(() => {
   ContentService.getContent().then((data) => {
@@ -54,12 +54,15 @@ onMounted(() => {
     loading.value = false
   })
 })
+
 watch(
   () => store.filter,
   () => {
     console.log('globalFilter: ' + store.filter)
     filters.value.global.value = store.filter
-  })
+  }
+)
+
 watch(
   () => filters.value.global.value,
   () => {
@@ -67,6 +70,6 @@ watch(
       console.log('globalFilter: ' + store.filter)
       store.setFilter(filters.value.global.value)
     }
-  })
-
+  }
+)
 </script>
