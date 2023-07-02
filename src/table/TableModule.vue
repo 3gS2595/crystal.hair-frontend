@@ -53,7 +53,7 @@ const filters = ref({
 onMounted(() => {
   ContentService.getContent().then((data) => {
     content.value = data
-    columns.value = ContentService.getColumns(data)
+    columns.value = ContentService.generateColumns([data, 'date', 'title', 'url'])
     loading.value = false
   })
 })

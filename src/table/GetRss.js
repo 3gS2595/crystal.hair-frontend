@@ -4,39 +4,43 @@ export const ContentService = {
       res.json()
     )
   },
-  getColumns (params) {
-    var jsonArr = []
-    console.log(Object.keys(params[0]))
-    var ret = structuredClone(params[0])
-    var c = 'date'
-    if (Object.keys(params[0]).indexOf(c) > -1) {
-      const index = Object.keys(ret).indexOf(c)
-      jsonArr.push({
-        field: Object.keys(ret)[index],
-        header: Object.keys(ret)[index]
-      })
-      delete ret.date
+  generateColumns (args) {
+    const params = args[0]
+    const returnJson = []
+
+    // insert priority
+    for (var x = 1; x < args.length; x++) {
+      inline(args[x])
     }
 
-    c = 'title'
-    if (Object.keys(ret).indexOf(c) > -1) {
-      const index = Object.keys(ret).indexOf(c)
-      jsonArr.push({
-        field: Object.keys(ret)[index],
-        header: Object.keys(ret)[index]
-      })
-      delete ret.title
+    for (var i = 0; i < Object.keys(params[0]).length; i++) {
+      // raw field title
+      const key = Object.keys(params[0])[i]
+
+      // preexisting prioritized entry push check
+      var flag = false
+      for (var n = 0; n < Object.keys(returnJson).length; n++) {
+        if (returnJson[n].field === key) {
+          flag = true
+        }
+      }
+      // dynamic push remaining columns
+      // excluding api autogen
+      if (key !== 'id' && key !== 'created_at' && key !== 'updated_at' && !flag) {
+        returnJson.push({ field: key, header: key })
+      }
     }
 
-    for (var i = 0; i < Object.keys(ret).length; i++) {
-      const key = Object.keys(ret)[i]
-      if (key !== 'id' && key !== 'created_at' && key !== 'updated_at') {
-        jsonArr.push({
-          field: key,
-          header: key
+    function inline (filt) {
+      const preKey = Object.keys(params[0])
+      if (preKey.indexOf(filt) > -1) {
+        const index = preKey.indexOf(filt)
+        returnJson.push({
+          field: preKey[index],
+          header: preKey[index]
         })
       }
     }
-    return jsonArr
+    return returnJson
   }
 }
