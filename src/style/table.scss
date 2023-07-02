@@ -1,7 +1,18 @@
-table {
+@font-face {
+    font-family: "ＭＳ Ｐゴシック";
+    src: local(../MSGOTHIC.TTF) format("truetype")
+}
+* {
+    font-family: "ＭＳ Ｐゴシック";
+    font-weight: 1!important;
+	text-decoration:none;
+}
+
+table {	
   border-top: 1px solid lightgray;
 }
 .card{
+
 	width:auto;
 	max-width:800px;
   border-top: 1px solid lightgray;
@@ -28,6 +39,8 @@ table {
 }
 .p-datatable-header {
   border-right: 1px solid lightgray;
+
+	user-select: none;
 }
 th {
   border-bottom: 1px solid lightgray;
@@ -52,4 +65,5 @@ canvas{
 	max-height: 100px;
 	user-select: none;
 }
+td:nth-child(0) { width:10px; }
 
