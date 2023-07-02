@@ -9,17 +9,17 @@ export const ContentService = {
     const returnJson = []
 
     // insert priorities
-    for (var x = 1; x < args[1].length; x++) {
+    for (let x = 1; x < args[1].length; x++) {
       priorityInsert(args[1][x])
     }
     console.log(returnJson)
-    for (var i = 0; i < Object.keys(params[0]).length; i++) {
+    for (let i = 0; i < Object.keys(params[0]).length; i++) {
       // raw field title
       const key = Object.keys(params[0])[i]
 
       // preexisting prioritized entry push check
-      var flag = false
-      for (var n = 0; n < Object.keys(returnJson).length; n++) {
+      let flag = false
+      for (let n = 0; n < Object.keys(returnJson).length; n++) {
         if (returnJson[n].field === key) {
           flag = true
         }

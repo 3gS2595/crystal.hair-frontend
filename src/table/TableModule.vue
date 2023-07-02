@@ -86,7 +86,7 @@ const filters = ref({
 onMounted(() => {
   ContentService.getContent(props.apiAccess[0]).then((data) => {
     content.value = data
-    var heads = []
+    const heads = []
     for (let i = 1; i < props.apiAccess.length; i++) { heads[i] = props.apiAccess[i] }
     columns.value = ContentService.generateColumns([data, heads])
     loading.value = false
