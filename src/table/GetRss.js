@@ -1,6 +1,6 @@
 export const ContentService = {
   getContent (params) {
-    return fetch('http://192.168.1.180:3000/rsses').then((res) =>
+    return fetch('http://192.168.1.180:3000/' + params).then((res) =>
       res.json()
     )
   },
@@ -8,11 +8,11 @@ export const ContentService = {
     const params = args[0]
     const returnJson = []
 
-    // insert priority
-    for (var x = 1; x < args.length; x++) {
-      inline(args[x])
+    // insert priorities
+    for (var x = 1; x < args[1].length; x++) {
+      priorityInsert(args[1][x])
     }
-
+    console.log(returnJson)
     for (var i = 0; i < Object.keys(params[0]).length; i++) {
       // raw field title
       const key = Object.keys(params[0])[i]
@@ -31,7 +31,7 @@ export const ContentService = {
       }
     }
 
-    function inline (filt) {
+    function priorityInsert (filt) {
       const preKey = Object.keys(params[0])
       if (preKey.indexOf(filt) > -1) {
         const index = preKey.indexOf(filt)

@@ -12,20 +12,14 @@
 <script lang='ts'>
 import {
   Scene,
-  SphereGeometry,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
   Mesh,
-  Material,
   PointLight,
   PerspectiveCamera,
   WebGLRenderer,
-  TextureLoader,
-  HemisphereLight
+  TextureLoader
 } from 'three'
 import * as THREE from 'three'
 import { watch, onMounted, ref, computed } from 'vue'
-import axios from 'axios'
 import { useCounterStore } from '../store/GlobalStore'
 import { InteractionManager } from 'three.interactive'
 import { useWindowSize } from '@vueuse/core'
@@ -37,23 +31,27 @@ let interactionManager: InteractionManager
 
 export default {
   setup () {
-    const store = useCounterStore()
     const manager = new THREE.LoadingManager()
     const loaderJPG = new THREE.TextureLoader(manager)
+    const store = useCounterStore()
+
     const webGl = ref()
-    const forms: Mesh[] = []
-    const { width, height } = useWindowSize()
-    const aspectRatio = computed(() => {
-      return (width.value * wratio) / (width.value * hratio)
-    })
-    const gridx = -40
-    const gridy = 16
-    const gridxI = 10.85 // x axis iterative distance    let camera: PerspectiveCamera
     let renderer: WebGLRenderer
     let camera: PerspectiveCamera
     let scene: Scene
     let mesh: Mesh
     let light: PointLight
+    const forms: Mesh[] = []
+
+    const { width, height } = useWindowSize()
+    const aspectRatio = computed(() => {
+      return (width.value * wratio) / (width.value * hratio)
+    })
+
+    const gridx = -40
+    const gridy = 16
+    const gridxI = 10.85 // x axis iterative distance    let camera: PerspectiveCamera
+
     const setCanvas = () => {
       const canvas = webGl.value
 
