@@ -49,24 +49,23 @@ const props = defineProps({
 const { data } = toRefs(props)
 const store = useCounterStore()
 const customers = ref()
+const columns = ref()
 const filters = ref({
   global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS },
   date: { value: null, matchMode: FilterMatchMode.CONTAINS },
   title: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  url: { value: null, matchMode: FilterMatchMode.CONTAINS }
+  url: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  id: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  created_at: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  updated_at: { value: null, matchMode: FilterMatchMode.CONTAINS }
 })
 const statuses = ref(['unqualified', 'qualified', 'new', 'negotiation', 'renewal', 'proposal'])
 const loading = ref(true)
 
-const columns = [
-  { field: 'date', header: 'date' },
-  { field: 'title', header: 'title' },
-  { field: 'url', header: 'url' }
-]
 onMounted(() => {
   CustomerService.getCustomers().then((data) => {
     customers.value = getCustomers(data)
-    // columns = CustomerService.getColumns(data)
+    columns.value = CustomerService.getColumns(data)
     loading.value = false
   })
 })

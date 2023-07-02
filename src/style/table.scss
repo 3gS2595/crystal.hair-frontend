@@ -49,8 +49,7 @@ tfoot th {
 #app{
 }
 canvas{
-	width:50vw;
-	height: 20vh;
+	max-height: 100px;
 	user-select: none;
 }
 

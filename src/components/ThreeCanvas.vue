@@ -28,23 +28,21 @@ import { watch, onMounted, ref, computed } from 'vue'
 import axios from 'axios'
 import { useCounterStore } from '../store/GlobalStore'
 import { InteractionManager } from 'three.interactive'
-import { useElementSize } from '@vueuse/core'
-var interactionManager: InteractionManager
-
+import { useWindowSize } from '@vueuse/core'
+let interactionManager: InteractionManager
+const wratio = 0.5
+const hratio = 0.3
 export default {
   setup () {
     const store = useCounterStore()
     const manager = new THREE.LoadingManager()
     const loaderJPG = new THREE.TextureLoader(manager)
-    var webGl = ref()
+    const webGl = ref()
     const forms: Mesh[] = []
-    var width = ref()
-    var height = ref()
     const img = '../assets/images/earth.jpg'
-    width.value = 700
-    height.value = 300
-    var aspectRatio = computed(() => {
-      return width.value / height.value
+    const { width, height } = useWindowSize()
+    const aspectRatio = computed(() => {
+      return (width.value * wratio) / (width.value * hratio)
     })
     const gridx = -40
     const gridy = 16
@@ -70,10 +68,8 @@ export default {
 
       // Renderer
       const canvas = webGl.value
-      width.value = webGl.value.clientWidth
-      height.value = webGl.value.clientHeight
       renderer = new WebGLRenderer({ canvas, alpha: true })
-      renderer.setSize(width.value, height.value)
+      renderer.setSize((width.value * wratio), (width.value * hratio))
       renderer.render(scene, camera)
       interactionManager = new InteractionManager(
         renderer,
@@ -98,7 +94,7 @@ export default {
             img.src = (path)
             img.onload = function () {
               const material = new THREE.MeshLambertMaterial({ map: loaderJPG.load(path), transparent: true })
-              var plane = new THREE.PlaneGeometry(10, 10, 1)
+              const plane = new THREE.PlaneGeometry(10, 10, 1)
               forms[i] = new THREE.Mesh(plane, material)
               forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
               forms[i].position.y += gridy
@@ -127,25 +123,24 @@ export default {
       camera.updateProjectionMatrix()
     }
 
-    const updateRenderer = () => {
-      renderer.setSize(width.value, height.value)
+    const updateRenderer = (w:number, h:number) => {
+      renderer.setSize(w, h)
       renderer.render(scene, camera)
     }
 
     watch(aspectRatio, (val) => {
       console.log(webGl.value)
       if (val) {
+        const w = width.value * wratio
+        const h = width.value * hratio
         updateCamera()
-        updateRenderer()
+        updateRenderer(w, h)
       }
     })
     const animate = () => {
       for (let i = 0, j = forms.length; i < j; i++) {
         if (forms[i].rotation.y > 0) forms[i].rotation.y -= 0.27
       }
-      width.value = webGl.value.clientWidth
-      height.value = webGl.value.clientHeight
-      camera.aspect = aspectRatio.value
       renderer.render(scene, camera)
       requestAnimationFrame(animate)
     }
