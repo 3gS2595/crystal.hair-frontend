@@ -5,7 +5,7 @@
     <div class="home">
       <TheCanvas />
       <div class="lg">
-        <TableModule id="0" :size="20" :apiAccess="['rsses', 'date', 'title', 'url']"/>
+        <TableModule id="0" :size="25" :apiAccess="['rsses', 'date', 'title', 'url']"/>
       </div>
       <div class="sm">
         <div class='smSub'><TableModule id="0" :size="10" :apiAccess="['sites', 'count', 'site']"/></div>

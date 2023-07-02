@@ -66,7 +66,6 @@ const props = defineProps({
     default: 30
   }
 })
-console.log(props.size)
 var size = props.size // eslint-disable-line
 const loading = ref(true)
 const store = useCounterStore()

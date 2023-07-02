@@ -12,7 +12,6 @@ export const ContentService = {
     for (let x = 1; x < args[1].length; x++) {
       priorityInsert(args[1][x])
     }
-    console.log(returnJson)
     for (let i = 0; i < Object.keys(params[0]).length; i++) {
       // raw field title
       const key = Object.keys(params[0])[i]
@@ -37,7 +36,8 @@ export const ContentService = {
         const index = preKey.indexOf(filt)
         returnJson.push({
           field: preKey[index],
-          header: preKey[index]
+          header: preKey[index],
+          style: "{'width':'10px'}"
         })
       }
     }

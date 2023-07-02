@@ -1,16 +1,3 @@
-@font-face {
-    font-family: "ＭＳ Ｐゴシック";
-    src: local(../MSGOTHIC.TTF) format("truetype")
-}
-div{
-  border: 1px solid yellow;
-}
-* {
-    font-family: "ＭＳ Ｐゴシック";
-    font-weight: 1!important;
-	text-decoration:none;
-}
-
 table {	
   border-top: 1px solid lightgray;
 }
@@ -18,6 +5,26 @@ table {
 
   border-top: 1px solid lightgray;
   border-left: 1px solid lightgray;
+}
+th {
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
+td {
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
+tfoot {
+  color: gray;
+}
+tfoot th {
+  font-weight: normal;
+}
+.p-column-filter-row .p-column-filter-element{
+ flex-basis: initial!important;
+ flex-grow: 0!important;
+ flex-shrink:0!important;
+ width: auto;
 }
 .p-dropdown-panel{
       background: white;
@@ -32,10 +39,11 @@ table {
 	display: block;
 }
 .p-column-filter-row {
-	display: block;
+	align-items:stretch!important;
+	text-align: left;
+border-collapse: collapse;
 }
 .p-column-filter-menu-button, .p-column-filter-clear-button {
-	display: block;
 	padding: 0px;
 }
 .p-datatable-header {
@@ -43,40 +51,12 @@ table {
 
 	user-select: none;
 }
-th {
-  border-bottom: 1px solid lightgray;
+.p-paginator-bottom{
+
   border-right: 1px solid lightgray;
-}
-td {
   border-bottom: 1px solid lightgray;
-  border-right: 1px solid lightgray;
 }
+.p-datatable-header{
 
-tfoot {
-  color: gray;
+  border-top: 1px solid lightgray;
 }
-
-tfoot th {
-  font-weight: normal;
-}
-
-canvas{
-	max-height: 100px;
-	user-select: none;
-}
-
-.lg{
-	display:auto;
-	max-width:800px;
-}
-.sm{
-	display:inline-block;
-	max-width:800px;
-	width: 100vw;
-}
-
-.smSub{
-	float: left;
-	max-width:49.5%;
-}
-
