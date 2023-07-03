@@ -1,59 +1,68 @@
 <template>
-        <DataTable
-          sortField="count" :sortOrder="-1"
-          v-model:filters="filters" :value="content"
-          resizableColumns
-          paginator :rows="size"
-          dataKey="id"
-          filterDisplay="row" :loading="loading" :globalFilterFields="['date', 'title', 'url', 'site', 'name', 'count', 'urls']"
-        >
+  <div class="card">
+    <DataTable
+      removableSort
+      tableStyle="min-width: 5rem"
+      sortField="count" :sortOrder="-1"
+      v-model:filters="filters" :value="content"
+      resizableColumns
+      paginator :rows="size"
+      dataKey="id"
+      filterDisplay="row" :loading="loading" :globalFilterFields="['date', 'title', 'url', 'site', 'name', 'count', 'urls']"
+    >
 
-            <template #header>
-                <div class="flex justify-content-end">
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search" />
-                        <InputText
-                          v-model="filters['global'].value" placeholder="searchQuery"
-                        />
-                    </span>
-                    <MultiSelect
-                      :modelValue="selectedColumns"
-                      :options="columns"
-                      optionLabel="header"
-                      @update:modelValue="onToggle"
-                      display="chip"
-                      placeholder="Select Columns"
-                    />
-                </div>
-            </template>
+      <template #header>
+        <div class="flex justify-content-end">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search" />
+            <InputText
+              v-model="filters['global'].value" placeholder="searchQuery"
+            />
+          </span>
+          <MultiSelect
+            :modelValue="selectedColumns"
+            :options="columns"
+            optionLabel="header"
+            @update:modelValue="onToggle"
+            display="chip"
+            placeholder="Select Columns"
+          />
+        </div>
+      </template>
 
-            <template #empty>empty placeholder</template>
-            <template #loading>Loading data. Please wait.</template>
+      <template #empty>empty placeholder</template>
+      <template #loading>Loading data. Please wait.</template>
 
-            <Column
-              style="width:10px!important;"
-              sortable
-              v-for="(col, index) of selectedColumns"
-              :key="col.field + '_' + index"
-              :field="col.field"
-              :header="col.header"
-            >
-              <template #body="slotProps">
-                <a
-                  :href="slotProps.data.url" target="_blank"
-                  v-text="slotProps.data[col.field]"
-                />
-              </template>
-              <template #filter="{ filterModel, filterCallback }">
-                <InputText
-                  v-model="filterModel.value"
-                  type="text" @input="filterCallback()"
-                  class="p-column-filter"
-                  placeholder="searchQuery"
-                />
-              </template>
-            </Column>
-          </DataTable>
+      <Column
+        style="width: 20px!important;"
+        sortable
+        v-for="(col, index) of selectedColumns"
+        :key="col.field + '_' + index"
+        :field="col.field"
+        :header="col.header"
+      >
+
+        <template #body="slotProps">
+          <a
+            :href="slotProps.data.url" target="_blank"
+            v-text="slotProps.data[col.field]"
+          />
+        </template>
+
+        <template #filter="{ filterModel, filterCallback }">
+          <InputText
+            style="width:30px;"
+            v-model="filterModel.value"
+            type="text" @input="filterCallback()"
+            class="p-column-filter"
+            placeholder="searchQuery"
+          />
+        </template>
+
+      </Column>
+
+    </DataTable>
+  </div>
 </template>
 
 <script setup generic="T">
@@ -65,7 +74,7 @@ import DataTable from 'primevue/datatable'
 import MultiSelect from 'primevue/multiselect'
 import { useCounterStore } from '../store/GlobalStore'
 import { ContentService } from '@/table/GetRss'
-import StyleClass from 'primevue/styleclass'
+
 const props = defineProps({
   apiAccess: {
     type: Array,
@@ -81,10 +90,11 @@ const loading = ref(true)
 const store = useCounterStore()
 const content = ref()
 const columns = ref()
-const selectedColumns = ref()
+const selectedColumns = ref(columns.value)
 const onToggle = (val) => {
   selectedColumns.value = columns.value.filter(col => val.includes(col))
 }
+
 const tester = 30
 const filters = ref({
   global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS },
@@ -106,9 +116,6 @@ onMounted(() => {
     selectedColumns.value = ContentService.generateColumns([data, heads])[1]
     loading.value = false
   })
-  console.log('test')
-  console.log(columns)
-  console.log(selectedColumns)
 })
 
 watch(

@@ -9,7 +9,7 @@
       </div>
       <div class="sm">
         <div class='smSub'><TableModule id="0" :size="10" :apiAccess="['sites', 'count', 'site']"/></div>
-        <div class='smSub'><TableModule id="2" :size="10" :apiAccess="['names', 'count', 'name']"/></div>
+        <div class='smSub'><TableModule id="2" :size="10" :apiAccess="['names', 'count', 'name', 'urls']"/></div>
       </div>
     </div>
    </template>
