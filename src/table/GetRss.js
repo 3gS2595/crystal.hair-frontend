@@ -7,6 +7,7 @@ export const ContentService = {
   generateColumns (args) {
     const params = args[0]
     const returnJson = []
+    const returnJsonSelected = []
 
     // insert priorities
     for (let x = 1; x < args[1].length; x++) {
@@ -26,7 +27,10 @@ export const ContentService = {
       // dynamic push remaining columns
       // excluding api autogen
       if (key !== 'id' && key !== 'created_at' && key !== 'updated_at' && !flag) {
-        returnJson.push({ field: key, header: key })
+        returnJson.push({
+          field: key,
+          header: key
+        })
       }
     }
 
@@ -36,11 +40,16 @@ export const ContentService = {
         const index = preKey.indexOf(filt)
         returnJson.push({
           field: preKey[index],
-          header: preKey[index],
-          style: "{'width':'10px'}"
+          header: preKey[index]
+        })
+        returnJsonSelected.push({
+          field: preKey[index],
+          header: preKey[index]
         })
       }
     }
-    return returnJson
+    console.log(returnJson)
+    console.log(returnJsonSelected)
+    return [returnJson, returnJsonSelected]
   }
 }
