@@ -1,10 +1,10 @@
 export const ContentService = {
-  getContent (params) {
+  getContent (params: any) {
     return fetch('http://192.168.1.180:3000/' + params).then((res) =>
       res.json()
     )
   },
-  generateColumns (args) {
+  generateColumns (args: any) {
     const params = args[0]
     const returnJson = []
     const returnJsonSelected = []
@@ -35,7 +35,7 @@ export const ContentService = {
         }
       }
 
-      function priorityInsert (filt) {
+      function priorityInsert (filt: any) {
         const preKey = Object.keys(params[0])
         if (preKey.indexOf(filt) > -1) {
           const index = preKey.indexOf(filt)
