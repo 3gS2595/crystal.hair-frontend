@@ -32,10 +32,9 @@
       </template>
 
       <template #empty>empty placeholder</template>
-      <template #loading>Loading data. Please wait.</template>
 
       <Column
-        style="width: 20px!important;"
+        columnStyle="width: 40px"
         sortable
         v-for="(col, index) of selectedColumns"
         :key="col.field + '_' + index"
@@ -67,7 +66,7 @@
 </template>
 
 <script setup generic="T">
-import { ref, onMounted, watch, defineProps } from 'vue'
+import { ref, onMounted, setup, watch, defineProps } from 'vue'
 import { FilterMatchMode } from 'primevue/api'
 import InputText from 'primevue/inputtext'
 import Column from 'primevue/column'
@@ -75,8 +74,8 @@ import DataTable from 'primevue/datatable'
 import MultiSelect from 'primevue/multiselect'
 import { useCounterStore } from '../store/GlobalStore'
 import { ContentService } from '@/table/GetRss'
-
 import { ApiStore } from '../store/ApiStore'
+
 const props = defineProps({
   apiAccess: {
     type: Array,
@@ -85,18 +84,24 @@ const props = defineProps({
   size: {
     type: Number,
     default: 30
+  },
+  contentData: {
+    type: Array,
+    default: () => []
   }
 })
-var size = props.size // eslint-disable-line
-const loading = ref(true)
+
 const store = useCounterStore()
 const content = ref()
+content.value = props.contentData // eslint-disable-line
 const columns = ref()
+const heads = []
+for (let i = 1; i < props.apiAccess.length; i++) { heads[i] = props.apiAccess[i] } // eslint-disable-line
+columns.value = ContentService.generateColumns([content.value, heads])[0]
 const selectedColumns = ref(columns.value)
 const onToggle = (val) => {
   selectedColumns.value = columns.value.filter(col => val.includes(col))
 }
-
 const tester = 30
 const filters = ref({
   global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS },
@@ -108,24 +113,10 @@ const filters = ref({
   count: { value: null, matchMode: FilterMatchMode.CONTAINS },
   site: { value: null, matchMode: FilterMatchMode.CONTAINS }
 })
-
-onMounted(() => {
-  const apiStore = ApiStore()
-  const userToken = apiStore.apiFetch(props.apiAccess[0])
-  userToken.then(function (data) {
-    content.value = data
-    const heads = []
-    for (let i = 1; i < props.apiAccess.length; i++) { heads[i] = props.apiAccess[i] }
-    columns.value = ContentService.generateColumns([data, heads])[0]
-    selectedColumns.value = ContentService.generateColumns([data, heads])[1]
-    loading.value = false
-  })
-})
-
 watch(
   () => store.filter,
   () => {
-    console.log('store.filter=' + store.filter)
+    // console.log('store.filter=' + store.filter)
     filters.value.global.value = store.filter
   }
 )
@@ -134,7 +125,6 @@ watch(
   () => filters.value.global.value,
   () => {
     if ((store.filter !== filters.value.global.value)) {
-      console.log('store.filter=' + store.filter)
       store.setFilter(filters.value.global.value)
     }
   }

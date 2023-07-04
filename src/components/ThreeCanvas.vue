@@ -18,22 +18,26 @@ import {
   TextureLoader
 } from 'three'
 import * as THREE from 'three'
-import { watch, onMounted, ref, computed } from 'vue'
+import { watch, onMounted, ref, defineProps, computed } from 'vue'
 import { useCounterStore } from '../store/GlobalStore'
 import { InteractionManager } from 'three.interactive'
 import { useWindowSize } from '@vueuse/core'
-
 const wratio = 0.5
 const hratio = 0.3
 
 let interactionManager: InteractionManager
 
 export default {
-  setup () {
+  props: {
+    imageData: {
+      type: Array,
+      default: () => []
+    }
+  },
+  setup (props) {
     const manager = new THREE.LoadingManager()
     const loaderJPG = new THREE.TextureLoader(manager)
     const store = useCounterStore()
-
     const webGl = ref()
     let renderer: WebGLRenderer
     let camera: PerspectiveCamera
@@ -41,7 +45,6 @@ export default {
     let mesh: Mesh
     let light: PointLight
     const forms: Mesh[] = []
-
     const { width, height } = useWindowSize()
     const aspectRatio = computed(() => {
       return (width.value * wratio) / (width.value * hratio)
@@ -77,41 +80,39 @@ export default {
 
       // Creates post-api reception
       const apij = ref()
-      ;(async () => {
-        const res = await fetch('http://192.168.1.180:3000//site_images').then(res => res.json())
-        apij.value = res
-        // console.log(res)
 
-        if (apij.value !== undefined) {
-          for (let i = 0; i < apij.value.length; i++) {
-            const obj = JSON.parse(JSON.stringify(apij.value[i]))
-            const path = ('/img/' + JSON.stringify(obj.path)).replace('"', '').replace('"', '')
-            const pathClick = (JSON.stringify(obj.title)).replace('"', '').replace('"', '')
-            const img = new Image()
-            img.src = (path)
-            img.onload = function () {
-              const material = new THREE.MeshLambertMaterial({ map: loaderJPG.load(path), transparent: true })
-              const plane = new THREE.PlaneGeometry(10, 10, 1)
-              forms[i] = new THREE.Mesh(plane, material)
-              forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
-              forms[i].position.y += gridy
-              forms[i].rotation.y = 0.51
-              forms[i].name = JSON.stringify(obj.title)
-              forms[i].userData = { URL: pathClick }
+      const res = props.imageData
+      apij.value = res
 
-              // initial animation
-              forms[i].rotation.y = 1
+      if (apij.value !== undefined) {
+        for (let i = 0; i < apij.value.length; i++) {
+          const obj = JSON.parse(JSON.stringify(apij.value[i]))
+          const path = ('/img/' + JSON.stringify(obj.path)).replace('"', '').replace('"', '')
+          const pathClick = (JSON.stringify(obj.title)).replace('"', '').replace('"', '')
+          const img = new Image()
+          img.src = (path)
+          img.onload = function () {
+            const material = new THREE.MeshLambertMaterial({ map: loaderJPG.load(path), transparent: true })
+            const plane = new THREE.PlaneGeometry(10, 10, 1)
+            forms[i] = new THREE.Mesh(plane, material)
+            forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
+            forms[i].position.y += gridy
+            forms[i].rotation.y = 0.51
+            forms[i].name = JSON.stringify(obj.title)
+            forms[i].userData = { URL: pathClick }
 
-              interactionManager.add(forms[i])
-              forms[i].addEventListener('click', (event) => {
-                if (store.filter === pathClick) store.setFilter('')
-                else store.setFilter(pathClick)
-              })
-              scene.add(forms[i])
-            }
+            // initial animation
+            forms[i].rotation.y = 1
+
+            interactionManager.add(forms[i])
+            forms[i].addEventListener('click', (event) => {
+              if (store.filter === pathClick) store.setFilter('')
+              else store.setFilter(pathClick)
+            })
+            scene.add(forms[i])
           }
         }
-      })()
+      }
     }
 
     const updateCamera = () => {

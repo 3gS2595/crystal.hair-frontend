@@ -3,13 +3,13 @@
 
   <template #default>
     <div class="home">
-      <TheCanvas />
+      <TheCanvas :imageData="siteImages"/>
       <div class="lg">
-        <TableModule id="0" :size="25" :apiAccess="['rsses', 'date', 'title', 'url']"/>
+        <TableModule id="0" :size="25" :contentData="rss" :apiAccess="['rsses', 'date', 'title', 'url']"/>
       </div>
       <div class="sm">
-        <div class='smSub'><TableModule id="0" :size="10" :apiAccess="['sites', 'count', 'site']"/></div>
-        <div class='smSub'><TableModule id="2" :size="10" :apiAccess="['names', 'count', 'name', 'urls']"/></div>
+        <div class='smSub'><TableModule id="0" :size="10" :contentData="sites" :apiAccess="['sites', 'count', 'site']"/></div>
+        <div class='smSub'><TableModule id="2" :size="10" :contentData="names" :apiAccess="['names', 'count', 'name', 'urls']"/></div>
       </div>
     </div>
    </template>
@@ -25,7 +25,6 @@
 import { defineComponent } from 'vue'
 import TableModule from '@/table/TableModule.vue' // @ is an alias to /src
 import TheCanvas from '@/components/ThreeCanvas.vue'
-
 export default defineComponent({
   name: 'HomeView',
   components: {
@@ -33,4 +32,12 @@ export default defineComponent({
     TheCanvas
   }
 })
+</script >
+
+<script setup lang="ts">
+import { ApiStore } from '../store/ApiStore' // eslint-disable-line
+import { storeToRefs } from 'pinia' // eslint-disable-line
+
+const store = ApiStore()
+const { rss, sites, names, siteImages } = storeToRefs(ApiStore())
 </script>

@@ -1,11 +1,22 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { ApiStore } from '../store/ApiStore'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    beforeEnter: (to, from, next) => {
+      console.log('route')
+      const store = ApiStore()
+      const apiStore = ApiStore()
+      const userToken = apiStore.initialize()
+      userToken.then(function (data) {
+        console.log(data)
+        next()
+      })
+    }
   },
   {
     path: '/about',
