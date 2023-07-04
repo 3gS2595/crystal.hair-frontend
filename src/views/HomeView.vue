@@ -5,7 +5,7 @@
     <div class="home">
 
       <!-- three main -->
-      <TheCanvas :imageData="siteImages"/>
+      <ThreeMain :imageData="siteImages"/>
 
       <!-- rss main   -->
       <div class="lg">
@@ -27,7 +27,9 @@
           />
         </div>
       </div>
-
+      <div class="threeModule" style="width: 200px; height:200px;">
+        <ThreeModule :imageData="['/img/halycon.png']" :size="['200', '200']"/>
+      </div>
     </div>
    </template>
 
@@ -41,12 +43,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import TableModule from '@/component/table/TableModule.vue' // @ is an alias to /src
-import TheCanvas from '@/component/three/ThreeCanvas.vue'
+import ThreeMain from '@/component/three/ThreeMain.vue'
+import ThreeModule from '@/component/three/ThreeModule.vue'
 export default defineComponent({
   name: 'HomeView',
   components: {
     TableModule,
-    TheCanvas
+    ThreeMain
   }
 })
 </script >
