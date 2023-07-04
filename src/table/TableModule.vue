@@ -8,7 +8,8 @@
       resizableColumns
       paginator :rows="size"
       dataKey="id"
-      filterDisplay="row" :loading="loading" :globalFilterFields="['date', 'title', 'url', 'site', 'name', 'count', 'urls']"
+      filterDisplay="row" :loading="loading"
+      :globalFilterFields="['date', 'title', 'url', 'site', 'name', 'count', 'urls']"
     >
 
       <template #header>
@@ -75,6 +76,7 @@ import MultiSelect from 'primevue/multiselect'
 import { useCounterStore } from '../store/GlobalStore'
 import { ContentService } from '@/table/GetRss'
 
+import { ApiStore } from '../store/ApiStore'
 const props = defineProps({
   apiAccess: {
     type: Array,
@@ -108,7 +110,9 @@ const filters = ref({
 })
 
 onMounted(() => {
-  ContentService.getContent(props.apiAccess[0]).then((data) => {
+  const apiStore = ApiStore()
+  const userToken = apiStore.apiFetch(props.apiAccess[0])
+  userToken.then(function (data) {
     content.value = data
     const heads = []
     for (let i = 1; i < props.apiAccess.length; i++) { heads[i] = props.apiAccess[i] }
