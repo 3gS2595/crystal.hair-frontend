@@ -22,8 +22,8 @@ import { watch, onMounted, ref, defineProps, computed } from 'vue'
 import { useCounterStore } from '../store/GlobalStore'
 import { InteractionManager } from 'three.interactive'
 import { useWindowSize } from '@vueuse/core'
-const wratio = 0.5
-const hratio = 0.3
+const wratio = 1
+const hratio = 1
 
 let interactionManager: InteractionManager
 
@@ -34,7 +34,7 @@ export default {
       default: () => []
     }
   },
-  setup (props) {
+  setup (props: any) {
     const manager = new THREE.LoadingManager()
     const loaderJPG = new THREE.TextureLoader(manager)
     const store = useCounterStore()
@@ -45,13 +45,17 @@ export default {
     let mesh: Mesh
     let light: PointLight
     const forms: Mesh[] = []
-    const { width, height } = useWindowSize()
+    // const { width, height } = useWindowSize()
+    const width = ref()
+    const height = ref()
+    width.value = 700
+    height.value = 110
     const aspectRatio = computed(() => {
-      return (width.value * wratio) / (width.value * hratio)
+      return (width.value * wratio) / (height.value * hratio)
     })
 
-    const gridx = -40
-    const gridy = 16
+    const gridx = -38
+    const gridy = 0
     const gridxI = 10.85 // x axis iterative distance    let camera: PerspectiveCamera
 
     const setCanvas = () => {
@@ -61,7 +65,7 @@ export default {
       scene = new Scene()
 
       // Camera
-      camera = new PerspectiveCamera(40, aspectRatio.value, 10, 80)
+      camera = new PerspectiveCamera(9, aspectRatio.value, 10, 80)
       camera.position.z = 63
       scene.add(camera)
 
@@ -72,7 +76,7 @@ export default {
 
       // Renderer
       renderer = new WebGLRenderer({ canvas, alpha: true })
-      renderer.setSize((width.value * wratio), (width.value * hratio))
+      renderer.setSize((width.value * wratio), (height.value * hratio))
       renderer.render(scene, camera)
 
       // Interaction Manager
@@ -126,12 +130,12 @@ export default {
     }
 
     watch(aspectRatio, (val) => {
-      if (val) {
-        const w = width.value * wratio
-        const h = width.value * hratio
-        updateCamera()
-        updateRenderer(w, h)
-      }
+      // if (val) {
+      //  const w = width.value * wratio
+      //  const h = width.value * hratio
+      //  updateCamera()
+      //  updateRenderer(w, h)
+      // }
     })
     const animate = () => {
       for (let i = 0, j = forms.length; i < j; i++) {

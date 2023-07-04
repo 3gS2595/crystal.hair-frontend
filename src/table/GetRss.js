@@ -11,7 +11,7 @@ export const ContentService = {
 
     if (params.length !== 0) {
       // insert priorities
-      for (let x = 1; x < args[1].length; x++) {
+      for (let x = 0; x < args[1].length; x++) {
         priorityInsert(args[1][x])
       }
       for (let i = 0; i < Object.keys(params[0]).length; i++) {
@@ -43,13 +43,9 @@ export const ContentService = {
             field: preKey[index],
             header: preKey[index]
           })
-          returnJsonSelected.push({
-            field: preKey[index],
-            header: preKey[index]
-          })
         }
       }
     }
-    return [returnJson, returnJsonSelected]
+    return returnJson
   }
 }
