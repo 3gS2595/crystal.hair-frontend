@@ -13,17 +13,6 @@ export const ApiStore = defineStore({
     names: [],
     siteImages: []
   }),
-  getters: {
-    getRss (state) {
-      return state.rss
-    },
-    getSites (state) {
-      return state.sites
-    },
-    getNames (state) {
-      return state.names
-    }
-  },
   actions: {
     async apiFetch (UrlExt: string) {
       return api

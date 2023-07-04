@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { ApiStore } from '../store/ApiStore'
+import { storeToRefs } from 'pinia' // eslint-disable-line
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -8,10 +9,9 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     component: HomeView,
     beforeEnter: (to, from, next) => {
-      const store = ApiStore()
-
+      const { rss } = storeToRefs(ApiStore())
       // avoids refetch on route change
-      if (store.getRss.length < 1) {
+      if (rss.value.length < 1) {
         const apiStore = ApiStore()
         const userToken = apiStore.initialize()
         userToken.then(function (data) {
