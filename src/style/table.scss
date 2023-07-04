@@ -1,67 +1,66 @@
-table {	
-  border-top: 1px solid lightgray;
-}
+ $tableBorder: 1px solid lightgray;
+
 .card{
+	border-top: $tableBorder;
+	border-left: $tableBorder;
+	
+	table {	
+		border-top: $tableBorder;
+	}
 
-  border-top: 1px solid lightgray;
-  border-left: 1px solid lightgray;
-}
-th {
-  border-bottom: 1px solid lightgray;
-  border-right: 1px solid lightgray;
-}
-td {
-  border-bottom: 1px solid lightgray;
-  border-right: 1px solid lightgray;
-}
-tfoot {
-  color: gray;
-}
-tfoot th {
-  font-weight: normal;
-}
-.p-column-filter-row .p-column-filter-element{
- flex-basis: initial!important;
- flex-grow: 0!important;
- flex-shrink:0!important;
- width: auto;
-}
-.p-dropdown-panel{
-      background: white;
-		
-  border: 3px solid lightgray;
-}
-.p-column-filter-row-items{
-      background: white;
-  border: 3px solid lightgray;
-}
-.p-paginator {
-	display: block;
-}
-.p-column-filter-row {
-	align-items:stretch!important;
-	text-align: left;
-border-collapse: collapse;
-}
-.p-column-filter-menu-button, .p-column-filter-clear-button {
-	padding: 0px;
-}
-.p-datatable-header {
-  border-right: 1px solid lightgray;
+	th {
+		border-bottom: $tableBorder;
+		border-right: $tableBorder;
+	}
+	td {
+		border-bottom: $tableBorder;
+		border-right: $tableBorder;
+	}
+	tfoot {
+		color: gray;
+	}
+	tfoot th {
+		font-weight: normal;
+	}
 
-	user-select: none;
-}
-.p-paginator-bottom{
-
-  border-right: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
-}
-.p-datatable-header{
-
-  border-top: 1px solid lightgray;
-}
-.p-multiselect-panel{
-
-  border: 3px solid lightgray;
-      background: white;
+	.p-column-filter-row .p-column-filter-element{
+		flex-basis: initial!important;
+		flex-grow: 0!important;
+		flex-shrink:0!important;
+		width: auto;
+	}
+	.p-dropdown-panel{
+		background: white;
+		border: 3px solid lightgray;
+	}
+	.p-column-filter-row-items{
+		background: white;
+		border: 3px solid lightgray;
+	}
+	.p-paginator {
+		display: block;
+	}
+	.p-column-filter-row {
+		align-items:stretch!important;
+		text-align: left;
+		border-collapse: collapse;
+	}
+	.p-column-filter-menu-button, .p-column-filter-clear-button {
+		padding: 0px;
+	}
+	.p-datatable-header {
+		border-right: $tableBorder;
+		user-select: none;
+	}
+	.p-paginator-bottom{
+		border-right: $tableBorder;
+		border-bottom: $tableBorder;
+	}
+	.p-datatable-header{
+		border-top: $tableBorder;
+	}
+	.p-multiselect-panel{
+		border: 3px solid lightgray;
+		background: white;
+	}
 }

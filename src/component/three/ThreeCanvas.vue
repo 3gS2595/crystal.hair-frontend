@@ -19,9 +19,10 @@ import {
 } from 'three'
 import * as THREE from 'three'
 import { watch, onMounted, ref, defineProps, computed } from 'vue'
-import { useCounterStore } from '../store/GlobalStore'
 import { InteractionManager } from 'three.interactive'
 import { useWindowSize } from '@vueuse/core'
+
+import { useCounterStore } from '@/store/GlobalStore'
 const wratio = 1
 const hratio = 1
 

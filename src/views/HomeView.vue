@@ -40,8 +40,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import TableModule from '@/table/TableModule.vue' // @ is an alias to /src
-import TheCanvas from '@/components/ThreeCanvas.vue'
+import TableModule from '@/component/table/TableModule.vue' // @ is an alias to /src
+import TheCanvas from '@/component/three/ThreeCanvas.vue'
 export default defineComponent({
   name: 'HomeView',
   components: {

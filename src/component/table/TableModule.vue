@@ -67,8 +67,8 @@ import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
 import MultiSelect from 'primevue/multiselect'
 
-import { useCounterStore } from '../store/GlobalStore'
-import { ContentService } from '@/table/GetRss'
+import { useCounterStore } from '@/store/GlobalStore'
+import { ContentService } from '@/component/table/GetRss'
 
 const props = defineProps({
   tableOrder: {

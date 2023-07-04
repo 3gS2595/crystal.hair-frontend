@@ -7,10 +7,8 @@
   <router-view/>
 </template>
 
-<style lang="scss" scoped>
-</style>
-<style lang="css" scoped>
+<style lang="scss">
   @import "./style/table.scss";
-  @import "./style/main.scss";
   @import "./style/canvas.scss";
+  @import "./style/main.scss";
 </style>
