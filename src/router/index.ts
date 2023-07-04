@@ -8,14 +8,19 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     component: HomeView,
     beforeEnter: (to, from, next) => {
-      console.log('route')
       const store = ApiStore()
-      const apiStore = ApiStore()
-      const userToken = apiStore.initialize()
-      userToken.then(function (data) {
-        console.log(data)
+
+      // avoids refetch on route change
+      if (store.getRss.length < 1) {
+        const apiStore = ApiStore()
+        const userToken = apiStore.initialize()
+        userToken.then(function (data) {
+          console.log(data)
+          next()
+        })
+      } else {
         next()
-      })
+      }
     }
   },
   {

@@ -8,7 +8,7 @@
       resizableColumns
       paginator :rows="size"
       dataKey="id"
-      filterDisplay="row" :loading="loading"
+      filterDisplay="row"
       :globalFilterFields="['date', 'title', 'url', 'site', 'name', 'count', 'urls']"
     >
 
