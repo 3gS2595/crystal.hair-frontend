@@ -1,56 +1,56 @@
  $tableBorder: 1px solid lightgray;
 
-.card{
-	border-top: $tableBorder;
-	border-left: $tableBorder;
-	
-	table {	
-		border-top: $tableBorder;
+.tableCard{
+	border-top: $tableBorder!important;
+	border-left: $tableBorder!important;
+
+	table {
+		border-top: $tableBorder!important;
 	}
 
 	th {
-		border-bottom: $tableBorder;
-		border-right: $tableBorder;
+		border-bottom: $tableBorder!important;
+		border-right: $tableBorder!important;
 	}
 	td {
-		border-bottom: $tableBorder;
-		border-right: $tableBorder;
+		border-bottom: $tableBorder!important;
+		border-right: $tableBorder!important;
 	}
 	tfoot {
-		color: gray;
+		color: gray!important;
 	}
 	tfoot th {
-		font-weight: normal;
+		font-weight: normal!important;
 	}
 
 	.p-column-filter-row .p-column-filter-element{
 		flex-basis: initial!important;
 		flex-grow: 0!important;
 		flex-shrink:0!important;
-		width: auto;
+		width: auto!important;
 	}
 	.p-dropdown-panel{
-		background: white;
-		border: 3px solid lightgray;
+		background: white!important;
+		border: 3px solid lightgray!important;;
 	}
 	.p-column-filter-row-items{
-		background: white;
-		border: 3px solid lightgray;
+		background: white!important;
+		border: 3px solid lightgray!important;
 	}
 	.p-paginator {
-		display: block;
+		display: block!important;;
 	}
 	.p-column-filter-row {
 		align-items:stretch!important;
-		text-align: left;
-		border-collapse: collapse;
+		text-align: left!important;
+    border-collapse: collapse!important;
 	}
 	.p-column-filter-menu-button, .p-column-filter-clear-button {
-		padding: 0px;
+		padding: 0px!important;;
 	}
 	.p-datatable-header {
 		border-right: $tableBorder;
-		user-select: none;
+		user-select: none!important;
 	}
 	.p-paginator-bottom{
 		border-right: $tableBorder;
@@ -60,7 +60,15 @@
 		border-top: $tableBorder;
 	}
 	.p-multiselect-panel{
-		border: 3px solid lightgray;
-		background: white;
+		border: 3px solid lightgray!important;
+		background: white!important;
 	}
+}
+.border-1 {
+		border: $tableBorder!important;
+}
+.p-multiselect-panel{
+		border: 3px solid lightgray!important;
+
+		background: white!important;
 }

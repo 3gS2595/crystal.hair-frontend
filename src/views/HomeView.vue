@@ -3,32 +3,38 @@
 
   <template #default>
     <div class="home">
+      <div class="data">
+        <!-- three main -->
+        <ThreeMain :imageData="siteImages"/>
 
-      <!-- three main -->
-      <ThreeMain :imageData="siteImages"/>
-
-      <!-- rss main   -->
-      <div class="lg">
-        <TableModule id="0" :size="25" :contentData="rss"
-          :tableOrder="['date', 'title', 'url']"
-        />
-      </div>
-
-      <!-- rss sub components -->
-      <div class="sm">
-        <div class='smSub'>
-          <TableModule id="0" :size="10" :contentData="sites"
-            :tableOrder="['sites', 'count', 'site']"
+        <!-- rss main   -->
+        <div class="lg">
+          <TableModule id="0" :size="25" :contentData="rss"
+            :tableOrder="['date', 'title', 'url']"
           />
         </div>
-        <div class='smSub'>
-          <TableModule id="2" :size="10" :contentData="names"
-            :tableOrder="['names', 'count', 'name', 'urls']"
-          />
+
+        <!-- rss sub components -->
+        <div class="sm">
+          <div class='smSub'>
+            <TableModule id="0" :size="10" :contentData="sites"
+              :tableOrder="['sites', 'count', 'site']"
+            />
+          </div>
+          <div class='smSub'>
+            <TableModule id="2" :size="10" :contentData="names"
+              :tableOrder="['names', 'count', 'name', 'urls']"
+            />
+          </div>
         </div>
+<!--
+        <div class="threeModule" style="width: 200px; height:200px;">
+          <ThreeModule :imageData="['/img/halycon.png']" :size="['200', '200']"/>
+        </div>
+-->
       </div>
-      <div class="threeModule" style="width: 200px; height:200px;">
-        <ThreeModule :imageData="['/img/halycon.png']" :size="['200', '200']"/>
+      <div class="content">
+        <ContentModule :contentData="siteImages"/>
       </div>
     </div>
    </template>
@@ -45,11 +51,13 @@ import { defineComponent } from 'vue'
 import TableModule from '@/component/table/TableModule.vue' // @ is an alias to /src
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ThreeModule from '@/component/three/ThreeModule.vue'
+import ContentModule from '@/component/content/ContentModule.vue'
 export default defineComponent({
   name: 'HomeView',
   components: {
     TableModule,
-    ThreeMain
+    ThreeMain,
+    ContentModule
   }
 })
 </script >

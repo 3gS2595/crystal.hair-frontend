@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="tableCard">
     <DataTable
       removableSort
       sortField="count" :sortOrder="-1"
@@ -59,7 +59,7 @@
   </div>
 </template>
 
-<script setup generic="T">
+<script setup lang='ts' generic="T">
 import { ref, setup, watch, defineProps } from 'vue'
 import { FilterMatchMode } from 'primevue/api'
 import InputText from 'primevue/inputtext'
@@ -73,15 +73,35 @@ import { ContentService } from '@/component/table/GetRss'
 const props = defineProps({
   tableOrder: {
     type: Array,
-    default: () => []
+    default: () => [],
+    validator: function (value: any) {
+      return (
+        ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
+        -1
+      )
+    }
   },
   size: {
     type: Number,
-    default: 30
+    default: 30,
+    validator: function (value: number) {
+      return (
+        ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
+        -1
+      )
+    }
+
   },
   contentData: {
     type: Array,
-    default: () => []
+    default: () => [],
+    required: true,
+    validator: function (value) {
+      return (
+        ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
+        -1
+      )
+    }
   }
 })
 
@@ -94,6 +114,7 @@ const heads = []
 for (let i = 0; i < props.tableOrder.length; i++) { heads[i] = props.tableOrder[i] } // eslint-disable-line
 columns.value = ContentService.generateColumns([content.value, heads])
 const selectedColumns = ref(columns.value)
+
 const onToggle = (val) => {
   selectedColumns.value = columns.value.filter(col => val.includes(col))
 }

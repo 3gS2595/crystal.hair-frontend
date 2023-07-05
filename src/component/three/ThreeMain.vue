@@ -9,16 +9,8 @@
 </template>
 
 <script lang='ts'>
-import {
-  Scene,
-  Mesh,
-  PointLight,
-  PerspectiveCamera,
-  WebGLRenderer,
-  TextureLoader
-} from 'three'
 import * as THREE from 'three'
-import { watch, onMounted, ref, defineProps, computed } from 'vue'
+import { watch, onMounted, ref, computed } from 'vue'
 import { InteractionManager } from 'three.interactive'
 import { useWindowSize } from '@vueuse/core'
 
@@ -32,7 +24,13 @@ export default {
   props: {
     imageData: {
       type: Array,
-      default: () => []
+      default: () => [],
+      validator: function (value: any) {
+        return (
+          ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
+          -1
+        )
+      }
     }
   },
   setup (props: any) {
@@ -40,12 +38,11 @@ export default {
     const loaderJPG = new THREE.TextureLoader(manager)
     const store = useCounterStore()
     const webGl = ref()
-    let renderer: WebGLRenderer
-    let camera: PerspectiveCamera
-    let scene: Scene
-    let mesh: Mesh
-    let light: PointLight
-    const forms: Mesh[] = []
+    let renderer: THREE.WebGLRenderer
+    let camera: THREE.PerspectiveCamera
+    let scene: THREE.Scene
+    let light: THREE.PointLight
+    const forms: THREE.Mesh[] = []
     // const { width, height } = useWindowSize()
     const width = ref()
     const height = ref()
@@ -63,20 +60,20 @@ export default {
       const canvas = webGl.value
 
       // Create Scene
-      scene = new Scene()
+      scene = new THREE.Scene()
 
       // Camera
-      camera = new PerspectiveCamera(9, aspectRatio.value, 10, 80)
+      camera = new THREE.PerspectiveCamera(9, aspectRatio.value, 10, 80)
       camera.position.z = 63
       scene.add(camera)
 
       // Lights
-      light = new PointLight(0xfffeff, 1.8)
+      light = new THREE.PointLight(0xfffeff, 1.8)
       light.position.set(50, 50, 50)
       scene.add(light)
 
       // Renderer
-      renderer = new WebGLRenderer({ canvas, alpha: true })
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true })
       renderer.setSize((width.value * wratio), (height.value * hratio))
       renderer.render(scene, camera)
 
@@ -85,7 +82,6 @@ export default {
 
       // Creates post-api reception
       const apij = ref()
-
       const res = props.imageData
       apij.value = res
 
@@ -130,14 +126,14 @@ export default {
       renderer.render(scene, camera)
     }
 
-    watch(aspectRatio, (val) => {
-      // if (val) {
-      //  const w = width.value * wratio
-      //  const h = width.value * hratio
-      //  updateCamera()
-      //  updateRenderer(w, h)
-      // }
-    })
+    // watch(aspectRatio, (val) => {
+    // if (val) {
+    //  const w = width.value * wratio
+    //  const h = width.value * hratio
+    //  updateCamera()
+    //  updateRenderer(w, h)
+    // }
+    // })
     const animate = () => {
       for (let i = 0, j = forms.length; i < j; i++) {
         if (forms[i].rotation.y > 0) forms[i].rotation.y -= 0.2

@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { ApiStore } from '../store/ApiStore'
 import { storeToRefs } from 'pinia' // eslint-disable-line
+import { useDark, useToggle } from '@vueuse/core'
 
 const routes: Array<RouteRecordRaw> = [
   {

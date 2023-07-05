@@ -23,12 +23,30 @@ div{
   max-width:800px;
 }
 .sm{
-  display:inline-block;
+  display:auto;
   max-width:800px;
-  width: 100vw;
+  width: auto;
 
+}
+.threeModule{
+  display:inline-block;
 }
 .smSub{
   float: left;
   max-width:50%;
+}
+.home {
+    width: 100vw;
+    border: 1px solid lightgrey;
+}
+.data {
+max-width:800px;
+  width:49vw;
+    float:left; /* add this */
+}
+.content {
+max-width:560px;
+  width:49vw;
+    border: 1px solid lightgrey;
+  float: left; /* add this */
 }

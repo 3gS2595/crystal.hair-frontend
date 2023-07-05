@@ -12,3 +12,5 @@
   @import "./style/canvas.scss";
   @import "./style/main.scss";
 </style>
+<style lang='css'>
+</style>

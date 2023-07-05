@@ -20,11 +20,25 @@ export default {
   props: {
     imageData: {
       type: Array,
-      default: () => []
+      default: () => [],
+      validator: function (value: any) {
+        return (
+          ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
+          -1
+        )
+      }
+
     },
     size: {
       type: Array,
-      default: () => []
+      default: () => [],
+      validator: function (value: any) {
+        return (
+          ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
+          -1
+        )
+      }
+
     }
   },
 
