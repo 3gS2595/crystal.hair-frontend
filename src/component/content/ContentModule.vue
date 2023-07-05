@@ -23,7 +23,7 @@
               <div
                 class="flex flex-column align-items-center sm:align-items-start gap-3"
               >
-                <div class="text-2xl font-bold text-900">
+                <div >
                   {{ slotProps.data.id }}
                 </div>
                 <Rating
@@ -34,7 +34,7 @@
                 <div class="flex align-items-center gap-3">
                   <span class="flex align-items-center gap-2">
                     <i class="pi pi-tag"></i>
-                    <span class="font-semibold">{{
+                    <span >{{
                       slotProps.data.path
                     }}</span>
                   </span>
@@ -47,8 +47,8 @@
               <div
                 class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2"
               >
-                <span class="text-2xl font-semibold"
-                  >${{ slotProps.data.price }}</span
+                <span
+                  >${{ slotProps.data.created_at }}</span
                 >
                 <Button
                   icon="pi pi-shopping-cart"
