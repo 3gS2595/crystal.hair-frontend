@@ -105,7 +105,6 @@
 </style>
 <script setup>
 import { ref, onMounted } from 'vue'
-import { ProductService } from './ProductServices'
 import Rating from 'primevue/rating'
 import Tag from 'primevue/tag'
 import DataView from 'primevue/dataview'
@@ -137,12 +136,6 @@ const props = defineProps({
 })
 const content = ref()
 content.value = props.contentData // eslint-disable-line
-
-onMounted(() => {
-  ProductService.getProducts().then(
-    (data) => (content.value = props.contentData)
-  )
-})
 
 const products = ref()
 const layout = ref('grid')
