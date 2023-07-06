@@ -24,6 +24,7 @@
     "three": "^0.152.0",
     "three.interactive": "^1.7.0",
     "vue": "^3.2.13",
+    "vue-multipane": "^0.9.5",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {

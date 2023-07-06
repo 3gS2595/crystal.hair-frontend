@@ -15,12 +15,14 @@
 const themeClasses = ['theme-light', 'theme-dark']
 const app = document.getElementById('app')
 
+// preFetch
 if (localStorage.getItem('darkModeBool') === 'true') {
   app.classList.add('theme-dark')
 } else {
   app.classList.add('theme-light')
 }
 
+// onClick
 function darkToggle (e) {
   app.classList.remove(...themeClasses)
   if (localStorage.getItem('darkModeBool') === 'true') {

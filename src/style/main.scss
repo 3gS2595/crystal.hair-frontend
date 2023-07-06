@@ -7,9 +7,9 @@
 @include font('ＭＳ Ｐゴシック', 'MSGOTHIC');
 @import "./ThemeModes";
 
-.home{
-  min-height:auto;
-  min-width: auto;
+#app{
+  min-height:100vh;
+  min-width: 100vw;
   overflow:hidden;
 }
 #app{
@@ -20,8 +20,7 @@
 body{
   margin:0px;
 }
-div{
-}
+
 a:link {
   color:  var(--link)
 }
@@ -66,4 +65,3 @@ max-width:450px;
     border: 1px solid lightgrey;
   float: left; /* add this */
 }
-
