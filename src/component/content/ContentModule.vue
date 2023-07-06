@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <DataView :value="content" :layout="layout" paginator :rows="15">
+    <DataView :value="props.contentData" :layout="layout" paginator :rows="15">
       <template #header>
         <div class="flex justify-content-end">
           <DataViewLayoutOptions v-model="layout" />
@@ -38,10 +38,6 @@
                       slotProps.data.path
                     }}</span>
                   </span>
-                  <Tag
-                    :value="slotProps.data.inventoryStatus"
-                    :severity="getSeverity(slotProps.data)"
-                  ></Tag>
                 </div>
               </div>
               <div
@@ -90,8 +86,7 @@
             </div>
             <div class="flex align-items-left justify-content-between">
               <span class="text"
-                >${{ slotProps.data.created_at
- }}</span
+                >${{ slotProps.data.created_at}}</span
               >
             </div>
           </div>
@@ -134,22 +129,6 @@ const props = defineProps({
     }
   }
 })
-const content = ref()
-content.value = props.contentData // eslint-disable-line
-
-const products = ref()
 const layout = ref('grid')
 
-const getSeverity = (product) => {
-  switch (product.inventoryStatus) {
-    case 'INSTOCK':
-      return 'success'
-    case 'LOWSTOCK':
-      return 'warning'
-    case 'OUTOFSTOCK':
-      return 'danger'
-    default:
-      return null
-  }
-}
 </script>

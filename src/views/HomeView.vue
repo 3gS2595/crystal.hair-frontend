@@ -27,11 +27,13 @@
             />
           </div>
         </div>
+
 <!--
         <div class="threeModule" style="width: 200px; height:200px;">
           <ThreeModule :imageData="['/img/halycon.png']" :size="['200', '200']"/>
         </div>
 -->
+
       </div>
       <div class="content">
         <ContentModule :contentData="siteImages"/>

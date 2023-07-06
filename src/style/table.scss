@@ -1,5 +1,6 @@
- $tableBorder: 1px solid lightgray;
+@import "./ThemeModes";
 
+$tableBorder: 1px solid $tableBorderColor;
 .tableCard{
 	border-top: $tableBorder!important;
 	border-left: $tableBorder!important;
@@ -16,9 +17,7 @@
 		border-bottom: $tableBorder!important;
 		border-right: $tableBorder!important;
 	}
-	tfoot {
-		color: gray!important;
-	}
+
 	tfoot th {
 		font-weight: normal!important;
 	}
@@ -31,11 +30,11 @@
 	}
 	.p-dropdown-panel{
 		background: white!important;
-		border: 3px solid lightgray!important;;
+		border: 3px solid $tableBorderColor!important;;
 	}
 	.p-column-filter-row-items{
 		background: white!important;
-		border: 3px solid lightgray!important;
+		border: 3px solid $tableBorderColor!important;
 	}
 	.p-paginator {
 		display: block!important;;
@@ -68,7 +67,7 @@
 		border: $tableBorder!important;
 }
 .p-multiselect-panel{
-		border: 3px solid lightgray!important;
+		border: 3px solid $tableBorderColor!important;
 
 		background: white!important;
 }

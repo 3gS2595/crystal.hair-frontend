@@ -89,7 +89,6 @@ export default {
         for (let i = 0; i < apij.value.length; i++) {
           const obj = JSON.parse(JSON.stringify(apij.value[i]))
           const path = ('/img/' + JSON.stringify(obj.path)).replace('"', '').replace('"', '')
-          const pathClick = (JSON.stringify(obj.title)).replace('"', '').replace('"', '')
           const img = new Image()
           img.src = (path)
           img.onload = function () {
@@ -98,17 +97,16 @@ export default {
             forms[i] = new THREE.Mesh(plane, material)
             forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
             forms[i].position.y += gridy
-            forms[i].rotation.y = 0.51
             forms[i].name = JSON.stringify(obj.title)
-            forms[i].userData = { URL: pathClick }
+            forms[i].userData = { URL: (JSON.stringify(obj.title)).replace('"', '').replace('"', '') }
 
             // initial animation
             forms[i].rotation.y = 1
 
             interactionManager.add(forms[i])
             forms[i].addEventListener('click', (event) => {
-              if (store.filter === pathClick) store.setFilter('')
-              else store.setFilter(pathClick)
+              if (store.filter === forms[i].userData.URL) store.setFilter('')
+              else store.setFilter(forms[i].userData.URL)
             })
             scene.add(forms[i])
           }
