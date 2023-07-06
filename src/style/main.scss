@@ -1,28 +1,3 @@
-@import "./ThemeModes";
-.theme-dark {
-  --background-primary: #303a52;
-  --background-secondary: #353f55;
-  --background-ternary: #404653;
-
-  --text-primary: #fff;
-  --text-secondary: #e2e8f0;
-
-  --border-primary: #a0aec0;
-  --border-secondary: #a0aec0;
-}
-
-.theme-light {
-  --background-primary: #fff;
-  --background-secondary: #f7fafc;
-  --background-ternary: #cbd5e0;
-
-  --text-primary: #000;
-  --text-secondary: #718096;
-
-  --border-primary: #000;
-  --border-secondary: #a0aec0;
-}
-
 @mixin font($font-family, $font-file) {
   @font-face {
     font-family: $font-family;
@@ -30,19 +5,34 @@
   }
 }
 @include font('ＭＳ Ｐゴシック', 'MSGOTHIC');
+@import "./ThemeModes";
 
-#app{
-  background: var(--background-primary);
+.home{
+  min-height:auto;
+  min-width: auto;
+  overflow:hidden;
 }
+#app{
+  background-color: var(--background-primary);
+  color-scheme: var(--color-scheme);
+}
+
 body{
   margin:0px;
 }
 div{
 }
+a:link {
+  color:  var(--link)
+}
+a:visited {
+  color:  var(--link-visited)
+}
 * {
   font-family: "ＭＳ Ｐゴシック";
   font-weight: 1!important;
   text-decoration:none;
+  color: var(--text-primary);
 }
 .lg{
   display:auto;
@@ -76,3 +66,4 @@ max-width:450px;
     border: 1px solid lightgrey;
   float: left; /* add this */
 }
+

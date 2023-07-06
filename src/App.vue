@@ -1,29 +1,34 @@
 <template>
-  <div id="app" class="theme-darl">
+  <div id="app" >
   <nav>
     <router-link to='/'>rss</router-link>
     <a>-</a>
     <router-link to='/about'>annex</router-link>
     <a>-</a>
-    <button @click="darkToggle" >Toggle theme</button>
+    <button style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;" @click="darkToggle" >theme</button>
   </nav>
   <router-view/>
   </div>
 </template>
 
 <script setup>
-const isDarkMode = false
 const themeClasses = ['theme-light', 'theme-dark']
+const app = document.getElementById('app')
+
+if (localStorage.getItem('darkModeBool') === 'true') {
+  app.classList.add('theme-dark')
+} else {
+  app.classList.add('theme-light')
+}
 
 function darkToggle (e) {
-  const app = document.getElementById('app')
-  const isDarkMode = app.classList.contains('theme-dark')
   app.classList.remove(...themeClasses)
-  if (isDarkMode) {
+  if (localStorage.getItem('darkModeBool') === 'true') {
     app.classList.add('theme-light')
+    localStorage.setItem('darkModeBool', 'false')
   } else {
     app.classList.add('theme-dark')
-    // console.log('dark')
+    localStorage.setItem('darkModeBool', 'true')
   }
 }
 </script>
