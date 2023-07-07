@@ -21,7 +21,7 @@ if (localStorage.getItem('darkModeBool') === 'true') {
 } else {
   app.classList.add('theme-light')
 }
-
+// window.open('render.html', '_blank', 'toolbar=0,location=0,menubar=0')
 // onClick
 function darkToggle (e) {
   app.classList.remove(...themeClasses)
@@ -39,6 +39,5 @@ function darkToggle (e) {
   @import './style/table.scss';
   @import './style/canvas.scss';
   @import './style/main.scss';
-</style>
-<style lang='css'>
+  @import './style/Content.scss';
 </style>

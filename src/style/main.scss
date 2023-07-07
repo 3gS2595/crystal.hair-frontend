@@ -6,6 +6,7 @@
 }
 @include font('ＭＳ Ｐゴシック', 'MSGOTHIC');
 @import "./ThemeModes";
+$compWidth: 590px;
 
 #app{
   min-height:100vh;
@@ -35,33 +36,55 @@ a:visited {
 }
 .lg{
   display:auto;
-  max-width:800px;
 }
 .sm{
   display:auto;
-  max-width:800px;
   width: auto;
+  min-height:100%;
 
 }
-.threeModule{
-  display:inline-block;
+canvas{
+  overflow:scroll;
+  min-width:100%;
+  max-width:100%;
+  width:100%;
+  border: 1px solid var(--border-primary);
+
 }
 .smSub{
   float: left;
-  max-width:50%;
+  width:50%;
 }
 .home {
     width: 100vw;
-    border: 1px solid lightgrey;
+    border: 1px solid var(--border-primary);
 }
 .data {
-max-width:800px;
+  min-width:375px;
   width:49vw;
+  max-width:$compWidth;
     float:left; /* add this */
+  margin-right:5px;
 }
 .content {
-max-width:450px;
-  width:49vw;
-    border: 1px solid lightgrey;
+  border: 1px solid var(--border-primary);
   float: left; /* add this */
+}
+@media screen and (max-width: 800px) {
+
+.data {
+  padding-bottom:20px;
+  width:100%;
+  float:left; /* add this */
+  max-width:100%;
+}
+.xl\:col-4 {
+    width:33%;
+  }
+  .content {
+
+  max-width:100vw;
+   width:100%;
+    float: left; /* add this */
+  }
 }

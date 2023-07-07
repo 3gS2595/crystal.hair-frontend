@@ -5,8 +5,8 @@
       sortField="count" :sortOrder="-1"
       v-model:filters="filters" :value="content"
       resizableColumns
-      paginator :rows="size"
       dataKey="id"
+      scrollable scrollHeight="500px"
       filterDisplay="row"
       :globalFilterFields="['date', 'title', 'url', 'site', 'name', 'count', 'urls', 'id']"
     >
@@ -82,15 +82,7 @@ const props = defineProps({
     }
   },
   size: {
-    type: Number,
-    default: 30,
-    validator: function (value: number) {
-      return (
-        ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
-        -1
-      )
-    }
-
+    default: '30vh'
   },
   contentData: {
     type: Array,

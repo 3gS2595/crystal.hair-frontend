@@ -1,5 +1,6 @@
 @import "./ThemeModes";
 
+$gridWidth: 200px;
 $tableBorder: 1px solid var(--border-primary);
 $dropDownBorder: 3px solid var(--border-primary);
 $color: white;
@@ -10,7 +11,6 @@ $color: white;
 	table {
 		border-top: $tableBorder!important;
 	}
-
 	th {
 		border-bottom: $tableBorder!important;
 		border-right: $tableBorder!important;
@@ -19,11 +19,9 @@ $color: white;
 		border-bottom: $tableBorder!important;
 		border-right: $tableBorder!important;
 	}
-
 	tfoot th {
 		font-weight: normal!important;
 	}
-
 	.p-column-filter-row .p-column-filter-element{
 		flex-basis: initial!important;
 		flex-grow: 0!important;
@@ -60,13 +58,67 @@ $color: white;
 	}
 
 }
-.border-1 {
-		border: $tableBorder!important;
-}
 .p-multiselect-panel{
     border: $dropDownBorder!important;
     background-color: $color!important;
 }
-input, textarea {
-  background-color : var(--background-primary)!important;
+input{
+  max-width:25px;
 }
+.p-button-icon-only{
+  background:none;
+  border: $tableBorder;
+}
+button{
+
+}
+$offset: 200px;
+
+.lg{
+.p-datatable-resizable {
+  max-height:calc(70vh - 80px)!important;
+  height:70vh!important;
+  .p-datatable-wrapper{
+
+  max-height:calc(70vh - 80px)!important;
+  height:70vh!important;
+  }
+}
+}
+.sm{
+.p-datatable-resizable {
+  max-height:calc(30vh - 80px)!important;
+  height:23vh!important;
+  .p-datatable-wrapper{
+
+  max-height:calc(30vh - 80px)!important;
+  height:30vh!important;
+  }
+}
+}
+
+@media screen and (max-width: 800px) {
+.lg{
+.p-datatable-resizable {
+  max-height:calc(50vh - 80px)!important;
+  height:50vh!important;
+  .p-datatable-wrapper{
+
+  max-height:calc(50vh - 80px)!important;
+  height:50vh!important;
+  }
+}
+}
+.sm{
+.p-datatable-resizable {
+  max-height:calc(25vh - 80px)!important;
+  height:25vh!important;
+  .p-datatable-wrapper{
+
+  max-height:calc(25vh - 80px)!important;
+  height:25vh!important;
+  }
+}
+}
+}
+

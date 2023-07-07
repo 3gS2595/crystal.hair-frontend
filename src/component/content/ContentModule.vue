@@ -1,8 +1,8 @@
 <template>
-  <div class="card">
-    <DataView :value="props.contentData" :layout="layout" paginator :rows="15">
+  <div class="dataView">
+    <DataView :value="props.contentData" :layout="layout" scrollable scrollHeight="500px" :columns="4" >
       <template #header>
-        <div class="flex justify-content-end">
+        <div class="flex justify-content-start">
           <DataViewLayoutOptions v-model="layout" />
         </div>
       </template>
@@ -10,7 +10,7 @@
       <template #list="slotProps">
         <div class="col-12">
           <div
-            class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4"
+            class="flex flex-column xl:flex-column  xl:align-items-start p-4 gap-4"
           >
             <img
               class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
@@ -71,7 +71,7 @@
             </div>
             <div class="flex flex-column align-items-left gap-3 py-5">
               <img
-                class="w-9 shadow-2 border-round"
+                class="w-9 "
                 :src="`http://192.168.1.180:8080/img/${slotProps.data.path}`"
                 :alt="slotProps.data.name"
               />

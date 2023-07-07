@@ -9,7 +9,7 @@
 
         <!-- rss main   -->
         <div class="lg">
-          <TableModule id="0" :size="25" :contentData="rss"
+          <TableModule id="0" :size="200" :contentData="rss"
             :tableOrder="['date', 'title', 'url']"
           />
         </div>
