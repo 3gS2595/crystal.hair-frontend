@@ -9,18 +9,18 @@
           <SplitterPanel style="max-height:110px;">
             <ThreeMain :imageData="siteImages"/>
           </SplitterPanel>
-          <SplitterPanel :size="65" style="overflow:scroll;">
+          <SplitterPanel :size="65" style="overflow:auto;">
             <div class='lg'>
               <TableModule id="0" :size="10" :contentData="rss"
                 :tableOrder="['date', 'title', 'url']"
               />
             </div>
           </SplitterPanel>
-          <SplitterPanel :size="35" style="overflow:scroll;" >
+          <SplitterPanel :size="35" style="overflow:auto;" >
             <div class="sm">
 
               <Splitter  class="mb-5" style=" margin:0px!important;">
-                <SplitterPanel class="pane" :size="50" style="overflow:scroll;">
+                <SplitterPanel class="pane" :size="50" style="overflow:auto;">
 
                 <div class="subt">
                   <TableModule id="0" :size="10" :contentData="sites"
@@ -29,7 +29,7 @@
                   </div>
                 </SplitterPanel>
 
-                <SplitterPanel class="pane" :size="50" style="overflow-x:scroll;">
+                <SplitterPanel class="pane" :size="50" style="overflow:auto;">
                 <div class="subt">
                   <TableModule id="2" :size="10" :contentData="names"
                     :tableOrder="['names', 'count', 'name', 'urls']"

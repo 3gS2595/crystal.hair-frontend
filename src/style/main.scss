@@ -11,13 +11,29 @@ $compWidth: 590px;
 #app{
   min-height:100vh;
   min-width: 100vw;
-  overflow:hidden;
+  overflow:auto;
+  overflow-y:auto;
+  overflow-x:auto;
 }
 #app{
   background-color: var(--background-primary);
   color-scheme: var(--color-scheme);
 }
-
+*::-webkit-scrollbar-track {
+  background:  var(--background-primary)!important;        /* color of the tracking area */
+  border:1px solid var(--border-primary);
+}
+*::-webkit-scrollbar {
+  width: 13px;
+  height: 13px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(132, 132, 147, 0.38);
+  //border:1px solid lightgreen;
+}
+*::-webkit-scrollbar-track-piece {
+  //border:1px solid lightyellow;
+}
 body{
   margin:0px;
 }
