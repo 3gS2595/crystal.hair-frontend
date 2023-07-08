@@ -40,4 +40,5 @@ function darkToggle (e) {
   @import './style/canvas.scss';
   @import './style/main.scss';
   @import './style/Content.scss';
+  @import './style/SplitterPanel.scss';
 </style>

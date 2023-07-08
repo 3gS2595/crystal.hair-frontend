@@ -4,9 +4,10 @@
       removableSort
       sortField="count" :sortOrder="-1"
       v-model:filters="filters" :value="content"
-      resizableColumns
+      resizableColumns="true"
+      autoLayout="true"
       dataKey="id"
-      scrollable scrollHeight="500px"
+      scrollable scrollHeight="flex"
       filterDisplay="row"
       :globalFilterFields="['date', 'title', 'url', 'site', 'name', 'count', 'urls', 'id']"
     >
@@ -37,9 +38,10 @@
         :key="col.field + '_' + index"
         :field="col.field"
         :header="col.header"
+        style="width: 2px"
       >
         <template #body="slotProps">
-          <a
+          <a style="overflow:scroll; width:100%;!important"
             :href="slotProps.data.url" target="_blank"
             v-text="slotProps.data[col.field]"
           />

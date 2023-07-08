@@ -1,5 +1,5 @@
 <template>
-  <div class="dataView">
+  <div class="contentView">
     <DataView :value="props.contentData" :layout="layout" scrollable scrollHeight="500px" :columns="4" >
       <template #header>
         <div class="flex justify-content-start">

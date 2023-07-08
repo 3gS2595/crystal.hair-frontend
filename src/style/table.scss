@@ -7,9 +7,13 @@ $color: white;
 .tableCard{
 	border-top: $tableBorder!important;
 	border-left: $tableBorder!important;
-
 	table {
 		border-top: $tableBorder!important;
+td {
+  overflow: !important;
+  max-width: auto;
+  width:auto;
+}
 	}
 	th {
 		border-bottom: $tableBorder!important;
@@ -74,51 +78,5 @@ button{
 }
 $offset: 200px;
 
-.lg{
-.p-datatable-resizable {
-  max-height:calc(70vh - 80px)!important;
-  height:70vh!important;
-  .p-datatable-wrapper{
 
-  max-height:calc(70vh - 80px)!important;
-  height:70vh!important;
-  }
-}
-}
-.sm{
-.p-datatable-resizable {
-  max-height:calc(30vh - 80px)!important;
-  height:23vh!important;
-  .p-datatable-wrapper{
-
-  max-height:calc(30vh - 80px)!important;
-  height:30vh!important;
-  }
-}
-}
-
-@media screen and (max-width: 800px) {
-.lg{
-.p-datatable-resizable {
-  max-height:calc(50vh - 80px)!important;
-  height:50vh!important;
-  .p-datatable-wrapper{
-
-  max-height:calc(50vh - 80px)!important;
-  height:50vh!important;
-  }
-}
-}
-.sm{
-.p-datatable-resizable {
-  max-height:calc(25vh - 80px)!important;
-  height:25vh!important;
-  .p-datatable-wrapper{
-
-  max-height:calc(25vh - 80px)!important;
-  height:25vh!important;
-  }
-}
-}
-}
 

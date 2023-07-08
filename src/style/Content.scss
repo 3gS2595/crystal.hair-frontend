@@ -5,22 +5,13 @@
 input, textarea {
   background-color : var(--background-primary)!important;
 }
-@media screen and (min-width: 1220px) {
   .xl\:col-4 {
     width:100px;
   }
-}
-@media screen and (max-width:1220px) and (min-width: 800px) {
-  .xl\:col-4 {
-    width:100px;
-  }
-}
-@media screen and (max-width: 800px) {
-  .xl\:col-4 {
-    width:25%;
-  }
-}
 
+.contentView{
+  border-top:1px solid var(--border-primary);
+}
 .p-4 {
     padding: 0rem !important;
 
@@ -54,15 +45,11 @@ overflow:hidden;
 }
 .p-dataview-list{
   .p-grid{
-    max-width:calc(100vw - 600px)!important;
-    width:100vw!important;
     max-height:calc(100vh - 46px)!important;
     overflow:scroll!important;
   .p-dataview-content{
   }
 .col-12{
-max-width:calc(100vw - 600px)!important;
-    width:100vw!important;
 
 }
 
@@ -70,65 +57,15 @@ max-width:calc(100vw - 600px)!important;
 }
 .p-dataview-grid{
   .p-grid{
-    max-width:calc(100vw - 600px)!important;
-    width:calc(100vw)!important;
     height:calc(100vh - 16px)!important;
-    max-height:calc(100vh - 46px)!important;
+    max-height:calc(100vh - 39px)!important;
     overflow:scroll!important;
   .p-dataview-content{
   }
 }
 }
 
-@media screen and (max-width: 1180px) and (min-width: 801px) {
-.p-dataview-list{
-  .p-grid{
-    max-width:500px!important;
-    width:49vw!important;
-    max-height:calc(100vh - 46px)!important;
-    overflow:scroll!important;
-  .p-dataview-content{
-  }
-}
-}
 
-.p-dataview-grid{
-  .p-grid{
-    max-width:calc(49vw)!important;
-    width:calc(49vw)!important;
-    height:calc(100vh - 16px)!important;
-    max-height:calc(100vh - 46px)!important;
-    overflow:scroll!important;
-  .p-dataview-content{
-  }
-}
-}
-}
-
-@media screen and (max-width: 800px) {
-.p-dataview-list{
-  .p-grid{
-    width:96vw!important;
-    max-width:96vw!important;
-    min-width:96!important;
-    max-height:calc(100vh - 46px)!important;
-    overflow:scroll!important;
-  .p-dataview-content{
-  }
-}
-}
-
-.p-dataview-grid{
-  .p-grid{
-    min-width:97vw!important;
-    height:calc(100vh - 16px)!important;
-    max-height:calc(100vh - 46px)!important;
-    overflow:scroll!important;
-  .p-dataview-content{
-  }
-}
-}
-}
 
 .mx-auto {
   margin:0px!important;
