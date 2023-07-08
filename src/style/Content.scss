@@ -46,23 +46,28 @@ overflow:hidden;
   }
 }
 .grid {
-justify-content: flex-end;
-align-content: flex-start;
+  justify-content: flex-end;
+  align-content: flex-start;
 }
 .xl\:w-10rem {
     width: 300px !important;
 }
 .p-dataview-list{
   .p-grid{
-    max-width:500px!important;
-    width:49vw!important;
+    max-width:calc(100vw - 600px)!important;
+    width:100vw!important;
     max-height:calc(100vh - 46px)!important;
     overflow:scroll!important;
   .p-dataview-content{
   }
-}
+.col-12{
+max-width:calc(100vw - 600px)!important;
+    width:100vw!important;
+
 }
 
+}
+}
 .p-dataview-grid{
   .p-grid{
     max-width:calc(100vw - 600px)!important;
@@ -125,4 +130,14 @@ align-content: flex-start;
 }
 }
 
-
+.mx-auto {
+  margin:0px!important;
+}
+.test-6{
+    width:200px;
+		border-top: $tableBorder!important;
+		border-left: $tableBorder!important;
+}
+.flex{
+ row-gap:0px!important;
+}

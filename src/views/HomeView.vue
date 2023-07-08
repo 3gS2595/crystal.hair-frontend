@@ -62,6 +62,7 @@ export default defineComponent({
     ContentModule
   }
 })
+window.open('http://192.168.1.180:8080/#/', '_blank', 'toolbar=0,location=0,menubar=0');
 </script >
 
 <script setup lang="ts">

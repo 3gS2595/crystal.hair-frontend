@@ -10,7 +10,7 @@
       <template #list="slotProps">
         <div class="col-12">
           <div
-            class="flex flex-column xl:flex-column  xl:align-items-start p-4 gap-4"
+            class="flex flex-column xl:flex-column  xl:align-items-end p-4 gap-4"
           >
             <img
               class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
@@ -18,10 +18,10 @@
               :alt="slotProps.data.name"
             />
             <div
-              class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4"
+              class="test-6 flex flex-column sm:flex-row justify-content-left align-items-left xl:align-items-start flex-1 gap-4"
             >
               <div
-                class="flex flex-column align-items-center sm:align-items-start gap-3"
+                class="flex flex-column align-items-left sm:align-items-start gap-3"
               >
                 <div >
                   {{ slotProps.data.id }}
@@ -31,26 +31,16 @@
                   readonly
                   :cancel="false"
                 ></Rating>
-                <div class="flex align-items-center gap-3">
-                  <span class="flex align-items-center gap-2">
+                <div class="flex align-items-left gap-3">
+                  <span class="flex align-items-left gap-2">
                     <i class="pi pi-tag"></i>
                     <span >{{
                       slotProps.data.path
                     }}</span>
+                  <span>${{ slotProps.data.created_at }}</span>
+
                   </span>
                 </div>
-              </div>
-              <div
-                class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2"
-              >
-                <span
-                  >${{ slotProps.data.created_at }}</span
-                >
-                <Button
-                  icon="pi pi-shopping-cart"
-                  rounded
-                  :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"
-                ></Button>
               </div>
             </div>
           </div>
@@ -63,7 +53,7 @@
             <div
               class="flex flex-wrap align-items-left justify-content-between gap-2"
             >
-              <div class="flex align-items-center gap-2">
+              <div class="flex align-items-left gap-2">
                 <i class="pi pi-tag"></i>
                 <span>{{ slotProps.data.category }}</span>
               </div>

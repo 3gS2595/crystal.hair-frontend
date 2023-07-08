@@ -21,6 +21,7 @@
     "primevue": "^3.29.2",
     "pug-plain-loader": "^1.1.0",
     "sass-loader": "^13.3.2",
+    "splitpanes": "^3.1.5",
     "three": "^0.152.0",
     "three.interactive": "^1.7.0",
     "vue": "^3.2.13",
