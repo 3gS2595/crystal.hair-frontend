@@ -3,3 +3,52 @@
 .pane{
   border-right:1px solid var(--border-primary);
 }
+html, body {
+  overscroll-behavior: none;
+}
+div.p-splitter-gutter-handle{
+
+overscroll-behavior: none!important;
+      min-width:18px!important;
+      max-width:18px!important;
+      min-height:18px!important;
+      max-height:18px!important;
+      border:1px solid lightyellow;
+      z-index:3;
+    }
+.p-splitter-horizontal{
+  div.p-splitter-gutter{
+    width:5px;
+  }
+  .p-splitter-panel-nested {
+    .p-splitter-vertical{
+      .p-splitter-gutter{
+        width:100%;
+        height:5px;
+        div.p-splitter-gutter-handle{
+
+        }
+      }
+      .p-splitter-panel{
+        .p-splitter-gutter{
+          width:5px;
+          height:290px;
+          div.p-splitter-gutter-handle{
+
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 600px) {
+div.p-splitter-gutter-handle{
+      min-width:28px!important;
+      max-width:28px!important;
+      min-height:28px!important;
+      max-height:28px!important;
+      border:1px solid lightyellow;
+      z-index:3;
+    }
+}
+

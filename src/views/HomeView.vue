@@ -3,7 +3,7 @@
 
   <template #default>
     <Splitter  class="mb-5" style="height:calc(100vh - 18px)!important; margin:0px!important;">
-      <SplitterPanel class="pane" :size="40">
+      <SplitterPanel class="pane" :size="95">
 
         <Splitter style="width:3px!important;"  layout="vertical">
           <SplitterPanel style="max-height:110px;">
@@ -11,28 +11,29 @@
           </SplitterPanel>
           <SplitterPanel :size="65" style="overflow:auto;">
             <div class='lg'>
-              <TableModule id="0" :size="10" :contentData="rss"
+              <TableModule id="0" :contentData="rss"
                 :tableOrder="['date', 'title', 'url']"
               />
             </div>
           </SplitterPanel>
+
           <SplitterPanel :size="35" style="overflow:auto;" >
             <div class="sm">
 
-              <Splitter  class="mb-5" style=" margin:0px!important;">
+              <Splitter  class="mb-5" style="height:100%; margin:0px!important;" >
                 <SplitterPanel class="pane" :size="50" style="overflow:auto;">
 
                 <div class="subt">
-                  <TableModule id="0" :size="10" :contentData="sites"
-                    :tableOrder="['sites', 'count', 'site']"
+                  <TableModule id="0" :contentData="sites"
+                    :tableOrder="['count', 'site']"
                   />
                   </div>
                 </SplitterPanel>
 
                 <SplitterPanel class="pane" :size="50" style="overflow:auto;">
                 <div class="subt">
-                  <TableModule id="2" :size="10" :contentData="names"
-                    :tableOrder="['names', 'count', 'name', 'urls']"
+                  <TableModule id="2" :contentData="names"
+                    :tableOrder="[ 'count', 'name', 'urls']"
                   />
                   </div>
                 </SplitterPanel>
@@ -43,8 +44,8 @@
         </Splitter>
       </SplitterPanel>
 
-      <SplitterPanel :size="65">
-        <ContentModule :contentData="siteImages"/>
+      <SplitterPanel :size="5">
+        <ContentModule :contentData="feeds"/>
       </SplitterPanel>
 
     </Splitter>
@@ -82,5 +83,5 @@ import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line
 const store = ApiStore()
 
-const { rss, sites, names, siteImages } = storeToRefs(ApiStore())
+const { rss, sites, names, siteImages, feeds } = storeToRefs(ApiStore())
 </script>

@@ -14,7 +14,7 @@
       <template #empty>empty placeholder</template>
 
       <template #header>
-        <div class="flex justify-content-end">
+        <div >
           <span class="p-input-icon-left">
             <i class="pi pi-search" />
             <InputText
@@ -38,10 +38,9 @@
         :key="col.field + '_' + index"
         :field="col.field"
         :header="col.header"
-        style="width: 2px"
       >
         <template #body="slotProps">
-          <a style="overflow:scroll; width:100%;!important"
+          <a
             :href="slotProps.data.url" target="_blank"
             v-text="slotProps.data[col.field]"
           />
@@ -82,9 +81,6 @@ const props = defineProps({
         -1
       )
     }
-  },
-  size: {
-    default: '30vh'
   },
   contentData: {
     type: Array,

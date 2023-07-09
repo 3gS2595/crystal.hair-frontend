@@ -11,7 +11,8 @@ export const ApiStore = defineStore({
     rss: [],
     sites: [],
     names: [],
-    siteImages: []
+    siteImages: [],
+    feeds: []
   }),
   actions: {
     async apiFetch (UrlExt: string) {
@@ -22,19 +23,21 @@ export const ApiStore = defineStore({
     },
     async initialize () {
       // Make first two requests
-      const [rssRes, sitesRes, namesRes, siteImageRes] = await Promise.all([
+      const [rssRes, sitesRes, namesRes, siteImageRes, feeds] = await Promise.all([
         axios.get(base + 'rsses'),
         axios.get(base + 'sites'),
         axios.get(base + 'names'),
-        axios.get(base + 'site_images')
+        axios.get(base + 'site_images'),
+        axios.get(base + 'feeds')
       ])
 
       // Update state once with all 3 responses
       this.rss = rssRes.data
       this.sites = sitesRes.data
       this.names = namesRes.data
+      this.feeds = feeds.data
       this.siteImages = siteImageRes.data
-      return [rssRes, sitesRes, namesRes, siteImageRes]
+      return [rssRes, sitesRes, namesRes, siteImageRes, feeds]
     }
   }
 })

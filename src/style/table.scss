@@ -7,12 +7,11 @@ $color: white;
 .tableCard{
 	border-top: $tableBorder!important;
 	border-left: $tableBorder!important;
+height:100%;
 	table {
 		border-top: $tableBorder!important;
 td {
-  overflow: !important;
-  max-width: auto;
-  width:auto;
+  text-overflow: ellipsis;
 }
 	}
 	th {
@@ -22,7 +21,16 @@ td {
 	td {
 		border-bottom: $tableBorder!important;
 		border-right: $tableBorder!important;
+    overflow:scroll;
+    a {
+    }
 	}
+.tableCard td a{
+      max-width:10px!important;
+      width:10px!important;
+      min-width:10px!important;
+
+}
 	tfoot th {
 		font-weight: normal!important;
 	}
@@ -30,7 +38,6 @@ td {
 		flex-basis: initial!important;
 		flex-grow: 0!important;
 		flex-shrink:0!important;
-		width: auto!important;
 	}
 	.p-dropdown-panel{
 		border: $dropDownBorder!important;

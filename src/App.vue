@@ -5,7 +5,12 @@
     <a>-</a>
     <router-link to='/about'>annex</router-link>
     <a>-</a>
-    <button style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;" @click="darkToggle" >theme</button>
+    <button
+      style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
+      @click="darkToggle"
+    >
+      theme
+    </button>
   </nav>
   <router-view/>
   </div>

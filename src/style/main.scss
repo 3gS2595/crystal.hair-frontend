@@ -9,11 +9,19 @@
 $compWidth: 590px;
 
 #app{
-  min-height:100vh;
-  min-width: 100vw;
-  overflow:auto;
-  overflow-y:auto;
-  overflow-x:auto;
+  min-height:100dvh;
+  min-width: 100dvw;
+  position: fixed;
+  margin:0;
+  padding:0;
+overscroll-behavior: none!important;
+}
+.index{
+  max-height:100dvh;
+  max-width: 100dvw;
+  position: fixed;
+  margin:0;
+  padding:0;
 }
 #app{
   background-color: var(--background-primary);
@@ -50,10 +58,7 @@ a:visited {
   text-decoration:none;
   color: var(--text-primary);
 }
-.lg{
-}
-.sm{
-}
+
 canvas{
   overflow:scroll;
   min-width:100%;

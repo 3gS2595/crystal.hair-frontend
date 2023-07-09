@@ -1,6 +1,6 @@
 <template>
   <div class="contentView">
-    <DataView :value="props.contentData" :layout="layout" scrollable scrollHeight="500px" :columns="4" >
+    <DataView :value="props.contentData" :layout="layout" scrollable scrollHeight="100dvh" :columns="4" >
       <template #header>
         <div class="flex justify-content-start">
           <DataViewLayoutOptions v-model="layout" />
@@ -14,7 +14,7 @@
           >
             <img
               class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
-              :src="`http://192.168.1.180:8080/img/${slotProps.data.path}`"
+              :src="`http://192.168.1.180:8080/feed/${slotProps.data.path}`"
               :alt="slotProps.data.name"
             />
             <div
@@ -23,22 +23,16 @@
               <div
                 class="flex flex-column align-items-left sm:align-items-start gap-3"
               >
-                <div >
-                  {{ slotProps.data.id }}
-                </div>
-                <Rating
-                  :modelValue="slotProps.data.rating"
+
+<!-- three main
+                :modelValue="slotProps.data.rating"
                   readonly
                   :cancel="false"
-                ></Rating>
+                 ></Rating>
+-->
                 <div class="flex align-items-left gap-3">
                   <span class="flex align-items-left gap-2">
-                    <i class="pi pi-tag"></i>
-                    <span >{{
-                      slotProps.data.path
-                    }}</span>
-                  <span>${{ slotProps.data.created_at }}</span>
-
+                    <span>{{ slotProps.data.created_at }}</span>
                   </span>
                 </div>
               </div>
@@ -62,7 +56,7 @@
             <div class="flex flex-column align-items-left gap-3 py-5">
               <img
                 class="w-9 "
-                :src="`http://192.168.1.180:8080/img/${slotProps.data.path}`"
+                :src="`http://192.168.1.180:8080/feed/${slotProps.data.path}`"
                 :alt="slotProps.data.name"
               />
               <div >{{ slotProps.data.path }}</div>
