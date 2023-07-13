@@ -111,14 +111,40 @@ const onToggle = (val) => {
 
 const filters = ref({
   global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS },
-  date: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  title: { value: null, matchMode: FilterMatchMode.CONTAINS },
+
+  source_url_id: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  hypertext_id: { value: null, matchMode: FilterMatchMode.CONTAINS },
+
+  updated_at: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  created_at: { value: null, matchMode: FilterMatchMode.CONTAINS },
+
   url: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  urls: { value: null, matchMode: FilterMatchMode.CONTAINS },
   name: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  count: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  site: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  id: { value: null, matchMode: FilterMatchMode.CONTAINS }
+  scrape_interval: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  time_last_scrape: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  time_initial_scrape: { value: null, matchMode: FilterMatchMode.CONTAINS },
+
+  file_type: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  file_name: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  file_path: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  size: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  author: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  time_posted: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  time_scraped: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  description: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  key_words: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  hashtags: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  likes: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  reposts: { value: null, matchMode: FilterMatchMode.CONTAINS },
+
+  names: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  word_count: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  text_body: { value: null, matchMode: FilterMatchMode.CONTAINS },
+
+  domain: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  tag_list: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  source: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  logo_path: { value: null, matchMode: FilterMatchMode.CONTAINS }
 })
 
 watch(

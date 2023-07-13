@@ -7,14 +7,16 @@
 
         <Splitter style="width:3px!important;"  layout="vertical">
           <SplitterPanel style="max-height:110px;">
-            <ThreeMain :imageData="siteImages"/>
+            <ThreeMain :imageData="sourceUrls"/>
           </SplitterPanel>
           <SplitterPanel :size="65" style="overflow:auto;">
+
             <div class='lg'>
-              <TableModule id="0" :contentData="rss"
-                :tableOrder="['date', 'title', 'url']"
+              <TableModule id="0" :contentData="hypertexts"
+                :tableOrder="['name', 'updated_at', 'url']"
               />
             </div>
+
           </SplitterPanel>
 
           <SplitterPanel :size="35" style="overflow:auto;" >
@@ -45,7 +47,7 @@
       </SplitterPanel>
 
       <SplitterPanel :size="5">
-        <ContentModule :contentData="feeds"/>
+        <ContentModule :contentData="kernals"/>
       </SplitterPanel>
 
     </Splitter>
@@ -83,5 +85,5 @@ import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line
 const store = ApiStore()
 
-const { rss, sites, names, siteImages, feeds } = storeToRefs(ApiStore())
+const { hypertexts, kernals, linkContents, sourceUrls } = storeToRefs(ApiStore())
 </script>

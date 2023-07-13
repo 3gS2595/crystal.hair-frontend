@@ -14,7 +14,7 @@
           >
             <img
               class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
-              :src="`http://192.168.1.180:8080/feed/${slotProps.data.path}`"
+              :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"
               :alt="slotProps.data.name"
             />
             <div
@@ -56,7 +56,7 @@
             <div class="flex flex-column align-items-left gap-3 py-5">
               <img
                 class="w-9 "
-                :src="`http://192.168.1.180:8080/feed/${slotProps.data.path}`"
+                :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"
                 :alt="slotProps.data.name"
               />
               <div >{{ slotProps.data.path }}</div>

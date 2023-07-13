@@ -10,9 +10,9 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     component: HomeView,
     beforeEnter: (to, from, next) => {
-      const { rss } = storeToRefs(ApiStore())
+      const { hypertexts } = storeToRefs(ApiStore())
       // avoids refetch on route change
-      if (rss.value.length < 1) {
+      if (hypertexts.value.length < 1) {
         const apiStore = ApiStore()
         const userToken = apiStore.initialize()
         userToken.then(function (data) {
@@ -32,9 +32,9 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
     beforeEnter: (to, from, next) => {
-      const { rss } = storeToRefs(ApiStore())
+      const { hypertexts } = storeToRefs(ApiStore())
       // avoids refetch on route change
-      if (rss.value.length < 1) {
+      if (hypertexts.value.length < 1) {
         const apiStore = ApiStore()
         const userToken = apiStore.initialize()
         userToken.then(function (data) {

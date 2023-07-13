@@ -86,9 +86,11 @@ export default {
       apij.value = res
 
       if (apij.value !== undefined) {
+        console.log(apij.value)
         for (let i = 0; i < apij.value.length; i++) {
           const obj = JSON.parse(JSON.stringify(apij.value[i]))
-          const path = ('/img/' + JSON.stringify(obj.path)).replace('"', '').replace('"', '')
+          console.log(('/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', ''))
+          const path = ('/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', '')
           const img = new Image()
           img.src = (path)
           img.onload = function () {
@@ -98,7 +100,7 @@ export default {
             forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
             forms[i].position.y += gridy
             forms[i].name = JSON.stringify(obj.title)
-            forms[i].userData = { URL: (JSON.stringify(obj.title)).replace('"', '').replace('"', '') }
+            forms[i].userData = { URL: (JSON.stringify(obj.domain)).replace('"', '').replace('"', '') }
 
             // initial animation
             forms[i].rotation.y = 1
