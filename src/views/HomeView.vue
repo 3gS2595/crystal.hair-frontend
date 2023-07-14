@@ -12,7 +12,7 @@
           <SplitterPanel :size="65" style="overflow:auto;">
 
             <div class='lg'>
-              <TableModule id="0" :contentData="hypertexts"
+              <TableModule id="0" :contentData="linkContents"
                 :tableOrder="['name', 'updated_at', 'url']"
               />
             </div>

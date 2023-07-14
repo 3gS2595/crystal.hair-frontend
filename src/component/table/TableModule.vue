@@ -9,7 +9,6 @@
       dataKey="id"
       scrollable scrollHeight="flex"
       filterDisplay="row"
-      :globalFilterFields="['date', 'title', 'url', 'site', 'name', 'count', 'urls', 'id']"
     >
       <template #empty>empty placeholder</template>
 
@@ -144,7 +143,8 @@ const filters = ref({
   domain: { value: null, matchMode: FilterMatchMode.CONTAINS },
   tag_list: { value: null, matchMode: FilterMatchMode.CONTAINS },
   source: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  logo_path: { value: null, matchMode: FilterMatchMode.CONTAINS }
+  logo_path: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  post_date: { value: null, matchMode: FilterMatchMode.CONTAINS }
 })
 
 watch(

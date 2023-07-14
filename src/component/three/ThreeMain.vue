@@ -55,7 +55,7 @@ export default {
     const gridx = -38
     const gridy = 0
     const gridxI = 10.85 // x axis iterative distance    let camera: PerspectiveCamera
-
+    let loadRot = false
     const setCanvas = () => {
       const canvas = webGl.value
 
@@ -113,6 +113,7 @@ export default {
             scene.add(forms[i])
           }
         }
+        loadRot = true
       }
     }
 
@@ -136,7 +137,7 @@ export default {
     // })
     const animate = () => {
       for (let i = 0, j = forms.length; i < j; i++) {
-        if (forms[i].rotation.y > 0) forms[i].rotation.y -= 0.2
+        if (forms[i].rotation.y > 0 && loadRot) forms[i].rotation.y -= 0.2
       }
       renderer.render(scene, camera)
       requestAnimationFrame(animate)
