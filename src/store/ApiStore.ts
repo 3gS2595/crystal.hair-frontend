@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import sessionManager from '../store/modules/session_manager.js'
 import axios, { type AxiosInstance } from 'axios'
 
 const api: AxiosInstance = axios.create({
@@ -16,12 +17,18 @@ export const ApiStore = defineStore({
   actions: {
 
     async initialize () {
+      const config = {
+        headers: {
+          authorization: sessionManager.state.auth_token
+        }
+      }
+
       // Make first two requests
       const [hypertexts, kernals, linkContents, sourceUrls] = await Promise.all([
-        axios.get(base + 'hypertexts'),
-        axios.get(base + 'kernals'),
-        axios.get(base + 'link_contents'),
-        axios.get(base + 'source_urls')
+        axios.get(base + 'hypertexts', config),
+        axios.get(base + 'kernals', config),
+        axios.get(base + 'link_contents', config),
+        axios.get(base + 'source_urls', config)
       ])
 
       // Update state once with all 3 responses
@@ -29,7 +36,6 @@ export const ApiStore = defineStore({
       this.kernals = kernals.data
       this.linkContents = linkContents.data
       this.sourceUrls = sourceUrls.data
-
       return [hypertexts, kernals, linkContents, sourceUrls]
     }
   }

@@ -1,15 +1,14 @@
 <template>
- <Suspense>
-
-  <template #default>
-      <div>
-        <a>annex</a>
-      </div>
-      </template>
-
-   <template #fallback>
-     <span>Loading...</span>
-   </template>
-
- </Suspense>
+  <SessionManager />
 </template>
+
+<script>
+import SessionManager from '../component/sessionManager/SessionManager.vue'
+
+export default {
+  name: 'App',
+  components: {
+    SessionManager
+  }
+}
+</script>

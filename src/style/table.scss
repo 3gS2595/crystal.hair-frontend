@@ -7,6 +7,9 @@ $color: white;
 .tableCard{
 	border-top: $tableBorder!important;
 	border-left: $tableBorder!important;
+input{
+  max-width:25px;
+}
 height:100%;
 	table {
 		border-top: $tableBorder!important;
@@ -73,9 +76,7 @@ td {
     border: $dropDownBorder!important;
     background-color: $color!important;
 }
-input{
-  max-width:25px;
-}
+
 .p-button-icon-only{
   background:none;
   border: $tableBorder;

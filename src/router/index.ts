@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import IndexView from '../views/IndexView.vue'
 import { ApiStore } from '../store/ApiStore'
 import { storeToRefs } from 'pinia' // eslint-disable-line
 import { useDark, useToggle } from '@vueuse/core'
@@ -7,8 +7,8 @@ import { useDark, useToggle } from '@vueuse/core'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
+    name: 'Index',
+    component: IndexView,
     beforeEnter: (to, from, next) => {
       const { hypertexts } = storeToRefs(ApiStore())
       // avoids refetch on route change
@@ -17,7 +17,14 @@ const routes: Array<RouteRecordRaw> = [
         const userToken = apiStore.initialize()
         userToken.then(function (data) {
           console.log(data)
-          next()
+          console.log(data[0].data)
+
+          const userToken = apiStore.initialize()
+          userToken.then(function (data) {
+            console.log(data)
+            console.log(data[1].data)
+            next()
+          })
         })
       } else {
         next()

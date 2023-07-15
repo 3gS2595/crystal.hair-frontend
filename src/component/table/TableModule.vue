@@ -6,6 +6,7 @@
       v-model:filters="filters" :value="content"
       resizableColumns="true"
       autoLayout="true"
+      responsive="true"
       dataKey="id"
       scrollable scrollHeight="flex"
       filterDisplay="row"

@@ -65,7 +65,7 @@
                 </template>
                 <template v-slot:error>Image load fails</template>
               </vue-load-image>
-              <div >{{ slotProps.data.file_path }}</div>
+              <div class="file_path" >{{ slotProps.data.file_path }}</div>
 <!-- three main
               <Rating
                 value="{product.rating}"
@@ -75,7 +75,7 @@
 -->
             </div>
             <div class="flex align-items-left justify-content-between">
-              <span class="text"
+              <span class="created_at"
                 >${{ slotProps.data.created_at}}</span
               >
             </div>
