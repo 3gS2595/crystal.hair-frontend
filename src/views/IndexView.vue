@@ -103,5 +103,5 @@ export default defineComponent({
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line
 
-const { hypertexts, kernals, linkContents, sourceUrls } = storeToRefs(ApiStore())
+const { kernals, linkContents, sourceUrls } = storeToRefs(ApiStore())
 </script>

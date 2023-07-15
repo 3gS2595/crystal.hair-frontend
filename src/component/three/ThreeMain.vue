@@ -10,9 +10,8 @@
 
 <script lang='ts'>
 import * as THREE from 'three'
-import { watch, onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { InteractionManager } from 'three.interactive'
-import { useWindowSize } from '@vueuse/core'
 
 import { useCounterStore } from '@/store/GlobalStore'
 const wratio = 1
@@ -25,7 +24,7 @@ export default {
     imageData: {
       type: Array,
       default: () => [],
-      validator: function (value: any) {
+      validator: function (value: string) {
         return (
           ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
           -1
@@ -33,7 +32,7 @@ export default {
       }
     }
   },
-  setup (props: any) {
+  setup (props) {
     const manager = new THREE.LoadingManager()
     const loaderJPG = new THREE.TextureLoader(manager)
     const store = useCounterStore()
@@ -43,7 +42,6 @@ export default {
     let scene: THREE.Scene
     let light: THREE.PointLight
     const forms: THREE.Mesh[] = []
-    // const { width, height } = useWindowSize()
     const width = ref()
     const height = ref()
     width.value = 700
@@ -106,7 +104,7 @@ export default {
             forms[i].rotation.y = 1
 
             interactionManager.add(forms[i])
-            forms[i].addEventListener('click', (event) => {
+            forms[i].addEventListener('click', () => {
               if (store.filter === forms[i].userData.URL) store.setFilter('')
               else store.setFilter(forms[i].userData.URL)
             })
@@ -117,24 +115,6 @@ export default {
       }
     }
 
-    const updateCamera = () => {
-      camera.aspect = aspectRatio.value
-      camera.updateProjectionMatrix()
-    }
-
-    const updateRenderer = (w:number, h:number) => {
-      renderer.setSize(w, h)
-      renderer.render(scene, camera)
-    }
-
-    // watch(aspectRatio, (val) => {
-    // if (val) {
-    //  const w = width.value * wratio
-    //  const h = width.value * hratio
-    //  updateCamera()
-    //  updateRenderer(w, h)
-    // }
-    // })
     const animate = () => {
       for (let i = 0, j = forms.length; i < j; i++) {
         if (forms[i].rotation.y > 0 && loadRot) forms[i].rotation.y -= 0.02

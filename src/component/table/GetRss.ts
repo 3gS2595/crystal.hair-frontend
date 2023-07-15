@@ -1,13 +1,12 @@
 export const ContentService = {
-  getContent (params: any) {
+  getContent (params: []) {
     return fetch('http://192.168.1.180:3000/' + params).then((res) =>
       res.json()
     )
   },
-  generateColumns (args: any) {
+  generateColumns (args: string[]) {
     const params = args[0]
-    const returnJson = [] as any[]
-    const returnJsonSelected = []
+    const returnJson = [] as any[] // eslint-disable-line
     if (args[0] !== undefined) {
       if (args[0].length > 0) {
         // insert priorities
@@ -35,7 +34,7 @@ export const ContentService = {
           }
         }
 
-        function priorityInsert (filt: any) {
+        function priorityInsert (filt: string) {
           const preKey = Object.keys(params[0])
           if (preKey.indexOf(filt) > -1) {
             const index = preKey.indexOf(filt)

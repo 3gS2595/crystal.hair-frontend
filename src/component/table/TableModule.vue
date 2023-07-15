@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang='ts' generic="T">
-import { ref, setup, watch, defineProps } from 'vue'
+import { ref, watch, defineProps } from 'vue'
 import { FilterMatchMode } from 'primevue/api'
 import InputText from 'primevue/inputtext'
 import Column from 'primevue/column'
@@ -75,7 +75,7 @@ const props = defineProps({
   tableOrder: {
     type: Array,
     default: () => [],
-    validator: function (value: any) {
+    validator: function (value: string) {
       return (
         ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
         -1

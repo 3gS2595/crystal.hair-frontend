@@ -1,10 +1,7 @@
 import { defineStore } from 'pinia'
 import sessionManager from '../store/modules/session_manager.js'
-import axios, { type AxiosInstance } from 'axios'
+import axios from 'axios'
 
-const api: AxiosInstance = axios.create({
-  baseURL: 'http://192.168.1.180:3000/'
-})
 const base = 'http://192.168.1.180:3000/'
 export const ApiStore = defineStore({
   id: 'apiData',

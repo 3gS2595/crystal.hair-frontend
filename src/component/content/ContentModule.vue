@@ -89,16 +89,13 @@
   @import 'primeflex/primeflex.css'
 </style>
 <script setup>
-import { ref, onMounted, watch } from 'vue'
-import Rating from 'primevue/rating'
-import Tag from 'primevue/tag'
+import { ref, watch } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import { FilterMatchMode } from 'primevue/api'
 import { useCounterStore } from '@/store/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 
-import InputText from 'primevue/inputtext'
 const store = useCounterStore()
 const props = defineProps({
   size: {

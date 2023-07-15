@@ -47,7 +47,7 @@ export default defineComponent({
     SessionManager
   },
   methods: {
-    darkToggle (event) {
+    darkToggle () {
       app.classList.remove(...themeClasses)
       if (localStorage.getItem('darkModeBool') === 'true') {
         app.classList.add('theme-light')
