@@ -49,7 +49,10 @@ const actions = {
           resolve(response)
         })
         .catch((error) => {
-          reject(error)
+          if (error.response.status === 422) {
+            alert('https://www.youtube.com/watch?v=V6OXwTqpWbs')
+            console.log('wemadeit not realy !')
+          }
         })
     })
   },
@@ -65,9 +68,6 @@ const actions = {
         .then(() => {
           commit('resetUserInfo')
           resolve()
-        })
-        .catch((error) => {
-          reject(error)
         })
     })
   },

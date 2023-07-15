@@ -52,7 +52,7 @@ export default {
       return (width.value * wratio) / (height.value * hratio)
     })
 
-    const gridx = -38
+    const gridx = -35
     const gridy = 0
     const gridxI = 10.85 // x axis iterative distance    let camera: PerspectiveCamera
     let loadRot = false
@@ -68,7 +68,7 @@ export default {
       scene.add(camera)
 
       // Lights
-      light = new THREE.PointLight(0xfffeff, 1.8)
+      light = new THREE.PointLight(0xfffeff, 2.5)
       light.position.set(50, 50, 50)
       scene.add(light)
 
@@ -95,7 +95,7 @@ export default {
           img.src = (path)
           img.onload = function () {
             const material = new THREE.MeshLambertMaterial({ map: loaderJPG.load(path), transparent: true })
-            const plane = new THREE.PlaneGeometry(10, 10, 1)
+            const plane = new THREE.PlaneGeometry(15, 10, 1)
             forms[i] = new THREE.Mesh(plane, material)
             forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
             forms[i].position.y += gridy
@@ -137,7 +137,7 @@ export default {
     // })
     const animate = () => {
       for (let i = 0, j = forms.length; i < j; i++) {
-        if (forms[i].rotation.y > 0 && loadRot) forms[i].rotation.y -= 0.2
+        if (forms[i].rotation.y > 0 && loadRot) forms[i].rotation.y -= 0.02
       }
       renderer.render(scene, camera)
       requestAnimationFrame(animate)

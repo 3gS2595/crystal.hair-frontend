@@ -7,7 +7,10 @@
 @include font('ＭＳ Ｐゴシック', 'MSGOTHIC');
 @import "./ThemeModes";
 $compWidth: 590px;
-
+.p-button-icon-only{
+  background:none;
+  border: $tableBorder;
+}
 #app{
   min-height:100dvh;
   min-width: 100dvw;

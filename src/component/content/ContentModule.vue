@@ -13,12 +13,16 @@
           <div
             class="flex flex-column xl:flex-column  xl:align-items-end p-4 gap-4"
           >
-            <img
-              class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
-              :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"
-              :alt="slotProps.data.file_name"
-            />
-            <div
+            <vue-load-image>
+                <template v-slot:image>
+                  <img class="w-9" :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"/>
+                </template>
+                <template v-slot:preloader>
+                  <img class="w-9" src="/image-loader.gif" rel="preload"/>
+                </template>
+                <template v-slot:error>Image load fails</template>
+              </vue-load-image>
+              <div
               class="test-6 flex flex-column sm:flex-row justify-content-left align-items-left xl:align-items-start flex-1 gap-4"
             >
               <div
@@ -54,7 +58,15 @@
             </div>
 
             <div class="flex flex-column align-items-left gap-3 py-5">
-              <img class="w-9" :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"/>
+              <vue-load-image>
+                <template v-slot:image>
+                  <img class="w-9" :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"/>
+                </template>
+                <template v-slot:preloader>
+                  <img class="w-9" src="/image-loader.gif" rel="preload"/>
+                </template>
+                <template v-slot:error>Image load fails</template>
+              </vue-load-image>
               <div class="file_path" >
                 {{ slotProps.data.file_path }}
               </div>

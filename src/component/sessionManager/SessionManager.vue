@@ -1,6 +1,5 @@
 <template>
             <div v-if='isLoggedIn'>
-                <button @click='logoutUser' class='logout-button' >Logout</button>
                 <table class='table'>
                     <thead class='thead-dark'>
                     <tr class='table-headers'>

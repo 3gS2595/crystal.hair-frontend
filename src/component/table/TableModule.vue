@@ -26,7 +26,7 @@
             :options="columns"
             optionLabel="header"
             @update:modelValue="onToggle"
-            display="none"
+            display="chip"
             placeholdexr="Select"
           />
         </div>
