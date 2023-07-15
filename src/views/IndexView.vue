@@ -1,43 +1,38 @@
 <template>
- <Suspense>
+  <Suspense>
 
-  <template #default>
-    <div v-if='isLoggedIn'>
-      <HomeView :key="componentKey"/>
-    </div>
-    <div v-else>
-      <SessionManager/>
-    </div>
-  </template>
+    <template #default>
+      <div v-if='isLoggedIn'>
+        <HomeView :key="componentKey"/>
+      </div>
+      <div v-else>
+        <SessionManager/>
+      </div>
+    </template>
 
-   <template #fallback>
-     <span>Loading...</span>
-   </template>
+     <template #fallback>
+       <span>Loading</span>
+     </template>
 
- </Suspense>
+  </Suspense>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from 'vue'
-import HomeView from './HomeView.vue'
-import SessionManager from '../component/sessionManager/SessionManager.vue'
+import { defineComponent } from 'vue'
+import { mapGetters } from 'vuex'
 import '@/store/index.ts'
-import { mapActions, mapGetters } from 'vuex'
-import { ApiStore } from '../store/ApiStore'
+
+import HomeView from '@/views/HomeView.vue'
+import SessionManager from '@/component/sessionManager/SessionManager.vue'
+
 export default defineComponent({
   computed: {
-    ...mapGetters(['getAuthToken', 'getUserEmail', 'getUserID', 'isLoggedIn'])
+    ...mapGetters(['isLoggedIn'])
   },
   name: 'IndexView',
   components: {
     SessionManager,
     HomeView
-  },
-  methods: {
-    ...mapActions(['registerUser', 'loginUser', 'logoutUser']),
-    forceRerender () {
-      this.componentKey += 1
-    }
   }
 })
 

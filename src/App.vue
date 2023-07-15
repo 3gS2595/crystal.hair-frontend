@@ -43,6 +43,7 @@ function darkToggle (e) {
 <style lang='scss'>
   @import './style/table.scss';
   @import './style/canvas.scss';
+  @import './style/SessionManager.scss';
   @import './style/main.scss';
   @import './style/Content.scss';
   @import './style/SplitterPanel.scss';

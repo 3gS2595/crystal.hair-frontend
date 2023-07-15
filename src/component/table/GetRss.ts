@@ -8,10 +8,8 @@ export const ContentService = {
     const params = args[0]
     const returnJson = [] as any[]
     const returnJsonSelected = []
-    console.log(args)
     if (args[0] !== undefined) {
       if (args[0].length > 0) {
-        console.log(args[0])
         // insert priorities
         for (let x = 0; x < args[1].length; x++) {
           priorityInsert(args[1][x])
@@ -24,7 +22,6 @@ export const ContentService = {
           let flag = false
           for (let n = 0; n < Object.keys(returnJson).length; n++) {
             if (returnJson[n].field === key) {
-              console.log('test')
               flag = true
             }
           }

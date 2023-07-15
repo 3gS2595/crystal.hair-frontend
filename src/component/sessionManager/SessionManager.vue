@@ -20,11 +20,11 @@
             </div>
             <div v-else>
                 <form @submit='onLogin' class='login-form'>
-                    <input class='login-form-email' type='text' v-model='loginEmail' placeholder='Email' />
+                    <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' />
                     <br />
-                    <input class='login-form-password' type='password' v-model='loginPassword' placeholder='Password' />
+                    <input class='login-form-password' type='password' v-model='loginPassword' placeholder='password' />
                     <br />
-                    <input type='submit' value='Login' class='login-form-submit' />
+                    <input type='submit' value='login' class='login-form-submit' />
                 </form>
               </div>
 </template>
