@@ -50,7 +50,9 @@ const actions = {
         })
         .catch((error) => {
           if (error.response.status === 422) {
-            alert('https://www.youtube.com/watch?v=V6OXwTqpWbs')
+            if (window.confirm('https://www.youtube.com/watch?v=V6OXwTqpWbs')) {
+              window.location.href = 'https://www.youtube.com/watch?v=V6OXwTqpWbs'
+            }
             console.log('wemadeit not realy !')
           }
         })
