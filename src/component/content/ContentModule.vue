@@ -46,42 +46,30 @@
         <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
           <div class="p-4 border-1 surface-border surface-card border-round">
 
-            <div
-              class="flex flex-wrap align-items-left justify-content-between gap-2"
-            >
+            <div class="flex flex-wrap align-items-left justify-content-between gap-2">
               <div class="flex align-items-left gap-2">
                 <i class="pi pi-tag"></i>
                 <span>{{ slotProps.data.file_type }}</span>
               </div>
+            </div>
 
-            </div>
             <div class="flex flex-column align-items-left gap-3 py-5">
-              <vue-load-image>
-                <template v-slot:image>
-                  <img class="w-9" :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"/>
-                </template>
-                <template v-slot:preloader>
-                  <img class="w-9" src="/image-loader.gif" rel="preload"/>
-                </template>
-                <template v-slot:error>Image load fails</template>
-              </vue-load-image>
-              <div class="file_path" >{{ slotProps.data.file_path }}</div>
-<!-- three main
-              <Rating
-                value="{product.rating}"
-                readonly
-                :cancel="false"
-              ></Rating>
--->
+              <img class="w-9" :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"/>
+              <div class="file_path" >
+                {{ slotProps.data.file_path }}
+              </div>
             </div>
+
             <div class="flex align-items-left justify-content-between">
-              <span class="created_at"
-                >${{ slotProps.data.created_at}}</span
-              >
+              <span class="created_at">
+                ${{ slotProps.data.created_at}}
+              </span>
             </div>
+
           </div>
         </div>
       </template>
+
     </DataView>
   </div>
 </template>

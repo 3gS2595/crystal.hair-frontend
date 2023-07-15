@@ -27,7 +27,6 @@
                 <Splitter  class="mb-5" style="height:100%; margin:0px!important;" >
 
                   <SplitterPanel class="pane" :size="50" style="overflow:auto;">
-                  <button @click='logoutUser' class='logout-button' >logout</button>
                   <div class="subt">
                     <TableModule id="0" :contentData="sites"
                       :tableOrder="['count', 'site']"
@@ -35,7 +34,7 @@
                     </div>
                   </SplitterPanel>
 
-                  <SplitterPanel class="pane" :size="15" style="overflow:auto;">
+                  <SplitterPanel class="pane" :size="50" style="overflow:auto;">
                   <div class="subt">
                     <TableModule id="2" :contentData="names"
                       :tableOrder="[ 'count', 'name', 'urls']"
@@ -50,7 +49,7 @@
           </Splitter>
         </SplitterPanel>
 
-        <SplitterPanel :size="50">
+        <SplitterPanel :size="15">
           <ContentModule :contentData="kernals"/>
         </SplitterPanel>
 
@@ -71,9 +70,7 @@
 import { defineComponent, ref } from 'vue'
 import Splitter from 'primevue/splitter'
 import SplitterPanel from 'primevue/splitterpanel'
-import { mapActions, mapGetters } from 'vuex'
 
-import '@/store/index.ts'
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 
 import TableModule from '@/component/table/TableModule.vue'
@@ -89,9 +86,6 @@ export default defineComponent({
     SplitterPanel,
     ContentModule,
     ThreeMain
-  },
-  methods: {
-    ...mapActions(['logoutUser'])
   },
   mounted () {
     if (ApiStore().sourceUrls.length === 0) {

@@ -7,16 +7,21 @@
     <a>-</a>
     <button
       style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
-      @click="darkToggle"
+      @click="this.darkToggle"
     >
       theme
     </button>
+    <a>-</a>
+    <LogOutBtn/>
   </nav>
   <router-view/>
   </div>
 </template>
 
-<script setup>
+<script >
+import LogOutBtn from '@/component/sessionManager/LogOutBtn'
+
+import { defineComponent } from 'vue'
 const themeClasses = ['theme-light', 'theme-dark']
 const app = document.getElementById('app')
 
@@ -38,6 +43,12 @@ function darkToggle (e) {
     localStorage.setItem('darkModeBool', 'true')
   }
 }
+export default defineComponent({
+  name: 'App',
+  components: {
+    LogOutBtn
+  }
+})
 </script>
 
 <style lang='scss'>
