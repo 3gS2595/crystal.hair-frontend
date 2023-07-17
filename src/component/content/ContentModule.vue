@@ -20,7 +20,7 @@
                 <template v-slot:preloader>
                   <img class="w-9" src="/image-loader.gif" rel="preload"/>
                 </template>
-                <template v-slot:error>Image load fails</template>
+                <template v-slot:error>{{slotProps.data.file_path}}</template>
               </vue-load-image>
               <div
               class="test-6 flex flex-column sm:flex-row justify-content-left align-items-left xl:align-items-start flex-1 gap-4"
@@ -70,11 +70,15 @@
               <div class="file_path" >
                 {{ slotProps.data.file_path }}
               </div>
+              <div class="author" >
+                {{ slotProps.data.author }}
+              </div>
+
             </div>
 
             <div class="flex align-items-left justify-content-between">
               <span class="created_at">
-                ${{ slotProps.data.created_at}}
+                {{ slotProps.data.created_at}}
               </span>
             </div>
 

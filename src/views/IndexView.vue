@@ -15,7 +15,7 @@
 
             <SplitterPanel :size="65" style="overflow:auto;">
               <div class='lg'>
-                <TableModule id="0" :contentData="linkContents"
+                <TableModule id="0" :contentData="hypertexts"
                   :tableOrder="['name', 'updated_at', 'url']"
                 />
               </div>
@@ -103,5 +103,5 @@ export default defineComponent({
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line
 
-const { kernals, linkContents, sourceUrls } = storeToRefs(ApiStore())
+const { hypertexts, kernals, linkContents, sourceUrls } = storeToRefs(ApiStore())
 </script>

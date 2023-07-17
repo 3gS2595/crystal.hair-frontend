@@ -66,7 +66,7 @@ export default {
       scene.add(camera)
 
       // Lights
-      light = new THREE.PointLight(0xfffeff, 2.5)
+      light = new THREE.PointLight(0xfffeff, 2.3)
       light.position.set(50, 50, 50)
       scene.add(light)
 
@@ -93,7 +93,7 @@ export default {
           img.src = (path)
           img.onload = function () {
             const material = new THREE.MeshLambertMaterial({ map: loaderJPG.load(path), transparent: true })
-            const plane = new THREE.PlaneGeometry(15, 10, 1)
+            const plane = new THREE.PlaneGeometry(10, 8, 1)
             forms[i] = new THREE.Mesh(plane, material)
             forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
             forms[i].position.y += gridy

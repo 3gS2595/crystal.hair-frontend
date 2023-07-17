@@ -39,6 +39,23 @@ input, textarea {
     justify-content: flex-start;
   }
 }
+
+.p-dataview-grid{
+  .xl\:col-4 {
+  height:200px;
+    width:100px;
+  }
+  justify-content: flex-end;
+  align-content: flex-start;
+.w-9 {
+		border: $tableBorder!important;
+   width: auto;
+max-height: 150px;
+object-fit: contain;
+
+}
+
+}
 .grid {
   justify-content: flex-end;
   align-content: flex-start;
