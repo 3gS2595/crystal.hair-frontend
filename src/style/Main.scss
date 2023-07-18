@@ -4,7 +4,7 @@
     src: local($font-file+'.ttf');
   }
 }
-@include font('ＭＳ Ｐゴシック', 'MSGOTHIC');
+@include font('ＭＳ Ｐゴシック', 'auxilaries/MSGOTHIC');
 @import "./ThemeModes";
 $compWidth: 590px;
 .p-button-icon-only{

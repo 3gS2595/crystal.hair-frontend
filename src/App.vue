@@ -12,6 +12,12 @@
         >theme</a>
         <a>-</a>
         <LogOutBtn/>
+        <a>-</a>
+        <a
+          style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
+          @click="windowPop"
+        >wind</a>
+
       </nav>
       <router-view/>
     </div>
@@ -47,6 +53,9 @@ export default defineComponent({
     SessionManager
   },
   methods: {
+    windowPop () {
+      window.open('192.168.1.180:8080', '_blank', 'toolbar=0,location=0,menubar=0')
+    },
     darkToggle () {
       app.classList.remove(...themeClasses)
       if (localStorage.getItem('darkModeBool') === 'true') {

@@ -18,7 +18,7 @@
                   <img class="w-9" :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"/>
                 </template>
                 <template v-slot:preloader>
-                  <img class="w-9" src="/image-loader.gif" rel="preload"/>
+                  <img class="w-9" src="auxilaries/image-loader.gif" rel="preload"/>
                 </template>
                 <template v-slot:error>{{slotProps.data.file_path}}</template>
               </vue-load-image>
@@ -63,23 +63,25 @@
                   <img class="w-9" :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"/>
                 </template>
                 <template v-slot:preloader>
-                  <img class="w-9" src="/image-loader.gif" rel="preload"/>
+                  <img class="w-9" src="auxilaries/image-loader.gif" rel="preload"/>
                 </template>
                 <template v-slot:error>Image load fails</template>
               </vue-load-image>
               <div class="file_path" >
-                {{ slotProps.data.file_path }}
+                {{ slotProps.data.description }}
               </div>
-              <div class="author" >
-                {{ slotProps.data.author }}
+              <div class="file_path" >
+                {{ slotProps.data.hashtags }}
               </div>
-
             </div>
 
             <div class="flex align-items-left justify-content-between">
               <span class="created_at">
                 {{ slotProps.data.created_at}}
               </span>
+            </div>
+            <div class="author" >
+              {{ slotProps.data.author }}
             </div>
 
           </div>

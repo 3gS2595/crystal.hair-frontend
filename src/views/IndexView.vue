@@ -13,32 +13,26 @@
               <ThreeMain :imageData="sourceUrls"/>
             </SplitterPanel>
 
-            <SplitterPanel :size="65" style="overflow:auto;">
+            <SplitterPanel :size="65" style="overflow:scroll;">
               <div class='lg'>
-                <TableModule id="0" :contentData="hypertexts"
-                  :tableOrder="['name', 'updated_at', 'url']"
-                />
+                <TableModule id="0" :contentData="hypertexts" :tableOrder="['name', 'time_posted', 'url']"/>
               </div>
             </SplitterPanel>
 
-            <SplitterPanel :size="35" style="overflow:auto;" >
+            <SplitterPanel :size="35" style="overflow:scroll;" >
 
               <div class="sm">
-                <Splitter  class="mb-5" style="height:100%; margin:0px!important;" >
+                <Splitter class="mb-5" >
 
                   <SplitterPanel class="pane" :size="50" style="overflow:auto;">
                   <div class="subt">
-                    <TableModule id="0" :contentData="sites"
-                      :tableOrder="['count', 'site']"
-                    />
+                    <TableModule id="2" :contentData="sourceUrls" :tableOrder="[ 'count', 'name', 'urls']" />
                     </div>
                   </SplitterPanel>
 
                   <SplitterPanel class="pane" :size="50" style="overflow:auto;">
                   <div class="subt">
-                    <TableModule id="2" :contentData="names"
-                      :tableOrder="[ 'count', 'name', 'urls']"
-                    />
+                    <TableModule id="2" :contentData="linkContents" :tableOrder="[ 'count', 'name', 'urls']" />
                     </div>
                   </SplitterPanel>
 
