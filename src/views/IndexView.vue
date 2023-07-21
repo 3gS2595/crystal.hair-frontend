@@ -4,19 +4,23 @@
   <template #default>
     <div id="contentMain" v-if='loaded'>
       <splitpanes class="default-theme" @resize="paneSize = $event[0].size" style="height: calc(100dvh - 18px); width:100dvw;">
+
         <pane :size="36">
           <splitpanes :horizontal="true">
               <pane style="min-height: 110px; max-height: 110px;">
                 <ThreeMain :imageData="hypertexts"/>
               </pane>
+
               <pane :size="50">
                 <TableModule id="0" :contentData="hypertexts" :tableOrder="['name', 'time_posted', 'url']"/>
               </pane>
+
               <pane :size="50">
                 <splitpanes class="default-theme" :vertical="true">
                   <pane >
                     <TableModule id="2" :contentData="sourceUrls" :tableOrder="[ 'count', 'name', 'urls']" />
                   </pane>
+
                   <pane >
                     <TableModule id="2" :contentData="sourceUrls" :tableOrder="[ 'count', 'name', 'urls']" />
                   </pane>
