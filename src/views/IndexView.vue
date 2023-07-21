@@ -2,52 +2,33 @@
  <Suspense>
 
   <template #default>
-    <div v-if='loaded'>
-
-      <Splitter  class="mb-5" style="height:calc(100vh - 18px)!important; margin:0px!important;">
-        <SplitterPanel class="pane" :size="85">
-
-          <Splitter style="width:3px!important;"  layout="vertical">
-
-            <SplitterPanel style="max-height:110px;">
-              <ThreeMain :imageData="sourceUrls"/>
-            </SplitterPanel>
-
-            <SplitterPanel :size="65" style="overflow:scroll;">
-              <div class='lg'>
+    <div id="contentMain" v-if='loaded'>
+      <splitpanes class="default-theme" @resize="paneSize = $event[0].size" style="height: calc(100dvh - 18px); width:100dvw;">
+        <pane :size="36">
+          <splitpanes :horizontal="true">
+              <pane style="min-height: 110px; max-height: 110px;">
+                <ThreeMain :imageData="hypertexts"/>
+              </pane>
+              <pane :size="50">
                 <TableModule id="0" :contentData="hypertexts" :tableOrder="['name', 'time_posted', 'url']"/>
-              </div>
-            </SplitterPanel>
-
-            <SplitterPanel :size="35" style="overflow:scroll;" >
-
-              <div class="sm">
-                <Splitter class="mb-5" >
-
-                  <SplitterPanel class="pane" :size="50" style="overflow:auto;">
-                  <div class="subt">
+              </pane>
+              <pane :size="50">
+                <splitpanes class="default-theme" :vertical="true">
+                  <pane >
                     <TableModule id="2" :contentData="sourceUrls" :tableOrder="[ 'count', 'name', 'urls']" />
-                    </div>
-                  </SplitterPanel>
+                  </pane>
+                  <pane >
+                    <TableModule id="2" :contentData="sourceUrls" :tableOrder="[ 'count', 'name', 'urls']" />
+                  </pane>
+                </splitpanes>
+              </pane>
+          </splitpanes>
+        </pane>
 
-                  <SplitterPanel class="pane" :size="50" style="overflow:auto;">
-                  <div class="subt">
-                    <TableModule id="2" :contentData="linkContents" :tableOrder="[ 'count', 'name', 'urls']" />
-                    </div>
-                  </SplitterPanel>
-
-                </Splitter>
-              </div>
-
-            </SplitterPanel>
-          </Splitter>
-        </SplitterPanel>
-
-        <SplitterPanel :size="15">
+        <pane :size="32">
           <ContentModule :contentData="kernals"/>
-        </SplitterPanel>
-
-      </Splitter>
+        </pane>
+      </splitpanes>
 
     </div>
     <div v-else><a>loading</a></div>
@@ -61,24 +42,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import Splitter from 'primevue/splitter'
-import SplitterPanel from 'primevue/splitterpanel'
+import { defineComponent, ref, reactive, toRefs } from 'vue'
+import { Splitpanes, Pane } from 'splitpanes'
 
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
-
 import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
+import 'splitpanes/dist/splitpanes.css'
 
 const loaded = ref(false)
 export default defineComponent({
   components: {
     TableModule,
-    Splitter,
-    SplitterPanel,
     ContentModule,
-    ThreeMain
+    ThreeMain,
+    Splitpanes,
+    Pane
   },
   mounted () {
     if (ApiStore().sourceUrls.length === 0) {
@@ -87,6 +67,14 @@ export default defineComponent({
         console.log(data)
         loaded.value = true
       })
+    }
+  },
+  setup () {
+    const state = reactive({
+      paneSize: 50
+    })
+    return {
+      ...toRefs(state)
     }
   }
 })

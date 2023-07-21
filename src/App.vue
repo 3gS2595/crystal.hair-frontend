@@ -16,7 +16,15 @@
         <a
           style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
           @click="windowPop"
-        >wind</a>
+        >
+          wind
+        </a>
+<a
+          style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
+          @click="cookies"
+        >
+         cookies
+        </a>
 
       </nav>
       <router-view/>
@@ -43,6 +51,12 @@ if (localStorage.getItem('darkModeBool') === 'true') {
 } else {
   app.classList.add('theme-light')
 }
+if (window.navigator.standalone) {
+  const mainc = document.getElementById('app')
+  mainc.style.borderBottomRightRadius = '30px 50px'
+  mainc.style.borderBottomLeftRadius = '30px 50px'
+  mainc.style.border = '2px solid black'
+}
 export default defineComponent({
   computed: {
     ...mapGetters(['isLoggedIn'])
@@ -54,8 +68,13 @@ export default defineComponent({
   },
   methods: {
     windowPop () {
-      window.open('192.168.1.180:8080', '_blank', 'toolbar=0,location=0,menubar=0')
+      window.open('http://192.168.1.179:8080', '_blank', 'toolbar=0,location=0,menubar=0')
     },
+    cookies () {
+      localStorage.clear()
+      sessionStorage.clear()
+    },
+
     darkToggle () {
       app.classList.remove(...themeClasses)
       if (localStorage.getItem('darkModeBool') === 'true') {

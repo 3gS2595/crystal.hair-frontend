@@ -1,6 +1,6 @@
 export const ContentService = {
   getContent (params: []) {
-    return fetch('http://192.168.1.180:3000/' + params).then((res) =>
+    return fetch('http://192.168.1.179:3000/' + params).then((res) =>
       res.json()
     )
   },

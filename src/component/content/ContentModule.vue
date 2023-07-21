@@ -15,10 +15,10 @@
           >
             <vue-load-image>
                 <template v-slot:image>
-                  <img class="w-9" :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"/>
+                  <img class="w-9" :src="`http://192.168.1.179:8080/feed/${slotProps.data.file_path}`"/>
                 </template>
                 <template v-slot:preloader>
-                  <img class="w-9" src="auxilaries/image-loader.gif" rel="preload"/>
+                  <img class="w-9" src="auxiliaries/image-loader.gif" rel="preload"/>
                 </template>
                 <template v-slot:error>{{slotProps.data.file_path}}</template>
               </vue-load-image>
@@ -60,10 +60,10 @@
             <div class="flex flex-column align-items-left gap-3 py-5">
               <vue-load-image>
                 <template v-slot:image>
-                  <img class="w-9" :src="`http://192.168.1.180:8080/feed/${slotProps.data.file_path}`"/>
+                  <img class="w-9" :src="`http://192.168.1.179:8080/feed/${slotProps.data.file_path}`"/>
                 </template>
                 <template v-slot:preloader>
-                  <img class="w-9" src="auxilaries/image-loader.gif" rel="preload"/>
+                  <img class="w-9" src="auxiliaries/image-loader.gif" rel="preload"/>
                 </template>
                 <template v-slot:error>Image load fails</template>
               </vue-load-image>

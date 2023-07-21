@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://192.168.1.180:3000/'
+const BASE_URL = 'http://192.168.1.179:3000/'
 
 const state = {
   auth_token: null,

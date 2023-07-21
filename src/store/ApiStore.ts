@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import sessionManager from '../store/modules/session_manager.js'
 import axios from 'axios'
 
-const base = 'http://192.168.1.180:3000/'
+const base = 'http://192.168.1.179:3000/'
 export const ApiStore = defineStore({
   id: 'apiData',
   state: () => ({

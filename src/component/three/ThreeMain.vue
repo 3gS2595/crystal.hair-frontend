@@ -97,8 +97,8 @@ export default {
             forms[i] = new THREE.Mesh(plane, material)
             forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
             forms[i].position.y += gridy
-            forms[i].name = JSON.stringify(obj.title)
-            forms[i].userData = { URL: (JSON.stringify(obj.domain)).replace('"', '').replace('"', '') }
+            forms[i].name = JSON.stringify(obj.name)
+            forms[i].userData = { URL: (JSON.stringify(obj.url)).replace('"', '').replace('"', '') }
 
             // initial animation
             forms[i].rotation.y = 1

@@ -80,7 +80,7 @@ object-fit: contain;
 }
 .p-dataview-grid{
   .p-grid{
-    height:calc(100dvh - 16px)!important;
+    height:auto!important;
     width:calc(100% - 1px)!important;
     max-height:calc(100dvh - 40px)!important;
     overflow:scroll!important;
