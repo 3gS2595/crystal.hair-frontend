@@ -5,7 +5,7 @@
     <div id="contentMain" v-if='loaded'>
       <splitpanes class="default-theme" @resize="paneSize = $event[0].size" style="height: calc(100dvh - 18px); width:100dvw;">
 
-        <pane :size="36">
+        <pane>
           <splitpanes :horizontal="true">
               <pane style="min-height: 110px; max-height: 110px;">
                 <ThreeMain :imageData="hypertexts"/>
@@ -29,7 +29,7 @@
           </splitpanes>
         </pane>
 
-        <pane :size="32">
+        <pane>
           <ContentModule :contentData="kernals"/>
         </pane>
       </splitpanes>

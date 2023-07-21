@@ -16,15 +16,13 @@
         <a
           style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
           @click="windowPop"
-        >
-          wind
-        </a>
-<a
+        >wind</a>
+
+        <a>-</a>
+        <a
           style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
           @click="cookies"
-        >
-         cookies
-        </a>
+        >cookies</a>
 
       </nav>
       <router-view/>
@@ -53,9 +51,7 @@ if (localStorage.getItem('darkModeBool') === 'true') {
 }
 if (window.navigator.standalone) {
   const mainc = document.getElementById('app')
-  mainc.style.borderBottomRightRadius = '30px 50px'
-  mainc.style.borderBottomLeftRadius = '30px 50px'
-  mainc.style.border = '2px solid black'
+  mainc.style.paddingTop = '40px'
 }
 export default defineComponent({
   computed: {
