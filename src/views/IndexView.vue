@@ -4,11 +4,10 @@
   <template #default>
     <div id="contentMain" v-if='loaded'>
       <splitpanes
-        :first-splitter="true"
-        class="default-theme"
         @resize="paneSize = $event[0].size"
-        @resized="n => resizeContentFit()"
+        @resized="resizeContentFit()"
         style="height: calc(100vh - 18px); width:100vw;"
+        class="default-theme"
       >
 
       <pane v-on:dblclick="resizeData()" :size="paneSize">
@@ -71,8 +70,8 @@ import ContentModule from '@/component/content/ContentModule.vue'
 import 'splitpanes/dist/splitpanes.css'
 const contentWidth = ref()
 const loaded = ref(false)
+
 export default defineComponent({
-// In your Vue component.
   data: () => ({
     paneStateData: 0,
     paneStateContent: 0,
@@ -85,14 +84,21 @@ export default defineComponent({
     Splitpanes,
     Pane
   },
+  beforeMount () {
+    this.resizeContentFit('null')
+  },
   mounted () {
     if (ApiStore().sourceUrls.length === 0) {
+      window.addEventListener('resize', this.resizeContentFit)
       const userToken = ApiStore().initialize()
       userToken.then(function (data) {
         console.log(data)
         loaded.value = true
       })
     }
+  },
+  unmounted () {
+    window.removeEventListener('resize', this.resizeContentFit)
   },
   setup () {
     const state = reactive({
@@ -105,7 +111,6 @@ export default defineComponent({
   methods: {
     resizeContent: function (event) {
       if (this.paneSize !== 0) {
-        console.log('asdasdfasdf')
         this.paneStateContent = this.paneSize
         this.paneSize = 0
       } else {
@@ -114,21 +119,14 @@ export default defineComponent({
     },
     resizeData: function (event) {
       if (this.paneSize !== 100) {
-        console.log('changeing')
         this.paneStateData = this.paneSize
         this.paneSize = 100
-        console.log(this.paneSize)
-        return this.paneSize
       } else {
-        console.log('notchange')
         this.paneSize = this.paneStateData
-        return this.paneSize
       }
     },
     resizeContentFit: function (event) {
-      console.log((window.innerWidth * ((100 - this.paneSize) / 100) - 20) % 90)
       const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - 20) % 90
-      console.log(this.paneSize)
       if (screen.width <= 760 && this.paneSize < 70) {
         this.paneSize = this.paneSize + ((extra / window.innerWidth) * 100) - 1
       } else if (screen.width >= 760 && this.paneSize < 81) {
