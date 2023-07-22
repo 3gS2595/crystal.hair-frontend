@@ -24,38 +24,34 @@ input, textarea {
     padding-top: 0rem !important;
     padding-bottom: 0rem !important;
 }
+
+// images
 .w-9 {
     width: 100% !important;
+		border: $tableBorder!important;
 }
+// image blocks
 .p-2 {
     padding: 0rem !important;
 }
-.w-9 {
-		border: $tableBorder!important;
-}
-.dataView{
-  .p-paginator{
-    display:flex!important;
-    justify-content: flex-start;
-  }
-}
+
+
 
 .p-dataview-grid{
-  .xl\:col-4 {
-  height:200px;
-    width:100px;
-  }
   justify-content: flex-end;
   align-content: flex-start;
-.w-9 {
+  .xl\:col-4 {
+    height:200px;
+    width:90px!important;
+  }
+   .w-9 {
 		border: $tableBorder!important;
-   width: auto;
-max-height: 150px;
-object-fit: contain;
-
+    width: auto;
+    max-height: 150px;
+    object-fit: contain;
+  }
 }
 
-}
 .grid {
   justify-content: flex-end;
   align-content: flex-start;

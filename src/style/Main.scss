@@ -19,6 +19,8 @@ $compWidth: 590px;
   padding:0;
   overscroll-behavior: none!important;
   text-align:left!important;
+  background-color: var(--background-primary);
+  color-scheme: var(--color-scheme);
 }
 .index{
   max-height:100dvh;
@@ -27,12 +29,23 @@ $compWidth: 590px;
   margin:0;
   padding:0;
 }
-nav{
-  max-width:400px;
+body{
+  margin:0px;
 }
-#app{
-  background-color: var(--background-primary);
-  color-scheme: var(--color-scheme);
+
+canvas{
+  overflow:scroll;
+  min-width:100%;
+  max-width:100%;
+  width:100%;
+  border: 1px solid var(--border-primary);
+}
+
+* {
+  font-family: "ＭＳ Ｐゴシック";
+  font-weight: 1!important;
+  text-decoration:none;
+  color: var(--text-primary);
 }
 *::-webkit-scrollbar-track {
   background:  var(--background-primary)!important;        /* color of the tracking area */
@@ -49,42 +62,14 @@ nav{
 *::-webkit-scrollbar-track-piece {
   //border:1px solid lightyellow;
 }
-body{
-  margin:0px;
-}
-
 a:link {
   color:  var(--link)
 }
 a:visited {
   color:  var(--link-visited)
 }
-* {
-  font-family: "ＭＳ Ｐゴシック";
-  font-weight: 1!important;
-  text-decoration:none;
-  color: var(--text-primary);
-}
 
-canvas{
-  overflow:scroll;
-  min-width:100%;
-  max-width:100%;
-  width:100%;
-  border: 1px solid var(--border-primary);
 
-}
-.home {
-    width: 100vw;
-    border: 1px solid var(--border-primary);
-}
 
-.content {
-  border: 1px solid var(--border-primary);
-  float: left; /* add this */
-}
-.logout-button{
-  align-items:right;
-}
 
 
