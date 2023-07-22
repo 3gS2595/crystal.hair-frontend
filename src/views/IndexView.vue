@@ -59,20 +59,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, toRefs } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
-import 'splitpanes/dist/splitpanes.css'
-
 import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
 
 const loaded = ref(false)
-
 export default defineComponent({
   data: () => ({
-    paneStateData: 0,
     paneStateContent: 0,
     paneSize: 50,
     paneSizeOffSet: 0,
@@ -102,7 +98,6 @@ export default defineComponent({
       if (this.paneSize !== 0 && this.paneSize !== 100) {
         const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - 20) % 90
         const offset = (extra / window.innerWidth) * 100
-
         if (screen.width <= 760 && this.paneSize < 70) {
           this.paneSize = this.paneSize + offset
         } else if (screen.width >= 760 && this.paneSize < 81) {
