@@ -10,7 +10,7 @@
         class="default-theme"
       >
 
-      <pane v-on:dblclick="resizeData()" :size="paneSize">
+      <pane v-on:dblclick="resizeContent(100)" :size="paneSize + paneSizeOffSet">
         <ThreeMain :imageData="hypertexts"/>
 
           <splitpanes :horizontal="true">
@@ -43,7 +43,7 @@
           </splitpanes>
         </pane>
 
-        <pane v-on:dblclick="resizeContent()" :size="100 - paneSize">
+        <pane v-on:dblclick="resizeContent(0)" :size="(100 - (paneSize + paneSizeOffSet))">
           <ContentModule :contentData="kernals"/>
         </pane>
       </splitpanes>
@@ -68,14 +68,15 @@ import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
 import 'splitpanes/dist/splitpanes.css'
-const contentWidth = ref()
 const loaded = ref(false)
 
 export default defineComponent({
   data: () => ({
     paneStateData: 0,
     paneStateContent: 0,
-    paneSize: 50
+    paneSize: 50,
+    paneSizeOffSet: 0,
+    paneSizeOffSetTemp: 0
   }),
   components: {
     TableModule,
@@ -85,7 +86,7 @@ export default defineComponent({
     Pane
   },
   beforeMount () {
-    this.resizeContentFit('null')
+    this.resizeContentFit()
   },
   mounted () {
     if (ApiStore().sourceUrls.length === 0) {
@@ -100,37 +101,27 @@ export default defineComponent({
   unmounted () {
     window.removeEventListener('resize', this.resizeContentFit)
   },
-  setup () {
-    const state = reactive({
-      paneSize: 50
-    })
-    return {
-      ...toRefs(state)
-    }
-  },
   methods: {
-    resizeContent: function (event) {
-      if (this.paneSize !== 0) {
+    resizeContent: function (max) {
+      if (this.paneSize !== max) {
+        this.paneSizeOffSetTemp = this.paneSizeOffSet
         this.paneStateContent = this.paneSize
-        this.paneSize = 0
+        this.paneSize = max
+        this.paneSizeOffSet = 0
       } else {
+        this.paneSizeOffSet = this.paneSizeOffSetTemp
         this.paneSize = this.paneStateContent
       }
+      this.resizeContentFit()
     },
-    resizeData: function (event) {
-      if (this.paneSize !== 100) {
-        this.paneStateData = this.paneSize
-        this.paneSize = 100
-      } else {
-        this.paneSize = this.paneStateData
-      }
-    },
-    resizeContentFit: function (event) {
-      const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - 20) % 90
-      if (screen.width <= 760 && this.paneSize < 70) {
-        this.paneSize = this.paneSize + ((extra / window.innerWidth) * 100) - 1
-      } else if (screen.width >= 760 && this.paneSize < 81) {
-        this.paneSize = this.paneSize + ((extra / window.innerWidth) * 100) - 1
+    resizeContentFit: function () {
+      if (this.paneSize !== 0 && this.paneSize !== 100) {
+        const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - 20) % 90
+        if (screen.width <= 760 && this.paneSize < 70) {
+          this.paneSize = this.paneSize + ((extra / window.innerWidth) * 100) - 1
+        } else if (screen.width >= 760 && this.paneSize < 81) {
+          this.paneSizeOffSet = ((extra / window.innerWidth) * 100)
+        }
       }
     }
   }
@@ -140,5 +131,5 @@ export default defineComponent({
 <script setup lang="ts">
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line
-const { hypertexts, kernals, linkContents, sourceUrls } = storeToRefs(ApiStore())
+const { hypertexts, kernals, sourceUrls } = storeToRefs(ApiStore())
 </script>

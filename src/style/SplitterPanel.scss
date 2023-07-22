@@ -1,26 +1,22 @@
 @import "./ThemeModes";
-
 // content pane
 .splitpanes.default-theme .splitpanes__pane{
   background-color: var(--background-primary)!important;
 }
-
 // middle segment
 .splitpanes.default-theme .splitpanes__splitter:before{
     content: "";
-    height:30px!important;
-    width:30px!important;
+    height:20px!important;
+    width:20px!important;
     border:1px solid lightyellow;
-
     background-color: rgba(0,0,0,0)!important;
 }
-
 // slider section
 .splitpanes.default-theme .splitpanes__splitter {
     background-color: var(--background-primary)!important;
     box-sizing: border-box;
     position: relative;
     flex-shrink: 0;
-    border:1px solid lightyellow;
-}
 
+    border: 1px solid var(--border-primary);
+}

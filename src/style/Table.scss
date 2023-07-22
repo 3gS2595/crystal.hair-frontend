@@ -1,5 +1,4 @@
 @import "./ThemeModes";
-
 $gridWidth: 200px;
 $tableBorder: 1px solid var(--border-primary);
 $dropDownBorder: 3px solid var(--border-primary);
@@ -7,14 +6,14 @@ $color: white;
 .tableCard{
 	border-top: $tableBorder!important;
 	border-left: $tableBorder!important;
-input{
-  max-width:25px;
-}
+  input{
+    max-width:25px;
+  }
 	table {
 		border-top: $tableBorder!important;
-td {
-  text-overflow: ellipsis;
-}
+    td {
+      text-overflow: ellipsis;
+    }
 	}
 	th {
 		border-bottom: $tableBorder!important;
@@ -24,68 +23,57 @@ td {
 		border-bottom: $tableBorder!important;
 		border-right: $tableBorder!important;
     overflow:scroll;
-    a {
-    }
 	}
-.tableCard td a{
-      max-width:10px!important;
-      width:10px!important;
-      min-width:10px!important;
-
-}
-	tfoot th {
-		font-weight: normal!important;
-	}
-	.p-column-filter-row .p-column-filter-element{
-		flex-basis: initial!important;
-		flex-grow: 0!important;
-		flex-shrink:0!important;
-	}
-	.p-dropdown-panel{
-		border: $dropDownBorder!important;
-	}
-	.p-column-filter-row-items{
-		border: $dropDownBorder!important;
-	}
-	.p-paginator {
-		display: block!important;;
-	}
-	.p-column-filter-row {
-		align-items:stretch!important;
-		text-align: left!important;
+  .tableCard td a{
+    max-width:10px!important;
+    width:10px!important;
+    min-width:10px!important;
+  }
+  tfoot th {
+    font-weight: normal!important;
+  }
+  .p-column-filter-row .p-column-filter-element{
+    flex-basis: initial!important;
+    flex-grow: 0!important;
+    flex-shrink:0!important;
+  }
+  .p-dropdown-panel{
+    border: $dropDownBorder!important;
+  }
+  .p-column-filter-row-items{
+    border: $dropDownBorder!important;
+  }
+  .p-paginator {
+    display: block!important;;
+  }
+  .p-column-filter-row {
+    align-items:stretch!important;
+    text-align: left!important;
     border-collapse: collapse!important;
-	}
-	.p-column-filter-menu-button, .p-column-filter-clear-button {
-		padding: 0px!important;;
-	}
-	.p-datatable-header {
-		border-right: $tableBorder;
-		user-select: none!important;
-	}
-	.p-paginator-bottom{
-		border-right: $tableBorder;
-		border-bottom: $tableBorder;
-	}
-	.p-datatable-header{
-		border-top: $tableBorder;
-	}
-
+  }
+  .p-column-filter-menu-button, .p-column-filter-clear-button {
+    padding: 0px!important;;
+  }
+  .p-datatable-header {
+    border-right: $tableBorder;
+    user-select: none!important;
+  }
+  .p-paginator-bottom{
+    border-right: $tableBorder;
+    border-bottom: $tableBorder;
+  }
+  .p-datatable-header{
+    border-top: $tableBorder;
+  }
 }
 .p-multiselect-panel{
     border: $dropDownBorder!important;
     background-color: $color!important;
 }
-
 .p-button-icon-only{
   background:none;
   border: $tableBorder;
 }
-button{
-
-}
-$offset: 200px;
-
 .p-multiselect-label{
-  white-space:normal!important;
 }
 

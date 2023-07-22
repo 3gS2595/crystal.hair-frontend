@@ -67,8 +67,11 @@ export default defineComponent({
       window.open('http://192.168.1.179:8080', '_blank', 'toolbar=0,location=0,menubar=0')
     },
     cookies () {
+      const themeTemp = localStorage.getItem('darkModeBool')
       localStorage.clear()
       sessionStorage.clear()
+      localStorage.setItem('darkModeBool', themeTemp)
+      location.reload()
     },
 
     darkToggle () {

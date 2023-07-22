@@ -2,14 +2,12 @@ div{
 .border-1 {
 		border: $tableBorder!important;
 }
-
 input, textarea {
   background-color : var(--background-primary)!important;
 }
-  .xl\:col-4 {
-    width:100px;
-  }
-
+.xl\:col-4 {
+  width:100px;
+}
 .xl\:align-items-end {
   flex-direction: flex-end!important;
 }
@@ -24,7 +22,6 @@ input, textarea {
     padding-top: 0rem !important;
     padding-bottom: 0rem !important;
 }
-
 // images
 .w-9 {
     width: 100% !important;
@@ -34,14 +31,11 @@ input, textarea {
 .p-2 {
     padding: 0rem !important;
 }
-
-
-
 .p-dataview-grid{
   justify-content: flex-end;
   align-content: flex-start;
   .xl\:col-4 {
-    height:200px;
+    height:190px;
     width:90px!important;
   }
    .w-9 {
@@ -51,7 +45,6 @@ input, textarea {
     object-fit: contain;
   }
 }
-
 .grid {
   justify-content: flex-end;
   align-content: flex-start;
@@ -61,18 +54,11 @@ input, textarea {
     max-width: 500px;
 }
 .p-dataview-list{
-
   .p-grid{
     width:calc(100% - 1px)!important;
     max-height:calc(100dvh - 39px)!important;
     overflow:scroll!important;
-  .p-dataview-content{
   }
-.col-12{
-
-}
-
-}
 }
 .p-dataview-grid{
   .p-grid{
@@ -80,13 +66,8 @@ input, textarea {
     width:calc(100% - 1px)!important;
     max-height:calc(100dvh - 40px)!important;
     overflow:scroll!important;
-  .p-dataview-content{
   }
 }
-}
-
-
-
 .mx-auto {
   margin:0px!important;
 }
@@ -100,12 +81,11 @@ input, textarea {
 }
 .file_path{
   overflow:ellipsis;
-text-overflow: ellipsis;
-
-white-space: nowrap;}
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .created_at{
   overflow:ellipsis;
-text-overflow: ellipsis;
-
-white-space: nowrap;}
+  text-overflow: ellipsis;
+  white-space: nowrap;}
 }

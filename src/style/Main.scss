@@ -32,7 +32,6 @@ $compWidth: 590px;
 body{
   margin:0px;
 }
-
 canvas{
   overflow:scroll;
   min-width:100%;
@@ -40,7 +39,6 @@ canvas{
   width:100%;
   border: 1px solid var(--border-primary);
 }
-
 * {
   font-family: "ＭＳ Ｐゴシック";
   font-weight: 1!important;
@@ -68,8 +66,3 @@ a:link {
 a:visited {
   color:  var(--link-visited)
 }
-
-
-
-
-
