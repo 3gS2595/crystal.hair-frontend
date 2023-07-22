@@ -18,6 +18,7 @@ input, textarea {
     padding: 0rem !important;
   overflow:hidden;
 }
+
 .py-5 {
     padding-top: 0rem !important;
     padding-bottom: 0rem !important;
@@ -34,6 +35,12 @@ input, textarea {
 .p-dataview-grid{
   justify-content: flex-end;
   align-content: flex-start;
+  .p-grid{
+    height:auto!important;
+    width:calc(100% - 1px)!important;
+    max-height:calc(100dvh - 40px)!important;
+    overflow:scroll!important;
+  }
   .xl\:col-4 {
     height:190px;
     width:90px!important;
@@ -43,6 +50,11 @@ input, textarea {
     width: auto;
     max-height: 150px;
     object-fit: contain;
+  }
+  .textContent{
+    height:100px;
+    overflow-y:auto;
+    overflow-x:hidden;
   }
 }
 .grid {
@@ -59,13 +71,9 @@ input, textarea {
     max-height:calc(100dvh - 39px)!important;
     overflow:scroll!important;
   }
-}
-.p-dataview-grid{
-  .p-grid{
-    height:auto!important;
-    width:calc(100% - 1px)!important;
-    max-height:calc(100dvh - 40px)!important;
-    overflow:scroll!important;
+  .textContent{
+    overflow-y:auto;
+    overflow-x:hidden;
   }
 }
 .mx-auto {

@@ -100,7 +100,7 @@ export default defineComponent({
         const offset = (extra / window.innerWidth) * 100
         if (screen.width <= 760 && this.paneSize < 70) {
           this.paneSize = this.paneSize + offset
-        } else if (screen.width >= 760 && this.paneSize < 81) {
+        } else if (screen.width >= 760 && this.paneSize < 89) {
           this.paneSizeOffSet = offset
         }
       }

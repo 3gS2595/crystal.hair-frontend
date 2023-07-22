@@ -17,7 +17,6 @@ $compWidth: 590px;
   position: fixed;
   margin:0!important;
   padding:0;
-  overscroll-behavior: none!important;
   text-align:left!important;
   background-color: var(--background-primary);
   color-scheme: var(--color-scheme);
@@ -36,7 +35,6 @@ canvas{
   overflow:scroll;
   min-width:100%;
   max-width:100%;
-  width:100%;
   border: 1px solid var(--border-primary);
 }
 * {
@@ -65,4 +63,7 @@ a:link {
 }
 a:visited {
   color:  var(--link-visited)
+}
+.tableCard{
+  overflow: scroll;
 }

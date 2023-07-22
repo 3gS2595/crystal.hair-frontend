@@ -11,12 +11,19 @@
     border:1px solid lightyellow;
     background-color: rgba(0,0,0,0)!important;
 }
+.default-theme.splitpanes--vertical>.splitpanes__splitter:before, .default-theme .splitpanes--vertical>.splitpanes__splitter:before{
+  margin-left:-10px;
+}
+
+.default-theme.splitpanes--horizontal>.splitpanes__splitter:before, .default-theme .splitpanes--horizontal>.splitpanes__splitter:before{
+  margin-top:-10px;
+}
 // slider section
 .splitpanes.default-theme .splitpanes__splitter {
     background-color: var(--background-primary)!important;
     box-sizing: border-box;
     position: relative;
     flex-shrink: 0;
-
     border: 1px solid var(--border-primary);
 }
+
