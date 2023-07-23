@@ -20,6 +20,7 @@ $compWidth: 590px;
   text-align:left!important;
   background-color: var(--background-primary);
   color-scheme: var(--color-scheme);
+  -webkit-text-size-adjust: 100%;
 }
 .index{
   max-height:100dvh;
@@ -48,8 +49,6 @@ canvas{
   border:1px solid var(--border-primary);
 }
 *::-webkit-scrollbar {
-  width: 13px;
-  height: 13px;
 }
 *::-webkit-scrollbar-thumb {
   background-color: rgba(132, 132, 147, 0.38);

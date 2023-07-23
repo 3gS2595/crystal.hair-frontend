@@ -33,6 +33,7 @@ input, textarea {
     padding: 0rem !important;
 }
 .p-dataview-grid{
+  z-index:0!important;
   justify-content: flex-end;
   align-content: flex-start;
   .p-grid{
@@ -44,6 +45,14 @@ input, textarea {
   .xl\:col-4 {
     height:190px;
     width:90px!important;
+    min-width:90px!important;
+    max-width:90px!important;
+  }
+  #contentBlock{
+   width:90px!important;
+    min-width:90px!important;
+    max-width:90px!important;
+
   }
    .w-9 {
 		border: $tableBorder!important;
@@ -100,15 +109,18 @@ input, textarea {
 
 .contentView{
   height:100%;
-  width:100%;
+  width:100%!important;
   border:1px solid white;
 }
 .container{
+
+    z-index: 10!important;
   max-height:100%!important;
   max-width:100%!important;
   .overlay {
     height:30dvh!important;
     max-width:100%!important;
+    z-index: 10!important;
     .vue-load-image{
       min-height:90%!important;
       max-height:100%!important;
@@ -120,7 +132,14 @@ input, textarea {
       max-width:100%!important;
       object-fit: contain!important;
       border:1px solid white;
+
+    z-index: 10!important;
+
     }
   }}
+}
+.btn-dark{
+
+    z-index: 10!important;
 }
 

@@ -8,7 +8,7 @@
               <vue-load-image>
                 <template v-slot:image>
                   <span  v-touch:swipe="swipe">
-                    <img class="overlayImg" :src="`http://192.168.1.179:8080/feed/${props.contentData[index].file_path}`"/>
+                    <img @click="overlayToggle" class="overlayImg" :src="`http://192.168.1.179:8080/feed/${props.contentData[index].file_path}`"/>
                   </span>
                 </template>
                 <template v-slot:preloader>
@@ -66,7 +66,7 @@
       </template>
       <template #grid="slotProps">
 
-        <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
+        <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2" id="contentBlock">
           <div class="p-4 border-1 surface-border surface-card border-round">
 
             <div class="flex flex-column align-items-left gap-3 py-5">
@@ -153,7 +153,6 @@ const filters = ref({
 watch(
   () => store.filter,
   () => {
-    // console.log('store.filter=' + store.filter)
     filters.value.global.value = store.filter
   }
 )
@@ -172,7 +171,7 @@ const layout = ref('grid')
 <script>
 export default defineComponent({
   data: () => ({
-    index: 0,
+    index: -1,
     showOverlay: false
   }),
   methods: {
@@ -183,10 +182,16 @@ export default defineComponent({
         this.index = this.index + 1
       }
     },
-    overlayMilky (index) {
+    overlayMilky (ind) {
+      console.log(ind)
+      console.log(this.index)
+      this.index = ind
+      if (!this.showOverlay) {
+        this.showOverlay = true
+      }
+    },
+    overlayToggle () {
       this.showOverlay = !this.showOverlay
-      this.index = index
-      console.log('open')
     }
   }
 })</script>
