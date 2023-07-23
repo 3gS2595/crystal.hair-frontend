@@ -1,6 +1,28 @@
 <template>
+
   <div class="contentView">
-    <DataView :value="props.contentData" :layout="layout" :columns="4" sortField="created_at" :sortOrder="-1" scrollable >
+      <div class="container">
+        <div v-if="showOverlay" class="overlay">
+          <button class="btn btn-dark" @click="overlayMilky('0')" >{{index}}</button>
+          <span>Input 2</span>
+              <vue-load-image>
+                <template v-slot:image>
+                  <span  v-touch:swipe="swipe">
+                    <img class="overlayImg" :src="`http://192.168.1.179:8080/feed/${props.contentData[index].file_path}`"/>
+                  </span>
+                </template>
+                <template v-slot:preloader>
+                  <img class="w-9" src="auxiliaries/image-loader.gif" rel="preload"/>
+                </template>
+              </vue-load-image>
+
+          <button class="btn btn-dark" @click="swipe('left')" >PREV</button>
+          <button class="btn btn-dark" @click="swipe('right')" >NEXT</button>
+        </div>
+      </div>
+
+    <DataView :value="props.contentData" :layout="layout" :columns="4" :sortOrder="-1" scrollable >
+
       <template #header>
         <div class="flex justify-content-start">
           <DataViewLayoutOptions v-model="layout" />
@@ -42,21 +64,21 @@
           </div>
         </div>
       </template>
-
       <template #grid="slotProps">
+
         <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
           <div class="p-4 border-1 surface-border surface-card border-round">
 
             <div class="flex flex-column align-items-left gap-3 py-5">
               <div v-if="slotProps.data.file_type === '.txt'">
                 <div class="textContent">
-                  <a>{{ slotProps.data.description }}</a>
+                      <a>{{ slotProps.data.description }}</a>
                 </div>
               </div>
               <div v-else >
                 <vue-load-image>
                   <template v-slot:image>
-                    <img class="w-9" :src="`http://192.168.1.179:8080/feed/${slotProps.data.file_path}`"/>
+                    <img @click="overlayMilky(slotProps.index)" class="w-9" :src="`http://192.168.1.179:8080/feed/${slotProps.data.file_path}`"/>
                   </template>
                   <template v-slot:preloader>
                     <img class="w-9" src="auxiliaries/image-loader.gif" rel="preload"/>
@@ -74,11 +96,11 @@
 
             <div class="flex align-items-left justify-content-between">
               <span class="created_at">
-                {{ slotProps.data.created_at}}
+                {{ props.contentData[slotProps.index]}}
               </span>
             </div>
             <div class="author" >
-              {{ slotProps.data.author }}
+              {{  slotProps.index + 1 }}
             </div>
 
           </div>
@@ -89,10 +111,10 @@
   </div>
 </template>
 <style lang="css" scoped>
-  @import 'primeflex/primeflex.css'
+  @import 'primeflex/primeflex.css';
 </style>
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, defineComponent } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import { FilterMatchMode } from 'primevue/api'
@@ -147,3 +169,24 @@ watch(
 const layout = ref('grid')
 
 </script>
+<script>
+export default defineComponent({
+  data: () => ({
+    index: 0,
+    showOverlay: false
+  }),
+  methods: {
+    swipe (direction) {
+      if (direction === 'right') {
+        this.index = this.index - 1
+      } else if (direction === 'left') {
+        this.index = this.index + 1
+      }
+    },
+    overlayMilky (index) {
+      this.showOverlay = !this.showOverlay
+      this.index = index
+      console.log('open')
+    }
+  }
+})</script>

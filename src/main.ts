@@ -4,6 +4,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import PrimeVue from 'primevue/config'
 import store from '@/store/index' // eslint-disable-line
+import Vue3TouchEvents from 'vue3-touch-events'
 
 /**
  * Load JWT from Local Storage on Refresh.
@@ -23,4 +24,7 @@ app.use(store)
 app.use(router)
 app.use(createPinia())
 app.use(PrimeVue)
+app.use(Vue3TouchEvents, {
+  disableClick: false
+})
 app.mount('#app')
