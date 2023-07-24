@@ -94,10 +94,6 @@ const props = defineProps({
     }
   }
 })
-const filters = ref({
-  global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS }
-  // source_url_id: { value: null, matchMode: FilterMatchMode.CONTAINS },
-})
 
 const columns = ref()
 const heads = []
@@ -108,6 +104,10 @@ const onToggle = (val) => {
   selectedColumns.value = columns.value.filter(col => val.includes(col))
 }
 
+const filters = ref({
+  global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS }
+  // source_url_id: { value: null, matchMode: FilterMatchMode.CONTAINS },
+})
 watch(
   () => store.filter,
   () => {
@@ -115,7 +115,6 @@ watch(
     filters.value.global.value = store.filter
   }
 )
-
 watch(
   () => filters.value.global.value,
   () => {

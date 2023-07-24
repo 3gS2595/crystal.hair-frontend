@@ -14,8 +14,6 @@ import { onMounted, ref, computed } from 'vue'
 import { InteractionManager } from 'three.interactive'
 
 import { useCounterStore } from '@/store/GlobalStore'
-const wratio = 1
-const hratio = 1
 
 let interactionManager: InteractionManager
 
@@ -37,26 +35,20 @@ export default {
     const loaderJPG = new THREE.TextureLoader(manager)
     const store = useCounterStore()
     const webGl = ref()
+    const forms: THREE.Mesh[] = []
+    const width = ref(700)
+    const height = ref(110)
+    const aspectRatio = computed(() => {
+      return (width.value) / (height.value)
+    })
+
     let renderer: THREE.WebGLRenderer
     let camera: THREE.PerspectiveCamera
     let scene: THREE.Scene
-    let light: THREE.PointLight
-    const forms: THREE.Mesh[] = []
-    const width = ref()
-    const height = ref()
-    width.value = 700
-    height.value = 110
-    const aspectRatio = computed(() => {
-      return (width.value * wratio) / (height.value * hratio)
-    })
-
-    const gridx = -35
-    const gridy = 0
-    const gridxI = 10.85 // x axis iterative distance    let camera: PerspectiveCamera
+    let light: THREE.AmbientLight
     let loadRot = false
-    const setCanvas = () => {
-      const canvas = webGl.value
 
+    const setCanvas = () => {
       // Create Scene
       scene = new THREE.Scene()
 
@@ -66,13 +58,13 @@ export default {
       scene.add(camera)
 
       // Lights
-      light = new THREE.PointLight(0xfffeff, 2.3)
-      light.position.set(50, 50, 50)
+      light = new THREE.AmbientLight(0xffffff)
       scene.add(light)
 
       // Renderer
+      const canvas = webGl.value
       renderer = new THREE.WebGLRenderer({ canvas, alpha: true })
-      renderer.setSize((width.value * wratio), (height.value * hratio))
+      renderer.setSize(width.value, height.value)
       renderer.render(scene, camera)
 
       // Interaction Manager
@@ -95,10 +87,11 @@ export default {
             const material = new THREE.MeshLambertMaterial({ map: loaderJPG.load(path), transparent: true })
             const plane = new THREE.PlaneGeometry(10, 8, 1)
             forms[i] = new THREE.Mesh(plane, material)
-            forms[i].position.x += gridx + ((i + 1) * gridxI) // grid placement
-            forms[i].position.y += gridy
             forms[i].name = JSON.stringify(obj.name)
             forms[i].userData = { URL: (JSON.stringify(obj.url)).replace('"', '').replace('"', '') }
+
+            // grid placement
+            forms[i].position.x += -35 + ((i + 1) * 10.85)
 
             // initial animation
             forms[i].rotation.y = 1

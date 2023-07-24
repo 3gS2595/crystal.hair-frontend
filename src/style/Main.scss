@@ -15,9 +15,9 @@ $compWidth: 590px;
   min-height:100dvh;
   min-width: 100dvw;
   position: fixed;
-  margin:0!important;
+  margin:0;
   padding:0;
-  text-align:left!important;
+  text-align:left;
   background-color: var(--background-primary);
   color-scheme: var(--color-scheme);
   -webkit-text-size-adjust: 100%;
@@ -40,22 +40,16 @@ canvas{
 }
 * {
   font-family: "ＭＳ Ｐゴシック";
-  font-weight: 1!important;
+  font-weight: 1;
   text-decoration:none;
   color: var(--text-primary);
 }
 *::-webkit-scrollbar-track {
-  background:  var(--background-primary)!important;        /* color of the tracking area */
+  background:  var(--background-primary);
   border:1px solid var(--border-primary);
-}
-*::-webkit-scrollbar {
 }
 *::-webkit-scrollbar-thumb {
   background-color: rgba(132, 132, 147, 0.38);
-  //border:1px solid lightgreen;
-}
-*::-webkit-scrollbar-track-piece {
-  //border:1px solid lightyellow;
 }
 a:link {
   color:  var(--link)

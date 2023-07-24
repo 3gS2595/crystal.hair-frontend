@@ -1,145 +1,121 @@
 div{
-.border-1 {
-		border: $tableBorder!important;
-}
-input, textarea {
-  background-color : var(--background-primary)!important;
-}
-.xl\:col-4 {
-  width:100px;
-}
-.xl\:align-items-end {
-  flex-direction: flex-end!important;
-}
-.contentView{
-  border-top:1px solid var(--border-primary);
-}
-.p-4 {
-    padding: 0rem !important;
-  overflow:hidden;
-}
+  .border-1 {
+      border: $tableBorder!important;
+  }
+  input, textarea {
+    background-color : var(--background-primary)!important;
+  }
+  .xl\:align-items-end {
+    flex-direction: flex-end!important;
+  }
+  .contentView{
+    border-top:1px solid var(--border-primary);
+  }
+  .p-4 {
+      padding: 0rem !important;
+    overflow:hidden;
+  }
+  .py-5 {
+      padding-top: 0rem !important;
+      padding-bottom: 0rem !important;
+  }
+  // images
+  .w-9 {
+      width: 100% !important;
+      border: $tableBorder!important;
+  }
+  // image blocks
+  .p-dataview-grid{
+    z-index:0!important;
+    justify-content: flex-end;
+    align-content: flex-start;
+    .p-grid{
+      height:auto!important;
+      width:calc(100% - 1px)!important;
+      max-height:calc(100dvh - 40px)!important;
+      overflow:scroll!important;
+    }
+    .cgb-0 {
+      padding: 0rem !important;
+      height:149px;
+      width:90px!important;
+      min-width:90px!important;
+      max-width:90px!important;
+    }
+    #contentBlock{
+     width:90px!important;
+      min-width:90px!important;
+      max-width:90px!important;
 
-.py-5 {
-    padding-top: 0rem !important;
-    padding-bottom: 0rem !important;
-}
-// images
-.w-9 {
-    width: 100% !important;
-		border: $tableBorder!important;
-}
-// image blocks
-.p-2 {
-    padding: 0rem !important;
-}
-.p-dataview-grid{
-  z-index:0!important;
-  justify-content: flex-end;
-  align-content: flex-start;
-  .p-grid{
-    height:auto!important;
-    width:calc(100% - 1px)!important;
-    max-height:calc(100dvh - 40px)!important;
-    overflow:scroll!important;
+    }
+
+    .textContent{
+      height:100px;
+      overflow-y:auto;
+      overflow-x:hidden;
+    }
   }
-  .xl\:col-4 {
-    height:190px;
-    width:90px!important;
-    min-width:90px!important;
-    max-width:90px!important;
+
+  .xl\:w-10rem {
+      width: 100% !important;
+      max-width: 500px;
   }
-  #contentBlock{
-   width:90px!important;
-    min-width:90px!important;
-    max-width:90px!important;
+  .p-dataview-list{
+    .p-grid{
+      width:calc(100% - 1px)!important;
+      max-height:calc(100dvh - 39px)!important;
+      overflow:scroll!important;
+    }
+    .textContent{
+      overflow-y:auto;
+      overflow-x:hidden;
+    }
+  }
 
   }
-   .w-9 {
-		border: $tableBorder!important;
-    width: auto;
-    max-height: 150px;
-    object-fit: contain;
-  }
-  .textContent{
-    height:100px;
-    overflow-y:auto;
-    overflow-x:hidden;
-  }
-}
+
 .grid {
   justify-content: flex-end;
   align-content: flex-start;
 }
-.xl\:w-10rem {
-    width: 100% !important;
-    max-width: 500px;
+.w-9 {
+  width: auto;
+  max-height: 100px;
+  object-fit: contain;
 }
-.p-dataview-list{
-  .p-grid{
-    width:calc(100% - 1px)!important;
-    max-height:calc(100dvh - 39px)!important;
-    overflow:scroll!important;
-  }
-  .textContent{
-    overflow-y:auto;
-    overflow-x:hidden;
-  }
-}
-.mx-auto {
-  margin:0px!important;
-}
-.test-6{
-    width:100%;
-		border-top: $tableBorder!important;
-		border-left: $tableBorder!important;
-}
-.flex{
- row-gap:0px!important;
-}
-.file_path{
-  overflow:ellipsis;
-  text-overflow: ellipsis;
+.cgb-0-info{
+  overflow:hidden;
   white-space: nowrap;
-}
-.created_at{
-  overflow:ellipsis;
-  text-overflow: ellipsis;
-  white-space: nowrap;}
+  border-bottom: $tableBorder;
+  border-left: $tableBorder;
+  border-right: $tableBorder;
 }
 
-.contentView{
-  height:100%;
-  width:100%!important;
-  border:1px solid white;
-}
-.container{
+.lightbox{
+  border-bottom:$tableBorder;
+  z-index: 10;
+  max-height:100%;
+  max-width:100%;
 
-    z-index: 10!important;
-  max-height:100%!important;
-  max-width:100%!important;
   .overlay {
-    height:30dvh!important;
-    max-width:100%!important;
-    z-index: 10!important;
+    height:30dvh;
+    max-width:100%;
+    z-index: 10;
+
     .vue-load-image{
-      min-height:90%!important;
-      max-height:100%!important;
+      min-height:100%;
+      max-height:100%;
       height:100%;
-    .overlayImg{
-      width:100%;
-      height:100%;
-      max-height:80%!important;
-      max-width:100%!important;
-      object-fit: contain!important;
-      border:1px solid white;
 
-    z-index: 10!important;
-
+      .overlayImg{
+        width:100%;
+        height:100%;
+        max-height:90%;
+        max-width:100%;
+        object-fit: contain;
+        z-index: 10;
+      }
     }
-  }}
-}
-.btn-dark{
-
-    z-index: 10!important;
+  }
 }
 
