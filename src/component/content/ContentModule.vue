@@ -34,7 +34,7 @@
           <div v-else >
             <vue-load-image>
               <template v-slot:image>
-                <img class="w-9" :src="`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
+                <img class="w-9" :src="`https://crystal-hair-nail.nyc3.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
               </template>
               <template v-slot:preloader>
                 <img class="w-9" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
@@ -56,15 +56,7 @@
             </div>
           </div>
           <div v-else >
-            <vue-load-image>
-              <template v-slot:image>
-                <img @click="overlayMilky(slotProps.index)" class="w-9" :src="`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
-              </template>
-              <template v-slot:preloader>
-                <img class="w-9" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
-              </template>
-              <template v-slot:error>Image load fails</template>
-            </vue-load-image>
+                <img @click="overlayMilky(slotProps.index)" class="w-9" :src="`https://crystal-hair-nail.nyc3.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
           </div>
 
           <div class="cgb-0-info">
@@ -127,8 +119,8 @@ watch(
 <script>
 export default defineComponent({
   data: () => ({
-    index: -1,
-    showOverlay: false
+    index: 128,
+    showOverlay: true
   }),
   methods: {
     swipe (direction) {

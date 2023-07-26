@@ -22,18 +22,19 @@
 
               <pane :size="30">
                 <splitpanes class="default-theme" :vertical="true">
-                  <pane :size="50">
+                   <pane :size="50">
+                    <TableModule
+                      :contentData="linkContents"
+                      :tableOrder="[ 'url']"
+                    />
+                  </pane>
+					<pane :size="50">
                     <TableModule
                       :contentData="sourceUrls"
                       :tableOrder="[ 'count', 'name', 'urls']"
                     />
                   </pane>
-                  <pane :size="50">
-                    <TableModule
-                      :contentData="sourceUrls"
-                      :tableOrder="[ 'count', 'name', 'urls']"
-                    />
-                  </pane>
+
                 </splitpanes>
               </pane>
 
@@ -96,7 +97,7 @@ export default defineComponent({
     },
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
-        const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - 20) % 90
+        const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - 23) % 90
         const offset = (extra / window.innerWidth) * 100
         if (screen.width <= 760 && this.paneSize < 70) {
           this.paneSize = this.paneSize + offset
@@ -128,5 +129,5 @@ export default defineComponent({
 <script setup lang="ts">
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line
-const { hypertexts, kernals, sourceUrls } = storeToRefs(ApiStore())
+const { hypertexts, kernals, linkContents, sourceUrls } = storeToRefs(ApiStore())
 </script>

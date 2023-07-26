@@ -95,6 +95,6 @@ export default defineComponent({
   @import './style/Main.scss';
   @import './style/Content.scss';
   @import './style/SplitterPanel.scss';
-  @import 'splitpanes/dist/splitpanes.css'
+  @import 'splitpanes/dist/splitpanes.css';
   @import 'primeflex/primeflex.css';
 </style>

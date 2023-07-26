@@ -97,7 +97,6 @@ div{
   max-height:100%;
   max-width:100%;
 
-  .overlay {
     height:30dvh;
     max-width:100%;
     z-index: 10;
@@ -115,7 +114,6 @@ div{
         object-fit: contain;
         z-index: 10;
       }
-    }
   }
 }
 
