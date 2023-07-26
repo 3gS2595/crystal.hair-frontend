@@ -12,7 +12,7 @@ const s3Client = new S3({
 })
 
 // enerates the URL.
-export const run = async (path) => {
+export const s3img = async (path) => {
   try {
     const url = await getSignedUrl(s3Client, new GetObjectCommand({ Bucket: 'crystal-hair', Key: path }), { expiresIn: 15 * 60 }) // Adjustable expiration.
     console.log('URL:', url)

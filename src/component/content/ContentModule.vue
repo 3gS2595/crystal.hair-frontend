@@ -13,7 +13,7 @@
               </span>
             </template>
             <template v-slot:preloader>
-              <img class="w-9" src="http://3.130.240.169/auxiliaries/image-loader.gif" rel="preload"/>
+              <img class="w-9" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
             </template>
           </vue-load-image>
         </div>
@@ -40,7 +40,7 @@
                 <img class="w-9" :src="`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
               </template>
               <template v-slot:preloader>
-                <img class="w-9" src="http://3.130.240.169/auxiliaries/image-loader.gif" rel="preload"/>
+                <img class="w-9" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
               </template>
               <template v-slot:error>Image load fails</template>
             </vue-load-image>
@@ -64,7 +64,7 @@
                 <img @click="overlayMilky(slotProps.index)" class="w-9" :src="`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
               </template>
               <template v-slot:preloader>
-                <img class="w-9" src="http://3.130.240.169/auxiliaries/image-loader.gif" rel="preload"/>
+                <img class="w-9" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
               </template>
               <template v-slot:error>Image load fails</template>
             </vue-load-image>
@@ -92,7 +92,7 @@ import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import { FilterMatchMode } from 'primevue/api'
 import { useCounterStore } from '@/store/GlobalStore'
 import VueLoadImage from 'vue-load-image'
-import { run } from '../digitalOcean/s3GetImg.ts'
+import { s3img } from '../s3/s3GetImg.ts'
 
 const store = useCounterStore()
 const props = defineProps({
