@@ -40,7 +40,9 @@
               <template v-slot:preloader>
                 <img class="w-9" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
               </template>
-              <template v-slot:error>Image load fails</template>
+              <template v-slot:error>
+                Image load fails
+              </template>
             </vue-load-image>
           </div>
           <span class="flex align-items-left gap-2">
@@ -50,22 +52,24 @@
       </template>
 
       <template #grid="slotProps">
-        <div class="cgb-0" id="contentBlock">
-          <div v-if="slotProps.data.file_type === '.txt'">
-            <div class="textContent">
-                  <a>{{ slotProps.data.description }}</a>
+        <div v-if="slotProps.data.url != null">
+          <div class="cgb-0" id="contentBlock"  v-if="slotProps.data.url.includes(store.filter)">
+            <div v-if="slotProps.data.file_type === '.txt'">
+              <div class="textContent">
+                    <a>{{ slotProps.data.description }}</a>
+              </div>
             </div>
-          </div>
-          <div v-else >
-                <img @click="overlayMilky(slotProps.index)" class="w-9" :src="`https://crystal-hair-nail.nyc3.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
-          </div>
+            <div v-else >
+                  <img @click="overlayMilky(slotProps.index)" class="w-9" :src="`https://crystal-hair-nail.nyc3.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
+            </div>
 
-          <div class="cgb-0-info">
-            <div class="file_path" >
-              {{ slotProps.data.created_at }}
-            </div>
-            <div class="file_path" >
-              <a :href="slotProps.data.url" target="_blank" >{{ slotProps.data.author }}</a>
+            <div class="cgb-0-info">
+              <div class="file_path" >
+                {{ slotProps.data.created_at }}
+              </div>
+              <div class="file_path" >
+                <a :href="slotProps.data.url" target="_blank" >{{ slotProps.data.author }}</a>
+              </div>
             </div>
           </div>
         </div>
@@ -76,46 +80,22 @@
 </template>
 
 <script setup>
-import { ref, watch, defineComponent } from 'vue'
+import { ref, defineComponent } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
-import { FilterMatchMode } from 'primevue/api'
 import { useCounterStore } from '@/store/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 import { s3img } from '../s3/s3GetImg.ts'
 
-const store = useCounterStore()
 const layout = ref('grid')
-
+const store = useCounterStore()
 const props = defineProps({
-  size: {
-    type: Number,
-    default: 30
-  },
   contentData: {
     type: Array,
     default: () => [],
     required: true
   }
 })
-
-const filters = ref({
-  global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS }
-})
-watch(
-  () => store.filter,
-  () => {
-    filters.value.global.value = store.filter
-  }
-)
-watch(
-  () => filters.value.global.value,
-  () => {
-    if ((store.filter !== filters.value.global.value)) {
-      store.setFilter(filters.value.global.value)
-    }
-  }
-)
 </script>
 
 <script>
@@ -142,4 +122,5 @@ export default defineComponent({
       this.showOverlay = !this.showOverlay
     }
   }
-})</script>
+})
+</script>

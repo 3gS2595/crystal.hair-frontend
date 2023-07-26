@@ -95,13 +95,14 @@ export default defineComponent({
     },
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
-        if (screen.width <= 760 && screen.width < screen.height && this.paneSize < 73) {
+        if (screen.width <= 760) {
           const extra = (window.innerWidth * ((100 - this.paneSize) / 100) -8) % 90
           const offset = (extra / window.innerWidth) * 100
-          this.paneSize = this.paneSize + offset
-        } else if (screen.width >= 760 && this.paneSize < 89) {
+          this.paneSizeOffSet = offset
+        } else if (screen.width >= 760 ) {
           const extra = (window.innerWidth * ((100 - this.paneSize) / 100) -23) % 90
           const offset = (extra / window.innerWidth) * 100
+		  console.log(this.paneSizeOffSet)
           this.paneSizeOffSet = offset
         }
       }
