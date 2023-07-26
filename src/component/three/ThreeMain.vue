@@ -79,11 +79,13 @@ export default {
         console.log(apij.value)
         for (let i = 0; i < apij.value.length; i++) {
           const obj = JSON.parse(JSON.stringify(apij.value[i]))
-          console.log(('/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', ''))
-          const path = ('/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', '')
+          console.log(('http://3.130.240.169/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', ''))
+          const path = ('http://3.130.240.169/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', '')
           const img = new Image()
           img.src = (path)
+          console.log(path)
           img.onload = function () {
+            console.log('LOADED IMAGE')
             const material = new THREE.MeshLambertMaterial({ map: loaderJPG.load(path), transparent: true })
             const plane = new THREE.PlaneGeometry(10, 8, 1)
             forms[i] = new THREE.Mesh(plane, material)

@@ -64,7 +64,7 @@ export default defineComponent({
   },
   methods: {
     windowPop () {
-      window.open('http://192.168.1.179:8080', '_blank', 'toolbar=0,location=0,menubar=0')
+      window.open('http://ec2-3-139-237-197.us-east-2.compute.amazonaws.com/', '_blank', 'toolbar=0,location=0,menubar=0')
     },
     cookies () {
       const themeTemp = localStorage.getItem('darkModeBool')
