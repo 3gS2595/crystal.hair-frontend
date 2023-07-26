@@ -7,7 +7,6 @@ import { defineComponent } from 'vue'
 import { mapActions } from 'vuex'
 
 import '@/store/index.ts'
-console.log('awkjhfae')
 export default defineComponent({
   name: 'LogOutBtn',
   methods: {

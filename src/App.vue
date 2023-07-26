@@ -3,32 +3,44 @@
     <div v-if='isLoggedIn'>
       <nav>
         <router-link to='/'>rss</router-link>
-        <a>-</a>
-        <router-link to='/annex'>annex</router-link>
-        <a>-</a>
-        <a
-          style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
-          @click="darkToggle"
-        >theme</a>
-        <a>-</a>
-        <LogOutBtn/>
-        <a>-</a>
-        <a
-          style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
-          @click="windowPop"
-        >wind</a>
 
         <a>-</a>
+
+        <router-link to='/annex'>annex</router-link>
+
+        <a>-</a>
+
         <a
           style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
-          @click="cookies"
-        >cookies</a>
+          @click="darkToggle">
+          theme
+        </a>
+
+        <a>-</a>
+
+        <LogOutBtn/>
+
+        <a>-</a>
+
+        <a
+          style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
+          @click="windowPop">
+          wind
+        </a>
+
+        <a>-</a>
+
+        <a
+          style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
+          @click="cookies">
+          cookies
+        </a>
 
       </nav>
       <router-view/>
     </div>
 
-    <div v-else>
+    <div v-else-if= '!isLoggedIn'>
       <SessionManager/>
     </div>
   </div>
@@ -51,7 +63,11 @@ if (localStorage.getItem('darkModeBool') === 'true') {
 }
 if (window.navigator.standalone) {
   const mainc = document.getElementById('app')
-  mainc.style.paddingTop = '40px'
+  mainc.classList.add('standalone' )
+} else {
+ const mainc = document.getElementById('app')
+  mainc.classList.add('stane' )
+
 }
 export default defineComponent({
   computed: {

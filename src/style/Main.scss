@@ -60,3 +60,8 @@ a:visited {
 .tableCard{
   overflow: scroll;
 }
+ @media screen and (min-width:320px) and (max-width:767px){ 
+  .standalone{
+      padding-top: 43px!important;
+  }
+}

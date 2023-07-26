@@ -1,23 +1,24 @@
 <template>
   <div class="contentView">
 
-	<div v-if="showOverlay" class="lightbox">
-	  <button class="btn btn-dark" @click="swipe('left')" >PREV</button>
-	  <button class="btn btn-dark" @click="swipe('right')" >NEXT</button>
-	  <button class="btn btn-dark" @click="overlayToggle()" >{{index}}</button>
-	  <vue-load-image>
-		<template v-slot:image>
-		  <span  v-touch:swipe="swipe">
-			<img @click="overlayToggle" class="overlayImg" :src="`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${props.contentData[index].file_path}`"/>
-		  </span>
-		</template>
-		<template v-slot:preloader>
-		  <img class="w-9" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
-		</template>
-	  </vue-load-image>
-	</div>
+    <div v-if="showOverlay" class="lightbox">
+      <button class="btn btn-dark" @click="swipe('left')" >PREV</button>
+      <button class="btn btn-dark" @click="swipe('right')" >NEXT</button>
+      <button class="btn btn-dark" @click="overlayToggle()" >{{index}}</button>
+      <vue-load-image>
+        <template v-slot:image>
+          <span  v-touch:swipe="swipe">
+            <img @click="overlayToggle" class="overlayImg" :src="`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${props.contentData[index].file_path}`"/>
+          </span>
+        </template>
+        <template v-slot:preloader>
+          <img class="w-9-load" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
+        </template>
+      </vue-load-image>
+    </div>
 
     <DataView :value="props.contentData" :layout="layout" :columns="4" :sortOrder="-1" scrollable >
+
       <template #header>
         <div class="flex justify-content-start">
           <DataViewLayoutOptions v-model="layout" />
@@ -47,8 +48,8 @@
           </span>
         </div>
       </template>
-      <template #grid="slotProps">
 
+      <template #grid="slotProps">
         <div class="cgb-0" id="contentBlock">
           <div v-if="slotProps.data.file_type === '.txt'">
             <div class="textContent">
@@ -69,6 +70,7 @@
           </div>
         </div>
       </template>
+
     </DataView>
   </div>
 </template>

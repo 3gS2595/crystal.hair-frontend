@@ -8,18 +8,17 @@
           @resized="resizeContentFit()"
           style="height: calc(100vh - 18px); width:100vw;"
           class="default-theme"
-        >
+          >
+
           <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
             <ThreeMain :imageData="hypertexts"/>
             <splitpanes :horizontal="true">
-
               <pane :size="70">
                 <TableModule
                   :contentData="hypertexts"
                   :tableOrder="['name', 'time_posted', 'url']"
                 />
               </pane>
-
               <pane :size="30">
                 <splitpanes class="default-theme" :vertical="true">
                    <pane :size="50">
@@ -28,22 +27,21 @@
                       :tableOrder="[ 'url']"
                     />
                   </pane>
-					<pane :size="50">
+                    <pane :size="50">
                     <TableModule
-                      :contentData="sourceUrls"
+                      :contentData="linkContents"
                       :tableOrder="[ 'count', 'name', 'urls']"
                     />
                   </pane>
-
                 </splitpanes>
               </pane>
-
             </splitpanes>
           </pane>
 
           <pane v-on:dblclick="resize(0)" :size="(100 - (paneSize + paneSizeOffSet))">
             <ContentModule :contentData="kernals"/>
           </pane>
+
         </splitpanes>
       </div>
 
@@ -53,7 +51,7 @@
     </template>
 
     <template #fallback>
-      <span>Loading...</span>
+      <span>Loading</span>
     </template>
 
   </Suspense>
@@ -97,11 +95,13 @@ export default defineComponent({
     },
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
-        const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - 23) % 90
-        const offset = (extra / window.innerWidth) * 100
-        if (screen.width <= 760 && this.paneSize < 70) {
+        if (screen.width <= 760 && screen.width < screen.height && this.paneSize < 73) {
+          const extra = (window.innerWidth * ((100 - this.paneSize) / 100) -8) % 90
+          const offset = (extra / window.innerWidth) * 100
           this.paneSize = this.paneSize + offset
         } else if (screen.width >= 760 && this.paneSize < 89) {
+          const extra = (window.innerWidth * ((100 - this.paneSize) / 100) -23) % 90
+          const offset = (extra / window.innerWidth) * 100
           this.paneSizeOffSet = offset
         }
       }
@@ -113,6 +113,7 @@ export default defineComponent({
   mounted () {
     if (ApiStore().sourceUrls.length === 0) {
       window.addEventListener('resize', this.resizeContentFit)
+      window.addEventListener('orientationchange', this.resizeContentFit) 
       const userToken = ApiStore().initialize()
       userToken.then(function (data) {
         console.log(data)
@@ -122,6 +123,7 @@ export default defineComponent({
   },
   unmounted () {
     window.removeEventListener('resize', this.resizeContentFit)
+    window.removeEventListener('orientationchange', this.resizeContentFit) 
   }
 })
 </script >
