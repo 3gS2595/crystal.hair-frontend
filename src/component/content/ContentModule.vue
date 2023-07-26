@@ -1,26 +1,23 @@
 <template>
   <div class="contentView">
 
-      <div class="lightbox">
-        <div v-if="showOverlay" class="overlay">
-          <button class="btn btn-dark" @click="swipe('left')" >PREV</button>
-          <button class="btn btn-dark" @click="swipe('right')" >NEXT</button>
-          <button class="btn btn-dark" @click="overlayToggle()" >{{index}}</button>
-          <vue-load-image>
-            <template v-slot:image>
-              <span  v-touch:swipe="swipe">
-                <img @click="overlayToggle" class="overlayImg" :src="`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${props.contentData[index].file_path}`"/>
-              </span>
-            </template>
-            <template v-slot:preloader>
-              <img class="w-9" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
-            </template>
-          </vue-load-image>
-        </div>
-      </div>
+	<div v-if="showOverlay" class="lightbox">
+	  <button class="btn btn-dark" @click="swipe('left')" >PREV</button>
+	  <button class="btn btn-dark" @click="swipe('right')" >NEXT</button>
+	  <button class="btn btn-dark" @click="overlayToggle()" >{{index}}</button>
+	  <vue-load-image>
+		<template v-slot:image>
+		  <span  v-touch:swipe="swipe">
+			<img @click="overlayToggle" class="overlayImg" :src="`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${props.contentData[index].file_path}`"/>
+		  </span>
+		</template>
+		<template v-slot:preloader>
+		  <img class="w-9" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
+		</template>
+	  </vue-load-image>
+	</div>
 
     <DataView :value="props.contentData" :layout="layout" :columns="4" :sortOrder="-1" scrollable >
-
       <template #header>
         <div class="flex justify-content-start">
           <DataViewLayoutOptions v-model="layout" />
@@ -80,7 +77,6 @@
           </div>
         </div>
       </template>
-
     </DataView>
   </div>
 </template>
@@ -95,6 +91,8 @@ import VueLoadImage from 'vue-load-image'
 import { s3img } from '../s3/s3GetImg.ts'
 
 const store = useCounterStore()
+const layout = ref('grid')
+
 const props = defineProps({
   size: {
     type: Number,
@@ -106,6 +104,7 @@ const props = defineProps({
     required: true
   }
 })
+
 const filters = ref({
   global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS }
 })
@@ -123,8 +122,8 @@ watch(
     }
   }
 )
-const layout = ref('grid')
 </script>
+
 <script>
 export default defineComponent({
   data: () => ({
@@ -140,8 +139,6 @@ export default defineComponent({
       }
     },
     overlayMilky (ind) {
-      console.log(ind)
-      console.log(this.index)
       this.index = ind
       if (!this.showOverlay) {
         this.showOverlay = true
@@ -152,7 +149,3 @@ export default defineComponent({
     }
   }
 })</script>
-
-<style lang="css" scoped>
-  @import 'primeflex/primeflex.css';
-</style>

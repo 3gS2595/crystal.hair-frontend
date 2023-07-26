@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.377.0",
     "@aws-sdk/s3-request-presigner": "^3.377.0",
     "@tanstack/match-sorter-utils": "^8.8.4",
     "@tanstack/vue-table": "8.9.3",
