@@ -9,9 +9,13 @@
           style="height: calc(100vh - 18px); width:100vw;"
           class="default-theme"
           >
-
           <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
             <ThreeMain :imageData="hypertexts"/>
+
+          <span>{{testing0}}</span>
+          <span>{{testing1}}</span>
+          <span>{{testing2}}</span>
+          <span>{{testing3}}</span>
             <splitpanes :horizontal="true">
               <pane :size="70">
                 <TableModule
@@ -23,13 +27,13 @@
                 <splitpanes class="default-theme" :vertical="true">
                    <pane :size="50">
                     <TableModule
-                      :contentData="linkContents"
+                      :contentData="sourceUrls"
                       :tableOrder="[ 'url']"
                     />
                   </pane>
                     <pane :size="50">
                     <TableModule
-                      :contentData="linkContents"
+                      :contentData="sourceUrls"
                       :tableOrder="[ 'count', 'name', 'urls']"
                     />
                   </pane>
@@ -64,14 +68,18 @@ import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
-
+const testing0 = getComputedStyle(document.documentElement).getPropertyValue("--sat")
+const testing1 = getComputedStyle(document.documentElement).getPropertyValue("--sar")
+const testing2 = getComputedStyle(document.documentElement).getPropertyValue("--sab")
+const testing3 = getComputedStyle(document.documentElement).getPropertyValue("--sal")
 const loaded = ref(false)
 export default defineComponent({
   data: () => ({
     paneStateContent: 0,
     paneSize: 50,
     paneSizeOffSet: 0,
-    paneSizeOffSetTemp: 0
+    paneSizeOffSetTemp: 0,
+    scroll: -1
   }),
   components: {
     TableModule,
@@ -93,16 +101,27 @@ export default defineComponent({
       }
       this.resizeContentFit()
     },
+    scrollWidth: function () {
+      if (this.scroll === -1) {
+        const el = document.createElement('div')
+        el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
+        document.body.appendChild(el)
+        const width = el.offsetWidth - el.clientWidth + 8
+        el.remove()
+        this.scroll = width
+      }
+      return this.scroll
+    },
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
         if (screen.width <= 760) {
-          const extra = (window.innerWidth * ((100 - this.paneSize) / 100) -8) % 90
+          const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - this.scrollWidth()) % 90
           const offset = (extra / window.innerWidth) * 100
           this.paneSizeOffSet = offset
-        } else if (screen.width >= 760 ) {
-          const extra = (window.innerWidth * ((100 - this.paneSize) / 100) -23) % 90
+        } else if (screen.width >= 760) {
+          const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - this.scrollWidth()) % 90
           const offset = (extra / window.innerWidth) * 100
-		  console.log(this.paneSizeOffSet)
+          console.log(this.paneSizeOffSet)
           this.paneSizeOffSet = offset
         }
       }
@@ -114,7 +133,7 @@ export default defineComponent({
   mounted () {
     if (ApiStore().sourceUrls.length === 0) {
       window.addEventListener('resize', this.resizeContentFit)
-      window.addEventListener('orientationchange', this.resizeContentFit) 
+      window.addEventListener('orientationchange', this.resizeContentFit)
       const userToken = ApiStore().initialize()
       userToken.then(function (data) {
         console.log(data)
@@ -124,7 +143,7 @@ export default defineComponent({
   },
   unmounted () {
     window.removeEventListener('resize', this.resizeContentFit)
-    window.removeEventListener('orientationchange', this.resizeContentFit) 
+    window.removeEventListener('orientationchange', this.resizeContentFit)
   }
 })
 </script >
@@ -132,5 +151,5 @@ export default defineComponent({
 <script setup lang="ts">
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line
-const { hypertexts, kernals, linkContents, sourceUrls } = storeToRefs(ApiStore())
+const { hypertexts, kernals } = storeToRefs(ApiStore())
 </script>

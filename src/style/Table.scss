@@ -7,6 +7,7 @@ $dropDownBorder: 3px solid var(--border-primary);
 .tableCard{
 	border-top: $tableBorder;
 	border-left: $tableBorder;
+  overflow:hidden!important;
   input{
     max-width:25px;
   }

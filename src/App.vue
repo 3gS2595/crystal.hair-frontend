@@ -40,7 +40,7 @@
       <router-view/>
     </div>
 
-    <div v-else-if= '!isLoggedIn'>
+    <div v-else>
       <SessionManager/>
     </div>
   </div>
@@ -54,7 +54,28 @@ import '@/store/index.ts'
 import SessionManager from '@/component/sessionManager/SessionManager.vue'
 const themeClasses = ['theme-light', 'theme-dark']
 const app = document.getElementById('app')
+window.onorientationchange = function() { 
+  var orientation = window.orientation; 
+    const topP = getComputedStyle(document.documentElement).getPropertyValue("--sat")
+    const sidP = getComputedStyle(document.documentElement).getPropertyValue("--sar")
+  if (orientation === 0) {
+    app.style.paddingTop = topP
+    app.style.paddingRight = 0
+    app.style.paddingLeft = 0 
+  }
+  if (orientation === 90) {
+    app.style.paddingTop = 0
+    app.style.paddingRight = 0
+    app.style.paddingLeft = sidP
+  }
 
+  if (orientation === -90) {
+    app.style.paddingTop = 0
+    app.style.paddingRight = sidP
+    app.style.paddingLeft = 0 
+  }
+
+}
 // preFetch
 if (localStorage.getItem('darkModeBool') === 'true') {
   app.classList.add('theme-dark')
@@ -63,11 +84,10 @@ if (localStorage.getItem('darkModeBool') === 'true') {
 }
 if (window.navigator.standalone) {
   const mainc = document.getElementById('app')
-  mainc.classList.add('standalone' )
+  mainc.classList.add('standalone')
 } else {
- const mainc = document.getElementById('app')
-  mainc.classList.add('stane' )
-
+  const mainc = document.getElementById('app')
+  mainc.classList.add('stane')
 }
 export default defineComponent({
   computed: {

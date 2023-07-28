@@ -7,3 +7,8 @@ module.exports = {
     allowedHosts: "all",
  },
 }; 
+// vue.config.js placed in root
+module.exports = {
+  publicPath: "./",
+};
+
