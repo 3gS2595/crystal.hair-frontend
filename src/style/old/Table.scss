@@ -1,12 +1,13 @@
 @import "./ThemeModes";
 
+$gridWidth: 200px;
 $tableBorder: 1px solid var(--border-primary);
 $dropDownBorder: 3px solid var(--border-primary);
 
 .tableCard{
 	border-top: $tableBorder;
 	border-left: $tableBorder;
-  height:100%;
+  overflow:hidden!important;
   input{
     max-width:25px;
   }
@@ -23,6 +24,7 @@ $dropDownBorder: 3px solid var(--border-primary);
 	td {
 		border-bottom: $tableBorder;
 		border-right: $tableBorder;
+    overflow:scroll;
 	}
   .tableCard td a{
     max-width:10px;
@@ -47,6 +49,9 @@ $dropDownBorder: 3px solid var(--border-primary);
     display: block;
   }
   .p-column-filter-row {
+    align-items:stretch;
+    text-align: left;
+    border-collapse: collapse;
   }
   .p-column-filter-menu-button, .p-column-filter-clear-button {
     padding: 0px;
@@ -72,4 +77,8 @@ $dropDownBorder: 3px solid var(--border-primary);
   border: $tableBorder;
 }
 .p-multiselect-label{
+}
+
+.p-datatable-header{
+	height: 10px!important;
 }

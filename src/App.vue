@@ -1,48 +1,50 @@
 <template>
-  <div id="app" >
-    <div v-if='isLoggedIn'>
-      <nav>
-        <router-link to='/'>rss</router-link>
+  <div v-if='isLoggedIn'>
+    <nav>
+      <router-link to='/'>rss</router-link>
 
-        <a>-</a>
+      <a>-</a>
 
-        <router-link to='/annex'>annex</router-link>
+      <router-link to='/annex'>annex</router-link>
 
-        <a>-</a>
+      <a>-</a>
 
-        <a
-          style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
-          @click="darkToggle">
-          theme
-        </a>
+      <router-link to='/input'>input</router-link>
 
-        <a>-</a>
+      <a>-</a>
 
-        <LogOutBtn/>
+      <a
+        style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
+        @click="darkToggle">
+        theme
+      </a>
 
-        <a>-</a>
+      <a>-</a>
 
-        <a
-          style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
-          @click="windowPop">
-          wind
-        </a>
+      <LogOutBtn/>
 
-        <a>-</a>
+      <a>-</a>
 
-        <a
-          style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
-          @click="cookies">
-          cookies
-        </a>
+      <a
+        style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
+        @click="windowPop">
+        wind
+      </a>
 
-      </nav>
-      <router-view/>
-    </div>
+      <a>-</a>
 
-    <div v-else>
-      <SessionManager/>
-    </div>
+      <a
+        style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
+        @click="cookies">
+        cookies
+      </a>
+
+    </nav>
+    <router-view/>
+  </div>
+
+  <div v-else>
+    <SessionManager/>
   </div>
 </template>
 
@@ -52,30 +54,10 @@ import { defineComponent } from 'vue'
 import { mapGetters } from 'vuex'
 import '@/store/index.ts'
 import SessionManager from '@/component/sessionManager/SessionManager.vue'
+
 const themeClasses = ['theme-light', 'theme-dark']
 const app = document.getElementById('app')
-window.onorientationchange = function() { 
-  var orientation = window.orientation; 
-    const topP = getComputedStyle(document.documentElement).getPropertyValue("--sat")
-    const sidP = getComputedStyle(document.documentElement).getPropertyValue("--sar")
-  if (orientation === 0) {
-    app.style.paddingTop = topP
-    app.style.paddingRight = 0
-    app.style.paddingLeft = 0 
-  }
-  if (orientation === 90) {
-    app.style.paddingTop = 0
-    app.style.paddingRight = 0
-    app.style.paddingLeft = sidP
-  }
 
-  if (orientation === -90) {
-    app.style.paddingTop = 0
-    app.style.paddingRight = sidP
-    app.style.paddingLeft = 0 
-  }
-
-}
 // preFetch
 if (localStorage.getItem('darkModeBool') === 'true') {
   app.classList.add('theme-dark')
@@ -122,6 +104,28 @@ export default defineComponent({
     }
   }
 })
+
+window.onorientationchange = function () {
+  const orientation = window.orientation
+  const topP = getComputedStyle(document.documentElement).getPropertyValue('--sat')
+  const sidP = getComputedStyle(document.documentElement).getPropertyValue('--sar')
+  if (orientation === 0) {
+    app.style.paddingTop = topP
+    app.style.paddingRight = 0
+    app.style.paddingLeft = 0
+  }
+  if (orientation === 90) {
+    app.style.paddingTop = 0
+    app.style.paddingRight = 0
+    app.style.paddingLeft = sidP
+  }
+
+  if (orientation === -90) {
+    app.style.paddingTop = 0
+    app.style.paddingRight = sidP
+    app.style.paddingLeft = 0
+  }
+}
 </script>
 
 <style lang='scss'>
@@ -131,6 +135,9 @@ export default defineComponent({
   @import './style/Main.scss';
   @import './style/Content.scss';
   @import './style/SplitterPanel.scss';
+  @import './style/Font.scss';
+  @import './style/WebKit.scss';
+
   @import 'splitpanes/dist/splitpanes.css';
   @import 'primeflex/primeflex.css';
 </style>

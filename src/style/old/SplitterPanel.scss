@@ -21,10 +21,16 @@
 // slider section
 .splitpanes.default-theme .splitpanes__splitter {
     background-color: var(--background-primary)!important;
+    box-sizing: border-box;
+    position: relative;
+    flex-shrink: 0;
     border: 1px solid var(--border-primary);
 }
 .splitpanes {
   overflow:none;
 
 }
-
+.splitpanes__pane{
+display: block;
+max-height:100%;
+}

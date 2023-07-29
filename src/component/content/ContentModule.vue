@@ -60,7 +60,7 @@
               </div>
             </div>
             <div v-else >
-              <v-lazy-image @click="overlayMilky(slotProps.index)" class="w-9" :src="`https://crystal-hair-nail.nyc3.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
+              <v-lazy-image @click="overlayMilky(slotProps.index)" class="cgb-0-img" :src="`https://crystal-hair-nail.nyc3.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
             </div>
 
             <div class="cgb-0-info">
@@ -86,10 +86,7 @@ import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import { useCounterStore } from '@/store/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 import VLazyImage from 'v-lazy-image'
-document.onkeypress = function (e) {
-    e = e || window.event
-       // use e.keyCode
-}
+
 const layout = ref('grid')
 const store = useCounterStore()
 const props = defineProps({
@@ -107,19 +104,14 @@ export default defineComponent({
     index: -1,
     showOverlay: false
   }),
-  created() {
+  created () {
     window.addEventListener('keydown', (e) => {
-    if (e.keyCode == '37') {
-       // left arrow
-       this.swipe('left')
-    }
-    else if (e.keyCode == '39') {
-       // right arrow
-       this.swipe('right')
-       console.log('jhelkasd')
-    }
-
-  })
+      if (e.keyCode === '37') {
+        this.swipe('left')
+      } else if (e.keyCode === '39') {
+        this.swipe('right')
+      }
+    })
   },
   methods: {
     swipe (direction) {

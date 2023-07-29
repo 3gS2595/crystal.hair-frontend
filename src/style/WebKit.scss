@@ -1,0 +1,11 @@
+@import "./ThemeModes";
+*{
+  -webkit-text-size-adjust: none;
+}
+*::-webkit-scrollbar-track {
+  background:  var(--background-primary);
+  border:1px solid var(--border-primary);
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(132, 132, 147, 0.38);
+}

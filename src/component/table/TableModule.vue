@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang='ts' generic="T">
-import { ref, watch, defineProps } from 'vue'
+import { ref, watch } from 'vue'
 import { FilterMatchMode } from 'primevue/api'
 import InputText from 'primevue/inputtext'
 import Column from 'primevue/column'
