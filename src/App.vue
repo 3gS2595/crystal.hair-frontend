@@ -1,5 +1,5 @@
 <template>
-  <div v-if='isLoggedIn'>
+  <div class='main' id='main' v-if='isLoggedIn'>
     <nav>
       <router-link to='/'>rss</router-link>
 
@@ -43,7 +43,7 @@
     <router-view/>
   </div>
 
-  <div v-else>
+  <div class='main' id='main' v-else>
     <SessionManager/>
   </div>
 </template>
@@ -113,17 +113,20 @@ window.onorientationchange = function () {
     app.style.paddingTop = topP
     app.style.paddingRight = 0
     app.style.paddingLeft = 0
+    app.style.minWidth = String(window.innerWidth) + "px"
   }
   if (orientation === 90) {
     app.style.paddingTop = 0
     app.style.paddingRight = 0
     app.style.paddingLeft = sidP
+    app.style.width = String((window.innerWidth - parseInt(sidP.substring(0,2)))) + "px"
   }
 
   if (orientation === -90) {
     app.style.paddingTop = 0
     app.style.paddingRight = sidP
     app.style.paddingLeft = 0
+    app.style.width = String((window.innerWidth - parseInt(sidP.substring(0,2)))) + "px"
   }
 }
 </script>

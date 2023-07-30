@@ -9,7 +9,6 @@
       responsive="true"
       dataKey="id"
       scrollable scrollHeight="flex"
-      filterDisplay="row"
     >
       <template #empty>empty placeholder</template>
 

@@ -6,13 +6,15 @@
         <splitpanes
           @resize="paneSize = $event[0].size"
           @resized="resizeContentFit()"
-          style="height: calc(100%); width:100%;"
           class="default-theme"
           >
           <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
             <ThreeMain :imageData="hypertexts"/>
 
-            <splitpanes :horizontal="true">
+            <splitpanes
+            class="default-theme"
+            :horizontal="true"
+            >
               <pane :size="70">
                 <TableModule
                   :contentData="hypertexts"
@@ -107,24 +109,23 @@ export default defineComponent({
     },
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
+        const el = document.getElementById('main')
+        const width = el.offsetWidth
         if (screen.width <= 760) {
-          const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - this.scrollWidth()) % 90
-          const offset = (extra / window.innerWidth) * 100
+          const extra = (width * ((100 - this.paneSize) / 100) - this.scrollWidth()) % 90
+          const offset = (extra / width) * 100
           this.paneSizeOffSet = offset
         } else if (screen.width >= 760) {
-          const extra = (window.innerWidth * ((100 - this.paneSize) / 100) - this.scrollWidth()) % 90
-          const offset = (extra / window.innerWidth) * 100
-          console.log(this.paneSizeOffSet)
+          const extra = (width * ((100 - this.paneSize) / 100) - this.scrollWidth()) % 90
+          const offset = (extra / width) * 100
           this.paneSizeOffSet = offset
         }
       }
     }
   },
-  beforeMount () {
-    this.resizeContentFit()
-  },
   mounted () {
     if (ApiStore().sourceUrls.length === 0) {
+      this.resizeContentFit()
       window.addEventListener('resize', this.resizeContentFit)
       window.addEventListener('orientationchange', this.resizeContentFit)
       const userToken = ApiStore().initialize()

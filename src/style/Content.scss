@@ -3,17 +3,21 @@
 .contentView{
   height:100%;
   width:100%;
-
+  .p-dataview-header{
+    height:18.72px;
+  }
   .p-dataview-content{
 
-    .p-grid{
-      border: 1px solid var(--border-primary);
+    .grid{
+      justify-content: flex-end;
+      align-content: flex-start;
+      outline: 1px solid var(--border-primary);
       height:calc(100% - 18.72px);
       position:absolute;
       overflow-y:scroll;
       
       .cgb-0{
-        border: 1px solid var(--border-primary);
+        outline: 1px solid var(--border-primary);
         max-width:90px;
 
         .cgb-0-img {

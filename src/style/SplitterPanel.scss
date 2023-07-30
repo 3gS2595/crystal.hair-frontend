@@ -2,6 +2,8 @@
 // content pane
 .splitpanes.default-theme .splitpanes__pane{
   background-color: var(--background-primary);
+
+      outline: 1px solid var(--border-primary);
 }
 // middle segment
 .splitpanes.default-theme .splitpanes__splitter:before{
@@ -25,6 +27,8 @@
 }
 .splitpanes {
   overflow:none;
+
+      outline: 1px solid var(--border-primary);
 
 }
 

@@ -1,32 +1,47 @@
 @import "./ThemeModes";
 
-$border:0px;
-$devH:100dvh;
-$devW:100dvw;
+$hun:100%;
+$navH:17px;
+$border:5px;
+$devH:100vh;
+$devW:100vw;
+$iosTop: env(safe-area-inset-top, 0px);
+ 
 html, body {
   overscroll-behavior: none;
   overflow: hidden;
   margin:0;
 
   #app {
+    padding-top:$iosTop;
     position:relative;
     background-color: var(--background-primary);
-    width: unquote("calc( #{$devW} - #{$border} )"); 
-    max-width: unquote("calc( #{$devW} - #{$border} )");
-    height:unquote("calc( #{$devH} - #{$border} )");
-    max-height: unquote("calc( #{$devH} - #{$border} )");
-
-    #contentMain{
-      height:calc(100% - 17px);
+    width: unquote("calc( #{$devW})"); 
+    max-width: unquote("calc( #{$devW})");
+    height:unquote("calc( #{$devH} - (#{$iosTop}))");
+    max-height: unquote("calc( #{$devH} - (#{$iosTop}))");
+    .main{
+      position: inherit;
       width: 100%;
-      position: absolute;
-    }
-    
-    a:link {
-      color:  var(--link)
-    }
-    a:visited {
-      color:  var(--link-visited)
+      height: 100%;
+
+      nav{
+        height:17px;
+      }
+      #contentMain{
+        max-height: unquote("calc(#{$hun} - (#{$navH}) - #{$border})");
+        height: unquote("calc(#{$hun} - (#{$navH} ))");
+        width: 100%;
+        max-width:unquote("calc(#{$hun} - #{$border})");
+        position: absolute;
+      }
+
+      a:link {
+        color:  var(--link)
+      }
+      a:visited {
+        color:  var(--link-visited)
+      }
     }
   }
  }
