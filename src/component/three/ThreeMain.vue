@@ -1,11 +1,15 @@
 <template >
-<Suspense>
-   <template #default>
-      <canvas ref='webGl' class='webGl' />   </template>
-   <template #fallback>
-     <a>Loading...</a>
-   </template>
- </Suspense>
+  <Suspense>
+
+    <template #default>
+      <canvas ref='webGl' class='webGl' />
+    </template>
+
+    <template #fallback>
+      <a>Loading...</a>
+    </template>
+
+  </Suspense>
 </template>
 
 <script lang='ts'>
@@ -77,8 +81,8 @@ export default {
         for (let i = 0; i < apij.value.length; i++) {
           const obj = JSON.parse(JSON.stringify(apij.value[i]))
           const path = ('http://3.130.240.169/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', '')
-
           const loader = new THREE.TextureLoader()
+
           loader.load(path, function (texture) {
             const material = new THREE.MeshLambertMaterial({ map: texture, transparent: true })
             const plane = new THREE.PlaneGeometry(10, 8, 1)
@@ -88,7 +92,6 @@ export default {
 
             // grid placement
             forms[i].position.x += -35 + ((i + 1) * 10.85)
-
             // initial animation
             forms[i].rotation.y = 1
 

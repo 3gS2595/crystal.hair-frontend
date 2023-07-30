@@ -1,7 +1,7 @@
+import App from './App.vue'
 import { createApp } from 'vue'
 import router from './router'
 import { createPinia } from 'pinia'
-import App from './App.vue'
 import PrimeVue from 'primevue/config'
 import store from '@/store/index' // eslint-disable-line
 import Vue3TouchEvents from 'vue3-touch-events'
@@ -27,4 +27,5 @@ app.use(PrimeVue)
 app.use(Vue3TouchEvents, {
   disableClick: false
 })
+
 app.mount('#app')

@@ -2,40 +2,27 @@
   <div class='main' id='main' v-if='isLoggedIn'>
     <nav id='nav'>
       <router-link to='/'>rss</router-link>
-
       <a>-</a>
-
       <router-link to='/annex'>annex</router-link>
-
       <a>-</a>
-
       <router-link to='/input'>input</router-link>
-
       <a>-</a>
-
       <a
         style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
         @click="darkToggle"
         >theme</a>
-
       <a>-</a>
-
       <LogOutBtn/>
-
       <a>-</a>
-
       <a
         style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
         @click="windowPop"
         >wind</a>
-
       <a>-</a>
-
       <a
         style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
         @click="cookies"
         >cookies</a>
-
     </nav>
     <router-view/>
   </div>
@@ -56,6 +43,7 @@ import SessionManager from '@/component/sessionManager/SessionManager.vue'
 const app = document.getElementById('app')
 if (localStorage.getItem('darkModeBool') === 'true') app.classList.add('theme-dark')
 else app.classList.add('theme-light')
+
 export default defineComponent({
   computed: {
     ...mapGetters(['isLoggedIn'])
@@ -65,7 +53,6 @@ export default defineComponent({
     LogOutBtn,
     SessionManager
   },
-
   methods: {
     darkToggle () {
       app.classList.remove(...['theme-light', 'theme-dark'])
@@ -79,18 +66,15 @@ export default defineComponent({
         document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
       }
     },
-
     windowPop () {
       window.open('http://3.130.240.169', '_blank', 'toolbar=0,location=0,menubar=0')
     },
-
     cookies () {
       localStorage.clear()
       sessionStorage.clear()
       location.reload()
     }
   },
-
   mounted () {
     document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
   }
@@ -101,7 +85,6 @@ window.onorientationchange = function () {
   const nav = document.getElementById('nav')
   const orientation = window.orientation
   const topP = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat').substring(0, 2))
-  // const sidP = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sar').substring(0, 2))
   const sidP = 38
 
   if (orientation === 0) {
