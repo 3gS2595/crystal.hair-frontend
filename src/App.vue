@@ -106,27 +106,36 @@ export default defineComponent({
 })
 
 window.onorientationchange = function () {
+
+  const conM = document.getElementById('contentMain')
   const orientation = window.orientation
-  const topP = getComputedStyle(document.documentElement).getPropertyValue('--sat')
-  const sidP = getComputedStyle(document.documentElement).getPropertyValue('--sar')
+  const topP =parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat').substring(0, 2))
+  // const sidP = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sar').substring(0, 2))
+  const sidP = 38
   if (orientation === 0) {
-    app.style.paddingTop = topP
+    app.style.paddingTop = topP + 'px'
     app.style.paddingRight = 0
     app.style.paddingLeft = 0
-    app.style.minWidth = String(window.innerWidth) + "px"
+    conM.style.width = String(window.innerWidth - 9) + 'px'
+    conM.style.borderBottomLeftRadius = '34.0pt';
+    conM.style.borderBottomRightRadius = '34.0pt';
   }
   if (orientation === 90) {
     app.style.paddingTop = 0
-    app.style.paddingRight = 0
-    app.style.paddingLeft = sidP
-    app.style.width = String((window.innerWidth - parseInt(sidP.substring(0,2)))) + "px"
+    app.style.marginRight = 0
+    app.style.paddingLeft = sidP + 'px'
+    conM.style.width = String(window.innerWidth - sidP - 4) + 'px'
+    conM.style.borderBottomLeftRadius = '0pt';
+    conM.style.borderBottomRightRadius = '34.0pt';
   }
 
   if (orientation === -90) {
     app.style.paddingTop = 0
-    app.style.paddingRight = sidP
+    app.style.paddingRight = sidP + 'px'
     app.style.paddingLeft = 0
-    app.style.width = String((window.innerWidth - parseInt(sidP.substring(0,2)))) + "px"
+    conM.style.width = String(window.innerWidth - sidP - 4) + 'px'
+    conM.style.borderBottomLeftRadius = '34.0pt';
+    conM.style.borderBottomRightRadius = '0pt';
   }
 }
 </script>

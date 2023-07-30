@@ -2,38 +2,42 @@
 
 $hun:100%;
 $navH:17px;
-$border:5px;
-$devH:100vh;
-$devW:100vw;
+$border: 21px;
+$devH:100dvh;
+$devW:100dvw;
 $iosTop: env(safe-area-inset-top, 0px);
  
 html, body {
+  margin:0;
   overscroll-behavior: none;
   overflow: hidden;
-  margin:0;
-
   #app {
-    padding-top:$iosTop;
-    position:relative;
     background-color: var(--background-primary);
-    width: unquote("calc( #{$devW})"); 
-    max-width: unquote("calc( #{$devW})");
+    padding-top:$iosTop;
+    width: unquote("calc( #{$devW} )"); 
+    max-width: unquote("calc( #{$devW} )");
     height:unquote("calc( #{$devH} - (#{$iosTop}))");
     max-height: unquote("calc( #{$devH} - (#{$iosTop}))");
+
     .main{
-      position: inherit;
-      width: 100%;
-      height: 100%;
+      width:inherit; 
+      height: inherit;
 
       nav{
         height:17px;
       }
-      #contentMain{
-        max-height: unquote("calc(#{$hun} - (#{$navH}) - #{$border})");
-        height: unquote("calc(#{$hun} - (#{$navH} ))");
-        width: 100%;
-        max-width:unquote("calc(#{$hun} - #{$border})");
-        position: absolute;
+
+      .contentMain{
+        width:calc(100% - 4px); 
+        height:unquote("calc( #{$hun} - (#{$border}))");
+
+        overflow:hidden!important;
+        position:absolute;
+
+        border: 1px solid white;
+        border-bottom-left-radius: 0pt;
+        border-bottom-right-radius: 34.0pt;
+
       }
 
       a:link {
@@ -42,6 +46,7 @@ html, body {
       a:visited {
         color:  var(--link-visited)
       }
+
     }
   }
  }

@@ -1,9 +1,7 @@
 @import "./ThemeModes";
 // content pane
 .splitpanes.default-theme .splitpanes__pane{
-  background-color: var(--background-primary);
-
-      outline: 1px solid var(--border-primary);
+    background-color: rgba(0,0,0,0);
 }
 // middle segment
 .splitpanes.default-theme .splitpanes__splitter:before{
@@ -22,13 +20,13 @@
 }
 // slider section
 .splitpanes.default-theme .splitpanes__splitter {
-    background-color: var(--background-primary)!important;
+    background-color: rgba(0,0,0,0);
     border: 1px solid var(--border-primary);
 }
 .splitpanes {
   overflow:none;
 
-      outline: 1px solid var(--border-primary);
+
 
 }
 

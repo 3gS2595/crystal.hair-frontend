@@ -1,7 +1,26 @@
+
+@import "./ThemeModes";
 .login-form{
+  text-align: center;
   width:100dvw;
+input[type="submit" i]{
+  padding-top:1px;
+  padding-bottom:1px;
+  padding-left: 6px;
+  padding-right:6px;
+}
   input{
-    padding:0;
+    border: 0;
+    background: var(--background-primary);
+    outline: 1px solid  var(--border-primary);
+    font-size:20px;
+    font-weight:1;
+      border-radius: 0;
+  }
+  a{
+
+    font-size:20px;
+    font-weight:1;
   }
 }
 .logout-button{

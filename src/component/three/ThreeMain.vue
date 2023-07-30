@@ -31,8 +31,6 @@ export default {
     }
   },
   setup (props) {
-    const manager = new THREE.LoadingManager()
-    const loaderJPG = new THREE.TextureLoader(manager)
     const store = useCounterStore()
     const webGl = ref()
     const forms: THREE.Mesh[] = []
@@ -46,7 +44,6 @@ export default {
     let camera: THREE.PerspectiveCamera
     let scene: THREE.Scene
     let light: THREE.AmbientLight
-    let loadRot = false
 
     const setCanvas = () => {
       // Create Scene
@@ -79,12 +76,11 @@ export default {
         console.log(apij.value)
         for (let i = 0; i < apij.value.length; i++) {
           const obj = JSON.parse(JSON.stringify(apij.value[i]))
-          // console.log(('http://3.130.240.169/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', ''))
           const path = ('http://3.130.240.169/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', '')
-          const img = new Image()
-          img.src = (path)
-          img.onload = function () {
-            const material = new THREE.MeshLambertMaterial({ map: loaderJPG.load(path), transparent: true })
+
+          const loader = new THREE.TextureLoader();
+          loader.load(path, function (texture) {
+            const material = new THREE.MeshLambertMaterial({ map: texture, transparent: true })
             const plane = new THREE.PlaneGeometry(10, 8, 1)
             forms[i] = new THREE.Mesh(plane, material)
             forms[i].name = JSON.stringify(obj.name)
@@ -96,21 +92,25 @@ export default {
             // initial animation
             forms[i].rotation.y = 1
 
+            // filter click
             interactionManager.add(forms[i])
             forms[i].addEventListener('click', () => {
               if (store.filter === forms[i].userData.URL) store.setFilter('')
               else store.setFilter(forms[i].userData.URL)
             })
             scene.add(forms[i])
-          }
+          })
         }
-        loadRot = true
       }
     }
 
     const animate = () => {
       for (let i = 0, j = forms.length; i < j; i++) {
-        if (forms[i].rotation.y > 0 && loadRot) forms[i].rotation.y -= 0.02
+        if (forms[i] !== undefined){
+          if (forms[i].rotation.y > 0){ 
+            forms[i].rotation.y -= 0.02
+          }
+        } else { console.log(i) }
       }
       renderer.render(scene, camera)
       requestAnimationFrame(animate)

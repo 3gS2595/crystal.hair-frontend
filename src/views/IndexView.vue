@@ -2,7 +2,7 @@
   <Suspense>
 
     <template #default>
-      <div id="contentMain" v-if='loaded'>
+      <div class='contentMain' id="contentMain" v-if='loaded'>
         <splitpanes
           @resize="paneSize = $event[0].size"
           @resized="resizeContentFit()"
@@ -74,7 +74,8 @@ export default defineComponent({
     paneSize: 50,
     paneSizeOffSet: 0,
     paneSizeOffSetTemp: 0,
-    scroll: -1
+    scroll: -1,
+    contEl: null
   }),
   components: {
     TableModule,
@@ -84,6 +85,7 @@ export default defineComponent({
     Pane
   },
   methods: {
+
     resize: function (max) {
       if (this.paneSize !== max) {
         this.paneSizeOffSetTemp = this.paneSizeOffSet
@@ -96,6 +98,7 @@ export default defineComponent({
       }
       this.resizeContentFit()
     },
+
     scrollWidth: function () {
       if (this.scroll === -1) {
         const el = document.createElement('div')
@@ -103,21 +106,20 @@ export default defineComponent({
         document.body.appendChild(el)
         const width = el.offsetWidth - el.clientWidth + 8
         el.remove()
-        this.scroll = width
+        this.scroll = width 
       }
       return this.scroll
     },
+
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
-        const el = document.getElementById('main')
-        const width = el.offsetWidth
+        const width = document.getElementById('contentMain').offsetWidth
         if (screen.width <= 760) {
-          const extra = (width * ((100 - this.paneSize) / 100) - this.scrollWidth()) % 90
+          const extra = ((width * ((100 - this.paneSize) / 100)) - this.scroll) % 90
           const offset = (extra / width) * 100
           this.paneSizeOffSet = offset
         } else if (screen.width >= 760) {
-          const extra = (width * ((100 - this.paneSize) / 100) - this.scrollWidth()) % 90
-          const offset = (extra / width) * 100
+          const offset = ((((width * ((100 - this.paneSize) / 100)) - this.scroll) % 90) / width) * 100
           this.paneSizeOffSet = offset
         }
       }
@@ -125,13 +127,14 @@ export default defineComponent({
   },
   mounted () {
     if (ApiStore().sourceUrls.length === 0) {
-      this.resizeContentFit()
+      this.scrollWidth()
       window.addEventListener('resize', this.resizeContentFit)
       window.addEventListener('orientationchange', this.resizeContentFit)
       const userToken = ApiStore().initialize()
       userToken.then(function (data) {
         console.log(data)
         loaded.value = true
+      this.resizeContentFit()
       })
     }
   },

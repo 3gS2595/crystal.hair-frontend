@@ -37,13 +37,8 @@ $dropDownBorder: 3px solid var(--border-primary);
   .p-dropdown-panel{
     outline: $dropDownBorder;
   }
-  .p-column-filter-row-items{
-    outline: $dropDownBorder;
-  }
   .p-paginator {
     display: block;
-  }
-  .p-column-filter-row {
   }
   .p-column-filter-menu-button, .p-column-filter-clear-button {
     padding: 0px;
@@ -52,9 +47,7 @@ $dropDownBorder: 3px solid var(--border-primary);
     border-right: $tableBorder;
     user-select: none;
   }
-  .p-paginator-bottom{
-    outline: $tableBorder;
-  }
+
   .p-datatable-header{
     outline: $tableBorder;
   }
