@@ -4,7 +4,9 @@
     <template #default>
       <div class='contentMain' id="contentMain" v-if='loaded'>
         <splitpanes
-          @resize="paneSize = $event[0].size"
+         style="width=100%"
+          @ready="init()"
+          @resize="paneSize = $event[0].size; paneSizeOffSet = 0"
           @resized="resizeContentFit()"
           class="default-theme"
           >
@@ -15,13 +17,13 @@
             class="default-theme"
             :horizontal="true"
             >
-              <pane :size="70">
+              <pane :size="40">
                 <TableModule
                   :contentData="hypertexts"
                   :tableOrder="['name', 'time_posted', 'url']"
                 />
               </pane>
-              <pane :size="30">
+              <pane :size="59">
                 <splitpanes class="default-theme" :vertical="true">
                    <pane :size="50">
                     <TableModule
@@ -71,11 +73,10 @@ const loaded = ref(false)
 export default defineComponent({
   data: () => ({
     paneStateContent: 0,
-    paneSize: 50,
+    paneSize: 40.0,
     paneSizeOffSet: 0,
     paneSizeOffSetTemp: 0,
     scroll: -1,
-    contEl: null
   }),
   components: {
     TableModule,
@@ -85,7 +86,11 @@ export default defineComponent({
     Pane
   },
   methods: {
-
+    init:function () {
+      this.resizeContentFit()
+      window.addEventListener('orientationchange', this.resizeContentFit)
+      window.addEventListener('resize', this.resizeContentFit)
+    },
     resize: function (max) {
       if (this.paneSize !== max) {
         this.paneSizeOffSetTemp = this.paneSizeOffSet
@@ -104,7 +109,7 @@ export default defineComponent({
         const el = document.createElement('div')
         el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
         document.body.appendChild(el)
-        const width = el.offsetWidth - el.clientWidth + 8
+        const width = el.offsetWidth 
         el.remove()
         this.scroll = width 
       }
@@ -113,13 +118,15 @@ export default defineComponent({
 
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
-        const width = document.getElementById('contentMain').offsetWidth
+        const width = document.getElementById('contentMain').offsetWidth - 10
         if (screen.width <= 760) {
-          const extra = ((width * ((100 - this.paneSize) / 100)) - this.scroll) % 90
+          const extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scroll) % 90
           const offset = (extra / width) * 100
           this.paneSizeOffSet = offset
         } else if (screen.width >= 760) {
-          const offset = ((((width * ((100 - this.paneSize) / 100)) - this.scroll) % 90) / width) * 100
+          const extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scroll) % 90
+          console.log(extra)
+          const offset = (extra / width) * 100
           this.paneSizeOffSet = offset
         }
       }
@@ -128,17 +135,13 @@ export default defineComponent({
   mounted () {
     if (ApiStore().sourceUrls.length === 0) {
       this.scrollWidth()
-      window.addEventListener('resize', this.resizeContentFit)
-      window.addEventListener('orientationchange', this.resizeContentFit)
       const userToken = ApiStore().initialize()
       userToken.then(function (data) {
         console.log(data)
         loaded.value = true
-      this.resizeContentFit()
       })
     }
-  },
-  unmounted () {
+  },  unmounted () {
     window.removeEventListener('resize', this.resizeContentFit)
     window.removeEventListener('orientationchange', this.resizeContentFit)
   }

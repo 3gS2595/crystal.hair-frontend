@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-export const useCounterStore = defineStore('counter', () => {
+export const filterStore = defineStore('counter', () => {
   const filter = ref('')
   function setFilter (newFilter: string) {
     filter.value = newFilter

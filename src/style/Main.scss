@@ -2,11 +2,13 @@
 
 $hun:100%;
 $navH:17px;
-$border: 21px;
 $devH:100dvh;
 $devW:100dvw;
+
 $iosTop: env(safe-area-inset-top, 0px);
- 
+$border: 21px;
+$radius: 34.0pt;
+
 html, body {
   margin:0;
   overscroll-behavior: none;
@@ -24,20 +26,28 @@ html, body {
       height: inherit;
 
       nav{
-        height:17px;
+        height:$navH;
+
+        border-top: 1px solid var(--border-secondary);
+        border-right: 1px solid var(--border-secondary);
+        border-left: 1px solid var(--border-secondary);
+        border-bottom: 1px solid var(--border-secondary);
       }
 
       .contentMain{
-        width:calc(100% - 4px); 
+        width:calc(100% - 3px);
         height:unquote("calc( #{$hun} - (#{$border}))");
-
         overflow:hidden!important;
         position:absolute;
+        
 
-        border: 1px solid white;
-        border-bottom-left-radius: 0pt;
-        border-bottom-right-radius: 34.0pt;
-
+        border-bottom: 1px solid var(--border-secondary);
+        border-right: 1px solid var(--border-secondary);
+        border-left: 1px solid var(--border-secondary);
+        @media (pointer:none), (pointer:coarse) {
+          border-bottom-left-radius: $radius;
+          border-bottom-right-radius:$radius;
+        }
       }
 
       a:link {
@@ -46,7 +56,6 @@ html, body {
       a:visited {
         color:  var(--link-visited)
       }
-
     }
   }
  }

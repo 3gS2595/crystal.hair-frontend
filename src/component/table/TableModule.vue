@@ -60,10 +60,10 @@ import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
 import MultiSelect from 'primevue/multiselect'
 
-import { useCounterStore } from '@/store/GlobalStore'
+import { filterStore } from '@/store/FilterStore'
 import { ContentService } from '@/component/table/GetRss'
 
-const store = useCounterStore()
+const store = filterStore()
 const props = defineProps({
   tableOrder: {
     type: Array,

@@ -83,12 +83,12 @@
 import { ref, defineComponent } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
-import { useCounterStore } from '@/store/GlobalStore'
+import { filterStore } from '@/store/FilterStore'
 import VueLoadImage from 'vue-load-image'
 import VLazyImage from 'v-lazy-image'
 
 const layout = ref('grid')
-const store = useCounterStore()
+const store = filterStore()
 const props = defineProps({
   contentData: {
     type: Array,
