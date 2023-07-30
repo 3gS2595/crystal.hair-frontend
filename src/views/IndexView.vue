@@ -1,6 +1,5 @@
 <template>
   <Suspense>
-
     <template #default>
       <div class='contentMain' id="contentMain" v-if='loaded'>
         <splitpanes
@@ -10,9 +9,9 @@
           @resized="resizeContentFit()"
           class="default-theme"
           >
+
           <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
             <ThreeMain :imageData="hypertexts"/>
-
             <splitpanes
             class="default-theme"
             :horizontal="true"
@@ -57,7 +56,6 @@
     <template #fallback>
       <span>Loading</span>
     </template>
-
   </Suspense>
 </template>
 
