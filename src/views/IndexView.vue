@@ -1,77 +1,53 @@
 <template>
-  <Suspense>
+  <div class='contentMain' id="contentMain" v-if='loaded'>
+    <splitpanes style="width=100%" class="default-theme"
+      @ready="init()"
+      @resize="paneSize = $event[0].size; paneSizeOffSet = 0"
+      @resized="resizeContentFit()"
+    >
+      <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
+        <ThreeMain :imageData="hypertexts"/>
+        <splitpanes class="default-theme" :horizontal="true">
 
-    <template #default>
-      <div class='contentMain' id="contentMain" v-if='loaded'>
-        <splitpanes
-         style="width=100%"
-          @ready="init()"
-          @resize="paneSize = $event[0].size; paneSizeOffSet = 0"
-          @resized="resizeContentFit()"
-          class="default-theme"
-          >
+          <pane :size="40">
+            <TableModule
+              :contentData="hypertexts"
+              :tableOrder="['name', 'time_posted', 'url']"
+            />
+          </pane>
 
-<!-- _____________________________________________________NAVIGATION_PANE_ -->
-          <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
-
-            <!-- THREE.JS HEADER-->
-            <ThreeMain :imageData="hypertexts"/>
-            <splitpanes
-            class="default-theme"
-            :horizontal="true"
-            >
-
-              <!--MAIN_TABLE--> 
-              <pane :size="40">
+          <pane :size="59">
+            <splitpanes class="default-theme" :vertical="true">
+              <pane :size="50">
                 <TableModule
-                  :contentData="hypertexts"
-                  :tableOrder="['name', 'time_posted', 'url']"
+                  :contentData="sourceUrls"
+                  :tableOrder="[ 'url']"
                 />
               </pane>
-
-              <!--SPLIT_PANE_SUB_TABLES-->
-              <pane :size="59">
-                <splitpanes class="default-theme" :vertical="true">
-                  <pane :size="50">
-                    <TableModule
-                      :contentData="sourceUrls"
-                      :tableOrder="[ 'url']"
-                    />
-                  </pane>
-                  <pane :size="50">
-                    <TableModule
-                      :contentData="sourceUrls"
-                      :tableOrder="[ 'count', 'name', 'urls']"
-                    />
-                  </pane>
-                </splitpanes>
+              <pane :size="50">
+                <TableModule
+                  :contentData="sourceUrls"
+                  :tableOrder="[ 'count', 'name', 'urls']"
+                />
               </pane>
-
             </splitpanes>
           </pane>
-<!-- ______________________________________________________________________ -->
-
-<!-- _________________________________________________________CONTENT_PANE_ -->
-          <pane v-on:dblclick="resize(0)" :size="(100 - (paneSize + paneSizeOffSet))">
-            <ContentModule :contentData="kernals"/>
-          </pane>
-<!-- _______________________________________________________________________-->
 
         </splitpanes>
-      </div>
-      <div v-else>
-        <a>loading</a>
-      </div>
-    </template>
+      </pane>
 
-    <template #fallback>
-      <span>loading</span>
-    </template>
+      <pane v-on:dblclick="resize(0)" :size="(100 - (paneSize + paneSizeOffSet))">
+        <ContentModule :contentData="kernals"/>
+      </pane>
+    </splitpanes>
+  </div>
 
-  </Suspense>
+  <div v-else>
+    <a>loading</a>
+  </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" >
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line
 import { defineComponent, ref } from 'vue'
@@ -143,4 +119,4 @@ export default defineComponent({
   }
 })
 
-</script >
+</script>
