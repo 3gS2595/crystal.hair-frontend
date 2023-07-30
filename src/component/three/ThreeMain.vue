@@ -78,7 +78,7 @@ export default {
           const obj = JSON.parse(JSON.stringify(apij.value[i]))
           const path = ('http://3.130.240.169/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', '')
 
-          const loader = new THREE.TextureLoader();
+          const loader = new THREE.TextureLoader()
           loader.load(path, function (texture) {
             const material = new THREE.MeshLambertMaterial({ map: texture, transparent: true })
             const plane = new THREE.PlaneGeometry(10, 8, 1)
@@ -106,8 +106,8 @@ export default {
 
     const animate = () => {
       for (let i = 0, j = forms.length; i < j; i++) {
-        if (forms[i] !== undefined){
-          if (forms[i].rotation.y > 0){ 
+        if (forms[i] !== undefined) {
+          if (forms[i].rotation.y > 0) {
             forms[i].rotation.y -= 0.02
           }
         } else { console.log(i) }

@@ -35,7 +35,7 @@ html, body {
       }
 
       .contentMain{
-        width:calc(100% - 3px);
+        width:calc(100% - 2px);
         height:unquote("calc( #{$hun} - (#{$border}))");
         overflow:hidden!important;
         position:absolute;

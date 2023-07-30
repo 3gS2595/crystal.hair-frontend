@@ -1,6 +1,6 @@
 <template>
   <div class='main' id='main' v-if='isLoggedIn'>
-    <nav>
+    <nav id='nav'>
       <router-link to='/'>rss</router-link>
 
       <a>-</a>
@@ -72,11 +72,11 @@ export default defineComponent({
       if (localStorage.getItem('darkModeBool') === 'true') {
         app.classList.add('theme-light')
         localStorage.setItem('darkModeBool', 'false')
-        document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue("background-color")
+        document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
       } else {
         app.classList.add('theme-dark')
         localStorage.setItem('darkModeBool', 'true')
-        document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue("background-color")
+        document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
       }
     },
 
@@ -92,14 +92,15 @@ export default defineComponent({
   },
 
   mounted () {
-    document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue("background-color")
+    document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
   }
 })
 
 window.onorientationchange = function () {
   const conM = document.getElementById('contentMain')
+  const nav = document.getElementById('nav')
   const orientation = window.orientation
-  const topP =parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat').substring(0, 2))
+  const topP = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat').substring(0, 2))
   // const sidP = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sar').substring(0, 2))
   const sidP = 38
 
@@ -108,29 +109,33 @@ window.onorientationchange = function () {
     app.style.paddingRight = 0
     app.style.paddingLeft = 0
     conM.style.width = String(window.innerWidth - 2) + 'px'
-    conM.style.borderBottomLeftRadius = '34.0pt';
-    conM.style.borderBottomRightRadius = '34.0pt';
+    nav.style.width = String(window.innerWidth - 2) + 'px'
+    conM.style.borderBottomLeftRadius = '34.0pt'
+    conM.style.borderBottomRightRadius = '34.0pt'
   } else if (orientation === 90) {
     app.style.paddingTop = 0
     app.style.marginRight = 0
     app.style.paddingLeft = sidP + 'px'
     conM.style.width = String(window.innerWidth - sidP - 4) + 'px'
-    conM.style.borderBottomLeftRadius = '0pt';
-    conM.style.borderBottomRightRadius = '34.0pt';
+    nav.style.width = String(window.innerWidth - sidP - 4) + 'px'
+    conM.style.borderBottomLeftRadius = '0pt'
+    conM.style.borderBottomRightRadius = '34.0pt'
   } else if (orientation === -90) {
     app.style.paddingTop = 0
     app.style.paddingRight = sidP + 'px'
     app.style.paddingLeft = 0
     conM.style.width = String(window.innerWidth - sidP - 4) + 'px'
-    conM.style.borderBottomLeftRadius = '34.0pt';
-    conM.style.borderBottomRightRadius = '0pt';
+    nav.style.width = String(window.innerWidth - sidP - 4) + 'px'
+    conM.style.borderBottomLeftRadius = '34.0pt'
+    conM.style.borderBottomRightRadius = '0pt'
   } else {
     app.style.paddingTop = 0
     app.style.paddingRight = 0
     app.style.paddingLeft = 0
     conM.style.width = String(window.innerWidth - 2) + 'px'
-    conM.style.borderBottomLeftRadius = '34.0pt';
-    conM.style.borderBottomRightRadius = '34.0pt';
+    nav.style.width = String(window.innerWidth - 2) + 'px'
+    conM.style.borderBottomLeftRadius = '34.0pt'
+    conM.style.borderBottomRightRadius = '34.0pt'
   }
 }
 </script>

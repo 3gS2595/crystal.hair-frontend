@@ -64,19 +64,18 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
-import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
+import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 
 const loaded = ref(false)
 export default defineComponent({
   data: () => ({
-    paneStateContent: 0,
+    paneSizeTemp: 0,
     paneSize: 40.0,
     paneSizeOffSet: 0,
-    paneSizeOffSetTemp: 0,
-    scroll: -1,
+    scroll: -1
   }),
   components: {
     TableModule,
@@ -86,49 +85,34 @@ export default defineComponent({
     Pane
   },
   methods: {
-    init:function () {
+    init: function () {
       this.resizeContentFit()
       window.addEventListener('orientationchange', this.resizeContentFit)
       window.addEventListener('resize', this.resizeContentFit)
     },
     resize: function (max) {
       if (this.paneSize !== max) {
-        this.paneSizeOffSetTemp = this.paneSizeOffSet
-        this.paneStateContent = this.paneSize
+        this.paneSizeTemp = this.paneSize
         this.paneSize = max
         this.paneSizeOffSet = 0
-      } else {
-        this.paneSizeOffSet = this.paneSizeOffSetTemp
-        this.paneSize = this.paneStateContent
-      }
+      } else this.paneSize = this.paneSizeTemp
       this.resizeContentFit()
     },
-
     scrollWidth: function () {
       if (this.scroll === -1) {
         const el = document.createElement('div')
         el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
         document.body.appendChild(el)
-        const width = el.offsetWidth 
+        this.scroll = el.offsetWidth
         el.remove()
-        this.scroll = width 
       }
       return this.scroll
     },
-
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
         const width = document.getElementById('contentMain').offsetWidth - 10
-        if (screen.width <= 760) {
-          const extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scroll) % 90
-          const offset = (extra / width) * 100
-          this.paneSizeOffSet = offset
-        } else if (screen.width >= 760) {
-          const extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scroll) % 90
-          console.log(extra)
-          const offset = (extra / width) * 100
-          this.paneSizeOffSet = offset
-        }
+        const offset = ((((width * ((100.0 - this.paneSize) / 100.0)) - this.scroll) % 90) / width) * 100
+        this.paneSizeOffSet = offset
       }
     }
   },
@@ -141,13 +125,13 @@ export default defineComponent({
         loaded.value = true
       })
     }
-  },  unmounted () {
+  },
+  unmounted () {
     window.removeEventListener('resize', this.resizeContentFit)
     window.removeEventListener('orientationchange', this.resizeContentFit)
   }
 })
 </script >
-
 <script setup lang="ts">
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line

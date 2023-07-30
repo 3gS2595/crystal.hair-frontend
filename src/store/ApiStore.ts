@@ -16,7 +16,7 @@ export const ApiStore = defineStore({
     async initialize () {
       const config = {
         headers: {
-          authorization: 'Bearer '+sessionManager.state.auth_token
+          authorization: 'Bearer ' + sessionManager.state.auth_token
         }
       }
 
