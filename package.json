@@ -13,10 +13,11 @@
     "@types/three": "^0.152.1",
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
+    "mkdirp": "^3.0.1",
     "node-sass": "^9.0.0",
     "pinia": "^2.1.4",
-    "primevue": "^3.29.2",
     "primeflex": "^3.3.1",
+    "primevue": "^3.29.2",
     "pug-plain-loader": "^1.1.0",
     "sass-loader": "^13.3.2",
     "splitpanes": "^3.1.5",
@@ -56,13 +57,16 @@
     "extends": [
       "plugin:vue/vue3-essential",
       "@vue/standard",
-      "@vue/typescript/recommended"
+      "@vue/typescript/recommended",
+      "plugin:prettier/recommended",
+      "eslint:recommended"
     ],
     "parserOptions": {
       "ecmaVersion": 2020
     },
     "rules": {
-      "no-console": "off"
+      "no-console": "off",
+      "import/first": "off"
     }
   },
   "browserslist": [

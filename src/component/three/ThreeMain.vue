@@ -2,7 +2,7 @@
   <Suspense>
 
     <template #default>
-      <canvas ref='webGl' class='webGl' />
+      <canvas width="7000" height="2000" ref='webGl' class='webGl' />
     </template>
 
     <template #fallback>
@@ -39,7 +39,7 @@ export default {
     const webGl = ref()
     const forms: THREE.Mesh[] = []
     const width = ref(700)
-    const height = ref(110)
+    const height = ref(200)
     const aspectRatio = computed(() => {
       return (width.value) / (height.value)
     })
@@ -64,7 +64,7 @@ export default {
 
       // Renderer
       const canvas = webGl.value
-      renderer = new THREE.WebGLRenderer({ canvas, alpha: true })
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, precision: "highp", antialias: true })
       renderer.setSize(width.value, height.value)
       renderer.render(scene, camera)
 
@@ -91,7 +91,8 @@ export default {
             forms[i].userData = { URL: (JSON.stringify(obj.url)).replace('"', '').replace('"', '') }
 
             // grid placement
-            forms[i].position.x += -35 + ((i + 1) * 10.85)
+            forms[i].position.x += -22 + ((i + 1) * 10.85)
+            forms[i].position.y -= 1
             // initial animation
             forms[i].rotation.y = 1
 

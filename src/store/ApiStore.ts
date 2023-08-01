@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import sessionManager from '../store/modules/session_manager.js'
 import axios from 'axios'
+import { ref, watch } from 'vue'
+import { filterStore } from '@/store/FilterStore'
 
 const base = 'http://3.130.240.169:3000/'
 export const ApiStore = defineStore({
@@ -19,21 +21,42 @@ export const ApiStore = defineStore({
           authorization: 'Bearer ' + sessionManager.state.auth_token
         }
       }
-
-      // Make first two requests
       const [hypertexts, kernals, linkContents, sourceUrls] = await Promise.all([
         axios.get(base + 'hypertexts', config),
         axios.get(base + 'kernals', config),
         axios.get(base + 'link_contents', config),
         axios.get(base + 'source_urls', config)
       ])
-
-      // Update state once with all 3 responses
       this.hypertexts = hypertexts.data
       this.kernals = kernals.data
       this.linkContents = linkContents.data
       this.sourceUrls = sourceUrls.data
-      return [hypertexts, kernals, linkContents, sourceUrls]
+    }
+
+    async search (searchQ) {
+      const config = {
+        headers: {
+          authorization: 'Bearer ' + sessionManager.state.auth_token
+        }
+      }
+      const [hypertexts, kernals, linkContents, sourceUrls] = await Promise.all([
+        axios.get(base + 'hypertexts?q=' + searchQ, config),
+        axios.get(base + 'kernals?q=' + searchQ, config),
+        axios.get(base + 'link_contents?q=' + searchQ, config),
+        axios.get(base + 'source_urls?q=' + searchQ, config)
+      ])
+      this.hypertexts = hypertexts.data
+      this.kernals = kernals.data
+      this.linkContents = linkContents.data
+      this.sourceUrls = sourceUrls.data
     }
   }
 })
+const store = filterStore()
+watch(
+  () => store.filter,
+  () => {
+     ApiStore().search(store.filter)
+     console.log(store.filter)
+  }
+)

@@ -53,7 +53,7 @@
 
       <template #grid="slotProps">
         <div v-if="slotProps.data.url != null">
-          <div class="cgb-0" id="contentBlock"  v-if="slotProps.data.url.includes(store.filter)">
+          <div class="cgb-0" id="contentBlock">
             <div v-if="slotProps.data.file_type === '.txt'">
               <div class="textContent">
                     <a>{{ slotProps.data.description }}</a>
@@ -83,12 +83,10 @@
 import { ref, defineComponent } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
-import { filterStore } from '@/store/FilterStore'
 import VueLoadImage from 'vue-load-image'
 import VLazyImage from 'v-lazy-image'
 
 const layout = ref('grid')
-const store = filterStore()
 const props = defineProps({
   contentData: {
     type: Array,

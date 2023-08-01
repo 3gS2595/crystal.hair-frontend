@@ -56,6 +56,9 @@ html, body {
       a:visited {
         color:  var(--link-visited)
       }
+      input {
+        background-color: rgba(0,0,0,0);
+      }
     }
   }
  }

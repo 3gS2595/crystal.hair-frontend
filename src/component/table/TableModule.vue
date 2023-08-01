@@ -3,7 +3,7 @@
     <DataTable
       removableSort
       sortField="count" :sortOrder="-1"
-      v-model:filters="filters" :value="props.contentData"
+      :value="props.contentData"
       resizableColumns="true"
       autoLayout="true"
       responsive="true"
@@ -97,23 +97,4 @@ const onToggle = (val) => {
   selectedColumns.value = columns.value.filter(col => val.includes(col))
 }
 
-const filters = ref({
-  global: { value: store.filter, matchMode: FilterMatchMode.CONTAINS }
-  // source_url_id: { value: null, matchMode: FilterMatchMode.CONTAINS },
-})
-watch(
-  () => store.filter,
-  () => {
-    // console.log('store.filter=' + store.filter)
-    filters.value.global.value = store.filter
-  }
-)
-watch(
-  () => filters.value.global.value,
-  () => {
-    if ((store.filter !== filters.value.global.value)) {
-      store.setFilter(filters.value.global.value)
-    }
-  }
-)
 </script>

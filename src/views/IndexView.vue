@@ -1,18 +1,25 @@
 <template>
   <div class='contentMain' id="contentMain" v-if='loaded'>
-    <splitpanes style="width=100%" class="default-theme"
+    <splitpanes class="default-theme"
+      style="width=100%"
       @ready="init()"
       @resize="paneSize = $event[0].size; paneSizeOffSet = 0"
       @resized="resizeContentFit()"
     >
       <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
         <ThreeMain :imageData="hypertexts"/>
+        	<input v-model="searchQ" placeholder="edit me" />
+       <a
+        style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
+        @click="search"
+        >wind</a>
+
         <splitpanes class="default-theme" :horizontal="true">
 
           <pane :size="40">
             <TableModule
               :contentData="hypertexts"
-              :tableOrder="['name', 'time_posted', 'url']"
+              :tableOrder="['time_posted', 'name', 'url']"
             />
           </pane>
 
@@ -27,7 +34,7 @@
               <pane :size="50">
                 <TableModule
                   :contentData="sourceUrls"
-                  :tableOrder="[ 'count', 'name', 'urls']"
+                  :tableOrder="['urls']"
                 />
               </pane>
             </splitpanes>
@@ -36,7 +43,7 @@
         </splitpanes>
       </pane>
 
-      <pane v-on:dblclick="resize(0)" :size="(100 - (paneSize + paneSizeOffSet))">
+      <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
         <ContentModule :contentData="kernals"/>
       </pane>
     </splitpanes>
@@ -50,22 +57,33 @@
 <script setup lang="ts" >
 import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line
-import { defineComponent, ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { filterStore } from '@/store/FilterStore'
+
+const loaded = ref(false)
+onMounted(() => {
+  ApiStore().initialize().then(function () {
+    loaded.value = true
+  })
+})
+</script>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
-</script>
-<script lang="ts">
 
-const { hypertexts, kernals } = storeToRefs(ApiStore())
-const loaded = ref(false)
+const { hypertexts, sourceUrls, kernals } = storeToRefs(ApiStore())
+const searchQ = ref('')
+const store = filterStore()
 export default defineComponent({
   components: {
     Splitpanes,
-    Pane,
+    Pane,    
     TableModule,
-    ContentModule,
+    ContentModule,    
     ThreeMain
   },
   data: () => ({
@@ -76,6 +94,9 @@ export default defineComponent({
   }),
 
   methods: {
+    search: function() {
+      store.setFilter(searchQ.value)
+  },
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
         const width = document.getElementById('contentMain').offsetWidth - 10
@@ -108,15 +129,9 @@ export default defineComponent({
     }
   },
 
-  mounted () {
-    ApiStore().initialize().then(function () {
-      loaded.value = true
-    })
-  },
   unmounted () {
-    window.removeEventListener('orientationchange', this.resizeContentFit)
-    window.removeEventListener('resize', this.resizeContentFit)
+    window.removeEventListener('orientationchange', this.resizeContentFit, true)
+    window.removeEventListener('resize', this.resizeContentFit, true)
   }
 })
-
 </script>
