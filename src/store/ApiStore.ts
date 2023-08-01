@@ -34,6 +34,11 @@ export const ApiStore = defineStore({
     }
 
     async search (searchQ) {
+       this.hypertexts = []
+      this.kernals = []
+      this.linkContents = []
+      this.sourceUrls = []
+
       const config = {
         headers: {
           authorization: 'Bearer ' + sessionManager.state.auth_token

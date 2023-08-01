@@ -27,19 +27,28 @@ html, body {
 
       nav{
         height:$navH;
-
         border-top: 1px solid var(--border-secondary);
         border-right: 1px solid var(--border-secondary);
         border-left: 1px solid var(--border-secondary);
         border-bottom: 1px solid var(--border-secondary);
+        a{
+        color:  var(--link)
+        }
+a:link {
+        color:  var(--link)
+      }
+      a:visited {
+        color:  var(--link)
+      }
+
       }
 
       .contentMain{
+        z-index:0;
         width:calc(100% - 2px);
         height:unquote("calc( #{$hun} - (#{$border}))");
         overflow:hidden!important;
         position:absolute;
-        
 
         border-bottom: 1px solid var(--border-secondary);
         border-right: 1px solid var(--border-secondary);
@@ -58,11 +67,15 @@ html, body {
       }
       input {
         background-color: rgba(0,0,0,0);
+        width:100%;
       }
     }
   }
  }
-
+.test{
+    z-index:3;
+    background-color: var(--background-primary);
+}
 :root {
     --sat: env(safe-area-inset-top);
     --sar: env(safe-area-inset-right);

@@ -1,5 +1,8 @@
 <template>
   <div class='contentMain' id="contentMain" v-if='loaded'>
+
+         
+        <LightBox/>
     <splitpanes class="default-theme"
       style="width=100%"
       @ready="init()"
@@ -8,13 +11,7 @@
     >
       <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
         <ThreeMain :imageData="hypertexts"/>
-        	<input v-model="searchQ" placeholder="edit me" />
-       <a
-        style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
-        @click="search"
-        >wind</a>
-
-        <splitpanes class="default-theme" :horizontal="true">
+        <splitpanes class="data_pane" :horizontal="true">
 
           <pane :size="40">
             <TableModule
@@ -41,6 +38,7 @@
           </pane>
 
         </splitpanes>
+	      <input class='search' v-model="searchQ" placeholder="edit me" @keyup.enter="search" />
       </pane>
 
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
@@ -59,7 +57,6 @@ import { ApiStore } from '../store/ApiStore' // eslint-disable-line
 import { storeToRefs } from 'pinia' // eslint-disable-line
 import { onMounted, ref } from 'vue'
 import { filterStore } from '@/store/FilterStore'
-
 const loaded = ref(false)
 onMounted(() => {
   ApiStore().initialize().then(function () {
@@ -69,12 +66,21 @@ onMounted(() => {
 </script>
 
 <script lang="ts">
+import { ref } from 'vue'
 import { defineComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
+import LightBox from '@/component/lightBox/LightBox.vue'
 
+const element = ref({
+  x: 20,
+  y: 20,
+  width: 200,
+  height: 200,
+  isActive: false,
+})
 const { hypertexts, sourceUrls, kernals } = storeToRefs(ApiStore())
 const searchQ = ref('')
 const store = filterStore()
@@ -84,7 +90,8 @@ export default defineComponent({
     Pane,    
     TableModule,
     ContentModule,    
-    ThreeMain
+    ThreeMain,
+    LightBox
   },
   data: () => ({
     scrollWidth: -1,

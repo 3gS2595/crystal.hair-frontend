@@ -65,7 +65,7 @@
 
             <div class="cgb-0-info">
               <div class="file_path" >
-                {{ slotProps.data.created_at }}
+                {{ slotProps.data.time_posted }}
               </div>
               <div class="file_path" >
                 <a :href="slotProps.data.url" target="_blank" >{{ slotProps.data.author }}</a>

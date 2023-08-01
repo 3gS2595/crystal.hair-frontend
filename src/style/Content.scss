@@ -38,11 +38,13 @@
         .cgb-0{
           outline: 1px solid var(--border-primary);
           max-width:90px;
+          min-width:90px;
 
           .cgb-0-img {
             width: 100%;
             max-height: 100px;
             object-fit: contain;
+            z-index: 0;
           }
 
           .cgb-0-info{
