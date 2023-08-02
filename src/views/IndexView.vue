@@ -2,7 +2,6 @@
   <div class='contentMain' id="contentMain" v-if='loaded'>
 
          
-        <LightBox/>
     <splitpanes class="default-theme"
       style="width=100%"
       @ready="init()"
@@ -106,9 +105,11 @@ export default defineComponent({
   },
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
-        const width = document.getElementById('contentMain').offsetWidth - 10
-        const offset = ((((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90) / width) * 100
-        this.paneSizeOffSet = offset
+        if (typeof document.getElementById('contentMain').offsetWidth === 'integer') {
+          const width = document.getElementById('contentMain').offsetWidth - 10
+          const offset = ((((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90) / width) * 100
+          this.paneSizeOffSet = offset
+        }
       }
     },
     resize: function (size) {
