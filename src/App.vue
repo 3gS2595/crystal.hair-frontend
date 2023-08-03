@@ -137,4 +137,5 @@ export default defineComponent({
   @import './style/SplitterPanel.scss';
   @import './style/Font.scss';
   @import './style/WebKit.scss';
+  @import './style/LightBox.scss';
 </style>
