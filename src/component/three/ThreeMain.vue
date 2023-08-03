@@ -55,7 +55,7 @@ export default {
 
       // Camera
       camera = new THREE.PerspectiveCamera(9, aspectRatio.value, 10, 80)
-      camera.position.z = 63
+      camera.position.z = 78
       scene.add(camera)
 
       // Lights
@@ -91,7 +91,7 @@ export default {
             forms[i].userData = { URL: (JSON.stringify(obj.url)).replace('"', '').replace('"', '') }
 
             // grid placement
-            forms[i].position.x += -22 + ((i + 1) * 10.85)
+            forms[i].position.x += -27 + ((i + 1) * 10.85)
             forms[i].position.y -= 1
             // initial animation
             forms[i].rotation.y = 1

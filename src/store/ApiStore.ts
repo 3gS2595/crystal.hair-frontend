@@ -31,6 +31,7 @@ export const ApiStore = defineStore({
       this.kernals = kernals.data
       this.linkContents = linkContents.data
       this.sourceUrls = sourceUrls.data
+      console.log(this.kernals)
     }
 
     async search (searchQ) {

@@ -1,21 +1,7 @@
 <template>
   <div class="contentView">
 
-    <div v-if="showOverlay" class="lightbox">
-      <button class="btn btn-dark" @click="swipe('left')" >PREV</button>
-      <button class="btn btn-dark" @click="swipe('right')" >NEXT</button>
-      <button class="btn btn-dark" @click="overlayToggle()" >{{index}}</button>
-      <vue-load-image>
-        <template v-slot:image>
-          <span  v-touch:swipe="swipe">
-            <img @click="overlayToggle" class="overlayImg" :src="`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${props.contentData[index].file_path}`"/>
-          </span>
-        </template>
-        <template v-slot:preloader>
-          <img class="w-9-load" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
-        </template>
-      </vue-load-image>
-    </div>
+
 
     <DataView :value="props.contentData" :layout="layout" :columns="4" :sortOrder="-1" scrollable >
 
@@ -68,7 +54,7 @@
                 {{ slotProps.data.time_posted }}
               </div>
               <div class="file_path" >
-                <a :href="slotProps.data.url" target="_blank" >{{ slotProps.data.author }}</a>
+                <a>{{ slotProps.data.author }}</a>
               </div>
             </div>
           </div>
@@ -97,6 +83,9 @@ const props = defineProps({
 </script>
 
 <script>
+import { filterStore } from '@/store/FilterStore'
+
+const store = filterStore()
 export default defineComponent({
   data: () => ({
     index: -1,
@@ -120,10 +109,10 @@ export default defineComponent({
       }
     },
     overlayMilky (ind) {
-      this.index = ind
-      if (!this.showOverlay) {
-        this.showOverlay = true
+      if(store.lightBoxIndex === -1){
+        store.setLightBoxView(!store.lightBoxView)
       }
+      store.setLightBoxIndex(ind)
     },
     overlayToggle () {
       this.showOverlay = !this.showOverlay
