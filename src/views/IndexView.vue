@@ -1,11 +1,11 @@
 <template>
 
-  <div class='contentMain' id="contentMain" v-if='loaded' >
+  <div class='contentMain' id="contentMain" v-if='dataFetched' >
 
     <LightBox :viewerData="kernals" v-if='store.lightBoxView' />
     <splitpanes class="default-theme"
       style="width=100%"
-      @ready="init()"
+      @ready="resizeContentFit()"
       @resize="paneSize = $event[0].size; paneSizeOffSet = 0"
       @resized="resizeContentFit()"
     >
@@ -74,36 +74,32 @@ export default defineComponent({
   },
   data () {
     return {
+      dataFetched: false,
       scrollWidth: -1,
       paneSizeTemp: 0,
       paneSize: 40.0,
       paneSizeOffSet: 0,
-      loaded: false,
       store: filterStore(),
       searchQ: '',
-      apiData: []
     }
   },
-  setup() {
+  setup () {
     const { hypertexts, sourceUrls, kernals } = storeToRefs(ApiStore())
     return { hypertexts, sourceUrls, kernals }
   },
    mounted () {
+    this.findScrollWidth()
     ApiStore().initialize().then(async () => {
-      this.loaded = true
-      window.addEventListener('resize', this.resizeContentFit)
+      this.dataFetched = true
       window.addEventListener('orientationchange', this.resizeContentFit)
+      window.addEventListener('resize', this.resizeContentFit)
     })
   },
   unmounted () {
     window.removeEventListener('orientationchange', this.resizeContentFit, true)
     window.removeEventListener('resize', this.resizeContentFit, true)
   },
-
   methods: {
-    search: function () {
-      this.store.setFilter(this.searchQ)
-    },
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
         const width = document.getElementById('contentMain').offsetWidth - 10
@@ -117,9 +113,8 @@ export default defineComponent({
         this.paneSizeTemp = this.paneSize
         this.paneSize = size
         this.paneSizeOffSet = 0
-      } else {
-        this.paneSize = this.paneSizeTemp
-      }
+      } else this.paneSize = this.paneSizeTemp
+
       this.resizeContentFit()
     },
     findScrollWidth: function () {
@@ -129,9 +124,8 @@ export default defineComponent({
       this.scrollWidth = el.offsetWidth
       el.remove()
     },
-    init: function () {
-      this.findScrollWidth()
-      this.resizeContentFit()
+    search: function () { 
+      this.store.setFilter(this.searchQ)
     }
   }
 })
