@@ -1,8 +1,5 @@
 <template>
   <div class="contentView">
-
-
-
     <DataView :value="props.contentData" :layout="layout" :columns="4" :sortOrder="-1" scrollable >
 
       <template #header>
@@ -93,7 +90,7 @@ export default defineComponent({
   }),
   methods: {
     overlayMilky (ind) {
-      if(store.lightBoxIndex === -1){
+      if (store.lightBoxIndex === -1) {
         store.setLightBoxView(!store.lightBoxView)
       }
       store.setLightBoxIndex(ind)

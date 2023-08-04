@@ -80,45 +80,45 @@ export default defineComponent({
       const orientation = window.orientation
       const topP = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat').substring(0, 2))
       const sidP = 38
-
-      if (orientation === 0) {
-        app.style.paddingTop = topP + 'px'
-        app.style.paddingRight = 0
-        app.style.paddingLeft = 0
-        conM.style.width = String(window.innerWidth - 2) + 'px'
-        nav.style.width = String(window.innerWidth - 2) + 'px'
-        conM.style.borderBottomLeftRadius = '34.0pt'
-        conM.style.borderBottomRightRadius = '34.0pt'
-      } else if (orientation === 90) {
-        app.style.paddingTop = 0
-        app.style.marginRight = 0
-        app.style.paddingLeft = sidP + 'px'
-        conM.style.width = String(window.innerWidth - sidP - 4) + 'px'
-        nav.style.width = String(window.innerWidth - sidP - 4) + 'px'
-        conM.style.borderBottomLeftRadius = '0pt'
-        conM.style.borderBottomRightRadius = '34.0pt'
-      } else if (orientation === -90) {
-        app.style.paddingTop = 0
-        app.style.paddingRight = sidP + 'px'
-        app.style.paddingLeft = 0
-        conM.style.width = String(window.innerWidth - sidP - 4) + 'px'
-        nav.style.width = String(window.innerWidth - sidP - 4) + 'px'
-        conM.style.borderBottomLeftRadius = '34.0pt'
-        conM.style.borderBottomRightRadius = '0pt'
-      } else {
-        app.style.paddingTop = 0
-        app.style.paddingRight = 0
-        app.style.paddingLeft = 0
-        conM.style.width = String(window.innerWidth - 2) + 'px'
-        nav.style.width = String(window.innerWidth - 2) + 'px'
-        conM.style.borderBottomLeftRadius = '34.0pt'
-        conM.style.borderBottomRightRadius = '34.0pt'
+      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+        if (orientation === 0) {
+          app.style.paddingTop = topP + 'px'
+          app.style.paddingRight = 0
+          app.style.paddingLeft = 0
+          conM.style.width = String(window.innerWidth - 2) + 'px'
+          nav.style.width = String(window.innerWidth - 2) + 'px'
+          conM.style.borderBottomLeftRadius = '34.0pt'
+          conM.style.borderBottomRightRadius = '34.0pt'
+        } else if (orientation === 90) {
+          app.style.paddingTop = 0
+          app.style.marginRight = 0
+          app.style.paddingLeft = sidP + 'px'
+          conM.style.width = String(window.innerWidth - sidP - 4) + 'px'
+          nav.style.width = String(window.innerWidth - sidP - 4) + 'px'
+          conM.style.borderBottomLeftRadius = '0pt'
+          conM.style.borderBottomRightRadius = '34.0pt'
+        } else if (orientation === -90) {
+          app.style.paddingTop = 0
+          app.style.paddingRight = sidP + 'px'
+          app.style.paddingLeft = 0
+          conM.style.width = String(window.innerWidth - sidP - 4) + 'px'
+          nav.style.width = String(window.innerWidth - sidP - 4) + 'px'
+          conM.style.borderBottomLeftRadius = '34.0pt'
+          conM.style.borderBottomRightRadius = '0pt'
+        } else {
+          app.style.paddingTop = 0
+          app.style.paddingRight = 0
+          app.style.paddingLeft = 0
+          conM.style.width = String(window.innerWidth - 2) + 'px'
+          nav.style.width = String(window.innerWidth - 2) + 'px'
+          conM.style.borderBottomLeftRadius = '34.0pt'
+          conM.style.borderBottomRightRadius = '34.0pt'
+        }
       }
     }
 
   },
   mounted () {
-
     window.addEventListener('resize', this.orientationChange)
     window.addEventListener('orientationchange', this.orientationChange)
     document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')

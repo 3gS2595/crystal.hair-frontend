@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import sessionManager from '../store/modules/session_manager.js'
 import axios from 'axios'
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 import { filterStore } from '@/store/FilterStore'
 
 const base = 'http://3.130.240.169:3000/'
@@ -32,10 +32,9 @@ export const ApiStore = defineStore({
       this.linkContents = linkContents.data
       this.sourceUrls = sourceUrls.data
       console.log(this.kernals)
-    }
-
+    },
     async search (searchQ) {
-       this.hypertexts = []
+      this.hypertexts = []
       this.kernals = []
       this.linkContents = []
       this.sourceUrls = []
@@ -62,7 +61,7 @@ const store = filterStore()
 watch(
   () => store.filter,
   () => {
-     ApiStore().search(store.filter)
-     console.log(store.filter)
+    ApiStore().search(store.filter)
+    console.log(store.filter)
   }
 )

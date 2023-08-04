@@ -64,7 +64,7 @@ export default {
 
       // Renderer
       const canvas = webGl.value
-      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, precision: "highp", antialias: true })
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, precision: 'highp', antialias: true })
       renderer.setSize(width.value, height.value)
       renderer.render(scene, camera)
 

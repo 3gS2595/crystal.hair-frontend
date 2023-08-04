@@ -1,8 +1,8 @@
 <template>
 
-  <div class='contentMain' id="contentMain" v-if='loaded'>
+  <div class='contentMain' id="contentMain" v-if='loaded' >
 
-    <LightBox :viewerData="kernals" v-if='store.lightBoxView' /> 
+    <LightBox :viewerData="kernals" v-if='store.lightBoxView' />
     <splitpanes class="default-theme"
       style="width=100%"
       @ready="init()"
@@ -38,7 +38,7 @@
           </pane>
 
         </splitpanes>
-	      <input class='search' v-model="searchQ" placeholder="edit me" @keyup.enter="search" />
+        <input class='search' v-model="searchQ" placeholder="edit me" @keyup.enter="search" />
       </pane>
 
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
@@ -47,75 +47,69 @@
     </splitpanes>
 
   </div>
-
   <div v-else>
-    <a>loading</a>
+    loading
   </div>
-</template>
-
-<script setup lang="ts" >
-import { ApiStore } from '../store/ApiStore' // eslint-disable-line
-import { storeToRefs } from 'pinia' // eslint-disable-line
-import { onMounted, ref } from 'vue'
-import { filterStore } from '@/store/FilterStore'
-const loaded = ref(false)
-onMounted(() => {
-  ApiStore().initialize().then(function () {
-    loaded.value = true
-  })
-})
-</script>
+ </template>
 
 <script lang="ts">
-import { ref } from 'vue'
-import { defineComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
 import LightBox from '@/component/lightBox/LightBox.vue'
+import { ApiStore } from '../store/ApiStore'
+import { storeToRefs } from 'pinia'
+import { defineComponent } from 'vue'
+import { filterStore } from '@/store/FilterStore'
 
-const element = ref({
-  x: 20,
-  y: 20,
-  width: 200,
-  height: 200,
-  isActive: false,
-})
-const { hypertexts, sourceUrls, kernals } = storeToRefs(ApiStore())
-const searchQ = ref('')
-const store = filterStore()
 export default defineComponent({
   components: {
     Splitpanes,
-    Pane,    
+    Pane,
     TableModule,
-    ContentModule,    
+    ContentModule,
     ThreeMain,
     LightBox
   },
-  data: () => ({
-    scrollWidth: -1,
-    paneSizeTemp: 0,
-    paneSize: 40.0,
-    paneSizeOffSet: 0
-  }),
+  data () {
+    return {
+      scrollWidth: -1,
+      paneSizeTemp: 0,
+      paneSize: 40.0,
+      paneSizeOffSet: 0,
+      loaded: false,
+      store: filterStore(),
+      searchQ: '',
+      apiData: []
+    }
+  },
+  setup() {
+    const { hypertexts, sourceUrls, kernals } = storeToRefs(ApiStore())
+    return { hypertexts, sourceUrls, kernals }
+  },
+   mounted () {
+    ApiStore().initialize().then(async () => {
+      this.loaded = true
+      window.addEventListener('resize', this.resizeContentFit)
+      window.addEventListener('orientationchange', this.resizeContentFit)
+    })
+  },
+  unmounted () {
+    window.removeEventListener('orientationchange', this.resizeContentFit, true)
+    window.removeEventListener('resize', this.resizeContentFit, true)
+  },
 
   methods: {
-    search: function() {
-      store.setFilter(searchQ.value)
-  },
+    search: function () {
+      this.store.setFilter(this.searchQ)
+    },
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
-          const width = document.getElementById('contentMain').offsetWidth - 10
-          let  extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90
-
-          // sets initial content to single image on ios
-          if(this.paneSize === 40 && /iPad|iPhone|iPod/i.test(navigator.userAgent)){
-            extra = extra + 90
-          }
-          const offset = ( extra / width) * 100
-          this.paneSizeOffSet = offset
+        const width = document.getElementById('contentMain').offsetWidth - 10
+        const extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90
+        const offset = (extra / width) * 100
+        this.paneSizeOffSet = offset
       }
     },
     resize: function (size) {
@@ -138,14 +132,7 @@ export default defineComponent({
     init: function () {
       this.findScrollWidth()
       this.resizeContentFit()
-      window.addEventListener('orientationchange', this.resizeContentFit)
-      window.addEventListener('resize', this.resizeContentFit)
     }
-  },
-
-  unmounted () {
-    window.removeEventListener('orientationchange', this.resizeContentFit, true)
-    window.removeEventListener('resize', this.resizeContentFit, true)
   }
 })
 </script>

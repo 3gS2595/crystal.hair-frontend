@@ -53,17 +53,14 @@
 </template>
 
 <script setup lang='ts' generic="T">
-import { ref, watch } from 'vue'
-import { FilterMatchMode } from 'primevue/api'
+import { ref } from 'vue'
 import InputText from 'primevue/inputtext'
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
 import MultiSelect from 'primevue/multiselect'
 
-import { filterStore } from '@/store/FilterStore'
 import { ContentService } from '@/component/table/GetRss'
 
-const store = filterStore()
 const props = defineProps({
   tableOrder: {
     type: Array,
