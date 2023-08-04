@@ -91,31 +91,12 @@ export default defineComponent({
     index: -1,
     showOverlay: false
   }),
-  created () {
-    window.addEventListener('keydown', (e) => {
-      if (e.keyCode === '37') {
-        this.swipe('left')
-      } else if (e.keyCode === '39') {
-        this.swipe('right')
-      }
-    })
-  },
   methods: {
-    swipe (direction) {
-      if (direction === 'right') {
-        this.index = this.index + 1
-      } else if (direction === 'left') {
-        this.index = this.index - 1
-      }
-    },
     overlayMilky (ind) {
       if(store.lightBoxIndex === -1){
         store.setLightBoxView(!store.lightBoxView)
       }
       store.setLightBoxIndex(ind)
-    },
-    overlayToggle () {
-      this.showOverlay = !this.showOverlay
     }
   }
 })

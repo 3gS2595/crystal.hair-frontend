@@ -119,6 +119,7 @@ export default defineComponent({
   },
   mounted () {
 
+    window.addEventListener('resize', this.orientationChange)
     window.addEventListener('orientationchange', this.orientationChange)
     document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
   }

@@ -2,7 +2,7 @@
 
   <div class='contentMain' id="contentMain" v-if='loaded'>
 
-    <LightBox :viewerData="kernals"/> 
+    <LightBox :viewerData="kernals" v-if='store.lightBoxView' /> 
     <splitpanes class="default-theme"
       style="width=100%"
       @ready="init()"
@@ -108,7 +108,12 @@ export default defineComponent({
     resizeContentFit: function () {
       if (this.paneSize !== 0 && this.paneSize !== 100) {
           const width = document.getElementById('contentMain').offsetWidth - 10
-          const extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90
+          let  extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90
+
+          // sets initial content to single image on ios
+          if(this.paneSize === 40 && /iPad|iPhone|iPod/i.test(navigator.userAgent)){
+            extra = extra + 90
+          }
           const offset = ( extra / width) * 100
           this.paneSizeOffSet = offset
       }
