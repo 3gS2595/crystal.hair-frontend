@@ -85,8 +85,8 @@ export default defineComponent({
           app.style.paddingTop = topP + 'px'
           app.style.paddingRight = 0
           app.style.paddingLeft = 0
-          conM.style.width = String(window.innerWidth - 2) + 'px'
-          nav.style.width = String(window.innerWidth - 2) + 'px'
+          conM.style.width = String(window.innerWidth - 4) + 'px'
+          nav.style.width = String(window.innerWidth - 4) + 'px'
           conM.style.borderBottomLeftRadius = '34.0pt'
           conM.style.borderBottomRightRadius = '34.0pt'
         } else if (orientation === 90) {
@@ -109,8 +109,8 @@ export default defineComponent({
           app.style.paddingTop = 0
           app.style.paddingRight = 0
           app.style.paddingLeft = 0
-          conM.style.width = String(window.innerWidth - 2) + 'px'
-          nav.style.width = String(window.innerWidth - 2) + 'px'
+          conM.style.width = String(window.innerWidth - 4) + 'px'
+          nav.style.width = String(window.innerWidth - 4) + 'px'
           conM.style.borderBottomLeftRadius = '34.0pt'
           conM.style.borderBottomRightRadius = '34.0pt'
         }

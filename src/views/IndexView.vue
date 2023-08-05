@@ -1,5 +1,4 @@
 <template>
-
   <div class='contentMain' id="contentMain" v-if='dataFetched' >
 
     <LightBox :viewerData="kernals" v-if='store.lightBoxView' />
@@ -53,17 +52,23 @@
  </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
+import { storeToRefs } from 'pinia'
+
 import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
 import LightBox from '@/component/lightBox/LightBox.vue'
+
 import { ApiStore } from '../store/ApiStore'
-import { storeToRefs } from 'pinia'
-import { defineComponent } from 'vue'
 import { filterStore } from '@/store/FilterStore'
 
 export default defineComponent({
+  setup () {
+    const { hypertexts, sourceUrls, kernals } = storeToRefs(ApiStore())
+    return { hypertexts, sourceUrls, kernals }
+  },
   components: {
     Splitpanes,
     Pane,
@@ -77,17 +82,14 @@ export default defineComponent({
       dataFetched: false,
       scrollWidth: -1,
       paneSizeTemp: 0,
-      paneSize: 40.0,
+      paneSize: 40,
       paneSizeOffSet: 0,
       store: filterStore(),
-      searchQ: '',
+      searchQ: ''
     }
   },
-  setup () {
-    const { hypertexts, sourceUrls, kernals } = storeToRefs(ApiStore())
-    return { hypertexts, sourceUrls, kernals }
-  },
-   mounted () {
+  mounted () {
+    console.log('mounted')
     this.findScrollWidth()
     ApiStore().initialize().then(async () => {
       this.dataFetched = true
@@ -101,9 +103,13 @@ export default defineComponent({
   },
   methods: {
     resizeContentFit: function () {
-      if (this.paneSize !== 0 && this.paneSize !== 100) {
-        const width = document.getElementById('contentMain').offsetWidth - 10
-        const extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90
+      const el = document.getElementById('contentMain')
+      if (this.paneSize !== 0 && this.paneSize !== 100 && el != null) {
+        const width = el.offsetWidth - 10
+        let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90
+        if (this.paneSize === 40 && navigator.userAgent.match(/iPhone|iPad|iPod/i) && (window.innerHeight > window.innerWidth)){
+          extra = extra + 90
+        }
         const offset = (extra / width) * 100
         this.paneSizeOffSet = offset
       }
@@ -113,8 +119,9 @@ export default defineComponent({
         this.paneSizeTemp = this.paneSize
         this.paneSize = size
         this.paneSizeOffSet = 0
-      } else this.paneSize = this.paneSizeTemp
-
+      } else {
+        this.paneSize = this.paneSizeTemp
+      }
       this.resizeContentFit()
     },
     findScrollWidth: function () {
@@ -124,7 +131,7 @@ export default defineComponent({
       this.scrollWidth = el.offsetWidth
       el.remove()
     },
-    search: function () { 
+    search: function () {
       this.store.setFilter(this.searchQ)
     }
   }

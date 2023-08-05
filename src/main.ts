@@ -4,8 +4,6 @@ import router from './router'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import store from '@/store/index' // eslint-disable-line
-import Vue3TouchEvents from 'vue3-touch-events'
-import DraggableResizableVue from 'draggable-resizable-vue3'
 
 /**
  * Load JWT from Local Storage on Refresh.
@@ -25,9 +23,5 @@ app.use(store)
 app.use(router)
 app.use(createPinia())
 app.use(PrimeVue)
-app.use(DraggableResizableVue)
-app.use(Vue3TouchEvents, {
-  disableClick: false
-})
 
 app.mount('#app')

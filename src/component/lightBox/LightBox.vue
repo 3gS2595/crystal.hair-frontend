@@ -5,7 +5,7 @@
       ref='resizableComponent'
       :dragSelector='dragSelector'
       :active='handlers'
-      :fit-parent='fit'
+      :fit-parent='true'
       :max-width='maxW'
       :max-height='maxH'
       :width='width'
@@ -23,7 +23,6 @@
       <div class='block'>
 
         <div class='drag-container-1'>
-          drag_1
           <a
             style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
             @click='close'
@@ -32,7 +31,7 @@
 
         <vue-load-image>
           <template v-slot:image>
-            <img :src='`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${props.viewerData[store.lightBoxIndex].file_path}`'/>
+            <img :src='`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${viewerData[store.lightBoxIndex].file_path}`'/>
           </template>
           <template v-slot:preloader>
               <img src='http://3.130.240.169/image-loader.gif' rel='preload'/>
@@ -42,36 +41,50 @@
           </template>
         </vue-load-image>
 
-        <div class='drag-container-2'>drag_2</div>
+        <div class='drag-container-2'>
+        <a
+            style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
+            @click='prev'
+            >prev----</a>
+
+          <a
+            style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
+            @click='next'
+            >----next</a>
+
+        </div>
 
       </div>
     </vue-resizable>
   </div>
 </template>
 
-<script setup>
+<script>
+import { ref, defineComponent } from 'vue'
+import { filterStore } from '@/store/FilterStore'
 import VueResizable from 'vue-resizable'
 import VueLoadImage from 'vue-load-image'
-const props = defineProps({
-  viewerData: {
-    type: Array,
-    default: () => [],
-    required: true
-  }
-})
-</script>
-
-<script>
-import { ref } from 'vue'
-import { filterStore } from '@/store/FilterStore'
 
 const store = filterStore()
 const lightBoxUi = ref(false)
 
-export default {
+export default defineComponent({
   name: 'App',
   components: {
-    VueResizable
+    VueResizable,
+    VueLoadImage
+  },
+  props: {
+    viewerData: {
+      type: Array,
+      default: () => [],
+      required: true
+    }
+  },
+  setup(props) {
+    const viewerData = ref(props.viewerData)
+    console.log(viewerData)
+    return { viewerData }
   },
   data () {
     const tW = 200
@@ -84,10 +97,10 @@ export default {
       width: tW,
       maxW: window.innerWidth,
       maxH: window.innerHeight,
-      fit: true,
       event: '',
       dragSelector: '.drag-container-1, .drag-container-2',
-      index: 9
+      index: 9,
+      store: filterStore()
     }
   },
   methods: {
@@ -99,11 +112,11 @@ export default {
       const orientation = window.orientation
       if (orientation === 0) {
         this.width = window.innerWidth
-        this.height = window.innerHeight - 180
+        this.height = window.innerHeight - 280
         this.left = 0
         this.top = 50
       } else if (orientation === 90 || orientation === -90) {
-        this.width = window.innerWidth - 160
+        this.width = window.innerWidth - 144
         this.height = window.innerHeight - 17
         this.left = 50
         this.top = 0
@@ -139,7 +152,6 @@ export default {
       rr.id = 'rr'
       document.getElementsByClassName('resizable-r')[0].appendChild(rr)
 
-      this.eHandler(data)
       this.orientationChange()
     },
     esc (e) {
@@ -152,8 +164,15 @@ export default {
       store.setLightBoxIndex(-1)
       lightBoxUi.value = false
       window.removeEventListener('keypress', this.resizeContentFit, true)
+    },
+    next () {
+      store.setLightBoxIndex(store.lightBoxIndex + 1)
+    },
+    prev () {
+      store.setLightBoxIndex(store.lightBoxIndex - 1)
     }
+
   }
-}
+})
 
 </script>

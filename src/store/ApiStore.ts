@@ -5,6 +5,15 @@ import { watch } from 'vue'
 import { filterStore } from '@/store/FilterStore'
 
 const base = 'http://3.130.240.169:3000/'
+const store = filterStore()
+watch(
+  () => store.filter,
+  () => {
+    ApiStore().search(store.filter)
+    console.log(store.filter)
+  }
+)
+
 export const ApiStore = defineStore({
   id: 'apiData',
   state: () => ({
@@ -57,11 +66,4 @@ export const ApiStore = defineStore({
     }
   }
 })
-const store = filterStore()
-watch(
-  () => store.filter,
-  () => {
-    ApiStore().search(store.filter)
-    console.log(store.filter)
-  }
-)
+

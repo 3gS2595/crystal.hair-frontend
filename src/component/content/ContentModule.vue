@@ -66,7 +66,6 @@
 import { ref, defineComponent } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
-import VueLoadImage from 'vue-load-image'
 import VLazyImage from 'v-lazy-image'
 
 const layout = ref('grid')

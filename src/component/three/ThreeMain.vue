@@ -38,7 +38,7 @@ export default {
     const store = filterStore()
     const webGl = ref()
     const forms: THREE.Mesh[] = []
-    const width = ref(700)
+    const width = ref(1000)
     const height = ref(200)
     const aspectRatio = computed(() => {
       return (width.value) / (height.value)
@@ -91,7 +91,7 @@ export default {
             forms[i].userData = { URL: (JSON.stringify(obj.url)).replace('"', '').replace('"', '') }
 
             // grid placement
-            forms[i].position.x += -27 + ((i + 1) * 10.85)
+            forms[i].position.x += -33 + ((i + 1) * 10.85)
             forms[i].position.y -= 1
             // initial animation
             forms[i].rotation.y = 1

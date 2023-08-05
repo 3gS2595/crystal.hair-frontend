@@ -32,15 +32,14 @@ html, body {
         border-left: 1px solid var(--border-secondary);
         border-bottom: 1px solid var(--border-secondary);
         a{
-        color:  var(--link)
+          color:  var(--link)
         }
-a:link {
-        color:  var(--link)
-      }
-      a:visited {
-        color:  var(--link)
-      }
-
+        a:link {
+          color:  var(--link)
+        }
+        a:visited {
+         color:  var(--link)
+        }
       }
 
       .contentMain{
@@ -72,10 +71,7 @@ a:link {
     }
   }
  }
-.test{
-    z-index:3;
-    background-color: var(--background-primary);
-}
+
 :root {
     --sat: env(safe-area-inset-top);
     --sar: env(safe-area-inset-right);
