@@ -4,8 +4,8 @@ import axios from 'axios'
 import { watch } from 'vue'
 import { filterStore } from '@/store/FilterStore'
 
-const base = 'http://3.130.240.169:3000/'
 const store = filterStore()
+const base = store.urlRails 
 watch(
   () => store.filter,
   () => {
@@ -26,9 +26,7 @@ export const ApiStore = defineStore({
 
     async initialize () {
       const config = {
-        headers: {
-          authorization: 'Bearer ' + sessionManager.state.auth_token
-        }
+        headers: { Authorization: sessionManager.state.auth_token }
       }
       const [hypertexts, kernals, linkContents, sourceUrls] = await Promise.all([
         axios.get(base + 'hypertexts', config),
@@ -49,9 +47,7 @@ export const ApiStore = defineStore({
       this.sourceUrls = []
 
       const config = {
-        headers: {
-          authorization: 'Bearer ' + sessionManager.state.auth_token
-        }
+        headers: { Authorization: sessionManager.state.auth_token }
       }
       const [hypertexts, kernals, linkContents, sourceUrls] = await Promise.all([
         axios.get(base + 'hypertexts?q=' + searchQ, config),

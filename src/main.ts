@@ -19,9 +19,9 @@ if (cookieExists) {
 }
 
 const app = createApp(App)
+app.use(createPinia())
 app.use(store)
 app.use(router)
-app.use(createPinia())
 app.use(PrimeVue)
 
 app.mount('#app')

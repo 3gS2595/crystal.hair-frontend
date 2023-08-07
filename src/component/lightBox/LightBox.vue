@@ -31,23 +31,23 @@
 
         <vue-load-image>
           <template v-slot:image>
-            <img :src='`https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/${viewerData[store.lightBoxIndex].file_path}`'/>
+            <img :src='`${viewerData[store.lightBoxIndex].signed_url}`' @load="handleLoad"/>
           </template>
           <template v-slot:preloader>
-              <img src='http://3.130.240.169/image-loader.gif' rel='preload'/>
+              <img src="image-loader.gif" rel='preload'/>
           </template>
           <template v-slot:error>
-            Image load fails
+           <a>{{ viewerData[store.lightBoxIndex].description }}</a> 
           </template>
         </vue-load-image>
 
         <div class='drag-container-2'>
-        <a
+        <a v-if="store.lightBoxIndex != 0"
             style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
             @click='prev'
             >prev----</a>
 
-          <a
+          <a v-if="store.lightBoxIndex != viewerData.length - 1"
             style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
             @click='next'
             >----next</a>
@@ -83,7 +83,8 @@ export default defineComponent({
   },
   setup(props) {
     const viewerData = ref(props.viewerData)
-    console.log(viewerData)
+    console.log(store.lightBoxIndex - 1)
+    
     return { viewerData }
   },
   data () {
@@ -104,6 +105,17 @@ export default defineComponent({
     }
   },
   methods: {
+    handleLoad(){
+      console.log('loaded')
+      const imgP = new Image()
+      if (store.lightBoxIndex - 1 >= 0) {
+        imgP.src = this.viewerData[store.lightBoxIndex - 1].signed_url
+      }
+      const imgN = new Image()
+      if (store.lightBoxIndex +1 <= this.viewerData.length -1) {
+        imgN.src = this.viewerData[store.lightBoxIndex + 1].signed_url
+      }
+    },
     eHandler () {
       this.maxW = window.innerWidth
       this.maxH = window.innerHeight
@@ -133,22 +145,22 @@ export default defineComponent({
       document.addEventListener('keyup', this.esc, true)
 
       const rb = document.createElement('img')
-      rb.src = 'http://3.130.240.169/rb.png'
+      rb.src = 'rb.png'
       rb.id = 'rb'
       document.getElementsByClassName('resizable-b')[0].appendChild(rb)
 
       const rt = document.createElement('img')
-      rt.src = 'http://3.130.240.169/rt.png'
+      rt.src = 'rt.png'
       rt.id = 'rt'
       document.getElementsByClassName('resizable-t')[0].appendChild(rt)
 
       const rl = document.createElement('img')
-      rl.src = 'http://3.130.240.169/rl.png'
+      rl.src = 'rl.png'
       rl.id = 'rl'
       document.getElementsByClassName('resizable-l')[0].appendChild(rl)
 
       const rr = document.createElement('img')
-      rr.src = 'http://3.130.240.169/rr.png'
+      rr.src = 'rr.png'
       rr.id = 'rr'
       document.getElementsByClassName('resizable-r')[0].appendChild(rr)
 
@@ -166,12 +178,15 @@ export default defineComponent({
       window.removeEventListener('keypress', this.resizeContentFit, true)
     },
     next () {
-      store.setLightBoxIndex(store.lightBoxIndex + 1)
+      if ((store.lightBoxIndex + 1) <= (this.viewerData.length -1)) {
+        store.setLightBoxIndex(store.lightBoxIndex + 1)
+      }
     },
     prev () {
-      store.setLightBoxIndex(store.lightBoxIndex - 1)
+      if ((store.lightBoxIndex - 1) >= 0) {
+        store.setLightBoxIndex(store.lightBoxIndex - 1)
+      }
     }
-
   }
 })
 

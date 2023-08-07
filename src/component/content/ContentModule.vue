@@ -18,10 +18,10 @@
           <div v-else >
             <vue-load-image>
               <template v-slot:image>
-                <img class="w-9" :src="`https://crystal-hair-nail.nyc3.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
+                <img class="w-9" :src="`${slotProps.data.signed_url}`"/>
               </template>
               <template v-slot:preloader>
-                <img class="w-9" src="http://3.130.240.169/image-loader.gif" rel="preload"/>
+                <img class="w-9" src="image-loader.gif" rel='preload'/>
               </template>
               <template v-slot:error>
                 Image load fails
@@ -35,24 +35,23 @@
       </template>
 
       <template #grid="slotProps">
-        <div v-if="slotProps.data.url != null">
-          <div class="cgb-0" id="contentBlock">
-            <div v-if="slotProps.data.file_type === '.txt'">
-              <div class="textContent">
-                    <a>{{ slotProps.data.description }}</a>
-              </div>
-            </div>
-            <div v-else >
-              <v-lazy-image @click="overlayMilky(slotProps.index)" class="cgb-0-img" :src="`https://crystal-hair-nail.nyc3.digitaloceanspaces.com/${slotProps.data.file_path}`"/>
-            </div>
+        <div class="cgb-0" id="contentBlock">
 
-            <div class="cgb-0-info">
-              <div class="file_path" >
-                {{ slotProps.data.time_posted }}
-              </div>
-              <div class="file_path" >
-                <a>{{ slotProps.data.author }}</a>
-              </div>
+          <div v-if="slotProps.data.file_type === '.txt'">
+            <div class="textContent">
+                  <a @click="overlayMilky(slotProps.index)">{{ slotProps.data.description }}</a>
+            </div>
+          </div>
+          <div v-else >
+            <v-lazy-image @click="overlayMilky(slotProps.index)" class="cgb-0-img" :src="`${slotProps.data.signed_url_nail}`"/>
+          </div>
+
+          <div class="cgb-0-info">
+            <div class="file_path" >
+              {{ slotProps.data.time_posted }}
+            </div>
+            <div class="file_path" >
+              <a>{{ slotProps.data.author }}</a>
             </div>
           </div>
         </div>
@@ -68,6 +67,7 @@ import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import VLazyImage from 'v-lazy-image'
 
+import VueLoadImage from 'vue-load-image'
 const layout = ref('grid')
 const props = defineProps({
   contentData: {

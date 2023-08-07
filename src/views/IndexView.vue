@@ -24,13 +24,13 @@
               <pane :size="50">
                 <TableModule
                   :contentData="sourceUrls"
-                  :tableOrder="[ 'url']"
+                  :tableOrder="['domain']"
                 />
               </pane>
               <pane :size="50">
                 <TableModule
                   :contentData="sourceUrls"
-                  :tableOrder="['urls']"
+                  :tableOrder="['domain']"
                 />
               </pane>
             </splitpanes>
@@ -66,8 +66,8 @@ import { filterStore } from '@/store/FilterStore'
 
 export default defineComponent({
   setup () {
-    const { hypertexts, sourceUrls, kernals } = storeToRefs(ApiStore())
-    return { hypertexts, sourceUrls, kernals }
+    const { hypertexts, sourceUrls, linkContents, kernals } = storeToRefs(ApiStore())
+    return { hypertexts, sourceUrls, kernals, linkContents }
   },
   components: {
     Splitpanes,

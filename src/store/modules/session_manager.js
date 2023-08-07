@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 const BASE_URL = 'http://3.130.240.169:3000/'
 
 const state = {

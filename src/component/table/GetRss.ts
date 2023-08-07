@@ -1,12 +1,8 @@
 export const ContentService = {
-  getContent (params: []) {
-    return fetch('http://192.168.1.179:3000/' + params).then((res) =>
-      res.json()
-    )
-  },
   generateColumns (args: string[]) {
     const params = args[0]
     const returnJson = [] as any[] // eslint-disable-line
+
     if (args[0] !== undefined) {
       if (args[0].length > 0) {
         // insert priorities
@@ -26,7 +22,7 @@ export const ContentService = {
           }
           // dynamic push remaining columns
           // excluding api autogen
-          if (key !== 'id' && key !== 'created_at' && key !== 'updated_at' && !flag) {
+          if (!flag) {
             returnJson.push({
               field: key,
               header: key

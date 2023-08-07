@@ -56,6 +56,10 @@ html, body {
           border-bottom-left-radius: $radius;
           border-bottom-right-radius:$radius;
         }
+        input {
+          background-color: rgba(0,0,0,0);
+          width:100%;
+        }
       }
 
       a:link {
@@ -64,11 +68,7 @@ html, body {
       a:visited {
         color:  var(--link-visited)
       }
-      input {
-        background-color: rgba(0,0,0,0);
-        width:100%;
-      }
-    }
+          }
   }
  }
 

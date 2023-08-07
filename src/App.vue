@@ -116,7 +116,6 @@ export default defineComponent({
         }
       }
     }
-
   },
   mounted () {
     window.addEventListener('resize', this.orientationChange)
