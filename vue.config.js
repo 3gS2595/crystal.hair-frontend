@@ -1,14 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-  transpileDependencies: true,
+    transpileDependencies: true,
+    devServer: {
+        allowedHosts: "all"
+    }
 })
-module.exports = {
-  devServer: {
-    allowedHosts: "all",
- },
-}; 
-// vue.config.js placed in root
-module.exports = {
-  publicPath: "./",
-};
-

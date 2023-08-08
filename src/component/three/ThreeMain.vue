@@ -19,19 +19,11 @@ import { InteractionManager } from 'three.interactive'
 
 import { filterStore } from '@/store/FilterStore'
 
-let interactionManager: InteractionManager
-
 export default {
   props: {
     imageData: {
       type: Array,
-      default: () => [],
-      validator: function (value: string) {
-        return (
-          ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
-          -1
-        )
-      }
+      default: () => []
     }
   },
   setup (props) {
@@ -40,9 +32,6 @@ export default {
     const forms: THREE.Mesh[] = []
     const width = ref(1000)
     const height = ref(200)
-    const aspectRatio = computed(() => {
-      return (width.value) / (height.value)
-    })
 
     let renderer: THREE.WebGLRenderer
     let camera: THREE.PerspectiveCamera
@@ -50,11 +39,11 @@ export default {
     let light: THREE.AmbientLight
 
     const setCanvas = () => {
-      // Create Scene
+      // Scene
       scene = new THREE.Scene()
 
       // Camera
-      camera = new THREE.PerspectiveCamera(9, aspectRatio.value, 10, 80)
+      camera = new THREE.PerspectiveCamera(9, (width.value/height.value), 10, 80)
       camera.position.z = 78
       scene.add(camera)
 
@@ -69,7 +58,7 @@ export default {
       renderer.render(scene, camera)
 
       // Interaction Manager
-      interactionManager = new InteractionManager(renderer, camera, renderer.domElement)
+      const interactionManager = new InteractionManager(renderer, camera, renderer.domElement)
 
       // Creates post-api reception
       const apij = ref()
@@ -107,7 +96,6 @@ export default {
         }
       }
     }
-
     const animate = () => {
       for (let i = 0, j = forms.length; i < j; i++) {
         if (forms[i] !== undefined) {
@@ -124,7 +112,7 @@ export default {
       setCanvas()
       animate()
     })
-    return { webGl, height, width }
+    return { webGl }
   }
 }
 </script>

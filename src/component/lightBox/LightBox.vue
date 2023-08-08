@@ -37,7 +37,7 @@
               <img src="image-loader.gif" rel='preload'/>
           </template>
           <template v-slot:error>
-           <a>{{ viewerData[store.lightBoxIndex].description }}</a> 
+           <a>{{ viewerData[store.lightBoxIndex].description }}</a>
           </template>
         </vue-load-image>
 
@@ -81,10 +81,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  setup (props) {
     const viewerData = ref(props.viewerData)
-    console.log(store.lightBoxIndex - 1)
-    
     return { viewerData }
   },
   data () {
@@ -106,7 +104,6 @@ export default defineComponent({
   },
   methods: {
     handleLoad(){
-      console.log('loaded')
       const imgP = new Image()
       if (store.lightBoxIndex - 1 >= 0) {
         imgP.src = this.viewerData[store.lightBoxIndex - 1].signed_url
@@ -124,19 +121,19 @@ export default defineComponent({
       const orientation = window.orientation
       if (orientation === 0) {
         this.width = window.innerWidth
-        this.height = window.innerHeight - 280
+        this.height = window.innerHeight - 300
         this.left = 0
-        this.top = 50
+        this.top = 40
       } else if (orientation === 90 || orientation === -90) {
-        this.width = window.innerWidth - 144
+        this.width = window.innerWidth - 124
         this.height = window.innerHeight - 17
-        this.left = 50
+        this.left = 40
         this.top = 0
       } else {
-        this.width = window.innerWidth - 103
+        this.width = window.innerWidth - 63
         this.height = window.innerHeight - 180
-        this.left = 50
-        this.top = 50
+        this.left = 30
+        this.top = 30
       }
     },
     res (data) {

@@ -1,6 +1,5 @@
 @import "./ThemeModes";
 
-$hun:100%;
 $navH:17px;
 $devH:100dvh;
 $devW:100dvw;
@@ -45,7 +44,7 @@ html, body {
       .contentMain{
         z-index:0!important;
         width:calc(100% - 2px);
-        height:unquote("calc( #{$hun} - (#{$border}))");
+        height:unquote("calc( 100% - (#{$border}))");
         overflow:hidden!important;
         position:absolute;
 
@@ -71,7 +70,6 @@ html, body {
           }
   }
  }
-
 :root {
     --sat: env(safe-area-inset-top);
     --sar: env(safe-area-inset-right);

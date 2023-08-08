@@ -39,11 +39,6 @@ import { mapGetters } from 'vuex'
 import '@/store/index.ts'
 import SessionManager from '@/component/sessionManager/SessionManager.vue'
 
-// preFetch
-const app = document.getElementById('app')
-if (localStorage.getItem('darkModeBool') === 'true') app.classList.add('theme-dark')
-else app.classList.add('theme-dark')
-
 export default defineComponent({
   computed: {
     ...mapGetters(['isLoggedIn'])
@@ -54,17 +49,20 @@ export default defineComponent({
     SessionManager
   },
   methods: {
-    darkToggle () {
+    darkSet () {
       app.classList.remove(...['theme-light', 'theme-dark'])
       if (localStorage.getItem('darkModeBool') === 'true') {
         app.classList.add('theme-light')
-        localStorage.setItem('darkModeBool', 'false')
         document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
       } else {
         app.classList.add('theme-dark')
-        localStorage.setItem('darkModeBool', 'true')
         document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
       }
+    },
+    darkToggle () {
+      if (localStorage.getItem('darkModeBool') === 'true') localStorage.setItem('darkModeBool', 'false')
+      else localStorage.setItem('darkModeBool', 'true')
+      this.darkSet()
     },
     windowPop () {
       window.open('http://3.130.240.169', '_blank', 'toolbar=0,location=0,menubar=0')
@@ -74,6 +72,8 @@ export default defineComponent({
       sessionStorage.clear()
       location.reload()
     },
+    
+    // handles ios safari landscape notch
     orientationChange: function () {
       const conM = document.getElementById('contentMain')
       const nav = document.getElementById('nav')
@@ -120,7 +120,7 @@ export default defineComponent({
   mounted () {
     window.addEventListener('resize', this.orientationChange)
     window.addEventListener('orientationchange', this.orientationChange)
-    document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
+    this.darkSet()
   }
 })
 </script>

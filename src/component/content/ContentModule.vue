@@ -11,7 +11,7 @@
       <template #list="slotProps">
         <div class="col-12">
           <div v-if="slotProps.data.file_type === '.txt'">
-              <div class="textContent">
+              <div class="cgb-0-txt">
                 <a>{{ slotProps.data.description }}</a>
               </div>
             </div>
@@ -38,7 +38,7 @@
         <div class="cgb-0" id="contentBlock">
 
           <div v-if="slotProps.data.file_type === '.txt'">
-            <div class="textContent">
+            <div class="cgb-0-txt">
                   <a @click="overlayMilky(slotProps.index)">{{ slotProps.data.description }}</a>
             </div>
           </div>
