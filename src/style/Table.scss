@@ -40,6 +40,9 @@ $dropDownBorder: 3px solid var(--border-primary);
   .p-paginator {
     display: block;
   }
+  .p-column-title{
+    font-weight: 400!important;
+  }
   .p-column-filter-menu-button, .p-column-filter-clear-button {
     padding: 0px;
   }
