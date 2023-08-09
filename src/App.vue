@@ -2,14 +2,14 @@
   <div class='main' id='main' v-if='isLoggedIn'>
     <nav id='nav'>
       <router-link to='/'>rss</router-link>
-      <a>\</a>
+      <a>-</a>
       <router-link to='/annex'>annex</router-link>
-      <a>\</a>
+      <a>-</a>
       <a
         style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
         @click="darkToggle"
         >theme</a>
-      <a>\</a>
+      <a>-</a>
       <a
         style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
         @click="cookies"
