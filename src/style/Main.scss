@@ -12,6 +12,7 @@ html, body {
   margin:0;
   overscroll-behavior: none;
   overflow: hidden;
+  background-color: var(--background-primary);
   #app {
     background-color: var(--background-primary);
     padding-top:$iosTop;

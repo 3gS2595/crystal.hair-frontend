@@ -4,7 +4,7 @@ import router from './router'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import store from '@/store/index' // eslint-disable-line
-
+import '../src/style/Font.scss'
 /**
  * Load JWT from Local Storage on Refresh.
  */

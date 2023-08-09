@@ -5,24 +5,15 @@
       <a>-</a>
       <router-link to='/annex'>annex</router-link>
       <a>-</a>
-      <router-link to='/input'>input</router-link>
-      <a>-</a>
       <a
         style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
         @click="darkToggle"
         >theme</a>
       <a>-</a>
-      <LogOutBtn/>
-      <a>-</a>
-      <a
-        style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
-        @click="windowPop"
-        >wind</a>
-      <a>-</a>
       <a
         style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
         @click="cookies"
-        >cookies</a>
+        >logout</a>
     </nav>
     <router-view/>
   </div>
@@ -45,7 +36,6 @@ export default defineComponent({
   },
   name: 'App',
   components: {
-    LogOutBtn,
     SessionManager
   },
   methods: {
@@ -53,10 +43,8 @@ export default defineComponent({
       app.classList.remove(...['theme-light', 'theme-dark'])
       if (localStorage.getItem('darkModeBool') === 'true') {
         app.classList.add('theme-light')
-        document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
       } else {
         app.classList.add('theme-dark')
-        document.body.style.backgroundColor = window.getComputedStyle(app, null).getPropertyValue('background-color')
       }
     },
     darkToggle () {

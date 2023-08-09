@@ -107,7 +107,7 @@ export default defineComponent({
       if (this.paneSize !== 0 && this.paneSize !== 100 && el != null) {
         const width = el.offsetWidth - 10
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90
-        if (this.paneSize === 40 && navigator.userAgent.match(/iPhone|iPad|iPod/i) && (window.innerHeight > window.innerWidth)){
+        if (this.paneSize === 40 && window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
           extra = extra + 90
         }
         const offset = (extra / width) * 100

@@ -69,7 +69,7 @@ export default {
         console.log(apij.value)
         for (let i = 0; i < apij.value.length; i++) {
           const obj = JSON.parse(JSON.stringify(apij.value[i]))
-          const path = ('http://3.130.240.169/img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', '')
+          const path = ('img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', '')
           const loader = new THREE.TextureLoader()
 
           loader.load(path, function (texture) {

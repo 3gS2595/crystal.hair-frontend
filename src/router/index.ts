@@ -8,10 +8,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/annex',
     component: () => import('@/views/AnnexView.vue')
-  },
-  {
-    path: '/input',
-    component: () => import('@/views/InputView.vue')
   }
 ]
 
