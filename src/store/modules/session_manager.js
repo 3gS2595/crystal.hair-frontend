@@ -52,7 +52,6 @@ const actions = {
             if (window.confirm('https://www.youtube.com/watch?v=V6OXwTqpWbs')) {
               window.location.href = 'https://www.youtube.com/watch?v=V6OXwTqpWbs'
             }
-            console.log('wemadeit not realy !')
           }
         })
     })

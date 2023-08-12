@@ -1,6 +1,7 @@
 <template>
   <div class="contentView">
-    <DataView :value="props.contentData" :layout="layout" :columns="4" :sortOrder="-1" scrollable >
+
+    <DataView :value="contentData" ref="dv"  scrollable :layout="layout" :columns="4" :sortOrder="-1" >
 
       <template #header>
         <div class="flex justify-content-start">
@@ -62,38 +63,70 @@
 </template>
 
 <script setup>
-import { ref, defineComponent } from 'vue'
+import { ref, onMounted, defineComponent } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import VLazyImage from 'v-lazy-image'
 
-import VueLoadImage from 'vue-load-image'
-const layout = ref('grid')
-const props = defineProps({
-  contentData: {
-    type: Array,
-    default: () => [],
-    required: true
-  }
-})
-</script>
-
-<script>
+import sessionManager from '../../store/modules/session_manager.js'
+import axios from 'axios'
 import { filterStore } from '@/store/FilterStore'
 
 const store = filterStore()
-export default defineComponent({
-  data: () => ({
-    index: -1,
-    showOverlay: false
-  }),
-  methods: {
-    overlayMilky (ind) {
-      if (store.lightBoxIndex === -1) {
-        store.setLightBoxView(!store.lightBoxView)
-      }
-      store.setLightBoxIndex(ind)
-    }
-  }
+const base = store.urlRails
+const contentData = ref([])
+const layout = ref('grid')
+let  pageNumber = ref(1)
+
+let options = {
+  root: document.getElementsByClassName("p-grid")[0],
+  rootMargin: "0px",
+  threshold: 1.0
+}
+onMounted(() => {
+  onPage()
 })
+
+const fetchKernals = async () => {
+  const config = {
+    headers: { Authorization: sessionManager.state.auth_token },
+    params: { page: pageNumber.value, q:store.filter }
+  }
+  const kernals =  await axios.get(base + 'kernals', config)
+  pageNumber.value = pageNumber.value + 1
+  const ret = kernals.data
+  return ret
+}
+
+const onPage = async (event) => {
+  console.log(event)
+  console.log(contentData.value)
+  const newPage =  await fetchKernals()
+  contentData.value = contentData.value.concat(newPage)
+  console.log(contentData.value)
+  setTimeout(() => {
+    const el1 = document.getElementsByClassName("cgb-0")[(pageNumber.value-1)*25-20]
+    options.root = el1
+    observer.observe(el1)
+    if(pageNumber.value - 2 !== 0){
+      const el2 = document.getElementsByClassName("cgb-0")[(pageNumber.value-2)*25-20]
+      observer.unobserve(el2)
+    }
+  },100)
+}
+
+const intersecting = (event) => {
+  if (event[0].isIntersecting) {
+    onPage()
+  }
+}
+const observer = new IntersectionObserver(intersecting, options);
+
+const overlayMilky = (ind) => {
+  if (store.lightBoxIndex === -1) {
+    store.setLightBoxView(!store.lightBoxView)
+  }
+  store.setLightBoxIndex(ind)
+}
+
 </script>

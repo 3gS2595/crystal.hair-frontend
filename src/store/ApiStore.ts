@@ -23,43 +23,42 @@ export const ApiStore = defineStore({
     sourceUrls: []
   }),
   actions: {
-
     async initialize () {
       const config = {
-        headers: { Authorization: sessionManager.state.auth_token }
+        headers: { Authorization: sessionManager.state.auth_token },
       }
-      const [hypertexts, kernals, linkContents, sourceUrls] = await Promise.all([
+      const configPaged = {
+        headers: { Authorization: sessionManager.state.auth_token},
+        params: { page: 1}
+      }
+      const [kernals, hypertexts, linkContents, sourceUrls] = await Promise.all([
+        axios.get(base + 'kernals', configPaged),
         axios.get(base + 'hypertexts', config),
-        axios.get(base + 'kernals', config),
         axios.get(base + 'link_contents', config),
         axios.get(base + 'source_urls', config)
       ])
-      this.hypertexts = hypertexts.data
       this.kernals = kernals.data
+      this.hypertexts = hypertexts.data
       this.linkContents = linkContents.data
       this.sourceUrls = sourceUrls.data
-      console.log(this.kernals)
     },
     async search (searchQ) {
       this.hypertexts = []
-      this.kernals = []
       this.linkContents = []
       this.sourceUrls = []
 
       const config = {
         headers: { Authorization: sessionManager.state.auth_token }
       }
-      const [hypertexts, kernals, linkContents, sourceUrls] = await Promise.all([
+      const [hypertexts, linkContents, sourceUrls] = await Promise.all([
         axios.get(base + 'hypertexts?q=' + searchQ, config),
-        axios.get(base + 'kernals?q=' + searchQ, config),
         axios.get(base + 'link_contents?q=' + searchQ, config),
         axios.get(base + 'source_urls?q=' + searchQ, config)
       ])
       this.hypertexts = hypertexts.data
-      this.kernals = kernals.data
       this.linkContents = linkContents.data
       this.sourceUrls = sourceUrls.data
-    }
+    },
   }
 })
 

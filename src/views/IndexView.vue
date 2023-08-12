@@ -41,7 +41,7 @@
       </pane>
 
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
-        <ContentModule :contentData="kernals"/>
+              <ContentModule :contentData="kernals"/>
       </pane>
     </splitpanes>
 
@@ -66,7 +66,7 @@ import { filterStore } from '@/store/FilterStore'
 
 export default defineComponent({
   setup () {
-    const { hypertexts, sourceUrls, linkContents, kernals } = storeToRefs(ApiStore())
+    const { hypertexts, sourceUrls, kernals, linkContents } = storeToRefs(ApiStore())
     return { hypertexts, sourceUrls, kernals, linkContents }
   },
   components: {
@@ -89,7 +89,6 @@ export default defineComponent({
     }
   },
   mounted () {
-    console.log('mounted')
     this.findScrollWidth()
     ApiStore().initialize().then(async () => {
       this.dataFetched = true
