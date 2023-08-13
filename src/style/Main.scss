@@ -7,7 +7,10 @@ $devW:100dvw;
 $iosTop: env(safe-area-inset-top, 0px);
 $border: 21px;
 $radius: 34.0pt;
-
+html {
+  background-color: var(--background-primary);
+  min-height:100dvh;
+}
 html, body {
   margin:0;
   overscroll-behavior: none;

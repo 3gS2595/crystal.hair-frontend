@@ -46,11 +46,12 @@ export const ApiStore = defineStore({
       this.hypertexts = []
       this.linkContents = []
       this.sourceUrls = []
-
+      this.kernals = []
       const config = {
         headers: { Authorization: sessionManager.state.auth_token }
       }
-      const [hypertexts, linkContents, sourceUrls] = await Promise.all([
+      const [kernals, hypertexts, linkContents, sourceUrls] = await Promise.all([
+        this.fetchKernals(1),
         axios.get(base + 'hypertexts?q=' + searchQ, config),
         axios.get(base + 'link_contents?q=' + searchQ, config),
         axios.get(base + 'source_urls?q=' + searchQ, config)
@@ -59,6 +60,17 @@ export const ApiStore = defineStore({
       this.linkContents = linkContents.data
       this.sourceUrls = sourceUrls.data
     },
+    async fetchKernals (pageNumber) {
+      const config = {
+        headers: { Authorization: sessionManager.state.auth_token },
+      }
+      if(store.filter.length > 0){
+        const kernals = await axios.get(base + 'kernals?page='+pageNumber+'&q=' + store.filter, config)
+        this.kernals = this.kernals.concat(kernals.data)
+      }else{
+        const kernals = await axios.get(base + 'kernals?page='+pageNumber, config)
+        this.kernals = this.kernals.concat(kernals.data)
+      }
+    }
   }
 })
-

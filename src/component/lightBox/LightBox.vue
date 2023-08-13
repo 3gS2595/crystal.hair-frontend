@@ -164,9 +164,15 @@ export default defineComponent({
       this.orientationChange()
     },
     esc (e) {
+      console.log(e)
       if (e.key === 'Escape') {
         this.close()
+      } else if (e.key === 'ArrowRight') {
+        this.next()
+      } else if (e.key === 'ArrowLeft') {
+        this.next()
       }
+
     },
     close () {
       store.setLightBoxView(false)
