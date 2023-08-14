@@ -11,5 +11,6 @@
   font-weight:400;
   color: var(--text-primary);
   text-decoration: none;
-  transition: color background background-color 1s!important;
+
+  transition: color, background, background-color .13s!important;
 }

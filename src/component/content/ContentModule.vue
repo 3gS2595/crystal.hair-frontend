@@ -1,6 +1,6 @@
 <template>
   <div class="contentView">
-    <DataView :value="props.contentData" ref="dv"  scrollable :layout="layout" :columns="4" :sortOrder="-1" >
+    <DataView :value="props.contentData" ref="dv"  :layout="layout" scrollable :columns="4" :sortOrder="-1" >
 
       <template #header>
         <div class="flex justify-content-start">
@@ -65,17 +65,14 @@ import { ref, watch, onMounted, defineComponent } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import VLazyImage from 'v-lazy-image'
-
-import sessionManager from '../../store/modules/session_manager.js'
 import axios from 'axios'
+
 import { filterStore } from '@/store/FilterStore'
 import { ApiStore } from '@/store/ApiStore'
 
 const store = filterStore()
-const base = store.urlRails
 const contentData = ref([])
 const layout = ref('grid')
-
 const  pageNumber = ref(2)
 const props = defineProps({
   contentData: {
@@ -85,41 +82,46 @@ const props = defineProps({
   }
 })
 onMounted(() => {
-  intersectWatch()
   const targetNode = document.getElementsByClassName("p-grid")[0]
-  MutateObserver.observe(targetNode, config);
+  MutateObserver.observe(targetNode, configMutate);
 })
 
-const onPage = async (event) => {
-  pageNumber.value = pageNumber.value + 1
+const fetchPage = async (event) => {
   const newPage =  ApiStore().fetchKernals(pageNumber.value)
+  pageNumber.value = pageNumber.value + 1
 }
-
 const intersecting = (event) => {
-  if (event[0].isIntersecting) {
-    onPage()
+  for (const e of event){
+    if (e.isIntersecting) {
+      observer.disconnect()
+      fetchPage()
+    }
   }
 }
-const intersectWatch = () =>{
-    const el1 = document.getElementsByClassName("cgb-0")[(pageNumber.value-1)*25-20]
+const config = { root: document.getElementsByClassName("p-grid")[0], threshold: 0.5 }
+const observer = new IntersectionObserver(intersecting, config);
+
+const watchIntersect = (pageNum) =>{
+    const el1 = document.getElementsByClassName("cgb-0")[(pageNum.value-1)*20-15]
+    const el2 = document.getElementsByClassName("cgb-0")[(pageNum.value-1)*20-25]
     if (el1){ observer.observe(el1) } 
+    if (el2){ observer.observe(el2) } 
     if (pageNumber.value - 2 !== 0) {
-      const el2 = document.getElementsByClassName("cgb-0")[(pageNumber.value-2)*25-20]
-      if (el2) { observer.unobserve(el2) }
+      const elr1 = document.getElementsByClassName("cgb-0")[(pageNum.value-2)*20-15]
+      const elr2 = document.getElementsByClassName("cgb-0")[(pageNum.value-2)*20-25]
+      if (elr1) { observer.unobserve(elr1) }
+      if (elr2) { observer.unobserve(elr2) }
     }
 }
-const options = { root: document.getElementsByClassName("p-grid")[0] }
-const observer = new IntersectionObserver(intersecting, options);
-
 const callback = (mutationList, MutateObserver) => {
   for (const mutation of mutationList) {
     if (mutation.type === "childList") {
       observer.disconnect()
-      intersectWatch()
+      watchIntersect(pageNumber)
     }
   }
 }
-const config = { childList: true };
+const configMutate = { childList: true };
 const MutateObserver = new MutationObserver(callback);
 
 watch(
@@ -142,10 +144,6 @@ const overlayMilky = (ind) => {
             store.setLightBoxView(!store.lightBoxView)
           }
           store.setLightBoxIndex(ind)
-        console.log('sig')
-          break;
-        default:
-        console.log('dub')
           break;
       }
     numClicks = 0;

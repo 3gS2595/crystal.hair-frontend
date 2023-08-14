@@ -10,7 +10,6 @@ watch(
   () => store.filter,
   () => {
     ApiStore().search(store.filter)
-    console.log(store.filter)
   }
 )
 
@@ -27,20 +26,15 @@ export const ApiStore = defineStore({
       const config = {
         headers: { Authorization: sessionManager.state.auth_token },
       }
-      const configPaged = {
-        headers: { Authorization: sessionManager.state.auth_token},
-        params: { page: 1}
-      }
-      const [kernals, hypertexts, linkContents, sourceUrls] = await Promise.all([
-        axios.get(base + 'kernals', configPaged),
+      const [hypertexts, linkContents, sourceUrls] = await Promise.all([
         axios.get(base + 'hypertexts', config),
         axios.get(base + 'link_contents', config),
         axios.get(base + 'source_urls', config)
       ])
-      this.kernals = kernals.data
       this.hypertexts = hypertexts.data
       this.linkContents = linkContents.data
       this.sourceUrls = sourceUrls.data
+      this.fetchKernals(1)
     },
     async search (searchQ) {
       this.hypertexts = []
@@ -50,8 +44,7 @@ export const ApiStore = defineStore({
       const config = {
         headers: { Authorization: sessionManager.state.auth_token }
       }
-      const [kernals, hypertexts, linkContents, sourceUrls] = await Promise.all([
-        this.fetchKernals(1),
+      const [hypertexts, linkContents, sourceUrls] = await Promise.all([
         axios.get(base + 'hypertexts?q=' + searchQ, config),
         axios.get(base + 'link_contents?q=' + searchQ, config),
         axios.get(base + 'source_urls?q=' + searchQ, config)
@@ -59,6 +52,7 @@ export const ApiStore = defineStore({
       this.hypertexts = hypertexts.data
       this.linkContents = linkContents.data
       this.sourceUrls = sourceUrls.data
+        this.fetchKernals(1)
     },
     async fetchKernals (pageNumber) {
       const config = {

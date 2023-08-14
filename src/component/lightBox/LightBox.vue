@@ -67,7 +67,6 @@ import VueLoadImage from 'vue-load-image'
 
 const store = filterStore()
 const lightBoxUi = ref(false)
-
 export default defineComponent({
   name: 'App',
   components: {
@@ -83,6 +82,7 @@ export default defineComponent({
   },
   setup (props) {
     const viewerData = ref(props.viewerData)
+    console.log(store.lightBoxIndex)
     return { viewerData }
   },
   data () {
@@ -139,7 +139,7 @@ export default defineComponent({
     res (data) {
       window.addEventListener('resize', this.orientationChange)
       window.addEventListener('orientationchange', this.orientationChange)
-      document.addEventListener('keyup', this.esc, true)
+      window.addEventListener('keyup', this.esc, true)
 
       const rb = document.createElement('img')
       rb.src = 'rb.png'
@@ -164,21 +164,19 @@ export default defineComponent({
       this.orientationChange()
     },
     esc (e) {
-      console.log(e)
       if (e.key === 'Escape') {
         this.close()
       } else if (e.key === 'ArrowRight') {
         this.next()
       } else if (e.key === 'ArrowLeft') {
-        this.next()
+        this.prev()
       }
-
     },
     close () {
       store.setLightBoxView(false)
       store.setLightBoxIndex(-1)
       lightBoxUi.value = false
-      window.removeEventListener('keypress', this.resizeContentFit, true)
+      window.removeEventListener('keyup', this.esc, true)
     },
     next () {
       if ((store.lightBoxIndex + 1) <= (this.viewerData.length -1)) {
