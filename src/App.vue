@@ -1,19 +1,16 @@
 <template>
   <div class='main' id='main' v-if='isLoggedIn'>
     <nav id='nav'>
-      <router-link to='/'>rss</router-link>
-      <a>-</a>
-      <router-link to='/annex'>annex</router-link>
-      <a>-</a>
-      <a
-        style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
+      <router-link  class='navItem' to='/'>index</router-link>
+      <router-link  class='navItem' to='/annex'>annex</router-link>
+      <a  class='navItem' 
         @click="darkToggle"
         >theme</a>
-      <a>-</a>
-      <a
-        style="border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;"
-        @click="cookies"
+      <a  class='navItem' 
+        @click="logout"
         >logout</a>
+
+      <DropDown/>
     </nav>
     <router-view/>
   </div>
@@ -29,6 +26,7 @@ import { defineComponent } from 'vue'
 import { mapGetters } from 'vuex'
 import '@/store/index.ts'
 import SessionManager from '@/component/sessionManager/SessionManager.vue'
+import DropDown from '@/component/dropDown/DropDown';
 
 export default defineComponent({
   computed: {
@@ -36,7 +34,8 @@ export default defineComponent({
   },
   name: 'App',
   components: {
-    SessionManager
+    SessionManager,
+    DropDown
   },
   methods: {
     darkSet () {
@@ -52,10 +51,7 @@ export default defineComponent({
       else localStorage.setItem('darkModeBool', 'true')
       this.darkSet()
     },
-    windowPop () {
-      window.open('http://3.130.240.169', '_blank', 'toolbar=0,location=0,menubar=0')
-    },
-    cookies () {
+    logout () {
       localStorage.clear()
       sessionStorage.clear()
       location.reload()

@@ -4,9 +4,8 @@ import router from './router'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import store from '@/store/index' // eslint-disable-line
-/**
- * Load JWT from Local Storage on Refresh.
- */
+
+//Load JWT from Local Storage on Refresh.
 const localAuthToken = localStorage.auth_token
 const cookieExists = localAuthToken !== 'undefined' && localAuthToken !== null
 if (cookieExists) {

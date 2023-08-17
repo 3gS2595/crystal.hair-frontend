@@ -1,8 +1,6 @@
 <template>
   <div class="tableCard">
     <DataTable
-      removableSort
-      sortField="count" :sortOrder="-1"
       :value="props.contentData"
       resizableColumns="true"
       autoLayout="true"
@@ -26,7 +24,6 @@
       </template>
 
       <Column
-        sortable
         v-for="(col, index) of selectedColumns"
         :key="col.field + '_' + index"
         :field="col.field"

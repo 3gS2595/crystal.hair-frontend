@@ -11,6 +11,7 @@ html {
   background-color: var(--background-primary);
   min-height:100dvh;
 }
+
 html, body {
   margin:0;
   overscroll-behavior: none;
@@ -27,13 +28,25 @@ html, body {
     .main{
       width:inherit; 
       height: inherit;
-
       nav{
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
         height:$navH;
+        padding-left:1px;
         border-top: 1px solid var(--border-secondary);
         border-right: 1px solid var(--border-secondary);
         border-left: 1px solid var(--border-secondary);
         border-bottom: 1px solid var(--border-secondary);
+        overflow-y:hidden;
+        .navItem{
+          padding-right:1px;
+          padding-left:1px;
+          border-right:1px solid var(--border-secondary);
+        }
         a{
           color:  var(--link)
         }
@@ -42,6 +55,17 @@ html, body {
         }
         a:visited {
          color:  var(--link)
+        }
+        select{
+          background-color: var(--background-primary);
+          border: 0;
+          outline-style: none;
+          box-shadow: none;
+          height:calc($navH - 3px);
+          -webkit-border-radius:0px;
+        }
+        select option:checked {
+          background-color: #d6d006 !important; /* for IE */
         }
       }
 

@@ -6,9 +6,10 @@
   --color-scheme: dark;
   --border-primary: #848493;
   --border-secondary: #898997;
+  --splitter-box: lightyellow;
 }
 .theme-light {
-  --background-primary: #ccc;
+  --background-primary: rgb(255, 255, 255);
   --link: green;
   --link-visited: brown;
   --text-primary: #000;
@@ -16,4 +17,6 @@
   --color-scheme: light;
   --border-primary: #737373;
   --border-secondary: #000;
+
+  --splitter-box: purple;
 }

@@ -10,9 +10,23 @@ export const filterStore = defineStore('counter', () => {
   const filter = ref('')
   const lightBoxView = ref(false)
   const lightBoxIndex = ref(-1)
-
+  const sortBy = ref('time_posted desc')
+  const sortByValue = ref([])
+  const sortByOrder = ref('desc')
   function setFilter (newFilter: string) {
     filter.value = newFilter
+  }
+  function setSortByValue (newSortByValue: []) {
+    sortByValue.value = newSortByValue
+    console.log(sortByValue)
+    console.log(newSortByValue)
+  }
+  function setSortByOrder (newSortByOrder: string) {
+    sortByOrder.value = newSortByOrder
+  }
+
+  function setSortBy (newSortBy: string) {
+    sortBy.value = newSortBy
   }
   function setLightBoxView (newLightBoxView: boolean) {
     lightBoxView.value = newLightBoxView
@@ -27,6 +41,9 @@ export const filterStore = defineStore('counter', () => {
     urlS3Nail,
     filter, setFilter,
     lightBoxView, setLightBoxView,
-    lightBoxIndex, setLightBoxIndex
+    lightBoxIndex, setLightBoxIndex, 
+    sortBy, setSortBy,
+    sortByValue, setSortByValue,
+    sortByOrder, setSortByOrder
   }
 })

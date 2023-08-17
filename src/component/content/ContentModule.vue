@@ -5,7 +5,7 @@
       <template #header>
         <div class="flex justify-content-start">
           <DataViewLayoutOptions v-model="layout" />
-        </div>
+          </div>
       </template>
 
       <template #list="slotProps">
@@ -36,22 +36,57 @@
 
       <template #grid="slotProps">
         <div class="cgb-0" id="contentBlock">
+
           <div v-if="slotProps.data.file_type === '.txt'">
-            <div class="cgb-0-txt">
-                  <a @click="overlayMilky(slotProps.index)">{{ slotProps.data.description }}</a>
+            <div class='cgb-loaded'>
+              <div class="cgb-0-txt">
+                <a @click="overlayMilky(slotProps.index)">{{ slotProps.data.description }}</a>
+              </div>
+              <div class="cgb-0-info">
+                <div class="file_path" >
+                  {{ slotProps.data.time_posted }}
+                </div>
+                <div class="file_path" >
+                  <a>{{ slotProps.data.author }}</a>
+                </div>
+              </div>
             </div>
-          </div>
-          <div v-else >
-            <v-lazy-image v-on:click="overlayMilky(slotProps.index)" class="cgb-0-img" :src="`${slotProps.data.signed_url_nail}`"/>
           </div>
 
-          <div class="cgb-0-info">
-            <div class="file_path" >
-              {{ slotProps.data.time_posted }}
-            </div>
-            <div class="file_path" >
-              <a>{{ slotProps.data.author }}</a>
-            </div>
+          <div v-else >
+            <vue-load-image>
+              <template v-slot:image>
+                <div class='cgb-loaded'>
+                  <img v-on:click="overlayMilky(slotProps.index)" class="cgb-0-img" :src="`${slotProps.data.signed_url_nail}`"/>
+                  <div class="cgb-0-info">
+                    <div class="file_path" >
+                      {{ slotProps.data.time_posted }}
+                    </div>
+                    <div class="file_path" >
+                      <a>{{ slotProps.data.author }}</a>
+                    </div>
+                  </div>
+                </div>
+              </template>
+              <template v-slot:preloader>
+              <div class ='cgb-loading' />
+              </template>
+              <template v-slot:error>
+                <div class='cgb-loaded'>
+                  <div class="cgb-0-txt">
+                    <a @click="overlayMilky(slotProps.index)">{{ slotProps.data.description }}</a>
+                  </div>
+                  <div class="cgb-0-info">
+                    <div class="file_path" >
+                      {{ slotProps.data.time_posted }}
+                    </div>
+                    <div class="file_path" >
+                      <a>{{ slotProps.data.author }}</a>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </vue-load-image>
           </div>
         </div>
       </template>
@@ -64,8 +99,10 @@
 import { ref, watch, onMounted, defineComponent } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
+import VueLoadImage from 'vue-load-image'
 import VLazyImage from 'v-lazy-image'
 import axios from 'axios'
+import Dropdown from '../dropDown/DropDown';
 
 import { filterStore } from '@/store/FilterStore'
 import { ApiStore } from '@/store/ApiStore'
@@ -74,6 +111,7 @@ const store = filterStore()
 const contentData = ref([])
 const layout = ref('grid')
 const  pageNumber = ref(2)
+
 const props = defineProps({
   contentData: {
     type: Array,
@@ -85,11 +123,11 @@ onMounted(() => {
   const targetNode = document.getElementsByClassName("p-grid")[0]
   MutateObserver.observe(targetNode, configMutate);
 })
-
 const fetchPage = async (event) => {
   const newPage =  ApiStore().fetchKernals(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
 }
+
 const intersecting = (event) => {
   for (const e of event){
     if (e.isIntersecting) {
