@@ -1,17 +1,20 @@
 
 Vue todo<br>
-view kernel metadata<br>
-editable kernel descriptions<br>
+api file upload<br>
+file upload form<br>
 read pdf viewer in light box <br>
 read .txt files in light box <br>
 edit .txt files in light box<br>
 links as kernels <br>
-api file upload<br>
-file upload form<br>
+
+Vue next<br>
+view kernel metadata<br>
+editable kernel descriptions<br>
 replace tables with cards<br>
 fix / replace menu ui<br>
 refactor Vue into options api<br>
 refactor typescript types <br>
+
 ✔️intersection page end error<br>
 ✔️iOS safari rotation width break<br>
 ✔️SCSS content gap to splitter<br>
