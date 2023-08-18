@@ -13,9 +13,14 @@ fix / replace menu ui
 refactor Vue into options api
 refactor typescript types 
 ✔️intersection page end error
+
 ✔️iOS safari rotation width break
+
+
 ✔️SCSS content gap to splitter
+
 ✔️no capitalized first letter user login
+
 ✔️touch breaks scrolling 
 ✔️css background mobile error
 ✔️serve actual build spec
