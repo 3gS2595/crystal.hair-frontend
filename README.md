@@ -1,47 +1,42 @@
 
-Vue todo
-view kernel metadata
-editable kernel descriptions
-read pdf viewer in light box 
-read .txt files in light box 
-edit .txt files in light box
-links as kernels 
-api file upload
-file upload form
-replace tables with cards
-fix / replace menu ui
-refactor Vue into options api
-refactor typescript types 
-✔️intersection page end error
-
-✔️iOS safari rotation width break
-
-
-✔️SCSS content gap to splitter
-
-✔️no capitalized first letter user login
-
-✔️touch breaks scrolling 
-✔️css background mobile error
-✔️serve actual build spec
-✔️Side padding notch mobile landscape
-✔️search-box 
-✔️Search
-✔️isAuthenticated
-✔️signedUrls
-✔️Infinite scrolling cards
-✔️differentiate single tap from double
-✔️text light box support
-✔️image light box support
-✔️preload next-prev image in light box
-✔️light box
-✔️resizable drag light box
-✔️pane splitters
-✔️three.js boiler
-✔️three.js dynamic image load
-✔️ lock storage dark mode 
-✔️sort api
-✔️dynamic sort options based on data
-✔️ms pgothic font 
-✔️reusable table module
-✔️optional explicit table column ordering
+Vue todo<br>
+view kernel metadata<br>
+editable kernel descriptions<br>
+read pdf viewer in light box <br>
+read .txt files in light box <br>
+edit .txt files in light box<br>
+links as kernels <br>
+api file upload<br>
+file upload form<br>
+replace tables with cards<br>
+fix / replace menu ui<br>
+refactor Vue into options api<br>
+refactor typescript types <br>
+✔️intersection page end error<br>
+✔️iOS safari rotation width break<br>
+✔️SCSS content gap to splitter<br>
+✔️no capitalized first letter user login<br>
+✔️touch breaks scrolling <br>
+✔️css background mobile error<br>
+✔️serve actual build spec<br>
+✔️Side padding notch mobile landscape<br>
+✔️search-box <br>
+✔️Search<br>
+✔️isAuthenticated<br>
+✔️signedUrls<br>
+✔️Infinite scrolling cards<br>
+✔️differentiate single tap from double<br>
+✔️text light box support<br>
+✔️image light box support<br>
+✔️preload next-prev image in light box<br>
+✔️light box<br>
+✔️resizable drag light box<br>
+✔️pane splitters<br>
+✔️three.js boiler<br>
+✔️three.js dynamic image load<br>
+✔️ lock storage dark mode <br>
+✔️sort api<br>
+✔️dynamic sort options based on data<br>
+✔️ms pgothic font <br>
+✔️reusable table module<br>
+✔️optional explicit table column ordering<br>
