@@ -53,7 +53,7 @@ export const ApiStore = defineStore({
       const config = {
         headers: { Authorization: sessionManager.state.auth_token }
       }
-      const params = '?sort=' + store.sortBy + '&q=' + store.filter
+      const params = '?q=' + store.filter + '&sort=' + store.sortBy 
       const [hypertexts, linkContents, sourceUrls] = await Promise.all([
         axios.get(base + 'hypertexts' + params, config),
         axios.get(base + 'link_contents' + params, config),
@@ -69,8 +69,6 @@ export const ApiStore = defineStore({
       const config = {
         headers: { Authorization: sessionManager.state.auth_token },
       }
-
-
       const params = '?page=' + pageNumber + '&sort=' + store.sortBy
       if (store.filter.length > 0) {
         const kernals = await axios.get(base + 'kernals'+ params +'&q=' + store.filter, config)
@@ -79,10 +77,15 @@ export const ApiStore = defineStore({
         const kernals = await axios.get(base + 'kernals'+ params, config)
         this.kernals = this.kernals.concat(kernals.data)
       }
+      // dropdown sort options
       if(this.kernals.length===20){ 
         const singledata = this.kernals[0]
         const keys = []
-        for (let k in singledata) keys.push(k)
+        for (let k in singledata){
+          if(k != 'signed_url' && k != 'signed_url_nail' && k != 'id' && k != 'file_path') {
+            keys.push(k)
+          }
+        }
         store.setSortByValue(keys) 
       }
        

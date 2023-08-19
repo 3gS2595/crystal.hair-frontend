@@ -9,7 +9,6 @@
       <a  class='navItem' 
         @click="logout"
         >logout</a>
-
       <DropDown/>
     </nav>
     <router-view/>

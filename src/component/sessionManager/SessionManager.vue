@@ -19,15 +19,13 @@
   </div>
   <div v-else>
     <form @submit='onLogin' class='login-form'>
-      <a style='font-weight:bold;' >Nexus Webmail Login</a>
-      <br/>
-      <a>Name: </a>
+      <a>user:  </a>
       <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
       <br />
-      <a>Pass: </a>
+      <a>pass: </a>
       <input class='login-form-password' type='password' v-model='loginPassword' placeholder='password' />
       <br />
-      <input type='submit' value='Login' class='login-form-submit' />
+      <input type='submit' value='request' class='login-form-submit' />
     </form>
   </div>
 </template>

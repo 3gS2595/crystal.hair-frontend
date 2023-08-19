@@ -8,8 +8,10 @@ input[type="submit" i]{
   padding-bottom:1px;
   padding-left: 6px;
   padding-right:6px;
+  outline:0;
 }
   input{
+    margin:3px;
     border: 0;
     background: var(--background-primary);
     outline: 1px solid  var(--border-primary);
@@ -18,7 +20,6 @@ input[type="submit" i]{
       border-radius: 0;
   }
   a{
-
     font-size:20px;
     font-weight:1;
   }

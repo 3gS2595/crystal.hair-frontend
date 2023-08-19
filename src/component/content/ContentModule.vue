@@ -106,7 +106,6 @@ import Dropdown from '../dropDown/DropDown';
 
 import { filterStore } from '@/store/FilterStore'
 import { ApiStore } from '@/store/ApiStore'
-
 const store = filterStore()
 const contentData = ref([])
 const layout = ref('grid')
@@ -120,6 +119,8 @@ const props = defineProps({
   }
 })
 onMounted(() => {
+
+console.log(props.contentData)
   const targetNode = document.getElementsByClassName("p-grid")[0]
   MutateObserver.observe(targetNode, configMutate);
 })
