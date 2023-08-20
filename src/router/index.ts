@@ -2,12 +2,17 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
+    path: '/index',
     component: () => import('@/views/IndexView.vue')
   },
   {
     path: '/annex',
     component: () => import('@/views/AnnexView.vue')
+  },
+  {
+    path: '/',
+    redirect: to => {
+      return { path: '/index'}
   }
 ]
 

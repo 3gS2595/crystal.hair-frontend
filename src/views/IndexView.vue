@@ -12,19 +12,23 @@
         <ThreeMain :imageData="hypertexts"/>
         <splitpanes class="data_pane" :horizontal="true">
 
-          <pane :size="40">
+          <pane :size="70">
             <TableModule
-              :contentData="hypertexts"
-              :tableOrder="['time_posted', 'name', 'url']"
-            />
+              :interiorLink="['name']"
+              :contentData="mixtapes"
+              :tableOrder="['name']"
+           />
+
+
           </pane>
 
-          <pane :size="59">
+          <pane :size="30">
             <splitpanes class="default-theme" :vertical="true">
+
               <pane :size="50">
                 <TableModule
-                  :contentData="sourceUrls"
-                  :tableOrder="['domain']"
+                :contentData="hypertexts"
+                :tableOrder="['time_posted', 'name', 'url']"
                 />
               </pane>
               <pane :size="50">
@@ -37,7 +41,6 @@
           </pane>
 
         </splitpanes>
-        <input class='search' v-model="searchQ" placeholder="edit me" @keyup.enter="search" />
       </pane>
 
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
@@ -66,8 +69,8 @@ import { filterStore } from '@/store/FilterStore'
 
 export default defineComponent({
   setup () {
-    const { hypertexts, sourceUrls, kernals, linkContents } = storeToRefs(ApiStore())
-    return { hypertexts, sourceUrls, kernals, linkContents }
+    const { hypertexts, sourceUrls, kernals, linkContents, mixtapes } = storeToRefs(ApiStore())
+    return { hypertexts, sourceUrls, kernals, linkContents, mixtapes }
   },
   components: {
     Splitpanes,
@@ -104,7 +107,7 @@ export default defineComponent({
     resizeContentFit: function () {
       const el = document.getElementById('contentMain')
       if (this.paneSize !== 0 && this.paneSize !== 100 && el != null) {
-        const width = el.offsetWidth - 10
+        const width = el.offsetWidth - 13
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90
         if (this.paneSize === 40 && window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
           extra = extra + 90

@@ -2,7 +2,7 @@
   <Suspense>
 
     <template #default>
-      <canvas width="7000" height="2000" ref='webGl' class='webGl' />
+      <canvas width="6000" height="2000" ref='webGl' class='webGl' />
     </template>
 
     <template #fallback>
@@ -30,7 +30,7 @@ export default {
     const store = filterStore()
     const webGl = ref()
     const forms: THREE.Mesh[] = []
-    const width = ref(1000)
+    const width = ref(1500)
     const height = ref(200)
 
     let renderer: THREE.WebGLRenderer
@@ -80,7 +80,7 @@ export default {
             forms[i].userData = { URL: (JSON.stringify(obj.url)).replace('"', '').replace('"', '') }
 
             // grid placement
-            forms[i].position.x += -33 + ((i + 1) * 10.85)
+            forms[i].position.x += -51 + ((i + 1) * 10.85)
             forms[i].position.y -= 1
             // initial animation
             forms[i].rotation.y = 1
@@ -88,6 +88,7 @@ export default {
             // filter click
             interactionManager.add(forms[i])
             forms[i].addEventListener('click', () => {
+              store.setMixtape('')
               if (store.filter === forms[i].userData.URL) store.setFilter('')
               else store.setFilter(forms[i].userData.URL)
             })

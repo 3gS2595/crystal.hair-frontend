@@ -22,12 +22,24 @@
 // slider section
 .splitpanes.default-theme .splitpanes__splitter {
     background-color: rgba(0,0,0,0);
-    border: 1px solid var(--border-primary);
+    border-left: 1px dotted var(--border-primary);
+    border-right: 1px dotted var(--border-primary);
+    border-top: 0px dotted var(--border-primary);
+}
+.default-theme.splitpanes--horizontal>.splitpanes__splitter, .default-theme .splitpanes--horizontal>.splitpanes__splitter {
+    height: 7px;
+    border-top: 1px dotted var(--border-primary);
+    border-right: 0px dotted var(--border-primary);
+    border-left: 0px dotted var(--border-primary);
+    margin-top: -1px;
 }
 .splitpanes {
   overflow:none;
   max-height:100%;
 }
 .data_pane{
-  max-height:calc(100% - 103px)
+  max-height:calc(100% - 85px)
+}
+pane{
+        width:100%;
 }

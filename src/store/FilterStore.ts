@@ -7,6 +7,7 @@ export const filterStore = defineStore('counter', () => {
   const urlS3 = 'https://crystal-hair.nyc3.digitaloceanspaces.com/'
   const urlS3Nail = 'https://crystal-hair-nail.nyc3.digitaloceanspaces.com/'
 
+  const mixtape = ref('')
   const filter = ref('')
   const lightBoxView = ref(false)
   const lightBoxIndex = ref(-1)
@@ -34,6 +35,9 @@ export const filterStore = defineStore('counter', () => {
   function setLightBoxIndex (newLightBoxIndex: number) {
     lightBoxIndex.value = newLightBoxIndex
   }
+  function setMixtape (newMixtape: string) {
+    mixtape.value = newMixtape
+  }
   return {
     url,
     urlRails,
@@ -44,6 +48,7 @@ export const filterStore = defineStore('counter', () => {
     lightBoxIndex, setLightBoxIndex, 
     sortBy, setSortBy,
     sortByValue, setSortByValue,
-    sortByOrder, setSortByOrder
+    sortByOrder, setSortByOrder,
+    mixtape, setMixtape
   }
 })

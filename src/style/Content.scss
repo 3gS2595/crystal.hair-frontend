@@ -19,9 +19,10 @@
     .p-dataview-header{
       height:18.72px;
 
+            border-bottom: $tableBorder;
+
       .p-button-icon-only{
         border:0;
-        outline: 1px solid var(--border-primary);
       }
     }
     .p-dataview-content{
@@ -29,13 +30,12 @@
       width:100%;
 
       .grid{
+        width:100%;
         height:100%;
-        justify-content: flex-end;
+        justify-content: flex-start;
         align-content: flex-start;
-        outline: 1px solid var(--border-primary);
         max-height:calc(100% - 19px);
-        overflow-y:scroll;
-        position: absolute;
+        overflow-y:auto;
         
        // list 
         .w-9{
@@ -46,14 +46,12 @@
         .cgb-0{
           
           .cgb-loading{
-            outline: 1px solid var(--border-primary);
             max-width:90px;
             min-width:90px;
             min-height:140px;
           }
           .cgb-loaded{
-            // animation: fadein .05s linear;
-            outline: 1px solid var(--border-primary);
+            outline: $tableBorder;
             max-width:90px;
             min-width:90px;
             min-height:140px;
@@ -79,8 +77,6 @@
               overflow:hidden;
               white-space: nowrap;
               border-bottom: $tableBorder;
-              border-left: $tableBorder;
-              border-right: $tableBorder;
             }
           }
         }

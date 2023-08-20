@@ -8,7 +8,7 @@ $iosTop: env(safe-area-inset-top, 0px);
 $border: 21px;
 $radius: 34.0pt;
 html {
-  background-color: var(--background-primary);
+  background-color: black;
   min-height:100dvh;
 }
 
@@ -22,30 +22,26 @@ html, body {
     padding-top:$iosTop;
     width: unquote("calc( #{$devW} )"); 
     max-width: unquote("calc( #{$devW} )");
-    height:unquote("calc( #{$devH} - (#{$iosTop}))");
-    max-height: unquote("calc( #{$devH} - (#{$iosTop}))");
-
+    height:unquote("calc(#{$devH} - #{$iosTop})");
+    max-height: unquote("calc(#{$devH} - #{$iosTop})");
+    margin-left:1px;
     .main{
       width:inherit; 
       height: inherit;
       nav{
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+        display:flex;
+        width:calc(100% - 5px);
         height:$navH;
         padding-left:1px;
         border-top: 1px solid var(--border-secondary);
         border-right: 1px solid var(--border-secondary);
         border-left: 1px solid var(--border-secondary);
-        border-bottom: 1px solid var(--border-secondary);
+        border-bottom: 1px solid var(--border-primary);
         overflow-y:hidden;
         .navItem{
           padding-right:1px;
           padding-left:1px;
-          border-right:1px solid var(--border-secondary);
+          border-right:1px solid var(--border-primary);
         }
         a{
           color:  var(--link)
@@ -61,17 +57,25 @@ html, body {
           border: 0;
           outline-style: none;
           box-shadow: none;
-          height:calc($navH - 3px);
+          height:calc($navH - 2px);
           -webkit-border-radius:0px;
+          color:rgba(223, 223, 223, 0.5) 
         }
         select option:checked {
           background-color: #d6d006 !important; /* for IE */
+        }
+        input {
+          flex-grow:1;
+          border:0;
+          background-color: rgba(0,0,0,0);
+          width:300px;
+          outline:0;
         }
       }
 
       .contentMain{
         z-index:0!important;
-        width:calc(100% - 2px);
+        width:calc(100% - 4px);
         height:unquote("calc( 100% - (#{$border}))");
         overflow:hidden!important;
         position:absolute;
@@ -83,10 +87,7 @@ html, body {
           border-bottom-left-radius: $radius;
           border-bottom-right-radius:$radius;
         }
-        input {
-          background-color: rgba(0,0,0,0);
-          width:100%;
-        }
+
       }
 
       a:link {

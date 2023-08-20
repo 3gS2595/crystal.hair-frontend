@@ -4,22 +4,27 @@ $tableBorder: 1px solid var(--border-primary);
 $dropDownBorder: 3px solid var(--border-primary);
 
 .tableCard{
-	outline: $tableBorder;
+
+    border-top: 1px dotted var(--border-primary);
   height:100%;
   input{
     max-width:25px;
   }
 	table {
-		outline: $tableBorder;
     td {
       text-overflow: ellipsis;
+      a{
+        color: var(--link-visited)
+      }
     }
 	}
 	th {
-		outline: $tableBorder;
+
+    border-bottom: $tableBorder;
 	}
 	td {
-    outline: $tableBorder;
+    border-right: $tableBorder;
+    border-bottom: $tableBorder;
 	}
   .tableCard td a{
     max-width:10px;
@@ -47,12 +52,10 @@ $dropDownBorder: 3px solid var(--border-primary);
     padding: 0px;
   }
   .p-datatable-header {
-    border-right: $tableBorder;
     user-select: none;
   }
 
   .p-datatable-header{
-    outline: $tableBorder;
   }
 }
 .p-multiselect-panel{
@@ -61,7 +64,6 @@ $dropDownBorder: 3px solid var(--border-primary);
 }
 .p-button-icon-only{
   background:none;
-  outline: $tableBorder;
 }
 .p-multiselect-label{
 }

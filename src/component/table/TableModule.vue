@@ -29,22 +29,20 @@
         :field="col.field"
         :header="col.header"
       >
-        <template #body="slotProps">
+        <template #body="slotProps" v-if="linktype">
+          <a
+            @click="search(slotProps.data.content)"
+            v-text="slotProps.data[col.field]"
+          />
+        </template>
+        <template #body="slotProps" v-else >
           <a
             :href="slotProps.data.url" target="_blank"
             v-text="slotProps.data[col.field]"
           />
         </template>
-        <template >
-          <InputText
-            style="width:30px;"
-            type="text" @input="filterCallback()"
-            class="p-column-filter"
-            placeholder="searchQuery"
-          />
-        </template>
-      </Column>
 
+        </Column>
     </DataTable>
   </div>
 </template>
@@ -57,8 +55,14 @@ import DataTable from 'primevue/datatable'
 import MultiSelect from 'primevue/multiselect'
 
 import { ContentService } from '@/component/table/GetRss'
+import { filterStore } from '../../store/FilterStore'
 
 const props = defineProps({
+  interiorLink: {
+    type: Array,
+    default: () => [],
+    requuired: true
+  },
   tableOrder: {
     type: Array,
     default: () => [],
@@ -81,6 +85,7 @@ const props = defineProps({
     }
   }
 })
+const linktype = (props.interiorLink.length > 0)
 
 const columns = ref()
 const heads = []
@@ -91,4 +96,13 @@ const onToggle = (val) => {
   selectedColumns.value = columns.value.filter(col => val.includes(col))
 }
 
+const search = (e) => {
+  const store = new filterStore()
+  store.setFilter('')
+  if(store.mixtape === e) {
+    store.setMixtape('')
+    }else {
+      store.setMixtape(e)
+    }
+  }
 </script>
