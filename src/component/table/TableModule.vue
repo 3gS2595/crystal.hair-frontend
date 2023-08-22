@@ -57,41 +57,24 @@ import MultiSelect from 'primevue/multiselect'
 import { ContentService } from '@/component/table/GetRss'
 import { filterStore } from '../../store/FilterStore'
 
-const props = defineProps({
-  interiorLink: {
-    type: Array,
-    default: () => [],
-    requuired: true
-  },
-  tableOrder: {
-    type: Array,
-    default: () => [],
-    validator: function (value: string) {
-      return (
-        ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
-        -1
-      )
-    }
-  },
-  contentData: {
-    type: Array,
-    default: () => [],
-    required: true,
-    validator: function (value) {
-      return (
-        ['syncing', 'synced', 'version-conflict', 'error'].indexOf(value) !==
-        -1
-      )
-    }
-  }
-})
+const props = withDefaults(defineProps<{
+   interiorLink: array, 
+   tableOrder: array ,
+   contentData: array
+ }>(), {
+     interiorLink: [],
+     tableOrder: [],
+     contentData: []
+ })
+
+
 const linktype = (props.interiorLink.length > 0)
 
-const columns = ref()
-const heads = []
+const columns = ref<array>()
+const heads: string[] = []
 for (let i = 0; i < props.tableOrder.length; i++) { heads[i] = props.tableOrder[i] } // eslint-disable-line
 columns.value = ContentService.generateColumns([props.contentData, heads])
-const selectedColumns = ref(columns.value)
+const selectedColumns = ref<string[]>(columns.value)
 const onToggle = (val) => {
   selectedColumns.value = columns.value.filter(col => val.includes(col))
 }

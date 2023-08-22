@@ -30,7 +30,7 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import '@/store/index.ts'
 import { mapActions, mapGetters } from 'vuex'
 export default {

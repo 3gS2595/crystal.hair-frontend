@@ -57,7 +57,7 @@
             <vue-load-image>
               <template v-slot:image>
                 <div class='cgb-loaded'>
-                  <img v-on:click="overlayMilky(slotProps.index)" class="cgb-0-img" :src="`${slotProps.data.signed_url_nail}`"/>
+                  <img class="cgb-0-img" :src="`${slotProps.data.signed_url_nail}`" v-on:click="overlayMilky(slotProps.index)"/>
                   <div class="cgb-0-info">
                     <div class="file_path" >
                       {{ slotProps.data.time_posted }}
@@ -68,13 +68,26 @@
                   </div>
                 </div>
               </template>
+
               <template v-slot:preloader>
-              <div class ='cgb-loading' />
+                <div class ='cgb-loading' >
+                  <div class="cgb-0-info">
+                    <div class="file_path" >
+                      {{ slotProps.data.time_posted }}
+                    </div>
+                    <div class="file_path" >
+                      <a>{{ slotProps.data.author }}</a>
+                    </div>
+                  </div>
+                </div>
               </template>
+
               <template v-slot:error>
                 <div class='cgb-loaded'>
                   <div class="cgb-0-txt">
-                    <a @click="overlayMilky(slotProps.index)">{{ slotProps.data.description }}</a>
+                    <a v-on:click="overlayMilky(slotProps.index)">
+                      {{ slotProps.data.description }}
+                    </a>
                   </div>
                   <div class="cgb-0-info">
                     <div class="file_path" >
@@ -88,6 +101,7 @@
               </template>
             </vue-load-image>
           </div>
+
         </div>
       </template>
 
@@ -95,40 +109,36 @@
   </div>
 </template>
 
-<script setup>
-import { ref, watch, onMounted, defineComponent } from 'vue'
+<script setup lang="ts">
+import { ref, watch, onMounted, defineComponent, withDefaults } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import VueLoadImage from 'vue-load-image'
-import VLazyImage from 'v-lazy-image'
 import axios from 'axios'
 import Dropdown from '../dropDown/DropDown';
 
 import { filterStore } from '@/store/FilterStore'
 import { ApiStore } from '@/store/ApiStore'
 const store = filterStore()
-const contentData = ref([])
-const layout = ref('grid')
-const  pageNumber = ref(2)
+const contentData = ref<array>([])
+const layout = ref<string>('grid')
+const  pageNumber = ref<number>(2)
 
-const props = defineProps({
-  contentData: {
-    type: Array,
-    default: () => [],
-    required: true
-  }
-})
+const props = withDefaults(defineProps<{
+   contentData: array 
+ }>(), {
+     contentData: []
+ })
+
 onMounted(() => {
-
-console.log(props.contentData)
   const targetNode = document.getElementsByClassName("p-grid")[0]
   MutateObserver.observe(targetNode, configMutate);
 })
+
 const fetchPage = async (event) => {
   const newPage =  ApiStore().fetchKernals(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
 }
-
 const intersecting = (event) => {
   for (const e of event){
     if (e.isIntersecting) {

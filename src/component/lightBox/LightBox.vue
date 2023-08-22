@@ -59,7 +59,7 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import { ref, defineComponent } from 'vue'
 import { filterStore } from '@/store/FilterStore'
 import VueResizable from 'vue-resizable'

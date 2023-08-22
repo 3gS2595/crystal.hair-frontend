@@ -7,17 +7,18 @@ export const filterStore = defineStore('counter', () => {
   const urlS3 = 'https://crystal-hair.nyc3.digitaloceanspaces.com/'
   const urlS3Nail = 'https://crystal-hair-nail.nyc3.digitaloceanspaces.com/'
 
-  const mixtape = ref('')
-  const filter = ref('')
-  const lightBoxView = ref(false)
+  const mixtape = ref<string>('')
+  const filter = ref<string>('')
+  const lightBoxView = ref<boolean>(false)
   const lightBoxIndex = ref(-1)
-  const sortBy = ref('time_posted desc')
-  const sortByValue = ref([])
-  const sortByOrder = ref('desc')
+  const sortBy = ref<string>('time_posted desc')
+  const sortByValue = ref<string[]>([])
+  const sortByOrder = ref<string>('desc')
+
   function setFilter (newFilter: string) {
     filter.value = newFilter
   }
-  function setSortByValue (newSortByValue: []) {
+  function setSortByValue (newSortByValue: string[]) {
     sortByValue.value = newSortByValue
     console.log(sortByValue)
     console.log(newSortByValue)
@@ -25,7 +26,6 @@ export const filterStore = defineStore('counter', () => {
   function setSortByOrder (newSortByOrder: string) {
     sortByOrder.value = newSortByOrder
   }
-
   function setSortBy (newSortBy: string) {
     sortBy.value = newSortBy
   }
@@ -38,6 +38,7 @@ export const filterStore = defineStore('counter', () => {
   function setMixtape (newMixtape: string) {
     mixtape.value = newMixtape
   }
+
   return {
     url,
     urlRails,

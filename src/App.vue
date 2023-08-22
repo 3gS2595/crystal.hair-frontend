@@ -1,24 +1,14 @@
 <template>
   <div class='main' id='main' v-if='isLoggedIn'>
-
-  <div/>
     <nav id='nav'>
-      <router-link  class='navItem' to='/index'>index</router-link>
-      <router-link  class='navItem' to='/annex'>annex</router-link>
-      <a  class='navItem' 
-        @click="darkToggle"
-        >theme</a>
-      <a  class='navItem' 
-        @click="logout"
-        >logout</a>
+      <router-link class='navItem' to='/index'>index</router-link>
+      <router-link class='navItem' to='/annex'>annex</router-link>
+      <a class='navItem' @click="darkToggle">theme</a>
+      <a class='navItem' @click="logout">logout</a>
       <DropDown/>
-      <a  class='navItem' 
-        @click="reset"
-        >reset</a>
-
-        <input class='search' v-model="searchQ" placeholder="search" @keyup.enter="search" />
+      <a class='navItem' @click="reset">reset</a>
+      <input class='search' v-model="searchQ" placeholder="search" @keyup.enter="search" />
     </nav>
-
     <router-view/>
   </div>
 
@@ -27,13 +17,13 @@
   </div>
 </template>
 
-<script >
+<script lang='ts'>
 import LogOutBtn from '@/component/sessionManager/LogOutBtn'
 import { defineComponent, watch } from 'vue'
 import { mapGetters } from 'vuex'
 import '@/store/index.ts'
 import SessionManager from '@/component/sessionManager/SessionManager.vue'
-import DropDown from '@/component/dropDown/DropDown';
+import DropDown from '@/component/dropDown/DropDown'
 
 import { filterStore } from '@/store/FilterStore'
 export default defineComponent({
@@ -49,10 +39,10 @@ export default defineComponent({
       app.classList.remove(...['theme-light', 'theme-dark'])
       if (localStorage.getItem('darkModeBool') === 'true') {
         app.classList.add('theme-light')
-        document.getElementsByTagName("html")[0].style.backgroundColor = 'white'
+        document.getElementsByTagName('html')[0].style.backgroundColor = 'white'
       } else {
         app.classList.add('theme-dark')
-        document.getElementsByTagName("html")[0].style.backgroundColor = 'black'
+        document.getElementsByTagName('html')[0].style.backgroundColor = 'black'
       }
     },
     darkToggle () {
@@ -71,8 +61,10 @@ export default defineComponent({
     },
     reset: function () {
       const store = filterStore()
-      store.setFilter('asdflkjhasdf')
+      store.setFilter('123')
       store.setFilter('')
+      store.setMixtape('123')
+      store.setMixtape('')
     },
 
     // handles ios safari landscape notch

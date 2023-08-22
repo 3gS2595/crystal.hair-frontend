@@ -4,9 +4,10 @@ import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
 import { watch, ref } from 'vue'
 import { filterStore } from '@/store/FilterStore'
 
-let controller = new AbortController();
 const store = filterStore()
 const base = store.urlRails
+let controller = new AbortController();
+
 watch(
   () => store.filter,
   () => {
@@ -44,7 +45,7 @@ export const ApiStore = defineStore({
       const [hypertexts, linkContents, sourceUrls, mixtapes] = await Promise.all([
         axios.get(base + 'hypertexts' + params, config),
         axios.get(base + 'link_contents' + params, config),
-        axios.get(base + 'source_urls' + params, config)
+        axios.get(base + 'source_urls' + params, config),
         axios.get(base + 'mixtapes' + params, config)
       ])
       this.hypertexts = hypertexts.data
@@ -53,6 +54,7 @@ export const ApiStore = defineStore({
       this.mixtapes = mixtapes.data
       this.fetchKernals(1)
       console.log(this.mixtapes)
+      console.log(typeof this.hypertexts);
     },
 
     async search () {
@@ -68,7 +70,7 @@ export const ApiStore = defineStore({
         signal: controller.signal
       }
       let params = '?q=' + store.filter + '&sort=' + store.sortBy 
-      if store.mixtape != '' {
+      if (store.mixtape != '') {
         params = '?mixtape=' + store.mixtape + '&sort=' + store.sortBy
       }
       try {
@@ -93,7 +95,7 @@ export const ApiStore = defineStore({
         signal: controller.signal
       }
       let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy 
-      if store.mixtape != '' {
+      if (store.mixtape != '') {
         params = '?mixtape=' + store.mixtape + '&page=' + pageNumber + '&sort=' + store.sortBy
       }
       try {
@@ -107,16 +109,17 @@ export const ApiStore = defineStore({
       } catch (error) {
         console.error(error);
       }
-      // dropdown sort options
+
       if(this.kernals.length===20){ 
-        const singledata = this.kernals[0]
-        const keys = []
+        const singledata: string[] = this.kernals[0]
+        const keys: string[] = []
         for (let k in singledata){
           if(k != 'signed_url' && k != 'signed_url_nail' && k != 'id' && k != 'file_path') {
+            console.log(k)
             keys.push(k)
           }
         }
-        store.setSortByValue(keys) 
+        store.setSortByValue(keys)
       }
        
     }
