@@ -15,6 +15,8 @@ fix / replace menu ui<br>
 refactor Vue into options api<br>
 refactor typescript types <br>
 <br>
+✔️cancel ongoing axios request on new search
+✔️mixtpae/playlist api fetch and toggle<br>
 ✔️intersection page end error<br>
 ✔️iOS safari rotation width break<br>
 ✔️SCSS content gap to splitter<br>
