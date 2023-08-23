@@ -2,7 +2,7 @@
   <a @click='logoutUser' class='logout-button'>logout</a>
  </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from 'vue'
 import { mapActions } from 'vuex'
 

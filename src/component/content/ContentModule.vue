@@ -1,6 +1,6 @@
 <template>
   <div class="contentView">
-    <DataView :value="props.contentData" ref="dv"  :layout="layout" scrollable :columns="4" :sortOrder="-1" >
+    <DataView :value="props.contentData" :layout="layout" >
 
       <template #header>
         <div class="flex justify-content-start">
@@ -110,22 +110,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, defineComponent, withDefaults } from 'vue'
+import { ref, watch, onMounted, defineComponent } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import VueLoadImage from 'vue-load-image'
 import axios from 'axios'
-import Dropdown from '../dropDown/DropDown';
 
 import { filterStore } from '@/store/FilterStore'
 import { ApiStore } from '@/store/ApiStore'
 const store = filterStore()
-const contentData = ref<array>([])
-const layout = ref<string>('grid')
+const contentData = ref<any[]>([])
 const  pageNumber = ref<number>(2)
+const layout = ref('grid')
 
 const props = withDefaults(defineProps<{
-   contentData: array 
+   contentData: any[] 
  }>(), {
      contentData: []
  })
@@ -135,7 +134,7 @@ onMounted(() => {
   MutateObserver.observe(targetNode, configMutate);
 })
 
-const fetchPage = async (event) => {
+const fetchPage = async () => {
   const newPage =  ApiStore().fetchKernals(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
 }

@@ -1,5 +1,5 @@
 export const ContentService = {
-  generateColumns (args: string[]) {
+  generateColumns (args: any[]) {
     const params = args[0]
     const returnJson = [] as any[] // eslint-disable-line
 

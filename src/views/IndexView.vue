@@ -14,17 +14,14 @@
 
           <pane :size="70">
             <TableModule
-              :interiorLink="['name']"
+              :interiorLink="'name'"
               :contentData="mixtapes"
               :tableOrder="['name']"
            />
-
-
           </pane>
 
           <pane :size="30">
             <splitpanes class="default-theme" :vertical="true">
-
               <pane :size="50">
                 <TableModule
                 :contentData="hypertexts"
@@ -46,6 +43,7 @@
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
               <ContentModule :contentData="kernals"/>
       </pane>
+
     </splitpanes>
 
   </div>
@@ -88,7 +86,6 @@ export default defineComponent({
       paneSize: 40,
       paneSizeOffSet: 0,
       store: filterStore(),
-      searchQ: ''
     }
   },
   mounted () {
@@ -132,9 +129,6 @@ export default defineComponent({
       document.body.appendChild(el)
       this.scrollWidth = el.offsetWidth
       el.remove()
-    },
-    search: function () {
-      this.store.setFilter(this.searchQ)
     }
   }
 })

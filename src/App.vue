@@ -7,7 +7,7 @@
       <a class='navItem' @click="logout">logout</a>
       <DropDown/>
       <a class='navItem' @click="reset">reset</a>
-      <input class='search' v-model="searchQ" placeholder="search" @keyup.enter="search" />
+      <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
     </nav>
     <router-view/>
   </div>
@@ -21,18 +21,24 @@
 import LogOutBtn from '@/component/sessionManager/LogOutBtn'
 import { defineComponent, watch } from 'vue'
 import { mapGetters } from 'vuex'
-import '@/store/index.ts'
-import SessionManager from '@/component/sessionManager/SessionManager.vue'
+import '@/store/index'
+import SessionManager from '@/component/sessionManager/SessionManager'
 import DropDown from '@/component/dropDown/DropDown'
-
 import { filterStore } from '@/store/FilterStore'
+
 export default defineComponent({
+  name: 'app',
   computed: {
     ...mapGetters(['isLoggedIn'])
   },
   components: {
     SessionManager,
     DropDown
+  },
+  data () {
+    return {
+      q: '',
+    }
   },
   methods: {
     darkSet () {
@@ -55,9 +61,9 @@ export default defineComponent({
       sessionStorage.clear()
       location.reload()
     },
-    search: function () {
+    search: function (e) {
       const store = filterStore()
-      store.setFilter(this.searchQ)
+      store.setFilter(e)
     },
     reset: function () {
       const store = filterStore()
@@ -74,7 +80,12 @@ export default defineComponent({
       const orientation = window.orientation
       const topP = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat').substring(0, 2))
       const sidP = 38
-      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/) 
+        && conM !== null
+        && nav !== null
+        && orientation !== null
+        && topP !== null
+      ) {
         if (orientation === 0) {
           app.style.paddingTop = topP + 'px'
           app.style.paddingRight = 0

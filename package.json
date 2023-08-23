@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve --port 80",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "check-ts": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@types/three": "^0.152.1",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-typescript": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "vue-tsc": "^1.8.8"
   }
 }
