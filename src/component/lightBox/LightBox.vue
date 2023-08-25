@@ -60,11 +60,11 @@
 </template>
 
 <script lang='ts'>
-import { ref, defineComponent } from 'vue'
+import { ref, defineComponent, PropType } from 'vue'
 import { filterStore } from '@/store/FilterStore'
 import VueResizable from 'vue-resizable'
 import VueLoadImage from 'vue-load-image'
-
+import type { kernalType } from '@/types/index'
 const store = filterStore()
 const lightBoxUi = ref(false)
 export default defineComponent({
@@ -75,13 +75,12 @@ export default defineComponent({
   },
   props: {
     viewerData: {
-      type: Array,
-      default: () => [],
+      type: Object as PropType<kernalType[]> ,
       required: true
     }
   },
   setup (props) {
-    const viewerData = ref(props.viewerData)
+    const viewerData  = ref(props.viewerData)
     console.log(store.lightBoxIndex)
     return { viewerData }
   },
@@ -104,11 +103,11 @@ export default defineComponent({
   },
   methods: {
     handleLoad(){
-      const imgP = new Image()
+      const imgP: HTMLImageElement = new Image()
       if (store.lightBoxIndex - 1 >= 0) {
         imgP.src = this.viewerData[store.lightBoxIndex - 1].signed_url
       }
-      const imgN = new Image()
+      const imgN: HTMLImageElement = new Image()
       if (store.lightBoxIndex +1 <= this.viewerData.length -1) {
         imgN.src = this.viewerData[store.lightBoxIndex + 1].signed_url
       }
@@ -119,21 +118,25 @@ export default defineComponent({
     },
     orientationChange () {
       const orientation = window.orientation
-      if (orientation === 0) {
-        this.width = window.innerWidth
-        this.height = window.innerHeight - 300
-        this.left = 0
-        this.top = 40
-      } else if (orientation === 90 || orientation === -90) {
-        this.width = window.innerWidth - 124
-        this.height = window.innerHeight - 17
-        this.left = 40
-        this.top = 0
-      } else {
-        this.width = window.innerWidth - 63
-        this.height = window.innerHeight - 180
-        this.left = 30
-        this.top = 30
+
+      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+        if (orientation === 0) {
+          this.width = window.innerWidth
+          this.height = window.innerHeight - 300
+          this.left = 0
+          this.top = 40
+        } else if (orientation === 90 || orientation === -90) {
+          this.width = window.innerWidth - 124
+          this.height = window.innerHeight - 17
+          this.left = 40
+          this.top = 0
+          }
+        } else {
+          this.width = window.innerWidth - 63
+          this.height = window.innerHeight - 180
+          this.left = 30
+          this.top = 30
+        
       }
     },
     res (data) {

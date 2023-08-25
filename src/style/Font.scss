@@ -5,12 +5,17 @@
   }
 }
 @include font('ＭＳ Ｐゴシック', 'MSGOTHIC');
-
+@keyframes example {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
 * {
+  text-rendering: initial;
   font-family: "ＭＳ Ｐゴシック";
   font-weight:400;
-  font-style:bold;
   color: var(--text-primary);
   text-decoration: none;
   transition: color, background, background-color .13s!important;
+  animation-name: example;
+  animation-duration: 1s;
 }

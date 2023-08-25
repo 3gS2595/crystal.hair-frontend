@@ -1,7 +1,7 @@
 <template>
-  <div class='contentMain' id="contentMain" v-if='dataFetched' >
-
+  <div class='contentMain' id="contentMain" >
     <LightBox :viewerData="kernals" v-if='store.lightBoxView' />
+
     <splitpanes class="default-theme"
       style="width=100%"
       @ready="resizeContentFit()"
@@ -9,29 +9,32 @@
       @resized="resizeContentFit()"
     >
       <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
-        <ThreeMain :imageData="hypertexts"/>
+        <div  class="three" >
+          <div v-if='dataFetched'>
+            <ThreeMain :imageData="hypertexts"/>
+          </div>
+        </div>
         <splitpanes class="data_pane" :horizontal="true">
 
           <pane :size="70">
-            <TableModule
-              :interiorLink="'name'"
-              :contentData="mixtapes"
-              :tableOrder="['name']"
+            <DataModule
+              :contentData="hypertexts"
+              :gridId="0"
            />
           </pane>
 
           <pane :size="30">
             <splitpanes class="default-theme" :vertical="true">
               <pane :size="50">
-                <TableModule
-                :contentData="hypertexts"
-                :tableOrder="['time_posted', 'name', 'url']"
+                <DataModule
+                  :contentData="mixtapes"
+                  :gridId="1" 
                 />
               </pane>
               <pane :size="50">
-                <TableModule
+                <DataModule
                   :contentData="sourceUrls"
-                  :tableOrder="['domain']"
+                  :gridId="2"
                 />
               </pane>
             </splitpanes>
@@ -41,15 +44,16 @@
       </pane>
 
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
-              <ContentModule :contentData="kernals"/>
+              <ContentModule
+                :contentData="kernals"
+                :gridId="3"
+              />
       </pane>
 
     </splitpanes>
 
   </div>
-  <div v-else>
-    loading
-  </div>
+
  </template>
 
 <script lang="ts">
@@ -60,6 +64,7 @@ import { storeToRefs } from 'pinia'
 import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
+import DataModule from '@/component/content/DataModule.vue'
 import LightBox from '@/component/lightBox/LightBox.vue'
 
 import { ApiStore } from '../store/ApiStore'
@@ -75,13 +80,14 @@ export default defineComponent({
     Pane,
     TableModule,
     ContentModule,
+    DataModule,
     ThreeMain,
     LightBox
   },
   data () {
     return {
       dataFetched: false,
-      scrollWidth: -1,
+      scrollWidth: this.findScrollWidth(),
       paneSizeTemp: 0,
       paneSize: 40,
       paneSizeOffSet: 0,
@@ -89,11 +95,10 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.findScrollWidth()
+    window.addEventListener('resize', this.resizeContentFit)
+    window.addEventListener('orientationchange', this.resizeContentFit)
     ApiStore().initialize().then(async () => {
       this.dataFetched = true
-      window.addEventListener('orientationchange', this.resizeContentFit)
-      window.addEventListener('resize', this.resizeContentFit)
     })
   },
   unmounted () {
@@ -106,6 +111,7 @@ export default defineComponent({
       if (this.paneSize !== 0 && this.paneSize !== 100 && el != null) {
         const width = el.offsetWidth - 13
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90
+        console.log(this.scrollWidth)
         if (this.paneSize === 40 && window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
           extra = extra + 90
         }
@@ -127,8 +133,10 @@ export default defineComponent({
       const el = document.createElement('div')
       el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
       document.body.appendChild(el)
-      this.scrollWidth = el.offsetWidth
+      const width = el.offsetWidth + 2
       el.remove()
+      return width
+      
     }
   }
 })

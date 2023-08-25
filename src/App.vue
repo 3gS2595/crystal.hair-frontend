@@ -1,12 +1,11 @@
 <template>
-  <div class='main' id='main' v-if='isLoggedIn'>
+  <div  v-if='isLoggedIn'>
     <nav id='nav'>
-      <router-link class='navItem' to='/index'>index</router-link>
-      <router-link class='navItem' to='/annex'>annex</router-link>
+      <router-link class='navItem' to='/'>index</router-link>
       <a class='navItem' @click="darkToggle">theme</a>
       <a class='navItem' @click="logout">logout</a>
       <DropDown/>
-      <a class='navItem' @click="reset">reset</a>
+      <a class='navItem' @click="reset">X</a>
       <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
     </nav>
     <router-view/>
@@ -18,13 +17,13 @@
 </template>
 
 <script lang='ts'>
-import LogOutBtn from '@/component/sessionManager/LogOutBtn'
 import { defineComponent, watch } from 'vue'
 import { mapGetters } from 'vuex'
 import '@/store/index'
+import { filterStore } from '@/store/FilterStore'
+import LogOutBtn from '@/component/sessionManager/LogOutBtn'
 import SessionManager from '@/component/sessionManager/SessionManager'
 import DropDown from '@/component/dropDown/DropDown'
-import { filterStore } from '@/store/FilterStore'
 
 export default defineComponent({
   name: 'app',
@@ -43,12 +42,15 @@ export default defineComponent({
   methods: {
     darkSet () {
       app.classList.remove(...['theme-light', 'theme-dark'])
-      if (localStorage.getItem('darkModeBool') === 'true') {
+      if (localStorage.getItem('darkModeBool') === 'false' 
+        || (localStorage.getItem('darkModeBool') === 'false' && window.matchMedia('(prefers-color-scheme: light)').matches)) { 
         app.classList.add('theme-light')
         document.getElementsByTagName('html')[0].style.backgroundColor = 'white'
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", "white");
       } else {
         app.classList.add('theme-dark')
         document.getElementsByTagName('html')[0].style.backgroundColor = 'black'
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", "black");
       }
     },
     darkToggle () {
@@ -57,8 +59,7 @@ export default defineComponent({
       this.darkSet()
     },
     logout () {
-      localStorage.clear()
-      sessionStorage.clear()
+      localStorage.removeItem('auth_token')
       location.reload()
     },
     search: function (e) {
@@ -67,80 +68,91 @@ export default defineComponent({
     },
     reset: function () {
       const store = filterStore()
-      store.setFilter('123')
+      store.setFilter(' ')
       store.setFilter('')
-      store.setMixtape('123')
+      store.setMixtape(' ')
       store.setMixtape('')
+      store.setSortBy('time_posted desc')
     },
-
     // handles ios safari landscape notch
     orientationChange: function () {
-      const conM = document.getElementById('contentMain')
-      const nav = document.getElementById('nav')
       const orientation = window.orientation
-      const topP = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat').substring(0, 2))
+      const topP = 50
       const sidP = 38
-      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/) 
-        && conM !== null
-        && nav !== null
-        && orientation !== null
-        && topP !== null
-      ) {
-        if (orientation === 0) {
-          app.style.paddingTop = topP + 'px'
-          app.style.paddingRight = 0
-          app.style.paddingLeft = 0
-          conM.style.width = String(window.innerWidth - 4) + 'px'
-          nav.style.width = String(window.innerWidth - 5) + 'px'
-          conM.style.borderBottomLeftRadius = '34.0pt'
-          conM.style.borderBottomRightRadius = '34.0pt'
-        } else if (orientation === 90) {
-          app.style.paddingTop = 0
+      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+        console.log('wait')
+        if (orientation === 0 && window.navigator.standalone) {
           app.style.marginRight = 0
-          app.style.paddingLeft = sidP + 'px'
-          conM.style.width = String(window.innerWidth - sidP - 4) + 'px'
-          nav.style.width = String(window.innerWidth - sidP - 5) + 'px'
-          conM.style.borderBottomLeftRadius = '0pt'
-          conM.style.borderBottomRightRadius = '34.0pt'
+          app.style.marginLeft = '1px'
+          app.style.width = String(window.innerWidth - 4) + 'px'
+          app.style.borderBottomLeftRadius = '34.0pt'
+          app.style.borderBottomRightRadius = '34.0pt'
+        } else if (orientation === 90) {
+          app.style.marginRight = 0
+          app.style.marginLeft = sidP + 'px'
+          app.style.width = String(window.innerWidth - sidP - 4) + 'px'
+          app.style.borderBottomLeftRadius = '0pt'
+          app.style.borderBottomRightRadius = '34.0pt'
         } else if (orientation === -90) {
-          app.style.paddingTop = 0
-          app.style.paddingRight = sidP + 'px'
-          app.style.paddingLeft = 0
-          conM.style.width = String(window.innerWidth - sidP - 4) + 'px'
-          nav.style.width = String(window.innerWidth - sidP - 5) + 'px'
-          conM.style.borderBottomLeftRadius = '34.0pt'
-          conM.style.borderBottomRightRadius = '0pt'
-        } else {
-          app.style.paddingTop = 0
-          app.style.paddingRight = 0
-          app.style.paddingLeft = 0
-          conM.style.width = String(window.innerWidth - 4) + 'px'
-          nav.style.width = String(window.innerWidth - 5) + 'px'
-          conM.style.borderBottomLeftRadius = '34.0pt'
-          conM.style.borderBottomRightRadius = '34.0pt'
+          app.style.marginRight = sidP + 'px'
+          app.style.marginLeft = '1px'
+          app.style.width = String(window.innerWidth - sidP - 4) + 'px'
+          app.style.borderBottomLeftRadius = '34.0pt'
+          app.style.borderBottomRightRadius = '0pt'
+        } else if (window.navigator.standalone) {
+          app.style.marginRight = 0
+          app.style.marginLeft = '1px'
+          app.style.width = String(window.innerWidth - 4) + 'px'
+          app.style.borderBottomLeftRadius = '34.0pt'
+          app.style.borderBottomRightRadius = '34.0pt'
+          } else {
+          app.style.marginRight = 0
+          app.style.marginLeft = '1px'
+          app.style.width = String(window.innerWidth - 4) + 'px'
+          app.style.borderBottomLeftRadius = '0pt'
+          app.style.borderBottomRightRadius = '0pt'
         }
       }
     }
   },
   mounted () {
+    this.orientationChange()
+    this.darkSet()
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (e.matches) localStorage.setItem('darkModeBool', 'true')
+      else localStorage.setItem('darkModeBool', 'false')
+      app.classList.remove(...['theme-light', 'theme-dark'])
+      if (localStorage.getItem('darkModeBool') === 'false'){ 
+        app.classList.add('theme-light')
+        document.getElementsByTagName('html')[0].style.backgroundColor = 'white'
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", "white");
+        localStorage.setItem('darkModeBool', 'false')
+      } else {
+        app.classList.add('theme-dark')
+        document.getElementsByTagName('html')[0].style.backgroundColor = 'black'
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", "black");
+        localStorage.setItem('darkModeBool', 'true')
+      }
+    }) 
+
     window.addEventListener('resize', this.orientationChange)
     window.addEventListener('orientationchange', this.orientationChange)
-    this.darkSet()
   }
 })
 </script>
 
 <style lang='scss'>
-  @import 'splitpanes/dist/splitpanes.css';
-  @import 'primeflex/primeflex.css';
-
+  @import './style/Main.scss';
   @import './style/Table.scss';
   @import './style/Canvas.scss';
   @import './style/SessionManager.scss';
-  @import './style/Main.scss';
   @import './style/Content.scss';
   @import './style/SplitterPanel.scss';
   @import './style/Font.scss';
   @import './style/WebKit.scss';
   @import './style/LightBox.scss';
+  @import 'splitpanes/dist/splitpanes.css';
+  @import 'primeflex/primeflex.css';
+
+
 </style>

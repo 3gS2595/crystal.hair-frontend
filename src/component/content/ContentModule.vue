@@ -60,7 +60,7 @@
                   <img class="cgb-0-img" :src="`${slotProps.data.signed_url_nail}`" v-on:click="overlayMilky(slotProps.index)"/>
                   <div class="cgb-0-info">
                     <div class="file_path" >
-                      {{ slotProps.data.time_posted }}
+                      {{ convertDate(slotProps.data.time_posted) }}
                     </div>
                     <div class="file_path" >
                       <a>{{ slotProps.data.author }}</a>
@@ -73,7 +73,7 @@
                 <div class ='cgb-loading' >
                   <div class="cgb-0-info">
                     <div class="file_path" >
-                      {{ slotProps.data.time_posted }}
+                      {{ convertDate(slotProps.data.time_posted) }}
                     </div>
                     <div class="file_path" >
                       <a>{{ slotProps.data.author }}</a>
@@ -91,7 +91,7 @@
                   </div>
                   <div class="cgb-0-info">
                     <div class="file_path" >
-                      {{ slotProps.data.time_posted }}
+                      {{ convertDate(slotProps.data.time_posted) }}
                     </div>
                     <div class="file_path" >
                       <a>{{ slotProps.data.author }}</a>
@@ -110,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, defineComponent } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import VueLoadImage from 'vue-load-image'
@@ -124,15 +124,28 @@ const  pageNumber = ref<number>(2)
 const layout = ref('grid')
 
 const props = withDefaults(defineProps<{
-   contentData: any[] 
+   contentData: any[], 
+   gridId: number
  }>(), {
-     contentData: []
+     contentData: [],
+     gridId:-1
  })
 
 onMounted(() => {
-  const targetNode = document.getElementsByClassName("p-grid")[0]
+  const targetNode = document.getElementsByClassName("p-grid")[props.gridId]
   MutateObserver.observe(targetNode, configMutate);
 })
+
+const convertDate = (datetime) => {
+  const endTime = new Date()
+  const startTime = new Date(datetime)
+  let elapsed = (endTime - startTime)
+  elapsed /= 1000
+  elapsed /= 60 
+  elapsed /= 60 
+  elapsed /= 24 
+  return '-' + elapsed.toFixed(0)+'d'
+}
 
 const fetchPage = async () => {
   const newPage =  ApiStore().fetchKernals(pageNumber.value)
@@ -146,7 +159,7 @@ const intersecting = (event) => {
     }
   }
 }
-const config = { root: document.getElementsByClassName("p-grid")[0], threshold: 0.5 }
+const config = { root: document.getElementsByClassName("p-grid")[props.gridId], threshold: 0.5 }
 const observer = new IntersectionObserver(intersecting, config);
 
 const watchIntersect = (pageNum) =>{

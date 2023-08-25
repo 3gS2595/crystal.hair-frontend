@@ -3,6 +3,9 @@
 .splitpanes.default-theme .splitpanes__pane{
     background-color: rgba(0,0,0,0);
 }
+.splitpanes--vertical .splitpanes__pane{
+transition:none!important;
+}
 // middle segment
 .splitpanes.default-theme .splitpanes__splitter:before{
     content: "";
@@ -27,6 +30,7 @@
     border-top: 0px dotted var(--border-primary);
 }
 .default-theme.splitpanes--horizontal>.splitpanes__splitter, .default-theme .splitpanes--horizontal>.splitpanes__splitter {
+    display:grid;
     height: 7px;
     border-top: 1px dotted var(--border-primary);
     border-right: 0px dotted var(--border-primary);
@@ -34,12 +38,5 @@
     margin-top: -1px;
 }
 .splitpanes {
-  overflow:none;
-  max-height:100%;
-}
-.data_pane{
-  max-height:calc(100% - 85px)
-}
-pane{
-        width:100%;
+  height:100%;
 }

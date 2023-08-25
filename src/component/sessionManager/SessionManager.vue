@@ -31,8 +31,9 @@
 </template>
 
 <script lang='ts'>
-import '@/store/index.ts'
+import '@/store/index'
 import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'SessionManager',
   computed: {

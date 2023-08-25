@@ -71,13 +71,13 @@ const actions = {
         })
     })
   },
-  loginUserWithToken ({ commit }, payload) {
+  async loginUserWithToken ({ commit }, payload) {
     const config = {
       headers: {
         Authorization: payload.auth_token
       }
     }
-    new Promise((resolve, reject) => { // eslint-disable-line
+    await new Promise((resolve, reject) => { // eslint-disable-line
       axios
         .get(`${BASE_URL}member-data`, config)
         .then((response) => {

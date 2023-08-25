@@ -2,7 +2,7 @@
   <Suspense>
 
     <template #default>
-      <canvas width="6000" height="2000" ref='webGl' class='webGl' />
+      <canvas ref='webGl'/>
     </template>
 
     <template #fallback>

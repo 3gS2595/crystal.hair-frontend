@@ -12,7 +12,7 @@ export const filterStore = defineStore('counter', () => {
   const lightBoxView = ref<boolean>(false)
   const lightBoxIndex = ref(-1)
   const sortBy = ref<string>('time_posted desc')
-  const sortByValue = ref<string[]>([])
+  const sortByValue = ref<string[]>(['time_posted', 'time_scraped' ])
   const sortByOrder = ref<string>('desc')
 
   function setFilter (newFilter: string) {
@@ -20,8 +20,6 @@ export const filterStore = defineStore('counter', () => {
   }
   function setSortByValue (newSortByValue: string[]) {
     sortByValue.value = newSortByValue
-    console.log(sortByValue)
-    console.log(newSortByValue)
   }
   function setSortByOrder (newSortByOrder: string) {
     sortByOrder.value = newSortByOrder

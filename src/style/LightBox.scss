@@ -2,11 +2,14 @@
 
 .lightbox{
   position:absolute!important;
-  height:100%;
   width:100%;
+pointer-events: none; 
 
+background: none !important;
+  height: 100%;
   .resizable-component{
-    position:absolute!important;
+  pointer-events:auto;
+
     padding: 0;
     border: 1px solid var(--border-primary);
     background: var(--background-primary);

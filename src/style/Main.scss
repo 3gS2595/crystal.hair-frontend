@@ -6,9 +6,8 @@ $devW:100dvw;
 
 $iosTop: env(safe-area-inset-top, 0px);
 $border: 21px;
-$radius: 34.0pt;
+
 html {
-  background-color: black;
   min-height:100dvh;
 }
 
@@ -18,26 +17,24 @@ html, body {
   overflow: hidden;
   background-color: var(--background-primary);
   #app {
-    background-color: var(--background-primary);
+    overflow:hidden;
     padding-top:$iosTop;
-    width: unquote("calc( #{$devW} )"); 
-    max-width: unquote("calc( #{$devW} )");
-    height:unquote("calc(#{$devH} - #{$iosTop})");
-    max-height: unquote("calc(#{$devH} - #{$iosTop})");
+    width: unquote("calc( #{$devW} - 4px )"); 
+    height:unquote("calc(#{$devH} - #{$iosTop} - 3px)");
     margin-left:1px;
-    .main{
-      width:inherit; 
-      height: inherit;
+    border-bottom: 1px solid var(--border-secondary);
+    border-right: 1px solid var(--border-secondary);
+    border-left: 1px solid var(--border-secondary);
+    border-top: 1px solid var(--border-secondary);
+    position: relative;
       nav{
         display:flex;
-        width:calc(100% - 5px);
+        width:100%;
         height:$navH;
         padding-left:1px;
-        border-top: 1px solid var(--border-secondary);
-        border-right: 1px solid var(--border-secondary);
-        border-left: 1px solid var(--border-secondary);
         border-bottom: 1px solid var(--border-primary);
         overflow-y:hidden;
+
         .navItem{
           padding-right:1px;
           padding-left:1px;
@@ -57,9 +54,9 @@ html, body {
           border: 0;
           outline-style: none;
           box-shadow: none;
-          height:calc($navH - 2px);
+          height:calc($navH);
           -webkit-border-radius:0px;
-          color:rgba(223, 223, 223, 0.5) 
+          color: var(--input-color)
         }
         select option:checked {
           background-color: #d6d006 !important; /* for IE */
@@ -73,32 +70,28 @@ html, body {
         }
       }
 
-      .contentMain{
-        z-index:0!important;
-        width:calc(100% - 4px);
-        height:unquote("calc( 100% - (#{$border}))");
-        overflow:hidden!important;
-        position:absolute;
-
-        border-bottom: 1px solid var(--border-secondary);
-        border-right: 1px solid var(--border-secondary);
-        border-left: 1px solid var(--border-secondary);
-        @media (pointer:none), (pointer:coarse) {
-          border-bottom-left-radius: $radius;
-          border-bottom-right-radius:$radius;
+      .loading{
+        a {
+        color:  var(--link);
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);   
         }
-
       }
-
+      .contentMain{
+        position:absolute;
+        width:100%;
+        height:unquote("calc( 100% - #{$border})");
+      }
       a:link {
         color:  var(--link)
       }
       a:visited {
         color:  var(--link-visited)
       }
-          }
-  }
- }
+    }
+}
 :root {
     --sat: env(safe-area-inset-top);
     --sar: env(safe-area-inset-right);
