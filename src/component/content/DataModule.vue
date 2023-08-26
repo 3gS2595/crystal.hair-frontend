@@ -5,7 +5,9 @@
       <template #list="slotProps">
         <div class="dgb-0">
           <div class="dgb-0-txt">
-            <a>{{ slotProps.data.name }}</a>
+            <a
+              @click="search(slotProps.data.content)"
+            >{{ slotProps.data.name }}</a>
             <br/>
             <a>{{convertDate(slotProps.data.updated_at)}}</a>
           </div>
@@ -41,25 +43,28 @@ onMounted(() => {
   MutateObserver.observe(targetNode, configMutate);
 })
 
+const search = (e) => {
+  store.setFilter('')
+  if(JSON.stringify(store.mixtape) ===JSON.stringify(e)) {
+    store.setMixtape('')
+    }else {
+      store.setMixtape(e)
+    }
+  }
+
 const convertDate = (datetime) => {
   const endTime = new Date()
   const startTime = new Date(datetime)
   let elapsed = (endTime - startTime)
-  elapsed /= 1000
-  elapsed /= 60 
-  elapsed /= 60 
-  elapsed /= 24 
-return '-' + elapsed.toFixed(0)+'d-'+startTime
+  elapsed = elapsed / 1000 /60 / 60 / 24
+  return ('-' + elapsed.toFixed(0) + 'd-' + startTime)
 }
-
 
 const fetchPage = async () => {
   const newPage =  ApiStore().fetchHypertexts(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
 }
 const intersecting = (event) => {
-  console.log(props.contentData)
-  console.log(pageNumber.value)
   for (const e of event){
     if (e.isIntersecting) {
       observer.disconnect()

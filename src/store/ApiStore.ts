@@ -90,8 +90,8 @@ export const ApiStore = defineStore({
         signal: controller.signal
       }
       let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy 
-      if (store.mixtape != '') { params = params + '?mixtape=' + store.mixtape }
-
+      if (store.mixtape != '') { params = params + '&mixtape=' + store.mixtape }
+      console.log(store.mixtape)
       try {
         const kernals = await axios.get(base + 'kernals'+ params +'&q=' + store.filter, config)
         this.kernals = this.kernals.concat(kernals.data)

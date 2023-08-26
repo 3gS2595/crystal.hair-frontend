@@ -140,11 +140,8 @@ const convertDate = (datetime) => {
   const endTime = new Date()
   const startTime = new Date(datetime)
   let elapsed = (endTime - startTime)
-  elapsed /= 1000
-  elapsed /= 60 
-  elapsed /= 60 
-  elapsed /= 24 
-  return '-' + elapsed.toFixed(0)+'d'
+  elapsed = elapsed / 1000 /60 / 60 / 24
+  return ('-' + elapsed.toFixed(0) + 'd-' + startTime)
 }
 
 const fetchPage = async () => {

@@ -113,6 +113,11 @@ export default defineComponent({
           app.style.borderBottomRightRadius = '0pt'
         }
       }
+    },
+    wait: function (time) {
+      return new Promise(resolve => {
+        setTimeout(resolve, time);
+      });
     }
   },
   mounted () {
@@ -137,6 +142,8 @@ export default defineComponent({
 
     window.addEventListener('resize', this.orientationChange)
     window.addEventListener('orientationchange', this.orientationChange)
+
+
   }
 })
 </script>

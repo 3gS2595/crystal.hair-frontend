@@ -71,10 +71,6 @@ import { ApiStore } from '../store/ApiStore'
 import { filterStore } from '@/store/FilterStore'
 
 export default defineComponent({
-  setup () {
-    const { hypertexts, sourceUrls, kernals, linkContents, mixtapes } = storeToRefs(ApiStore())
-    return { hypertexts, sourceUrls, kernals, linkContents, mixtapes }
-  },
   components: {
     Splitpanes,
     Pane,
@@ -94,18 +90,29 @@ export default defineComponent({
       store: filterStore(),
     }
   },
+  setup () {
+    const { hypertexts, sourceUrls, kernals, linkContents, mixtapes } = storeToRefs(ApiStore())
+    return { hypertexts, sourceUrls, kernals, linkContents, mixtapes }
+  },
   mounted () {
     window.addEventListener('resize', this.resizeContentFit)
     window.addEventListener('orientationchange', this.resizeContentFit)
     ApiStore().initialize().then(async () => {
       this.dataFetched = true
     })
+    setTimeout(() => {
+      var style = document.createElement('style')
+      style.innerText = '*{animation-duration:0s; }'
+      document.head.appendChild(style)
+      }, 1500);
+
   },
   unmounted () {
     window.removeEventListener('orientationchange', this.resizeContentFit, true)
     window.removeEventListener('resize', this.resizeContentFit, true)
   },
   methods: {
+
     resizeContentFit: function () {
       const el = document.getElementById('contentMain')
       if (this.paneSize !== 0 && this.paneSize !== 100 && el != null) {
@@ -119,6 +126,7 @@ export default defineComponent({
         this.paneSizeOffSet = offset
       }
     },
+
     resize: function (size) {
       if (this.paneSize !== size) {
         this.paneSizeTemp = this.paneSize
@@ -129,6 +137,7 @@ export default defineComponent({
       }
       this.resizeContentFit()
     },
+
     findScrollWidth: function () {
       const el = document.createElement('div')
       el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
@@ -136,8 +145,8 @@ export default defineComponent({
       const width = el.offsetWidth + 2
       el.remove()
       return width
-      
     }
+
   }
 })
 </script>
