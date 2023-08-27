@@ -159,16 +159,21 @@ const callback = () => {
   watchIntersect(pageNumber)
 }
 
+
 const watchIntersect = (pageNum) =>{
-  const el1 = document.getElementsByClassName("cgb-0")[(pageNum.value-1)*20-15]
-  const el2 = document.getElementsByClassName("cgb-0")[(pageNum.value-1)*20-25]
-  if (el1){ observer.observe(el1) } 
-  if (el2){ observer.observe(el2) } 
+  for (let i = 1; i < 5; i++) {
+    const el = document.getElementsByClassName("cgb-0")[(pageNum.value-1)*20-(5*i)]
+    if (el){
+      observer.observe(el)
+    }
+  }
   if (pageNumber.value - 2 !== 0) {
-    const elr1 = document.getElementsByClassName("cgb-0")[(pageNum.value-2)*20-15]
-    const elr2 = document.getElementsByClassName("cgb-0")[(pageNum.value-2)*20-25]
-    if (elr1) { observer.unobserve(elr1) }
-    if (elr2) { observer.unobserve(elr2) }
+    for (let i = 1; i < 5; i++) {
+      const el = document.getElementsByClassName("cgb-0")[(pageNum.value-2)*20-(5*i)]
+      if (el){
+        observer.observe(el)
+      }
+    }
   }
 }
 

@@ -5,9 +5,9 @@
       <template #list="slotProps">
         <div class="dgb-0">
           <div class="dgb-0-txt">
-            <a
-              @click="search(slotProps.data.content)"
-            >{{ slotProps.data.name }}</a>
+            <a @click="search(slotProps.data.content)">
+              {{ slotProps.data.name }}
+            </a>
             <br/>
             <a>{{convertDate(slotProps.data.updated_at)}}</a>
           </div>
@@ -27,14 +27,21 @@ import { filterStore } from '@/store/FilterStore'
 import { ApiStore } from '@/store/ApiStore'
 const store = filterStore()
 const pageNumber = ref<number>(2)
-
 const props = withDefaults(defineProps<{
-   contentData: any[], 
-   id: number
- }>(), {
-     contentData: []
- })
+ contentData: any[], 
+ id: number
+}>(), {
+   contentData: []
+})
 
+watch(
+  () => props.contentData,
+  () => { 
+    if(props.contentData.length < 20){
+      pageNumber.value = 2
+    }
+  }
+)
 onMounted(() => {
   MutateObserver.observe(document.getElementsByClassName("p-grid")[props.id], configMutate);
 })
@@ -52,7 +59,6 @@ const convertDate = (datetime) => {
   const elapsed = (new Date() - new Date(datetime)) / 1000 /60 / 60 / 24
   return ('-' + elapsed.toFixed(0) + 'd-' + new Date(datetime))
 }
-
 const fetchPage = async () => {
   ApiStore().fetchHypertexts(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
@@ -69,17 +75,22 @@ const config = { root: document.getElementsByClassName("p-grid")[props.id], thre
 const observer = new IntersectionObserver(intersecting, config);
 
 const watchIntersect = (pageNum) =>{
-    const el1 = document.getElementsByClassName("dgb-0")[(pageNum.value-1)*20-15]
-    const el2 = document.getElementsByClassName("dgb-0")[(pageNum.value-1)*20-25]
-    if (el1){ observer.observe(el1) } 
-    if (el2){ observer.observe(el2) } 
-    if (pageNumber.value - 2 !== 0) {
-      const elr1 = document.getElementsByClassName("dgb-0")[(pageNum.value-2)*20-15]
-      const elr2 = document.getElementsByClassName("dgb-0")[(pageNum.value-2)*20-25]
-      if (elr1) { observer.unobserve(elr1) }
-      if (elr2) { observer.unobserve(elr2) }
+  for (let i = 1; i < 5; i++) {
+    const el = document.getElementsByClassName("dgb-0")[(pageNum.value-1)*20-(5*i)]
+    if (el){
+      observer.observe(el)
     }
+  }
+  if (pageNumber.value - 2 !== 0) {
+    for (let i = 1; i < 5; i++) {
+      const el = document.getElementsByClassName("dgb-0")[(pageNum.value-2)*20-(5*i)]
+      if (el){
+        observer.observe(el)
+      }
+    }
+  }
 }
+
 const callback = (mutationList, MutateObserver) => {
   for (const mutation of mutationList) {
     if (mutation.type === "childList") {
@@ -91,12 +102,4 @@ const callback = (mutationList, MutateObserver) => {
 const configMutate = { childList: true };
 const MutateObserver = new MutationObserver(callback);
 
-watch(
-  () => props.contentData,
-  () => { 
-    if(props.contentData.length < 20){
-      pageNumber.value = 2
-    }
-  }
-)
 </script>
