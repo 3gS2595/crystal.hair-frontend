@@ -10,16 +10,16 @@
     >
       <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
         <div  class="three" >
-          <div v-if='dataFetched'>
+          <div v-if='dataReturned'>
             <ThreeMain :imageData="hypertexts"/>
           </div>
         </div>
-        <splitpanes class="data_pane" :horizontal="true">
 
+        <splitpanes class="data_pane" :horizontal="true">
           <pane :size="70">
             <DataModule
               :contentData="hypertexts"
-              :gridId="0"
+              :id="0"
            />
           </pane>
 
@@ -28,32 +28,29 @@
               <pane :size="50">
                 <DataModule
                   :contentData="mixtapes"
-                  :gridId="1" 
+                  :id="1" 
                 />
               </pane>
               <pane :size="50">
                 <DataModule
                   :contentData="sourceUrls"
-                  :gridId="2"
+                  :id="2"
                 />
               </pane>
             </splitpanes>
           </pane>
-
         </splitpanes>
       </pane>
 
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
               <ContentModule
                 :contentData="kernals"
-                :gridId="3"
+                :id="3"
               />
       </pane>
-
     </splitpanes>
 
   </div>
-
  </template>
 
 <script lang="ts">
@@ -61,7 +58,6 @@ import { defineComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
 
-import TableModule from '@/component/table/TableModule.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/content/ContentModule.vue'
 import DataModule from '@/component/content/DataModule.vue'
@@ -74,7 +70,6 @@ export default defineComponent({
   components: {
     Splitpanes,
     Pane,
-    TableModule,
     ContentModule,
     DataModule,
     ThreeMain,
@@ -82,7 +77,7 @@ export default defineComponent({
   },
   data () {
     return {
-      dataFetched: false,
+      dataReturned: false,
       scrollWidth: this.findScrollWidth(),
       paneSizeTemp: 0,
       paneSize: 40,
@@ -95,24 +90,22 @@ export default defineComponent({
     return { hypertexts, sourceUrls, kernals, linkContents, mixtapes }
   },
   mounted () {
-    window.addEventListener('resize', this.resizeContentFit)
     window.addEventListener('orientationchange', this.resizeContentFit)
+    window.addEventListener('resize', this.resizeContentFit)
     ApiStore().initialize().then(async () => {
-      this.dataFetched = true
+      this.dataReturned = true
     })
     setTimeout(() => {
       var style = document.createElement('style')
       style.innerText = '*{animation-duration:0s; }'
       document.head.appendChild(style)
       }, 1500);
-
   },
   unmounted () {
     window.removeEventListener('orientationchange', this.resizeContentFit, true)
     window.removeEventListener('resize', this.resizeContentFit, true)
   },
   methods: {
-
     resizeContentFit: function () {
       const el = document.getElementById('contentMain')
       if (this.paneSize !== 0 && this.paneSize !== 100 && el != null) {
@@ -126,7 +119,6 @@ export default defineComponent({
         this.paneSizeOffSet = offset
       }
     },
-
     resize: function (size) {
       if (this.paneSize !== size) {
         this.paneSizeTemp = this.paneSize
@@ -137,7 +129,6 @@ export default defineComponent({
       }
       this.resizeContentFit()
     },
-
     findScrollWidth: function () {
       const el = document.createElement('div')
       el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'

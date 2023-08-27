@@ -1,12 +1,10 @@
 @import "./ThemeModes";
+
 @keyframes example {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
-.dropdown{
-  background-color: var(--background-primary);
-  color: var(--text-primary)!important;
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
+
 .contentView{
   height:100%;
   width:calc(100%);
@@ -21,8 +19,10 @@
 
       .p-button-icon-only{
         border:0;
+        background:none;
       }
     }
+
     .p-dataview-content{
       height:100%;
       width:100%;
@@ -35,15 +35,6 @@
         max-height:calc(100% - 19px);
         overflow-y:auto;
 
-        .dgb-0{
-          
-            border-bottom: $tableBorder;
-            border-right: $tableBorder;
-            width:100%;
-            min-width:90px;
-            min-height:60px;
-        }
-        
        // list 
         .w-9{
           width: 100% !important;
@@ -51,10 +42,12 @@
 
         // grid
         .cgb-0{
-        *{
-          animation-name: example!important;
-          animation-duration: .46s!important;
-        }
+
+          *{
+            animation-name: example!important;
+            animation-duration: .46s!important;
+          }
+          
           .cgb-loading{
             outline: $tableBorder;
             max-width:90px;
@@ -78,7 +71,7 @@
 
           }
           .cgb-loaded{
-          animation-duration: 0s!important;
+            animation-duration: 0s!important;
             outline: $tableBorder;
             max-width:90px;
             min-width:90px;
@@ -98,7 +91,6 @@
               object-fit: contain;
               z-index: 0;
               border-bottom: $tableBorder;
-
             }
 
             .cgb-0-info{
@@ -129,6 +121,7 @@
         max-height:100%;
         overflow-y:auto;
         .dgb-0{
+          cursor: pointer;
           border-bottom: $tableBorder;
           border-right: $tableBorder;
           width:100%;

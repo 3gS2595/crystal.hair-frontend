@@ -21,26 +21,22 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
-import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import axios from 'axios'
 
 import { filterStore } from '@/store/FilterStore'
 import { ApiStore } from '@/store/ApiStore'
 const store = filterStore()
-const contentData = ref<any[]>([])
 const pageNumber = ref<number>(2)
-const layout = ref('grid')
 
 const props = withDefaults(defineProps<{
    contentData: any[], 
-   gridId: number
+   id: number
  }>(), {
      contentData: []
  })
 
 onMounted(() => {
-  const targetNode = document.getElementsByClassName("p-grid")[props.gridId]
-  MutateObserver.observe(targetNode, configMutate);
+  MutateObserver.observe(document.getElementsByClassName("p-grid")[props.id], configMutate);
 })
 
 const search = (e) => {
@@ -53,15 +49,12 @@ const search = (e) => {
   }
 
 const convertDate = (datetime) => {
-  const endTime = new Date()
-  const startTime = new Date(datetime)
-  let elapsed = (endTime - startTime)
-  elapsed = elapsed / 1000 /60 / 60 / 24
-  return ('-' + elapsed.toFixed(0) + 'd-' + startTime)
+  const elapsed = (new Date() - new Date(datetime)) / 1000 /60 / 60 / 24
+  return ('-' + elapsed.toFixed(0) + 'd-' + new Date(datetime))
 }
 
 const fetchPage = async () => {
-  const newPage =  ApiStore().fetchHypertexts(pageNumber.value)
+  ApiStore().fetchHypertexts(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
 }
 const intersecting = (event) => {
@@ -72,7 +65,7 @@ const intersecting = (event) => {
     }
   }
 }
-const config = { root: document.getElementsByClassName("p-grid")[props.gridId], threshold: 0.5 }
+const config = { root: document.getElementsByClassName("p-grid")[props.id], threshold: 0.5 }
 const observer = new IntersectionObserver(intersecting, config);
 
 const watchIntersect = (pageNum) =>{

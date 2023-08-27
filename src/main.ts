@@ -21,7 +21,6 @@ if (cookieExists) {
   const authTokenExists = auth_token !== 'undefined' && auth_token !== null // eslint-disable-line
   if (authTokenExists) {
     store.dispatch('loginUserWithToken', { auth_token }).then(() => {
-      console.log('asdlkfjasdf')
       app.mount('#app')
     }) 
   } else {

@@ -1,5 +1,5 @@
 <template>
-  <div  v-if='isLoggedIn'>
+  <div v-if='isLoggedIn'>
     <nav id='nav'>
       <router-link class='navItem' to='/'>index</router-link>
       <a class='navItem' @click="darkToggle">theme</a>
@@ -42,8 +42,9 @@ export default defineComponent({
   methods: {
     darkSet () {
       app.classList.remove(...['theme-light', 'theme-dark'])
-      if (localStorage.getItem('darkModeBool') === 'false' 
-        || (localStorage.getItem('darkModeBool') === 'false' && window.matchMedia('(prefers-color-scheme: light)').matches)) { 
+      if (localStorage.getItem('darkModeBool') === 'false' || 
+        (localStorage.getItem('darkModeBool') === 'false' && window.matchMedia('(prefers-color-scheme: light)').matches)
+        ) { 
         app.classList.add('theme-light')
         document.getElementsByTagName('html')[0].style.backgroundColor = 'white'
         document.querySelector('meta[name="theme-color"]').setAttribute("content", "white");
@@ -80,7 +81,6 @@ export default defineComponent({
       const topP = 50
       const sidP = 38
       if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-        console.log('wait')
         if (orientation === 0 && window.navigator.standalone) {
           app.style.marginRight = 0
           app.style.marginLeft = '1px'
@@ -114,11 +114,6 @@ export default defineComponent({
         }
       }
     },
-    wait: function (time) {
-      return new Promise(resolve => {
-        setTimeout(resolve, time);
-      });
-    }
   },
   mounted () {
     this.orientationChange()
@@ -142,15 +137,12 @@ export default defineComponent({
 
     window.addEventListener('resize', this.orientationChange)
     window.addEventListener('orientationchange', this.orientationChange)
-
-
   }
 })
 </script>
 
 <style lang='scss'>
   @import './style/Main.scss';
-  @import './style/Table.scss';
   @import './style/Canvas.scss';
   @import './style/SessionManager.scss';
   @import './style/Content.scss';
@@ -158,8 +150,7 @@ export default defineComponent({
   @import './style/Font.scss';
   @import './style/WebKit.scss';
   @import './style/LightBox.scss';
+
   @import 'splitpanes/dist/splitpanes.css';
   @import 'primeflex/primeflex.css';
-
-
 </style>

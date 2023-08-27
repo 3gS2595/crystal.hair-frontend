@@ -1,4 +1,7 @@
 @import "./ThemeModes";
+$tableBorder: 1px solid var(--border-primary);
+$dropDownBorder: 3px solid var(--border-primary);
+
 
 $navH:17px;
 $devH:100dvh;
@@ -42,7 +45,7 @@ html, body {
           padding-left:1px;
           border-right:1px solid var(--border-primary);
         }
-        a{
+        a {
           color:  var(--link)
         }
         a:link {
@@ -51,7 +54,7 @@ html, body {
         a:visited {
          color:  var(--link)
         }
-        select{
+        select {
           background-color: var(--background-primary);
           border: 0;
           outline-style: none;
@@ -72,7 +75,7 @@ html, body {
         }
       }
 
-      .loading{
+      .loading {
         a {
         color:  var(--link);
           position: absolute;
@@ -81,7 +84,7 @@ html, body {
           transform: translateX(-50%) translateY(-50%);   
         }
       }
-      .contentMain{
+      .contentMain {
         position:absolute;
         width:100%;
         height:unquote("calc( 100% - #{$border})");

@@ -1,8 +1,5 @@
 @import "./ThemeModes";
 
-$tableBorder: 1px solid var(--border-primary);
-$dropDownBorder: 3px solid var(--border-primary);
-
 .tableCard{
 
     border-top: 1px dotted var(--border-primary);
@@ -60,7 +57,6 @@ $dropDownBorder: 3px solid var(--border-primary);
 }
 .p-multiselect-panel{
     outline: $dropDownBorder;
-    background-color: white;
 }
 .p-button-icon-only{
   background:none;
