@@ -14,12 +14,12 @@
 
 <script lang='ts'>
 import * as THREE from 'three'
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, defineComponent } from 'vue'
 import { InteractionManager } from 'three.interactive'
 
 import { filterStore } from '@/store/FilterStore'
 
-export default {
+export default defineComponent ({
   props: {
     imageData: {
       type: Array,
@@ -115,5 +115,5 @@ export default {
     })
     return { webGl }
   }
-}
+})
 </script>

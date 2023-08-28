@@ -31,11 +31,11 @@
 </template>
 
 <script lang='ts'>
+import { defineComponent } from 'vue'
 import '@/store/index'
 import { mapActions, mapGetters } from 'vuex'
 
-export default {
-  name: 'SessionManager',
+export default defineComponent({
   computed: {
     ...mapGetters(['getAuthToken', 'getUserEmail', 'getUserID', 'isLoggedIn'])
   },
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     ...mapActions(['registerUser', 'loginUser', 'logoutUser']),
-    onSignUp (event) {
+    onSignUp (event: Event) {
       event.preventDefault()
       const data = {
         user: {
@@ -60,7 +60,7 @@ export default {
       this.registerUser(data)
       this.resetData()
     },
-    onLogin (event) {
+    onLogin (event: Event) {
       event.preventDefault()
       const data = {
         user: {
@@ -78,6 +78,6 @@ export default {
       this.loginPassword = ''
     }
   }
-}
+})
 
 </script>

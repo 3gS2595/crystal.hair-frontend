@@ -119,7 +119,7 @@ export default defineComponent({
         this.paneSizeOffSet = offset
       }
     },
-    resize: function (size) {
+    resize: function (size: number) {
       if (this.paneSize !== size) {
         this.paneSizeTemp = this.paneSize
         this.paneSize = size

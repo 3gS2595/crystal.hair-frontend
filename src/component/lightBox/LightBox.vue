@@ -139,7 +139,7 @@ export default defineComponent({
         
       }
     },
-    res (data) {
+    res () {
       window.addEventListener('resize', this.orientationChange)
       window.addEventListener('orientationchange', this.orientationChange)
       window.addEventListener('keyup', this.esc, true)
@@ -166,7 +166,7 @@ export default defineComponent({
 
       this.orientationChange()
     },
-    esc (e) {
+    esc (e: KeyboardEvent) {
       if (e.key === 'Escape') {
         this.close()
       } else if (e.key === 'ArrowRight') {

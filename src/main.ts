@@ -27,4 +27,3 @@ if (cookieExists) {
       app.mount('#app')
   }
 }
-

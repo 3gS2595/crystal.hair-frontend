@@ -21,10 +21,10 @@ import { defineComponent, watch } from 'vue'
 import { mapGetters } from 'vuex'
 import '@/store/index'
 import { filterStore } from '@/store/FilterStore'
-import LogOutBtn from '@/component/sessionManager/LogOutBtn'
-import SessionManager from '@/component/sessionManager/SessionManager'
-import DropDown from '@/component/dropDown/DropDown'
+import SessionManager from '@/component/sessionManager/SessionManager.vue'
+import DropDown from '@/component/dropDown/DropDown.vue'
 
+import ContentModule from '@/component/content/ContentModule.vue'
 export default defineComponent({
   name: 'app',
   computed: {
@@ -42,28 +42,32 @@ export default defineComponent({
   mounted () {
     this.orientationChange()
     this.darkSet()
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    const self = this
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e: MediaQueryListEvent) {
       if (e.matches) {
         localStorage.setItem('darkModeBool', 'true')
       } else {
         localStorage.setItem('darkModeBool', 'false')
       }
-      this.darkSet()
-    }.bind(this), false) 
+      self.darkSet()
+    }.bind(self), false)
     window.addEventListener('resize', this.orientationChange)
     window.addEventListener('orientationchange', this.orientationChange)
   },
   methods: {
     darkSet () {
-      app.classList.remove(...['theme-light', 'theme-dark'])
-      if (localStorage.getItem('darkModeBool') === 'false' || 
-        (localStorage.getItem('darkModeBool') === 'false' && window.matchMedia('(prefers-color-scheme: light)').matches)
-        ) { 
-        app.classList.add('theme-light')
-        document.getElementsByTagName('html')[0].style.backgroundColor = 'white'
-      } else {
-        app.classList.add('theme-dark')
-        document.getElementsByTagName('html')[0].style.backgroundColor = 'black'
+      const app = document.getElementById("app")
+      if (app) {
+        app.classList.remove(...['theme-light', 'theme-dark'])
+        if (localStorage.getItem('darkModeBool') === 'false' || 
+          (localStorage.getItem('darkModeBool') === 'false' && window.matchMedia('(prefers-color-scheme: light)').matches)
+          ) { 
+          app.classList.add('theme-light')
+          document.getElementsByTagName('html')[0].style.backgroundColor = 'white'
+        } else {
+          app.classList.add('theme-dark')
+          document.getElementsByTagName('html')[0].style.backgroundColor = 'black'
+        }
       }
     },
     darkToggle () {
@@ -78,7 +82,7 @@ export default defineComponent({
       localStorage.removeItem('auth_token')
       location.reload()
     },
-    search: function (e) {
+    search: function (e: string) {
       const store = filterStore()
       store.setFilter(e)
     },
@@ -89,13 +93,14 @@ export default defineComponent({
       store.setSortBy('time_posted desc')
     },
     orientationChange: function () {
-      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+      const app = document.getElementById("app")
+      if (app && navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
         app.classList.remove(...['ios1', 'ios2', 'ios3', 'ios4'])
         if (window.orientation === 90) {
           app.classList.add('ios1')
         } else if (window.orientation === -90) {
           app.classList.add('ios2')
-        } else if (window.navigator.standalone) {
+        } else if ('standalone' in window.navigator) {
           app.classList.add('ios3')
         } else {
           app.classList.add('ios4')

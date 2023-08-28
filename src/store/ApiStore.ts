@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
-import sessionManager from '../store/modules/session_manager.js'
 import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
 import { watch, ref } from 'vue'
 import { filterStore } from '@/store/FilterStore'
+import sessionManager from '@/store/modules/session_manager'
 
 const store = filterStore()
 const base = store.urlRails
@@ -84,7 +84,7 @@ export const ApiStore = defineStore({
       }
     },
  
-    async fetchKernals (pageNumber) {
+    async fetchKernals (pageNumber: number) {
       const config = {
         headers: { Authorization: sessionManager.state.auth_token },
         signal: controller.signal
@@ -110,7 +110,7 @@ export const ApiStore = defineStore({
       }
     },
 
-    async fetchHypertexts (pageNumber) {
+    async fetchHypertexts (pageNumber: number) {
       const config = {
         headers: { Authorization: sessionManager.state.auth_token },
         signal: controller.signal
@@ -126,7 +126,7 @@ export const ApiStore = defineStore({
       return []
     },
 
-    async fetchMixtapes (pageNumber) {
+    async fetchMixtapes (pageNumber: number) {
       const config = {
         headers: { Authorization: sessionManager.state.auth_token },
         signal: controller.signal
@@ -142,7 +142,7 @@ export const ApiStore = defineStore({
       return []
     },
 
-    async fetchSourceUrls (pageNumber) {
+    async fetchSourceUrls (pageNumber: number) {
       const config = {
         headers: { Authorization: sessionManager.state.auth_token },
         signal: controller.signal

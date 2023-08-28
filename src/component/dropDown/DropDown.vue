@@ -2,14 +2,13 @@
 import { ref, onMounted,watch } from 'vue'
 import { filterStore } from '@/store/FilterStore'
 
-
 const selectedOrder = ref('desc')
 const sortOrder = ['asc', 'desc'] 
 
 const selectedData = ref('time_posted')
 const store = filterStore()
 const getOptions = () => {
-   return store.sortByValue
+  return store.sortByValue
 }
 
 watch(
@@ -24,7 +23,6 @@ watch(
     store.setSortBy(selectedData.value + ' ' + selectedOrder.value)
   }
 )
-
 </script>
 
 <template>

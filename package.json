@@ -9,30 +9,32 @@
     "check-ts": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "vue": "^3.2.26",
+    "@types/three": "^0.152.1",
+    "axios": "^1.4.0",
     "core-js": "^3.8.3",
     "node-sass": "^9.0.0",
-    "sass-loader": "^13.3.2",
-    "axios": "^1.4.0",
     "pinia": "^2.1.4",
     "primeflex": "^3.3.1",
     "primevue": "^3.29.2",
+    "sass-loader": "^13.3.2",
     "splitpanes": "^3.1.5",
     "three": "^0.152.0",
     "three.interactive": "^1.7.0",
-    "@types/three": "^0.152.1",
+    "vue": "^3.2.26",
     "vue-load-image": "^1.1.0",
     "vue-resizable": "^2.1.7",
     "vue-router": "^4.0.3",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@types/splitpanes": "^2.2.1",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-typescript": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "terser-webpack-plugin": "^5.3.9",
     "vue-tsc": "^1.8.8"
   },
-    "eslintConfig": {
+  "eslintConfig": {
     "root": true,
     "env": {
       "node": true

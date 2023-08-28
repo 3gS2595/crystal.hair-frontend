@@ -167,14 +167,6 @@ const watchIntersect = (pageNum) =>{
       observer.observe(el)
     }
   }
-  if (pageNumber.value - 2 !== 0) {
-    for (let i = 1; i < 5; i++) {
-      const el = document.getElementsByClassName("cgb-0")[(pageNum.value-2)*20-(5*i)]
-      if (el){
-        observer.observe(el)
-      }
-    }
-  }
 }
 
 let numClicks = 0
