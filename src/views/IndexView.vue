@@ -110,10 +110,10 @@ export default defineComponent({
       const el = document.getElementById('contentMain')
       if (this.paneSize !== 0 && this.paneSize !== 100 && el != null) {
         const width = el.offsetWidth - 13
-        let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 90
+        let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 93
         console.log(this.scrollWidth)
         if (this.paneSize === 40 && window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
-          extra = extra + 90
+          extra = extra + 93
         }
         const offset = (extra / width) * 100
         this.paneSizeOffSet = offset

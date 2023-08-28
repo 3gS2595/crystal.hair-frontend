@@ -39,6 +39,20 @@ export default defineComponent({
       q: '',
     }
   },
+  mounted () {
+    this.orientationChange()
+    this.darkSet()
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (e.matches) {
+        localStorage.setItem('darkModeBool', 'true')
+      } else {
+        localStorage.setItem('darkModeBool', 'false')
+      }
+      this.darkSet()
+    }.bind(this), false) 
+    window.addEventListener('resize', this.orientationChange)
+    window.addEventListener('orientationchange', this.orientationChange)
+  },
   methods: {
     darkSet () {
       app.classList.remove(...['theme-light', 'theme-dark'])
@@ -47,16 +61,17 @@ export default defineComponent({
         ) { 
         app.classList.add('theme-light')
         document.getElementsByTagName('html')[0].style.backgroundColor = 'white'
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", "white");
       } else {
         app.classList.add('theme-dark')
         document.getElementsByTagName('html')[0].style.backgroundColor = 'black'
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", "black");
       }
     },
     darkToggle () {
-      if (localStorage.getItem('darkModeBool') === 'true') localStorage.setItem('darkModeBool', 'false')
-      else localStorage.setItem('darkModeBool', 'true')
+      if (localStorage.getItem('darkModeBool') === 'true') {
+        localStorage.setItem('darkModeBool', 'false')
+      } else {
+        localStorage.setItem('darkModeBool', 'true')
+      }
       this.darkSet()
     },
     logout () {
@@ -69,76 +84,26 @@ export default defineComponent({
     },
     reset: function () {
       const store = filterStore()
-      store.setFilter(' ')
       store.setFilter('')
-      store.setMixtape(' ')
       store.setMixtape('')
       store.setSortBy('time_posted desc')
     },
-    // handles ios safari landscape notch
     orientationChange: function () {
-      const orientation = window.orientation
-      const topP = 50
-      const sidP = 38
       if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-        if (orientation === 0 && window.navigator.standalone) {
-          app.style.marginRight = 0
-          app.style.marginLeft = '1px'
-          app.style.width = String(window.innerWidth - 4) + 'px'
-          app.style.borderBottomLeftRadius = '34.0pt'
-          app.style.borderBottomRightRadius = '34.0pt'
-        } else if (orientation === 90) {
-          app.style.marginRight = 0
-          app.style.marginLeft = sidP + 'px'
-          app.style.width = String(window.innerWidth - sidP - 4) + 'px'
-          app.style.borderBottomLeftRadius = '0pt'
-          app.style.borderBottomRightRadius = '34.0pt'
-        } else if (orientation === -90) {
-          app.style.marginRight = sidP + 'px'
-          app.style.marginLeft = '1px'
-          app.style.width = String(window.innerWidth - sidP - 4) + 'px'
-          app.style.borderBottomLeftRadius = '34.0pt'
-          app.style.borderBottomRightRadius = '0pt'
+        app.classList.remove(...['ios1', 'ios2', 'ios3', 'ios4'])
+        if (window.orientation === 90) {
+          app.classList.add('ios1')
+        } else if (window.orientation === -90) {
+          app.classList.add('ios2')
         } else if (window.navigator.standalone) {
-          app.style.marginRight = 0
-          app.style.marginLeft = '1px'
-          app.style.width = String(window.innerWidth - 4) + 'px'
-          app.style.borderBottomLeftRadius = '34.0pt'
-          app.style.borderBottomRightRadius = '34.0pt'
-          } else {
-          app.style.marginRight = 0
-          app.style.marginLeft = '1px'
-          app.style.width = String(window.innerWidth - 4) + 'px'
-          app.style.borderBottomLeftRadius = '0pt'
-          app.style.borderBottomRightRadius = '0pt'
+          app.classList.add('ios3')
+        } else {
+          app.classList.add('ios4')
         }
       }
-    },
-  },
-  mounted () {
-    this.orientationChange()
-    this.darkSet()
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-      if (e.matches) localStorage.setItem('darkModeBool', 'true')
-      else localStorage.setItem('darkModeBool', 'false')
-      app.classList.remove(...['theme-light', 'theme-dark'])
-      if (localStorage.getItem('darkModeBool') === 'false'){ 
-        app.classList.add('theme-light')
-        document.getElementsByTagName('html')[0].style.backgroundColor = 'white'
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", "white");
-        localStorage.setItem('darkModeBool', 'false')
-      } else {
-        app.classList.add('theme-dark')
-        document.getElementsByTagName('html')[0].style.backgroundColor = 'black'
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", "black");
-        localStorage.setItem('darkModeBool', 'true')
-      }
-    }) 
-
-    window.addEventListener('resize', this.orientationChange)
-    window.addEventListener('orientationchange', this.orientationChange)
+    }
   }
-})
+ })
 </script>
 
 <style lang='scss'>

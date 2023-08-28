@@ -33,6 +33,7 @@ transition:none!important;
     display:grid;
     height: 7px;
     border-top: 1px dotted var(--border-primary);
+    border-bottom: 1px dotted var(--border-primary);
     border-right: 0px dotted var(--border-primary);
     border-left: 0px dotted var(--border-primary);
     margin-top: -1px;

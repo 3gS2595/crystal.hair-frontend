@@ -1,9 +1,9 @@
 @import "./ThemeModes";
 
 .tableCard{
-
-    border-top: 1px dotted var(--border-primary);
+  border-top: 1px dotted var(--border-primary);
   height:100%;
+
   input{
     max-width:25px;
   }
@@ -16,7 +16,6 @@
     }
 	}
 	th {
-
     border-bottom: $tableBorder;
 	}
 	td {

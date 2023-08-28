@@ -27,6 +27,7 @@ html, body {
     width: unquote("calc( #{$devW} - 4px )"); 
     height:unquote("calc(#{$devH} - #{$iosTop} - 3px)");
     margin-left:1px;
+    margin-right:0px;
     border-bottom: 1px solid var(--border-secondary);
     border-right: 1px solid var(--border-secondary);
     border-left: 1px solid var(--border-secondary);
@@ -102,4 +103,33 @@ html, body {
     --sar: env(safe-area-inset-right);
     --sab: env(safe-area-inset-bottom);
     --sal: env(safe-area-inset-left);
+}
+
+
+.ios1{
+  margin-left:0px!important;
+  margin-left:39px!important;
+  width: calc(#{$devW} - 42px)!important;
+  border-bottom-left-radius: 0pt!important;
+  border-bottom-right-radius: 34pt!important;
+}
+.ios2{
+  margin-left:0px!important;
+  margin-right:39px!important;
+  width: calc(#{$devW} - 42px)!important;
+  border-bottom-left-radius: 34pt!important;
+  border-bottom-right-radius: 0pt!important;
+}
+.ios3{
+  margin-left:0px!important;
+  width: calc(#{$devW} - 4px)!important;
+  border-bottom-left-radius: 34pt!important;
+  border-bottom-right-radius: 34pt!important;
+}
+.ios4{
+  margin-left:0px!important;
+  margin-right:1px!important;
+  width: calc(#{$devW} - 4px)!important;
+  border-bottom-left-radius: 0pt!important;
+  border-bottom-right-radius: 0pt!important;
 }

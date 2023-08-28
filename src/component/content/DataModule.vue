@@ -5,11 +5,12 @@
       <template #list="slotProps">
         <div class="dgb-0">
           <div class="dgb-0-txt">
-            <a @click="search(slotProps.data.content)">
+            <button @click="search(slotProps.data.content)">
+              <a>
+                {{ convertDate(slotProps.data.created_at) }}
+              </a>
               {{ slotProps.data.name }}
-            </a>
-            <br/>
-            <a>{{convertDate(slotProps.data.updated_at)}}</a>
+            </button>
           </div>
         </div>
       </template>
@@ -57,7 +58,7 @@ const search = (e) => {
 
 const convertDate = (datetime) => {
   const elapsed = (new Date() - new Date(datetime)) / 1000 /60 / 60 / 24
-  return ('-' + elapsed.toFixed(0) + 'd-' + new Date(datetime))
+  return ('-' + elapsed.toFixed(0) + 'd-')
 }
 const fetchPage = async () => {
   ApiStore().fetchHypertexts(pageNumber.value)
