@@ -23,7 +23,7 @@ watch(
 watch(
   () => store.mixtape,
   () => {
-    ApiStore().search()
+    ApiStore().mixtapeSearch()
   }
 )
 
@@ -58,7 +58,6 @@ export const ApiStore = defineStore({
       controller.abort()
       controller = new AbortController();
 
-      this.mixtapes = []
       this.hypertexts = []
       this.linkContents = []
       this.sourceUrls = []
@@ -76,9 +75,27 @@ export const ApiStore = defineStore({
         ])
         this.linkContents = linkContents.data
         this.fetchSourceUrls(1)
-        this.fetchMixtapes(1)
         this.fetchKernals(1)
         this.fetchHypertexts(1)
+      } catch (e) {
+        console.error(e);
+      }
+    },
+
+    async mixtapeSearch () {
+      controller.abort()
+      controller = new AbortController();
+
+      this.kernals = []
+
+      const config = {
+        headers: { Authorization: sessionManager.state.auth_token },
+        signal: controller.signal
+      }
+      let params = '?q=' + store.filter + '&sort=' + store.sortBy 
+
+      try {
+        this.fetchKernals(1)
       } catch (e) {
         console.error(e);
       }
@@ -115,10 +132,10 @@ export const ApiStore = defineStore({
         headers: { Authorization: sessionManager.state.auth_token },
         signal: controller.signal
       }
-      let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy 
+      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter 
 
       try {
-        const hypertexts = await axios.get(base + 'hypertexts'+ params +'&q=' + store.filter, config)
+        const hypertexts = await axios.get(base + 'hypertexts'+ params, config)
         this.hypertexts = this.hypertexts.concat(hypertexts.data)
       } catch (e) {
         console.error(e);
@@ -131,10 +148,10 @@ export const ApiStore = defineStore({
         headers: { Authorization: sessionManager.state.auth_token },
         signal: controller.signal
       }
-      let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy 
+      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter 
 
       try {
-        const mixtapes = await axios.get(base + 'mixtapes'+ params +'&q=' + store.filter, config)
+        const mixtapes = await axios.get(base + 'mixtapes'+ params, config)
         this.mixtapes = this.mixtapes.concat(mixtapes.data)
       } catch (e) {
         console.error(e);
@@ -147,16 +164,15 @@ export const ApiStore = defineStore({
         headers: { Authorization: sessionManager.state.auth_token },
         signal: controller.signal
       }
-      let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy 
+      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter 
 
       try {
-        const sourceUrls = await axios.get(base + 'source_urls'+ params +'&q=' + store.filter, config)
+        const sourceUrls = await axios.get(base + 'source_urls'+ params, config)
         this.sourceUrls = this.sourceUrls.concat(sourceUrls.data)
       } catch (e) {
         console.error(e);
       }
       return []
-    },
-
+    }
   }
 })

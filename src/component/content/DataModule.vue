@@ -1,16 +1,22 @@
 <template>
   <div class="dataView">
-    <DataView class='dg-0' :value="props.contentData" :layout="list" >
+        <div class="header">
+              <a>
+              {{ props.header }} 
+              </a>
+        </div>
 
+    <DataView class='dg-0' :value="props.contentData" :layout="list" >
+       
       <template #list="slotProps">
         <div class="dgb-0">
-          <div class="dgb-0-txt">
-            <button @click="search(slotProps.data.content)">
-              <a>
+          <div @click="search(slotProps.data.content)" class="dgb-0-txt">
+              <a style="float:left; max-width:calc(100% - 40px);">
+              {{ slotProps.data.name }}
+              </a>
+              <a style="float:right;">
                 {{ convertDate(slotProps.data.created_at) }}
               </a>
-              {{ slotProps.data.name }}
-            </button>
           </div>
         </div>
       </template>
@@ -29,25 +35,17 @@ import { ApiStore } from '@/store/ApiStore'
 const store = filterStore()
 const pageNumber = ref<number>(2)
 const props = withDefaults(defineProps<{
- contentData: any[],
- id: number
+  header: string
+  contentData: any[],
+  id: number
 }> (), {
-   contentData: []
+  contentData: []
 })
 
-
-watch(
-  () => props.contentData,
-  () => { 
-    if(props.contentData.length < 20){
-      pageNumber.value = 2
-    }
-  }
-)
 onMounted(() => {
-  MutateObserver.observe(document.getElementsByClassName("p-grid")[props.id], configMutate)
+  const targetNode = document.getElementsByClassName("p-grid")[props.id]
+  new MutationObserver(callback).observe(targetNode, { childList: true });
 })
-
 const search = (e) => {
   store.setFilter('')
   if(JSON.stringify(store.mixtape) ===JSON.stringify(e)) {
@@ -56,18 +54,15 @@ const search = (e) => {
       store.setMixtape(e)
     }
   }
-
 const fetchPage = async () => {
-  ApiStore().fetchHypertexts(pageNumber.value)
+  if(props.contentData.length > 0) {
+    if(Object.hasOwn(props.contentData[0], "content")) {
+      ApiStore().fetchMixtapes(pageNumber.value)
+    }
+  }
   pageNumber.value = pageNumber.value + 1
 }
 
-const convertDate = (datetime) => {
-  const elapsed = (new Date() - new Date(datetime)) / 1000 /60 / 60 / 24
-  return ('-' + elapsed.toFixed(0) + 'd-')
-}
-
-// intersection observer / mutation observer
 const intersecting = (event) => {
   for (const e of event){
     if (e.isIntersecting) {
@@ -78,14 +73,7 @@ const intersecting = (event) => {
 }
 const config = { root: document.getElementsByClassName("p-grid")[props.id], threshold: 0.5 }
 const observer = new IntersectionObserver(intersecting, config);
-const watchIntersect = (pageNum) =>{
-  for (let i = 1; i < 5; i++) {
-    const el = document.getElementsByClassName("dgb-0")[(pageNum.value-1)*20-(5*i)]
-    if (el){
-      observer.observe(el)
-    }
-  }
-}
+
 const callback = (mutationList, MutateObserver) => {
   for (const mutation of mutationList) {
     if (mutation.type === "childList") {
@@ -94,7 +82,29 @@ const callback = (mutationList, MutateObserver) => {
     }
   }
 }
+
+const watchIntersect = (pageNum) =>{
+  for (let i = 1; i < 5; i++) {
+    const el = document.getElementsByClassName("dgb-0")[(pageNum.value-1)*20-(5*i)]
+    if (el){
+      observer.observe(el)
+    }
+  }
+}
 const configMutate = { childList: true }
 const MutateObserver = new MutationObserver(callback)
 
+const convertDate = (datetime) => {
+  const elapsed = (new Date() - new Date(datetime)) / 1000 /60 / 60 / 24
+  return ( elapsed.toFixed(0) + 'd')
+}
+
+watch(
+  () => props.contentData,
+  () => { 
+    if(props.contentData.length < 20){
+      pageNumber.value = 2
+    }
+  }
+)
 </script>

@@ -28,6 +28,7 @@ module.exports = defineConfig({
   },
     transpileDependencies: true,
     devServer: {
-        allowedHosts: "all"
+      proxy: 'crystal-hair.nyc3.digitaloceanspaces.com',
+      allowedHosts: "all"
     }
 })

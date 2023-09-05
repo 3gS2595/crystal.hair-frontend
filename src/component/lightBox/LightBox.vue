@@ -29,17 +29,19 @@
             >close</a>
         </div>
 
-        <vue-load-image>
-          <template v-slot:image>
-            <img :src='`${viewerData[store.lightBoxIndex].signed_url}`' @load="handleLoad"/>
-          </template>
-          <template v-slot:preloader>
-              <img src="image-loader.gif" rel='preload'/>
-          </template>
-          <template v-slot:error>
-           <a>{{ viewerData[store.lightBoxIndex].description }}</a>
-          </template>
-        </vue-load-image>
+          <vue-load-image >
+            <template v-slot:image>
+              <img :src='`${viewerData[store.lightBoxIndex].signed_url}`' @load="handleLoad"/>
+            </template>
+            <template v-slot:preloader>
+                <img src="image-loader.gif" rel='preload'/>
+            </template>
+            <template v-slot:error>
+             <a>{{ viewerData[store.lightBoxIndex].description }}</a>
+            </template>
+          </vue-load-image>
+          
+        
 
         <div class='drag-container-2'>
         <a v-if="store.lightBoxIndex != 0"
@@ -64,6 +66,8 @@ import { ref, defineComponent, PropType } from 'vue'
 import { filterStore } from '@/store/FilterStore'
 import VueResizable from 'vue-resizable'
 import VueLoadImage from 'vue-load-image'
+import VuePdfEmbed from 'vue-pdf-embed'
+import 'pdfjs-dist/build/pdf.worker.entry' // not needed since v1.9.1
 import type { kernalType } from '@/types/index'
 const store = filterStore()
 const lightBoxUi = ref(false)
@@ -71,7 +75,8 @@ export default defineComponent({
   name: 'App',
   components: {
     VueResizable,
-    VueLoadImage
+    VueLoadImage,
+    VuePdfEmbed 
   },
   props: {
     viewerData: {

@@ -18,7 +18,8 @@
         <splitpanes class="data_pane" :horizontal="true">
           <pane :size="70">
             <DataModule
-              :contentData="hypertexts"
+              header = "mixtape" 
+              :contentData="mixtapes"
               :id="0"
            />
           </pane>
@@ -27,12 +28,14 @@
             <splitpanes class="default-theme" :vertical="true">
               <pane :size="50">
                 <DataModule
-                  :contentData="mixtapes"
+                  header = "hypertext" 
+                  :contentData="hypertexts"
                   :id="1" 
                 />
               </pane>
               <pane :size="50">
                 <DataModule
+                  header = "sourceUrl" 
                   :contentData="sourceUrls"
                   :id="2"
                 />
@@ -43,25 +46,32 @@
       </pane>
 
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
-              <ContentModule
-                :contentData="kernals"
-                :id="3"
-              />
+        <ContentModule
+          :contentData="kernals"
+          :id="3"
+        />
       </pane>
     </splitpanes>
-
   </div>
  </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
 
-import ThreeMain from '@/component/three/ThreeMain.vue'
-import ContentModule from '@/component/content/ContentModule.vue'
-import DataModule from '@/component/content/DataModule.vue'
-import LightBox from '@/component/lightBox/LightBox.vue'
+const ThreeMain = defineAsyncComponent(() =>
+  import('@/component/three/ThreeMain.vue')
+)
+const ContentModule = defineAsyncComponent(() =>
+  import('@/component/content/ContentModule.vue')
+)
+const DataModule = defineAsyncComponent(() =>
+  import('@/component/content/DataModule.vue')
+)
+const LightBox = defineAsyncComponent(() =>
+  import('@/component/lightBox/LightBox.vue')
+)
 
 import { ApiStore } from '../store/ApiStore'
 import { filterStore } from '@/store/FilterStore'
@@ -80,7 +90,7 @@ export default defineComponent({
       dataReturned: false,
       scrollWidth: this.findScrollWidth(),
       paneSizeTemp: 0,
-      paneSize: 40,
+      paneSize: 30,
       paneSizeOffSet: 0,
       store: filterStore(),
     }
@@ -107,13 +117,21 @@ export default defineComponent({
   },
   methods: {
     resizeContentFit: function () {
+
+      //site width
       const el = document.getElementById('contentMain')
+
       if (this.paneSize !== 0 && this.paneSize !== 100 && el != null) {
-        const width = el.offsetWidth - 13
+        const width = el.offsetWidth - 5
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 93
-        console.log(this.scrollWidth)
-        if (this.paneSize === 40 && window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
-          extra = extra + 93
+        if (this.paneSize === 30){
+          if (window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
+            extra = extra + 93
+          } else {
+            const target = width - 240
+            const psize = (width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth
+            extra = (-1 * (target - psize)) + ((target - psize) % 93) + (psize % 93) 
+          }
         }
         const offset = (extra / width) * 100
         this.paneSizeOffSet = offset
