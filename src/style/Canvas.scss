@@ -4,10 +4,10 @@
   width:100%!important;
   border-bottom: $tableBorder;
   height:80px!important;
+  canvas {
+    max-width: 450px!important;
+    max-height: 80px;
+    height:80px!important;
+  } 
 }
-canvas {
-  max-width: 450px!important;
-  max-height: 80px;
-  height:80px!important;
 
-} 

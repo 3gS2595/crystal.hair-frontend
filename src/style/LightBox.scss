@@ -27,16 +27,28 @@ background: none !important;
         position:relative;
         width:100%;
         height:100%;
-        max-height: calc(100% - 64px);
+        max-height: calc(100% - 32px);
         white-space: pre-wrap;
       }
-
-      .vue-load-image{
+      .pdf{
         position:relative;
         width:100%;
         height:100%;
-        max-height: calc(100% - 64px);
-        white-space: pre-wrap;
+        max-height: calc(100% - 32px);
+
+        .VuePdfApp{
+          max-width: 100%;
+          max-height: 100%;
+          width: 100%;
+          height: calc(100%);
+        }
+      }
+
+      .vue-load-image{
+        width:100%;
+        max-width:100%;
+        height:100%;
+        max-height: calc(100% - 32px);
 
         img {
           position:relative;

@@ -22,14 +22,7 @@
     >
       <div class='block'>
 
-        <div class='drag-container-1'>
-          <a
-            style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
-            @click='close'
-            >close</a>
-        </div>
-
-          <vue-load-image >
+          <vue-load-image v-if="viewerData[store.lightBoxIndex].file_type != '.pdf'"  >
             <template v-slot:image>
               <img :src='`${viewerData[store.lightBoxIndex].signed_url}`' @load="handleLoad"/>
             </template>
@@ -40,14 +33,20 @@
              <a>{{ viewerData[store.lightBoxIndex].description }}</a>
             </template>
           </vue-load-image>
-          
-        
+
+          <div class='pdf' v-if="viewerData[store.lightBoxIndex].file_type == '.pdf'" > 
+           <VuePdfApp :pdf='`${viewerData[store.lightBoxIndex].signed_url}`' />
+          </div>
 
         <div class='drag-container-2'>
-        <a v-if="store.lightBoxIndex != 0"
+          <a v-if="store.lightBoxIndex != 0"
             style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
             @click='prev'
             >prev----</a>
+          <a
+            style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
+            @click='close'
+            >exit</a>
 
           <a v-if="store.lightBoxIndex != viewerData.length - 1"
             style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
@@ -66,8 +65,8 @@ import { ref, defineComponent, PropType } from 'vue'
 import { filterStore } from '@/store/FilterStore'
 import VueResizable from 'vue-resizable'
 import VueLoadImage from 'vue-load-image'
-import VuePdfEmbed from 'vue-pdf-embed'
-import 'pdfjs-dist/build/pdf.worker.entry' // not needed since v1.9.1
+import VuePdfApp from "vue3-pdf-app";
+import "vue3-pdf-app/dist/icons/main.css";
 import type { kernalType } from '@/types/index'
 const store = filterStore()
 const lightBoxUi = ref(false)
@@ -76,7 +75,7 @@ export default defineComponent({
   components: {
     VueResizable,
     VueLoadImage,
-    VuePdfEmbed 
+    VuePdfApp 
   },
   props: {
     viewerData: {
