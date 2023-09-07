@@ -1,8 +1,8 @@
 <template>
   <div v-if='isLoggedIn'>
     <nav id='nav'>
-      <a class='navItem' @click="darkToggle">☪</a>
       <a class='navItem' @click="logout">&#9736;</a>
+      <a class='navItem' @click="darkToggle">☪</a>
       <DropDown/>
       <a class='navItem' @click="reset">X</a>
       <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />

@@ -100,6 +100,7 @@ export default defineComponent({
     return { hypertexts, sourceUrls, kernals, linkContents, mixtapes }
   },
   mounted () {
+    window.addEventListener('visibilitychange', this.resizeContentFit)
     window.addEventListener('orientationchange', this.resizeContentFit)
     window.addEventListener('resize', this.resizeContentFit)
     ApiStore().initialize().then(async () => {
@@ -114,6 +115,7 @@ export default defineComponent({
   unmounted () {
     window.removeEventListener('orientationchange', this.resizeContentFit, true)
     window.removeEventListener('resize', this.resizeContentFit, true)
+    window.removeEventListener('visibilitychange', this.resizeContentFit)
   },
   methods: {
     resizeContentFit: function () {
@@ -128,7 +130,7 @@ export default defineComponent({
           if (window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
             extra = extra + 93
           } else {
-            const target = width - 240
+            const target = width - 220
             const psize = (width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth
             extra = (-1 * (target - psize)) + ((target - psize) % 93) + (psize % 93) 
           }

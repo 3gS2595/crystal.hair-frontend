@@ -37,9 +37,28 @@
 
        // list 
         .w-9{
-          width: 100% !important;
+          min-width: 100% !important;
         }
+        .clb-0{
+          margin:1.5px;
+          width:100%;
+          *{
+            animation-name: example!important;
+            animation-duration: .46s!important;
+          }
+            .clb-0-txt{
+              width: 100%;
+              overflow-y:auto;
+              overflow-x:hidden;
+            }
 
+            .clb-0-img {
+              width: 100%;
+              object-fit: contain;
+              z-index: 0;
+            }
+
+        }
         // grid
         .cgb-0{
           margin:1.5px;
@@ -47,7 +66,6 @@
             animation-name: example!important;
             animation-duration: .46s!important;
           }
-          
           .cgb-loading{
             outline: $tableBorder;
             max-width:90px;
@@ -79,6 +97,7 @@
               max-height: 100px;
               overflow-y:auto;
               overflow-x:hidden;
+              white-space: pre-wrap;
             }
 
             .cgb-0-img {
@@ -89,6 +108,7 @@
             }
 
             .cgb-0-info{
+              border-top: $tableBorder;
               overflow:hidden;
               white-space: nowrap;
             }
@@ -139,6 +159,8 @@
             }
           }
 
+          // border-left: 120px solid transparent;
+          // border-right: 120px solid transparent;
           border-bottom: $tableBorder;
           border-right: $tableBorder;
           width:100%;

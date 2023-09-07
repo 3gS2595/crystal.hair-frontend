@@ -18,6 +18,7 @@ watch(
   () => store.sortBy,
   () => {
     ApiStore().search()
+    ApiStore().mixtapeSearch()
   }
 )
 watch(
@@ -85,7 +86,6 @@ export const ApiStore = defineStore({
     async mixtapeSearch () {
       controller.abort()
       controller = new AbortController();
-
       this.kernals = []
 
       const config = {

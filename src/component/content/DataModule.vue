@@ -55,10 +55,8 @@ const search = (e) => {
     }
   }
 const fetchPage = async () => {
-  if(props.contentData.length > 0) {
-    if(Object.hasOwn(props.contentData[0], "content")) {
+  if(props.header == 'mixtape') {
       ApiStore().fetchMixtapes(pageNumber.value)
-    }
   }
   pageNumber.value = pageNumber.value + 1
 }

@@ -9,22 +9,22 @@
       </template>
 
       <template #list="slotProps">
-        <div class="col-12">
+        <div class="clb-0">
           <div v-if="slotProps.data.file_type === '.txt'">
-              <div class="cgb-0-txt">
+              <div class="clb-0-txt">
                 <a>{{ slotProps.data.description }}</a>
               </div>
             </div>
           <div v-else >
             <vue-load-image>
               <template v-slot:image>
-                <img class="w-9" :src="`${slotProps.data.signed_url}`"/>
+                <img class="clb-0-img" :src="`${slotProps.data.signed_url}`"/>
               </template>
               <template v-slot:preloader>
-                <img class="w-9" src="image-loader.gif" rel='preload'/>
+                <img class="clb-0-img" src="`${slotProps.data.signed_url_nail}`"/>
               </template>
               <template v-slot:error>
-                Image load fails
+                <img class="clb-0-img" src="`${slotProps.data.signed_url_nail}`"/>
               </template>
             </vue-load-image>
           </div>
@@ -43,10 +43,10 @@
                 <a @click="toggleLightBox(slotProps.index)">{{ slotProps.data.description }}</a>
               </div>
               <div class="cgb-0-info">
-                <div class="file_path" >
+                <div class="file_path" style="font-size:10px;">
                   {{ slotProps.data.time_posted }}
                 </div>
-                <div class="file_path" >
+                <div class="file_path" style="font-size:10px;" >
                   <a>{{ slotProps.data.author }}</a>
                 </div>
               </div>
@@ -63,10 +63,10 @@
                     v-on:click="toggleLightBox(slotProps.index)"
                   />
                   <div class="cgb-0-info">
-                    <div class="file_path" >
+                    <div class="file_path" style="font-size:11px;">
                       {{ convertDate(slotProps.data.time_posted) }}
                     </div>
-                    <div class="file_path" >
+                    <div class="file_path" style="font-size:11px;">
                       <a>{{ slotProps.data.author }}</a>
                     </div>
                   </div>
@@ -76,10 +76,10 @@
               <template v-slot:preloader>
                 <div class ='cgb-loading' >
                   <div class="cgb-0-info">
-                    <div class="file_path" >
+                    <div class="file_path" style="font-size:11px;">
                       {{ convertDate(slotProps.data.time_posted) }}
                     </div>
-                    <div class="file_path" >
+                    <div class="file_path" style="font-size:11px;">
                       <a>{{ slotProps.data.author }}</a>
                     </div>
                   </div>
@@ -94,10 +94,10 @@
                     </a>
                   </div>
                   <div class="cgb-0-info">
-                    <div class="file_path" >
-                      {{ convertDate(slotProps.data.time_posted) }}
+                    <div class="file_path" style="font-size:11px;">
+                      {{slotProps.data.file_type }}
                     </div>
-                    <div class="file_path" >
+                    <div class="file_path" style="font-size:11px;">
                       <a>{{ slotProps.data.author }}</a>
                     </div>
                   </div>
