@@ -18,7 +18,6 @@ watch(
   () => store.sortBy,
   () => {
     ApiStore().search()
-    ApiStore().mixtapeSearch()
   }
 )
 watch(

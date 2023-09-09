@@ -46,9 +46,6 @@
                 <div class="file_path" style="font-size:10px;">
                   {{ slotProps.data.time_posted }}
                 </div>
-                <div class="file_path" style="font-size:10px;" >
-                  <a>{{ slotProps.data.author }}</a>
-                </div>
               </div>
             </div>
           </div>
@@ -66,9 +63,6 @@
                     <div class="file_path" style="font-size:11px;">
                       {{ convertDate(slotProps.data.time_posted) }}
                     </div>
-                    <div class="file_path" style="font-size:11px;">
-                      <a>{{ slotProps.data.author }}</a>
-                    </div>
                   </div>
                 </div>
               </template>
@@ -78,9 +72,6 @@
                   <div class="cgb-0-info">
                     <div class="file_path" style="font-size:11px;">
                       {{ convertDate(slotProps.data.time_posted) }}
-                    </div>
-                    <div class="file_path" style="font-size:11px;">
-                      <a>{{ slotProps.data.author }}</a>
                     </div>
                   </div>
                 </div>
@@ -96,9 +87,6 @@
                   <div class="cgb-0-info">
                     <div class="file_path" style="font-size:11px;">
                       {{slotProps.data.file_type }}
-                    </div>
-                    <div class="file_path" style="font-size:11px;">
-                      <a>{{ slotProps.data.author }}</a>
                     </div>
                   </div>
                 </div>
@@ -187,7 +175,8 @@ const toggleLightBox = (ind) => {
 
 const convertDate = (datetime) => {
   const elapsed = (new Date() - new Date(datetime)) / 1000 /60 / 60 / 24
-  return ('-' + elapsed.toFixed(0) + 'd-' + new Date(datetime))
+  // return ('-' + elapsed.toFixed(0) + 'd-' + new Date(datetime))
+  return (new Date(datetime))
 }
 
 // if api reset reset pagenum 
@@ -200,3 +189,14 @@ watch(
   }
 )
 </script>
+<style>
+  /* for dark theme */
+  .pdf-app.dark {
+    --pdf-toolbar-color: black;
+  }
+
+  /* for light theme */
+  .pdf-app.light {
+    --pdf-toolbar-color: white;
+  }
+</style>

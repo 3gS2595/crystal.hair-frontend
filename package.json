@@ -9,6 +9,10 @@
     "check-ts": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@tiptap/extension-hard-break": "^2.1.8",
+    "@tiptap/pm": "^2.1.8",
+    "@tiptap/starter-kit": "^2.1.8",
+    "@tiptap/vue-3": "^2.1.8",
     "@types/three": "^0.152.1",
     "axios": "^1.4.0",
     "core-js": "^3.8.3",

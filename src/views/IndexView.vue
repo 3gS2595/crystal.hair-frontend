@@ -16,7 +16,7 @@
         </div>
 
         <splitpanes class="data_pane" :horizontal="true">
-          <pane :size="70">
+          <pane :size="60">
             <DataModule
               header = "mixtape" 
               :contentData="mixtapes"
@@ -24,7 +24,7 @@
            />
           </pane>
 
-          <pane :size="30">
+          <pane :size="40">
             <splitpanes class="default-theme" :vertical="true">
               <pane :size="50">
                 <DataModule
@@ -123,7 +123,7 @@ export default defineComponent({
       //site width
       const el = document.getElementById('contentMain')
 
-      if (this.paneSize !== 0 && this.paneSize !== 100 && el != null) {
+      if (this.paneSize !== 100 && el != null) {
         const width = el.offsetWidth - 5
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 93
         if (this.paneSize === 30){

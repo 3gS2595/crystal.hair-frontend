@@ -22,21 +22,23 @@
     >
       <div class='block'>
 
-          <vue-load-image v-if="viewerData[store.lightBoxIndex].file_type != '.pdf'"  >
-            <template v-slot:image>
-              <img :src='`${viewerData[store.lightBoxIndex].signed_url}`' @load="handleLoad"/>
-            </template>
-            <template v-slot:preloader>
-                <img src="image-loader.gif" rel='preload'/>
-            </template>
-            <template v-slot:error>
-             <a>{{ viewerData[store.lightBoxIndex].description }}</a>
-            </template>
-          </vue-load-image>
+        <vue-load-image v-if="viewerData[store.lightBoxIndex].file_type != '.pdf' && viewerData[store.lightBoxIndex].file_type != '.txt'" >
+          <template v-slot:image>
+            <img :src='`${viewerData[store.lightBoxIndex].signed_url}`' @load="handleLoad"/>
+          </template>
+          <template v-slot:preloader>
+            <img src="image-loader.gif" rel='preload'/>
+          </template>
+        <template v-slot:error>
+          <a>{{ viewerData[store.lightBoxIndex].description }}</a>
+         </template>
+       </vue-load-image>
 
-          <div class='pdf' v-if="viewerData[store.lightBoxIndex].file_type == '.pdf'" > 
-           <VuePdfApp :pdf='`${viewerData[store.lightBoxIndex].signed_url}`' />
-          </div>
+       <div class='pdf' v-if="viewerData[store.lightBoxIndex].file_type == '.pdf'" > 
+        <VuePdfApp :config="config" theme="dark" :pdf='`${viewerData[store.lightBoxIndex].signed_url}`' />
+       </div>
+        
+       <editor v-model="viewerData[store.lightBoxIndex].description" v-if="viewerData[store.lightBoxIndex].file_type == '.txt'"/>
 
         <div class='drag-container-2'>
           <a v-if="store.lightBoxIndex != 0"
@@ -62,12 +64,15 @@
 
 <script lang='ts'>
 import { ref, defineComponent, PropType } from 'vue'
-import { filterStore } from '@/store/FilterStore'
 import VueResizable from 'vue-resizable'
 import VueLoadImage from 'vue-load-image'
 import VuePdfApp from "vue3-pdf-app";
 import "vue3-pdf-app/dist/icons/main.css";
+import Editor from './TextEditor.vue'
+
+import { filterStore } from '@/store/FilterStore'
 import type { kernalType } from '@/types/index'
+
 const store = filterStore()
 const lightBoxUi = ref(false)
 export default defineComponent({
@@ -75,7 +80,8 @@ export default defineComponent({
   components: {
     VueResizable,
     VueLoadImage,
-    VuePdfApp 
+    VuePdfApp,
+    Editor
   },
   props: {
     viewerData: {
@@ -85,9 +91,9 @@ export default defineComponent({
   },
   setup (props) {
     const viewerData  = ref(props.viewerData)
-    console.log(store.lightBoxIndex)
-    return { viewerData }
+       return { viewerData }
   },
+
   data () {
     const tW = 200
     const tH = 200
@@ -102,7 +108,10 @@ export default defineComponent({
       event: '',
       dragSelector: '.drag-container-1, .drag-container-2',
       index: 9,
-      store: filterStore()
+      store: filterStore(),
+      config: {
+        toolbar: false
+      },
     }
   },
   methods: {
@@ -171,12 +180,15 @@ export default defineComponent({
       this.orientationChange()
     },
     esc (e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        this.close()
-      } else if (e.key === 'ArrowRight') {
-        this.next()
-      } else if (e.key === 'ArrowLeft') {
-        this.prev()
+      console.log(document.activeElement )
+      if(document.getElementsByClassName('tiptap')[0] != document.activeElement) {
+        if (e.key === 'Escape') {
+          this.close()
+        } else if (e.key === 'ArrowRight') {
+          this.next()
+        } else if (e.key === 'ArrowLeft') {
+          this.prev()
+        }
       }
     },
     close () {
@@ -199,3 +211,16 @@ export default defineComponent({
 })
 
 </script>
+<style>
+  /* for dark theme */
+  .pdf-app.dark {
+    --pdf-toolbar-color: black;
+    --pdf-app-background-color:black;
+    --pdf-loading-bar-color:rgba(194, 194, 73, 0.973);
+  }
+
+  /* for light theme */
+  .pdf-app.light {
+    --pdf-toolbar-color: white;
+  }
+</style>

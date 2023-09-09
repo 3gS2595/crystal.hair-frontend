@@ -4,7 +4,7 @@ $dropDownBorder: 3px solid var(--border-primary);
 
 
 $navH:17px;
-$devH:100vh;
+$devH:100dvh;
 $devW:100dvw;
 
 $iosTop: env(safe-area-inset-top, 0px);
@@ -12,12 +12,10 @@ $border: 21px;
 
 html {
   min-height:100dvh;
-  touch-action: pan-x pan-y;
   animation-duration: 0s!important;
 }
 
 html, body {
-  touch-action: pan-x pan-y;
   margin:0;
   overscroll-behavior: none;
   overflow: hidden;
