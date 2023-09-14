@@ -104,33 +104,58 @@
 </template>
 
 <script setup lang="ts">
+import type { InputFileEvent } from '@/types/index'
+import type { kernalType } from '@/types/index'
 import { ref, watch, onMounted } from 'vue'
+import { ApiStore } from '@/store/ApiStore'
+import { GlobalStore } from '@/store/GlobalStore'
 import DataView from 'primevue/dataview'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import VueLoadImage from 'vue-load-image'
-import axios from 'axios'
 
-import { GlobalStore } from '@/store/GlobalStore'
-import { ApiStore } from '@/store/ApiStore'
 const store = GlobalStore()
-const  pageNumber = ref<number>(2)
+const pageNumber = ref<number>(2)
 const layout = ref('grid')
-
-import type { InputFileEvent } from '@/types/index'
-import type { kernalType } from '@/types/index'
 const props = withDefaults(defineProps<{
-   contentData: PropType<kernalType[]>,
-   id: number
- }>(), {
-     contentData: [],
-     id:-1
- })
-
-onMounted(() => {
-  const targetNode = document.getElementsByClassName("p-grid")[props.id]
-  new MutationObserver(callback).observe(targetNode, { childList: true });
+  contentData: PropType<kernalType[]>,
+  id: number
+}>(), {
+  contentData: [],
+  id:-1
 })
 
+const toggleUploadBox = () => {
+  store.setUploadBoxView(!store.uploadBoxView)
+}
+let numClicks = 0
+const toggleLightBox = (ind) => {
+  numClicks++
+  if (numClicks === 1) {
+    setTimeout(function() {
+      if (numClicks === 1) {
+          if (store.lightBoxIndex === -1) {
+            store.setLightBoxView(!store.lightBoxView)
+          }
+          store.setLightBoxIndex(ind)
+      }
+    numClicks = 0
+  }, 200)
+ }
+}
+const convertDate = (datetime) => {
+  const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
+  return (new Date(datetime))
+}
+watch(
+  () => props.contentData,
+  () => { 
+    if (props.contentData.length <20) {
+      pageNumber.value = 2
+    }
+  }
+)
+
+// infinite scrollling intersectionObserver
 const fetchPage = async () => {
   ApiStore().fetchKernals(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
@@ -143,75 +168,19 @@ const intersecting = (event) => {
     }
   }
 }
-const config = { root: document.getElementsByClassName("p-grid")[props.id], threshold: 0.5 }
-const observer = new IntersectionObserver(intersecting, config);
-
-const callback = () => {
+const watchIntersect = () =>{
   observer.disconnect()
-  watchIntersect(pageNumber)
-}
-
-
-const watchIntersect = (pageNum) =>{
   for (let i = 1; i < 3; i++) {
-    const el = document.getElementsByClassName("cgb-0")[(pageNum.value-1)*20-(5*i)]
+    const el = document.getElementsByClassName("cgb-0")[(pageNumber.value-1)*20-(5*i)]
     if (el){
       observer.observe(el)
     }
   }
 }
-
-let numClicks = 0
-const toggleLightBox = (ind) => {
-  numClicks++;
-  if (numClicks === 1) {
-    setTimeout(function() {
-      if (numClicks === 1) {
-          if (store.lightBoxIndex === -1) {
-            store.setLightBoxView(!store.lightBoxView)
-          }
-          store.setLightBoxIndex(ind)
-      }
-    numClicks = 0;
-  }, 200);
- }
-}
-const toggleUploadBox = () => {
-  numClicks++;
-  if (numClicks === 1) {
-    setTimeout(function() {
-      if (numClicks === 1) {
-        store.setUploadBoxView(!store.uploadBoxView)
-      }
-    numClicks = 0;
-  }, 200);
- }
-}
-
-const convertDate = (datetime) => {
-  const elapsed = (new Date() - new Date(datetime)) / 1000 /60 / 60 / 24
-  // return ('-' + elapsed.toFixed(0) + 'd-' + new Date(datetime))
-  return (new Date(datetime))
-}
-
-// if api reset reset pagenum 
-watch(
-  () => props.contentData,
-  () => { 
-    if(props.contentData.length <20){
-      pageNumber.value = 2
-    }
-  }
-)
+const config = { root: document.getElementsByClassName("p-grid")[props.id], threshold: 0.5 }
+const observer = new IntersectionObserver(intersecting, config);
+onMounted(() => {
+  const targetNode = document.getElementsByClassName("p-grid")[props.id]
+  new MutationObserver(watchIntersect).observe(targetNode, { childList: true });
+})
 </script>
-<style>
-  /* for dark theme */
-  .pdf-app.dark {
-    --pdf-toolbar-color: black;
-  }
-
-  /* for light theme */
-  .pdf-app.light {
-    --pdf-toolbar-color: white;
-  }
-</style>

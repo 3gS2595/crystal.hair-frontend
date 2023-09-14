@@ -27,7 +27,7 @@ import { darkToggle, darkSet } from '@/lib/DarkMode'
 
 import ContentModule from '@/component/content/ContentModule.vue'
 import SessionManager from '@/component/sessionManager/SessionManager.vue'
-import DropDown from '@/component/dropDown/DropDown.vue'
+import DropDown from '@/component/menuDropDown/DropDown.vue'
 
 export default defineComponent({
   name: 'app',

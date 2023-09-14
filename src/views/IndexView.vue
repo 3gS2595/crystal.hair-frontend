@@ -1,7 +1,7 @@
 <template>
   <div class='contentMain' id="contentMain" >
-    <LightBox :viewerData="kernals" v-if='store.lightBoxView' />
-    <UploadBox v-if='store.uploadBoxView' />
+    <LightBox v-if='store.lightBoxView' :viewerData="kernals"/>
+    <UploadBox v-if='store.uploadBoxView'/>
 
     <splitpanes class="default-theme"
       style="width=100%"
@@ -17,7 +17,7 @@
         <splitpanes class="data_pane" :horizontal="true">
           <pane :size="60">
             <DataModule
-              header = "mixtape" 
+              header = "mixtape"
               :contentData="mixtapes"
               :id="0"
             />
@@ -27,14 +27,14 @@
             <splitpanes class="default-theme" :vertical="true">
               <pane :size="50">
                 <DataModule
-                  header = "hypertext" 
+                  header = "hypertext"
                   :contentData="hypertexts"
                   :id="1" 
                 />
               </pane>
               <pane :size="50">
                 <DataModule
-                  header = "sourceUrl" 
+                  header = "sourceUrl"
                   :contentData="sourceUrls"
                   :id="2"
                 />
@@ -59,9 +59,6 @@ import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
 
-import { ApiStore } from '@/store/ApiStore'
-import { GlobalStore } from '@/store/GlobalStore'
-
 const ThreeMain = defineAsyncComponent(() =>
   import('@/component/content/three/ThreeMain.vue')
 )
@@ -72,11 +69,14 @@ const DataModule = defineAsyncComponent(() =>
   import('@/component/content/dataView/DataModule.vue')
 )
 const LightBox = defineAsyncComponent(() =>
-  import('@/component/menuBox/lightBox/LightBox.vue')
+  import('@/component/menuBox/viewer/LightBox.vue')
 )
 const UploadBox = defineAsyncComponent(() =>
-  import('@/component/menuBox/uploadBox/UploadBox.vue')
+  import('@/component/menuBox/uploader/UploadBox.vue')
 )
+import { ApiStore } from '@/store/ApiStore'
+import { GlobalStore } from '@/store/GlobalStore'
+
 export default defineComponent({
   components: {
     Splitpanes,
@@ -108,11 +108,13 @@ export default defineComponent({
     ApiStore().initialize().then(async () => {
       this.dataReturned = true
     })
-    setTimeout(() => {
+
+    //load animation removal
+    setTimeout (() => {
       var style = document.createElement('style')
       style.innerText = '*{animation-duration:0s; }'
       document.head.appendChild(style)
-      }, 1500);
+    }, 1500)
   },
   unmounted () {
     window.removeEventListener('orientationchange', this.resizeContentFit, true)
@@ -121,20 +123,19 @@ export default defineComponent({
   },
   methods: {
     resizeContentFit: function () {
-
       //site width
       const el = document.getElementById('contentMain')
-
       if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
         const width = el.offsetWidth - 5
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 93
+
         if (this.paneSize === 30){
           if (window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
             extra = extra + 93
           } else {
             const target = width - 220
             const psize = (width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth
-            extra = (-1 * (target - psize)) + ((target - psize) % 93) + (psize % 93) 
+            extra = (-1 * (target - psize)) + ((target - psize) % 93) + (psize % 93)
           }
         }
         const offset = (extra / width) * 100

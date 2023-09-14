@@ -1,13 +1,10 @@
 <template>
   <div class="dataView">
-        <div class="header">
-              <a>
-              {{ props.header }} 
-              </a>
-        </div>
+    <div class="header">
+      <a>{{ props.header }}</a>
+    </div>
 
     <DataView class='dg-0' :value="props.contentData" :layout="list" >
-       
       <template #list="slotProps">
         <div class="dgb-0">
           <div @click="search(slotProps.data.name)" class="dgb-0-txt">
@@ -20,7 +17,6 @@
           </div>
         </div>
       </template>
-
     </DataView>
   </div>
 </template>
@@ -28,12 +24,12 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
-import axios from 'axios'
 import { GlobalStore } from '@/store/GlobalStore'
 import { ApiStore } from '@/store/ApiStore'
 
 const store = GlobalStore()
 const pageNumber = ref<number>(2)
+
 const props = withDefaults(defineProps<{
   header: string
   contentData: any[],
@@ -42,25 +38,35 @@ const props = withDefaults(defineProps<{
   contentData: []
 })
 
-onMounted(() => {
-  const targetNode = document.getElementsByClassName("p-grid")[props.id]
-  new MutationObserver(callback).observe(targetNode, { childList: true });
-})
+
 const search = (e) => {
   store.setFilter('')
   if(JSON.stringify(store.mixtape) === JSON.stringify(e)) {
     store.setMixtape('')
-    }else {
-      store.setMixtape(e)
+  }else {
+    store.setMixtape(e)
+  }
+}
+const convertDate = (datetime) => {
+  const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
+  return ( elapsed.toFixed(0) + 'd')
+}
+watch(
+  () => props.contentData,
+  () => {
+    if(props.contentData.length < 20){
+      pageNumber.value = 2
     }
   }
+)
+
+// infinite scrollling intersectionObserver
 const fetchPage = async () => {
   if(props.header == 'mixtape') {
-      ApiStore().fetchMixtapes(pageNumber.value)
+    ApiStore().fetchMixtapes(pageNumber.value)
   }
   pageNumber.value = pageNumber.value + 1
 }
-
 const intersecting = (event) => {
   for (const e of event){
     if (e.isIntersecting) {
@@ -69,19 +75,8 @@ const intersecting = (event) => {
     }
   }
 }
-const config = { root: document.getElementsByClassName("p-grid")[props.id], threshold: 0.5 }
-const observer = new IntersectionObserver(intersecting, config);
-
-const callback = (mutationList, MutateObserver) => {
-  for (const mutation of mutationList) {
-    if (mutation.type === "childList") {
-      observer.disconnect()
-      watchIntersect(pageNumber)
-    }
-  }
-}
-
 const watchIntersect = (pageNum) =>{
+  observer.disconnect()
   for (let i = 1; i < 2; i++) {
     const el = document.getElementsByClassName("dgb-0")[(pageNum.value-1)*20-(5*i)]
     if (el){
@@ -89,20 +84,11 @@ const watchIntersect = (pageNum) =>{
     }
   }
 }
-const configMutate = { childList: true }
-const MutateObserver = new MutationObserver(callback)
 
-const convertDate = (datetime) => {
-  const elapsed = (new Date() - new Date(datetime)) / 1000 /60 / 60 / 24
-  return ( elapsed.toFixed(0) + 'd')
-}
-
-watch(
-  () => props.contentData,
-  () => { 
-    if(props.contentData.length < 20){
-      pageNumber.value = 2
-    }
-  }
-)
+const config = { root: document.getElementsByClassName("p-grid")[props.id], threshold: 0.5 }
+const observer = new IntersectionObserver(intersecting, config)
+onMounted(() => {
+  const targetNode = document.getElementsByClassName("p-grid")[props.id]
+  new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
+})
 </script>
