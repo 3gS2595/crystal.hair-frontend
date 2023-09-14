@@ -1,12 +1,12 @@
 <script setup lang='ts'>
 import { ref, onMounted,watch } from 'vue'
-import { filterStore } from '@/store/FilterStore'
+import { GlobalStore } from '@/store/GlobalStore'
 
 const selectedOrder = ref('desc')
 const sortOrder = ['asc', 'desc'] 
 
 const selectedData = ref('time_posted')
-const store = filterStore()
+const store = GlobalStore()
 const getOptions = () => {
   return store.sortByValue
 }

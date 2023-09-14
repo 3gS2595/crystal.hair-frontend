@@ -1,6 +1,7 @@
 <template>
   <div class='contentMain' id="contentMain" >
     <LightBox :viewerData="kernals" v-if='store.lightBoxView' />
+    <UploadBox v-if='store.uploadBoxView' />
 
     <splitpanes class="default-theme"
       style="width=100%"
@@ -10,9 +11,7 @@
     >
       <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
         <div  class="three" >
-          <div v-if='dataReturned'>
-            <ThreeMain :imageData="hypertexts"/>
-          </div>
+          <ThreeMain :imageData="hypertexts" v-if='dataReturned'/>
         </div>
 
         <splitpanes class="data_pane" :horizontal="true">
@@ -21,7 +20,7 @@
               header = "mixtape" 
               :contentData="mixtapes"
               :id="0"
-           />
+            />
           </pane>
 
           <pane :size="40">
@@ -60,22 +59,24 @@ import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
 
+import { ApiStore } from '@/store/ApiStore'
+import { GlobalStore } from '@/store/GlobalStore'
+
 const ThreeMain = defineAsyncComponent(() =>
-  import('@/component/three/ThreeMain.vue')
+  import('@/component/content/three/ThreeMain.vue')
 )
 const ContentModule = defineAsyncComponent(() =>
-  import('@/component/content/ContentModule.vue')
+  import('@/component/content/dataView/ContentModule.vue')
 )
 const DataModule = defineAsyncComponent(() =>
-  import('@/component/content/DataModule.vue')
+  import('@/component/content/dataView/DataModule.vue')
 )
 const LightBox = defineAsyncComponent(() =>
-  import('@/component/lightBox/LightBox.vue')
+  import('@/component/menuBox/lightBox/LightBox.vue')
 )
-
-import { ApiStore } from '../store/ApiStore'
-import { filterStore } from '@/store/FilterStore'
-
+const UploadBox = defineAsyncComponent(() =>
+  import('@/component/menuBox/uploadBox/UploadBox.vue')
+)
 export default defineComponent({
   components: {
     Splitpanes,
@@ -83,7 +84,8 @@ export default defineComponent({
     ContentModule,
     DataModule,
     ThreeMain,
-    LightBox
+    LightBox,
+    UploadBox
   },
   data () {
     return {
@@ -92,7 +94,7 @@ export default defineComponent({
       paneSizeTemp: 0,
       paneSize: 30,
       paneSizeOffSet: 0,
-      store: filterStore(),
+      store: GlobalStore(),
     }
   },
   setup () {
@@ -123,7 +125,7 @@ export default defineComponent({
       //site width
       const el = document.getElementById('contentMain')
 
-      if (this.paneSize !== 100 && el != null) {
+      if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
         const width = el.offsetWidth - 5
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 93
         if (this.paneSize === 30){
@@ -149,6 +151,7 @@ export default defineComponent({
       }
       this.resizeContentFit()
     },
+
     findScrollWidth: function () {
       const el = document.createElement('div')
       el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
@@ -157,7 +160,6 @@ export default defineComponent({
       el.remove()
       return width
     }
-
   }
 })
 </script>

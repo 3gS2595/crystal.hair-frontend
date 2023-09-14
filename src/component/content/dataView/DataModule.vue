@@ -10,7 +10,7 @@
        
       <template #list="slotProps">
         <div class="dgb-0">
-          <div @click="search(slotProps.data.content)" class="dgb-0-txt">
+          <div @click="search(slotProps.data.name)" class="dgb-0-txt">
               <a style="float:left; max-width:calc(100% - 40px);">
               {{ slotProps.data.name }}
               </a>
@@ -29,10 +29,10 @@
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
 import axios from 'axios'
-import { filterStore } from '@/store/FilterStore'
+import { GlobalStore } from '@/store/GlobalStore'
 import { ApiStore } from '@/store/ApiStore'
 
-const store = filterStore()
+const store = GlobalStore()
 const pageNumber = ref<number>(2)
 const props = withDefaults(defineProps<{
   header: string
@@ -48,7 +48,7 @@ onMounted(() => {
 })
 const search = (e) => {
   store.setFilter('')
-  if(JSON.stringify(store.mixtape) ===JSON.stringify(e)) {
+  if(JSON.stringify(store.mixtape) === JSON.stringify(e)) {
     store.setMixtape('')
     }else {
       store.setMixtape(e)
@@ -82,7 +82,7 @@ const callback = (mutationList, MutateObserver) => {
 }
 
 const watchIntersect = (pageNum) =>{
-  for (let i = 1; i < 5; i++) {
+  for (let i = 1; i < 2; i++) {
     const el = document.getElementsByClassName("dgb-0")[(pageNum.value-1)*20-(5*i)]
     if (el){
       observer.observe(el)

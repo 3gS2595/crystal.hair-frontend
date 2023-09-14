@@ -17,7 +17,7 @@ import * as THREE from 'three'
 import { onMounted, ref, computed, defineComponent } from 'vue'
 import { InteractionManager } from 'three.interactive'
 
-import { filterStore } from '@/store/FilterStore'
+import { GlobalStore } from '@/store/GlobalStore'
 
 export default defineComponent ({
   props: {
@@ -27,7 +27,7 @@ export default defineComponent ({
     }
   },
   setup (props) {
-    const store = filterStore()
+    const store = GlobalStore()
     const webGl = ref()
     const forms: THREE.Mesh[] = []
     const width = ref(1500)

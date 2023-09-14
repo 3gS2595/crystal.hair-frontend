@@ -21,27 +21,21 @@
       @drag:end='eHandler'
     >
       <div class='block'>
-
-        <vue-load-image v-if="viewerData[store.lightBoxIndex].file_type != '.pdf' && viewerData[store.lightBoxIndex].file_type != '.txt'" >
-          <template v-slot:image>
-            <img :src='`${viewerData[store.lightBoxIndex].signed_url}`' @load="handleLoad"/>
-          </template>
-          <template v-slot:preloader>
-            <img src="image-loader.gif" rel='preload'/>
-          </template>
-        <template v-slot:error>
-          <a>{{ viewerData[store.lightBoxIndex].description }}</a>
-         </template>
-       </vue-load-image>
-
-       <div class='pdf' v-if="viewerData[store.lightBoxIndex].file_type == '.pdf'" > 
-        <VuePdfApp :config="config" theme="dark" :pdf='`${viewerData[store.lightBoxIndex].signed_url}`' />
-       </div>
-        
-       <editor v-model="viewerData[store.lightBoxIndex].description" v-if="viewerData[store.lightBoxIndex].file_type == '.txt'"/>
-
+        <ViewImg 
+          v-if="viewerData[store.lightBoxIndex].file_type != '.pdf' && viewerData[store.lightBoxIndex].file_type != '.txt'"
+          :url="viewerData[store.lightBoxIndex].signed_url"  
+        />
+        <ViewPdf 
+          v-if="viewerData[store.lightBoxIndex].file_type == '.pdf'"
+          :url="viewerData[store.lightBoxIndex].signed_url"  
+        />
+        <ViewText 
+          v-if="viewerData[store.lightBoxIndex].file_type == '.txt'"
+          v-model="viewerData[store.lightBoxIndex].description" 
+        />
         <div class='drag-container-2'>
-          <a v-if="store.lightBoxIndex != 0"
+          <a 
+            v-if="store.lightBoxIndex != 0"
             style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
             @click='prev'
             >prev----</a>
@@ -49,39 +43,43 @@
             style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
             @click='close'
             >exit</a>
-
-          <a v-if="store.lightBoxIndex != viewerData.length - 1"
+          <a
+            style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
+            @click='deleteBlock'
+            >delete</a>
+          <a 
+            v-if="store.lightBoxIndex != viewerData.length - 1"
             style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
             @click='next'
             >----next</a>
-
         </div>
-
       </div>
     </vue-resizable>
   </div>
 </template>
 
 <script lang='ts'>
-import { ref, defineComponent, PropType } from 'vue'
-import VueResizable from 'vue-resizable'
-import VueLoadImage from 'vue-load-image'
-import VuePdfApp from "vue3-pdf-app";
-import "vue3-pdf-app/dist/icons/main.css";
-import Editor from './TextEditor.vue'
-
-import { filterStore } from '@/store/FilterStore'
 import type { kernalType } from '@/types/index'
 
-const store = filterStore()
+import { ref, defineComponent, PropType } from 'vue'
+import VueResizable from 'vue-resizable'
+
+import ViewText from './viewers/TextEditor.vue'
+import ViewPdf from './viewers/ViewPdf.vue'
+import ViewImg from './viewers/ViewImg.vue'
+import sessionManager from '@/store/modules/session_manager'
+import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
+import { GlobalStore } from '@/store/GlobalStore'
+
+const store = GlobalStore()
 const lightBoxUi = ref(false)
 export default defineComponent({
   name: 'App',
   components: {
     VueResizable,
-    VueLoadImage,
-    VuePdfApp,
-    Editor
+    ViewText,
+    ViewPdf,
+    ViewImg
   },
   props: {
     viewerData: {
@@ -108,13 +106,25 @@ export default defineComponent({
       event: '',
       dragSelector: '.drag-container-1, .drag-container-2',
       index: 9,
-      store: filterStore(),
+      store: GlobalStore(),
       config: {
         toolbar: false
       },
     }
   },
   methods: {
+    deleteBlock(){
+      const config = {
+        headers: { Authorization: sessionManager.state.auth_token },
+      }
+      axios.delete( store.urlRails + 'kernals/' + this.viewerData[store.lightBoxIndex].id, config)
+      .then(function(){
+        console.log('SUCCESS!!')
+      })
+      .catch(function(){
+        console.log('FAILURE!!')
+      })
+    },
     handleLoad(){
       const imgP: HTMLImageElement = new Image()
       if (store.lightBoxIndex - 1 >= 0) {
@@ -156,31 +166,16 @@ export default defineComponent({
       window.addEventListener('resize', this.orientationChange)
       window.addEventListener('orientationchange', this.orientationChange)
       window.addEventListener('keyup', this.esc, true)
-
-      const rb = document.createElement('img')
-      rb.src = 'rb.png'
-      rb.id = 'rb'
-      document.getElementsByClassName('resizable-b')[0].appendChild(rb)
-
-      const rt = document.createElement('img')
-      rt.src = 'rt.png'
-      rt.id = 'rt'
-      document.getElementsByClassName('resizable-t')[0].appendChild(rt)
-
-      const rl = document.createElement('img')
-      rl.src = 'rl.png'
-      rl.id = 'rl'
-      document.getElementsByClassName('resizable-l')[0].appendChild(rl)
-
-      const rr = document.createElement('img')
-      rr.src = 'rr.png'
-      rr.id = 'rr'
-      document.getElementsByClassName('resizable-r')[0].appendChild(rr)
-
+      const identifiers = ['rb', 'rt', 'rl', 'rr']
+      for (const id of identifiers) { 
+        const rb = document.createElement('img')
+        rb.src = id + '.png'
+        rb.id = id
+        document.getElementsByClassName('resizable-' + id.charAt(id.length - 1))[0].appendChild(rb)
+      }
       this.orientationChange()
     },
     esc (e: KeyboardEvent) {
-      console.log(document.activeElement )
       if(document.getElementsByClassName('tiptap')[0] != document.activeElement) {
         if (e.key === 'Escape') {
           this.close()
@@ -188,6 +183,10 @@ export default defineComponent({
           this.next()
         } else if (e.key === 'ArrowLeft') {
           this.prev()
+        }
+      } else {
+        if (e.key === 'Escape') {
+          (document.getElementsByClassName('tiptap')[0] as HTMLElement).blur()
         }
       }
     },
@@ -209,18 +208,4 @@ export default defineComponent({
     }
   }
 })
-
 </script>
-<style>
-  /* for dark theme */
-  .pdf-app.dark {
-    --pdf-toolbar-color: black;
-    --pdf-app-background-color:black;
-    --pdf-loading-bar-color:rgba(194, 194, 73, 0.973);
-  }
-
-  /* for light theme */
-  .pdf-app.light {
-    --pdf-toolbar-color: white;
-  }
-</style>

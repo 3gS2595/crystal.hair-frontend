@@ -20,10 +20,10 @@ import { defineComponent, watch } from 'vue'
 
 import { mapGetters } from 'vuex'
 import '@/store/index'
-import { filterStore } from '@/store/FilterStore'
+import { GlobalStore } from '@/store/GlobalStore'
 
-import { orientationChange } from '@/component/indexHelpers/IosOrientation' 
-import { darkToggle, darkSet } from '@/component/indexHelpers/DarkMode' 
+import { orientationChange } from '@/lib/IosOrientation' 
+import { darkToggle, darkSet } from '@/lib/DarkMode' 
 
 import ContentModule from '@/component/content/ContentModule.vue'
 import SessionManager from '@/component/sessionManager/SessionManager.vue'
@@ -67,11 +67,11 @@ export default defineComponent({
       location.reload()
     },
     search: function (e: string) {
-      const store = filterStore()
+      const store = GlobalStore()
       store.setFilter(e)
     },
     reset: function () {
-      const store = filterStore()
+      const store = GlobalStore()
       store.setFilter('')
       store.setMixtape('')
       store.setSortBy('time_posted desc')
@@ -90,6 +90,5 @@ export default defineComponent({
   @import './style/Font.scss';
   @import './style/WebKit.scss';
   @import './style/LightBox.scss';
-
   @import 'splitpanes/dist/splitpanes.css';
 </style>

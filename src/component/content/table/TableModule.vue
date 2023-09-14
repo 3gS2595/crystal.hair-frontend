@@ -53,7 +53,7 @@ import DataTable from 'primevue/datatable'
 import MultiSelect from 'primevue/multiselect'
 
 import { ContentService } from '@/component/table/GetRss'
-import { filterStore } from '../../store/FilterStore'
+import { GlobalStore } from '../../store/GlobalStore'
 
 const t: boolean = true
 interface columnJson {
@@ -81,7 +81,7 @@ const onToggle = (val) => {
 }
 
 const search = (e) => {
-  const store = filterStore()
+  const store = GlobalStore()
   store.setFilter('')
   if(store.mixtape === e) {
     store.setMixtape('')

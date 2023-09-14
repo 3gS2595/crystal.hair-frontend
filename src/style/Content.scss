@@ -17,9 +17,21 @@
       height:18.72px;
       border-bottom: $tableBorder;
 
-      .p-button-icon-only{
-        border:0;
-        background:none;
+      .conten-head{
+        display: flex;
+        width:100%;
+        .p-dataview-layout-options{
+          width:auto;
+        }
+
+        .p-button-icon-only{
+          border:0;
+          background:none;
+        }
+        button{
+          border:0;
+          background:none;
+        }
       }
     }
 

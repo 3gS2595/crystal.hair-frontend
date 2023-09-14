@@ -5,11 +5,12 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import HardBreak from '@tiptap/extension-hard-break'
 
-export default {
+export default defineComponent({
   components: {
     EditorContent,
   },
@@ -17,32 +18,27 @@ export default {
   props: {
     modelValue: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
 
   emits: ['update:modelValue'],
 
-  data() {
-    return {
-      editor: null,
+  data() : {
+    editor: any
+    } { return {
+      editor: null
     }
   },
 
   watch: {
-    modelValue(value) {
-      // HTML
+    modelValue(value: string) {
       const isSame = this.editor.getHTML() === value
-
-      // JSON
-      // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
-
       if (isSame) {
         return
       }
-
       this.editor.commands.setContent(value, false)
-    },
+    }
   },
 
   mounted() {
@@ -53,17 +49,13 @@ export default {
       ],
       content: this.modelValue,
       onUpdate: () => {
-        // HTML
         this.$emit('update:modelValue', this.editor.getHTML())
-
-        // JSON
-        // this.$emit('update:modelValue', this.editor.getJSON())
-      },
+      }
     })
   },
 
   beforeUnmount() {
     this.editor.destroy()
-  },
-}
+  }
+})
 </script>

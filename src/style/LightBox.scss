@@ -3,13 +3,12 @@
 .lightbox{
   position:absolute!important;
   width:100%;
-pointer-events: none; 
-
-background: none !important;
+  pointer-events: none; 
+  background: none !important;
   height: 100%;
-  .resizable-component{
-  pointer-events:auto;
 
+  .resizable-component{
+    pointer-events:auto;
     padding: 0;
     border: 1px solid var(--border-primary);
     background: var(--background-primary);
@@ -23,6 +22,7 @@ background: none !important;
       height:100%;
       max-width: 100%;
       max-height: 100%;
+
       .pdf{
         position:relative;
         width:100%;
@@ -30,12 +30,26 @@ background: none !important;
         max-height: calc(100% - 32px);
         white-space: pre-wrap;
       }
+
+      .uploader{
+        width:100%;
+        max-width:100%;
+        height:100%;
+        max-height: calc(100% - 32px);
+        white-space: pre-wrap;
+        overflow-y:auto;
+
+          button{
+            border:0;
+            background:none;
+        }
+      }
+
       .pdf{
         position:relative;
         width:100%;
         height:100%;
         max-height: calc(100% - 32px);
-
 
         .VuePdfApp{
           max-width: 100%;
@@ -71,14 +85,17 @@ background: none !important;
         cursor: pointer;
         z-index:2!important;
       }
+
       .drag-container-1{
         border-bottom:1px solid var(--border-primary);
       }
+
       .drag-container-2{
         border-top:1px solid var(--border-primary);
       }
 
     }
+
     #rb{
       max-height:80px;
       max-width:80px;
@@ -86,6 +103,7 @@ background: none !important;
       left: 50%;
       transform: translate(-50%, 8px);
     }
+
     #rt{
       max-height:80px;
       max-width:80px;
@@ -93,6 +111,7 @@ background: none !important;
       left: 50%;
       transform: translate(-50%, -14px);
     }
+
     #rl{
       max-height:80px;
       max-width:80px;
@@ -100,6 +119,7 @@ background: none !important;
       top: 50%;
       transform: translate(-14px, -50%);
     }
+
     #rr{
       max-height:80px;
       max-width:80px;
@@ -112,16 +132,26 @@ background: none !important;
 
 
 .txt{
-    height: calc(100% - 57px);
+  height: calc(100% - 57px);
   div{
-   height:inherit;
-  .tiptap{
-    margin:25px;
    height:100%;
-   p{
-    margin:0;
-    white-space:pre-wrap;
-   }
+    .tiptap{
+      margin:25px;
+      height:100%;
+      overflow-y:scroll;
+      p{
+        margin:0;
+        white-space:pre-wrap;
+      }
+    }
   }
 }
+
+.pdf-app.dark {
+  --pdf-toolbar-color: black;
+  --pdf-app-background-color:black;
+  --pdf-loading-bar-color:rgba(194, 194, 73, 0.973);
+}
+.pdf-app.light {
+  --pdf-toolbar-color: white;
 }

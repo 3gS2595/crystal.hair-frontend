@@ -13,5 +13,4 @@ function orientationChange () {
     }
   }
 }
-
 export { orientationChange } 

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-export const filterStore = defineStore('counter', () => {
+export const GlobalStore = defineStore('counter', () => {
   const url = 'http://3.130.240.169/'
   const urlRails = 'http://3.130.240.169:3000/'
   const urlS3 = 'https://crystal-hair.nyc3.digitaloceanspaces.com/'
@@ -9,6 +9,7 @@ export const filterStore = defineStore('counter', () => {
 
   const mixtape = ref<string>('')
   const filter = ref<string>('')
+  const uploadBoxView = ref<boolean>(false)
   const lightBoxView = ref<boolean>(false)
   const lightBoxIndex = ref(-1)
   const sortBy = ref<string>('time_posted desc')
@@ -27,6 +28,9 @@ export const filterStore = defineStore('counter', () => {
   function setSortBy (newSortBy: string) {
     sortBy.value = newSortBy
   }
+  function setUploadBoxView (newUploadBoxView: boolean) {
+    uploadBoxView.value = newUploadBoxView
+  }
   function setLightBoxView (newLightBoxView: boolean) {
     lightBoxView.value = newLightBoxView
   }
@@ -43,6 +47,7 @@ export const filterStore = defineStore('counter', () => {
     urlS3,
     urlS3Nail,
     filter, setFilter,
+    uploadBoxView, setUploadBoxView,
     lightBoxView, setLightBoxView,
     lightBoxIndex, setLightBoxIndex, 
     sortBy, setSortBy,

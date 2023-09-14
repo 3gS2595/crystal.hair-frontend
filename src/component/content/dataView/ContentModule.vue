@@ -3,9 +3,11 @@
     <DataView :value="props.contentData" :layout="layout" >
 
       <template #header>
-        <div class="flex justify-content-start">
+        <div class="conten-head flex justify-content-start">
           <DataViewLayoutOptions v-model="layout" />
-          </div>
+          <button @click="toggleUploadBox()">+</button>
+        </div>
+
       </template>
 
       <template #list="slotProps">
@@ -108,14 +110,16 @@ import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import VueLoadImage from 'vue-load-image'
 import axios from 'axios'
 
-import { filterStore } from '@/store/FilterStore'
+import { GlobalStore } from '@/store/GlobalStore'
 import { ApiStore } from '@/store/ApiStore'
-const store = filterStore()
+const store = GlobalStore()
 const  pageNumber = ref<number>(2)
 const layout = ref('grid')
 
+import type { InputFileEvent } from '@/types/index'
+import type { kernalType } from '@/types/index'
 const props = withDefaults(defineProps<{
-   contentData: any[], 
+   contentData: PropType<kernalType[]>,
    id: number
  }>(), {
      contentData: [],
@@ -149,7 +153,7 @@ const callback = () => {
 
 
 const watchIntersect = (pageNum) =>{
-  for (let i = 1; i < 5; i++) {
+  for (let i = 1; i < 3; i++) {
     const el = document.getElementsByClassName("cgb-0")[(pageNum.value-1)*20-(5*i)]
     if (el){
       observer.observe(el)
@@ -172,6 +176,17 @@ const toggleLightBox = (ind) => {
   }, 200);
  }
 }
+const toggleUploadBox = () => {
+  numClicks++;
+  if (numClicks === 1) {
+    setTimeout(function() {
+      if (numClicks === 1) {
+        store.setUploadBoxView(!store.uploadBoxView)
+      }
+    numClicks = 0;
+  }, 200);
+ }
+}
 
 const convertDate = (datetime) => {
   const elapsed = (new Date() - new Date(datetime)) / 1000 /60 / 60 / 24
@@ -183,7 +198,7 @@ const convertDate = (datetime) => {
 watch(
   () => props.contentData,
   () => { 
-    if(props.contentData.length < 20){
+    if(props.contentData.length <20){
       pageNumber.value = 2
     }
   }
