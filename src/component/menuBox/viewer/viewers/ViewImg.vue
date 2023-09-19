@@ -2,7 +2,7 @@
  <div class='pdf'> 
   <vue-load-image  >
     <template v-slot:image>
-      <img :src="url" @load="handleLoad"/>
+      <img :src="modelValue" @load="handleLoad"/>
     </template>
     <template v-slot:preloader>
       <img src="image-loader.gif" rel='preload'/>
@@ -23,15 +23,9 @@ export default defineComponent({
   components: {
     VueLoadImage
   },
-  props: {
-    url: {
-      type: String,
-      required: true
-    }
-  },
+  props: ['modelValue'],
   setup (props) {
-    const url  = ref(props.url)
-      return { url }
+    console.log(props) 
   }
 })
 </script>

@@ -73,7 +73,9 @@ const props = withDefaults(defineProps<{
 const linktype = (props.interiorLink.length > 0)
 const columns = ref()
 const heads: string[] = []
-for (let i = 0; i < props.tableOrder.length; i++) { heads[i] = props.tableOrder[i] } // eslint-disable-line
+for (let i = 0; i < props.tableOrder.length; i++) {
+  heads[i] = props.tableOrder[i] 
+}
 columns.value = ContentService.generateColumns([props.contentData, heads])
 const selectedColumns = ref<columnJson[]>(columns.value)
 const onToggle = (val) => {

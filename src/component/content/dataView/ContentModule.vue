@@ -149,7 +149,7 @@ const convertDate = (datetime) => {
 watch(
   () => props.contentData,
   () => { 
-    if (props.contentData.length <20) {
+    if (props.contentData.length < store.pageSize  ) {
       pageNumber.value = 2
     }
   }
@@ -157,6 +157,7 @@ watch(
 
 // infinite scrollling intersectionObserver
 const fetchPage = async () => {
+  observer.disconnect()
   ApiStore().fetchKernals(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
 }
@@ -170,8 +171,9 @@ const intersecting = (event) => {
 }
 const watchIntersect = () =>{
   observer.disconnect()
-  for (let i = 1; i < 3; i++) {
-    const el = document.getElementsByClassName("cgb-0")[(pageNumber.value-1)*20-(5*i)]
+  console.log(store.pageSize)
+  for (let i = 1; i < 5; i++) {
+    const el = document.getElementsByClassName("cgb-0")[(pageNumber.value-1)*store.pageSize-(5*i)]
     if (el){
       observer.observe(el)
     }

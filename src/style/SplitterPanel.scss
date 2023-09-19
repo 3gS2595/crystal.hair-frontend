@@ -10,16 +10,17 @@
     content: "";
     height:20px;
     width:20px;
-    border:1px solid var(--splitter-box);
     background-color: rgba(0,0,0,0);
     z-index: 1;
 }
 .default-theme.splitpanes--vertical>.splitpanes__splitter:before, .default-theme .splitpanes--vertical>.splitpanes__splitter:before{
   margin-left:-10px;
+  height:100%;
 }
 
 .default-theme.splitpanes--horizontal>.splitpanes__splitter:before, .default-theme .splitpanes--horizontal>.splitpanes__splitter:before{
   margin-top:-10px;
+  width:100%;
 }
 // slider section
 .splitpanes.default-theme .splitpanes__splitter {

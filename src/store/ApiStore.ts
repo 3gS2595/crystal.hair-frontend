@@ -39,6 +39,10 @@ export const ApiStore = defineStore({
 
   actions: {
     async initialize () {
+      controller.abort()
+      controller = new AbortController();
+
+
       const config = {
         headers: { Authorization: sessionManager.state.auth_token },
         signal: controller.signal
@@ -98,12 +102,11 @@ export const ApiStore = defineStore({
       }
       let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy 
       if (store.mixtape != '') { params = params + '&mixtape=' + store.mixtape }
-      console.log(store.mixtape)
       try {
         const kernals = await axios.get(base + 'kernals'+ params +'&q=' + store.filter, config)
         this.kernals = this.kernals.concat(kernals.data)
         
-        if(this.kernals.length === 20){ 
+        if(this.kernals.length === store.pageSize){ 
           const keys: string[] = []
           for (let k in this.kernals[0]){
             if(k != 'signed_url' && k != 'signed_url_nail' && k != 'id' && k != 'file_path') {
@@ -129,7 +132,6 @@ export const ApiStore = defineStore({
       } catch (e) {
         console.error(e);
       }
-      return []
     },
     async fetchMixtapes (pageNumber: number) {
       const config = {
@@ -137,14 +139,13 @@ export const ApiStore = defineStore({
         signal: controller.signal
       }
       let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter 
-
       try {
         const mixtapes = await axios.get(base + 'mixtapes'+ params, config)
+        console.log('length: ' + mixtapes.data.length)
         this.mixtapes = this.mixtapes.concat(mixtapes.data)
       } catch (e) {
         console.error(e);
       }
-      return []
     },
     async fetchSourceUrls (pageNumber: number) {
       const config = {
@@ -159,7 +160,6 @@ export const ApiStore = defineStore({
       } catch (e) {
         console.error(e);
       }
-      return []
     }
   }
 })

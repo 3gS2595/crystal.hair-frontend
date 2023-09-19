@@ -7,12 +7,12 @@
     <DataView class='dg-0' :value="props.contentData" :layout="list" >
       <template #list="slotProps">
         <div class="dgb-0">
-          <div @click="search(slotProps.data.name)" class="dgb-0-txt">
+          <div @click="search(slotProps.data.id)" class="dgb-0-txt">
               <a style="float:left; max-width:calc(100% - 40px);">
               {{ slotProps.data.name }}
               </a>
               <a style="float:right;">
-                {{ convertDate(slotProps.data.created_at) }}
+                {{ convertDate(slotProps.data.updated_at) }}
               </a>
           </div>
         </div>
@@ -31,13 +31,12 @@ const store = GlobalStore()
 const pageNumber = ref<number>(2)
 
 const props = withDefaults(defineProps<{
-  header: string
+  header: string,
   contentData: any[],
   id: number
 }> (), {
   contentData: []
 })
-
 
 const search = (e) => {
   store.setFilter('')
@@ -54,7 +53,10 @@ const convertDate = (datetime) => {
 watch(
   () => props.contentData,
   () => {
-    if(props.contentData.length < 20){
+    console.log()
+    console.log(props.header + '1 ' + props.contentData.length)
+    console.log('2 ' +store.pageSize)
+    if(props.contentData.length < store.pageSize -1 ){
       pageNumber.value = 2
     }
   }
@@ -75,10 +77,10 @@ const intersecting = (event) => {
     }
   }
 }
-const watchIntersect = (pageNum) =>{
+const watchIntersect = () =>{
   observer.disconnect()
-  for (let i = 1; i < 2; i++) {
-    const el = document.getElementsByClassName("dgb-0")[(pageNum.value-1)*20-(5*i)]
+  for (let i = 1; i <= 2; i++) {
+    const el = document.getElementsByClassName("dgb-0")[(pageNumber.value-1)*store.pageSize-(5*i)]
     if (el){
       observer.observe(el)
     }
@@ -90,5 +92,6 @@ const observer = new IntersectionObserver(intersecting, config)
 onMounted(() => {
   const targetNode = document.getElementsByClassName("p-grid")[props.id]
   new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
+  console.log('help')
 })
 </script>

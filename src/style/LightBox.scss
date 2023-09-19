@@ -77,8 +77,7 @@
         }  
       }
 
-      .drag-container-1,
-      .drag-container-2 {
+      .drag-container-1 {
         width: 100%;
         height: 30px;
         text-align: center;
@@ -87,10 +86,6 @@
       }
 
       .drag-container-1{
-        border-bottom:1px solid var(--border-primary);
-      }
-
-      .drag-container-2{
         border-top:1px solid var(--border-primary);
       }
 
@@ -154,4 +149,18 @@
 }
 .pdf-app.light {
   --pdf-toolbar-color: white;
+}
+
+.uploader{
+  label{
+    input::file-selector-button {
+    text-rendering: initial;
+    font-family: "ＭＳ Ｐゴシック";
+    font-weight:400;
+    color: var(--text-primary);
+    text-decoration: none;
+            border:0;
+    background: var(--background-primary);
+  }
+}
 }

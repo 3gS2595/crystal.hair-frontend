@@ -22,10 +22,8 @@
     >
       <div class='block'>
         <div class="uploader">
-          <h2>Single File</h2>
-          <hr/>
-          <label>File
-            <input type="file" @change="handleFileUpload( $event )"/>
+          <label>
+            <input type="file" class="file-upload" @change="handleFileUpload( $event )"/>
           </label>
           <br>
           <button v-on:click="submitFile()">Submit</button>
@@ -93,9 +91,9 @@ export default defineComponent({
     submitFile(){
       if(this.file != null){
         let formData = new FormData();
-        formData.append('image', this.file)
+        formData.append('pdf', this.file)
         formData.append('mixtape', store.mixtape)
-        formData.append('file_type', '.jpg')
+        formData.append('file_type', '.pdf')
         axios.post( store.urlRails + 'kernals',
           formData,
           {

@@ -66,7 +66,6 @@ export default defineComponent ({
       apij.value = res
 
       if (apij.value !== undefined) {
-        console.log(apij.value)
         for (let i = 0; i < apij.value.length; i++) {
           const obj = JSON.parse(JSON.stringify(apij.value[i]))
           const path = ('img/' + JSON.stringify(obj.logo_path)).replace('"', '').replace('"', '')

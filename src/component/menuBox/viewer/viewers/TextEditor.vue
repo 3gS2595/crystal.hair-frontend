@@ -14,23 +14,19 @@ export default defineComponent({
   components: {
     EditorContent,
   },
-
   props: {
     modelValue: {
       type: String,
       default: ''
     }
   },
-
   emits: ['update:modelValue'],
-
   data() : {
     editor: any
     } { return {
       editor: null
     }
   },
-
   watch: {
     modelValue(value: string) {
       const isSame = this.editor.getHTML() === value
@@ -40,7 +36,6 @@ export default defineComponent({
       this.editor.commands.setContent(value, false)
     }
   },
-
   mounted() {
     this.editor = new Editor({
       extensions: [
@@ -53,7 +48,6 @@ export default defineComponent({
       }
     })
   },
-
   beforeUnmount() {
     this.editor.destroy()
   }

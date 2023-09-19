@@ -15,6 +15,7 @@ export const GlobalStore = defineStore('counter', () => {
   const sortBy = ref<string>('time_posted desc')
   const sortByValue = ref<string[]>(['time_posted', 'time_scraped' ])
   const sortByOrder = ref<string>('desc')
+  const pageSize = ref<number>(35)
 
   function setFilter (newFilter: string) {
     filter.value = newFilter
@@ -46,6 +47,7 @@ export const GlobalStore = defineStore('counter', () => {
     urlRails,
     urlS3,
     urlS3Nail,
+    pageSize,
     filter, setFilter,
     uploadBoxView, setUploadBoxView,
     lightBoxView, setLightBoxView,
