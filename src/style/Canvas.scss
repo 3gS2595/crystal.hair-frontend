@@ -1,8 +1,9 @@
 
 @import "./ThemeModes";
 .three{
-  width:100%!important;
+  width:calc(100%-1px)!important;
   border-bottom: $tableBorder;
+  border-right: $tableBorder;
   height:80px!important;
   canvas {
     max-width: 450px!important;

@@ -2,9 +2,10 @@ import { defineStore } from 'pinia'
 import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
 import { watch, ref } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
-import sessionManager from '@/store/modules/session_manager'
+import { SessionStore } from '@/store/SessionStore'
 
 const store = GlobalStore()
+const sessionStore = SessionStore()
 const base = store.urlRails
 let controller = new AbortController();
 
@@ -44,7 +45,7 @@ export const ApiStore = defineStore({
 
 
       const config = {
-        headers: { Authorization: sessionManager.state.auth_token },
+        headers: { Authorization: sessionStore.auth_token },
         signal: controller.signal
       }
       const params = '?sort=' + store.sortBy
@@ -67,7 +68,7 @@ export const ApiStore = defineStore({
       this.kernals = []
 
       const config = {
-        headers: { Authorization: sessionManager.state.auth_token },
+        headers: { Authorization: sessionStore.auth_token },
         signal: controller.signal
       }
       let params = '?q=' + store.filter + '&sort=' + store.sortBy 
@@ -97,7 +98,7 @@ export const ApiStore = defineStore({
     },
     async fetchKernals (pageNumber: number) {
       const config = {
-        headers: { Authorization: sessionManager.state.auth_token },
+        headers: { Authorization: sessionStore.auth_token },
         signal: controller.signal
       }
       let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy 
@@ -121,7 +122,7 @@ export const ApiStore = defineStore({
     },
     async fetchHypertexts (pageNumber: number) {
       const config = {
-        headers: { Authorization: sessionManager.state.auth_token },
+        headers: { Authorization: sessionStore.auth_token },
         signal: controller.signal
       }
       let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter 
@@ -135,7 +136,7 @@ export const ApiStore = defineStore({
     },
     async fetchMixtapes (pageNumber: number) {
       const config = {
-        headers: { Authorization: sessionManager.state.auth_token },
+        headers: { Authorization:  sessionStore.auth_token },
         signal: controller.signal
       }
       let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter 
@@ -149,7 +150,7 @@ export const ApiStore = defineStore({
     },
     async fetchSourceUrls (pageNumber: number) {
       const config = {
-        headers: { Authorization: sessionManager.state.auth_token },
+        headers: { Authorization: sessionStore.auth_token },
         signal: controller.signal
       }
       let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter 

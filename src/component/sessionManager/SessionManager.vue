@@ -1,5 +1,5 @@
 <template>
-  <div v-if='isLoggedIn'>
+  <div v-if='sessionStore.isLoggedIn'>
     <table class='table'>
       <thead class='thead-dark'>
       <tr class='table-headers'>
@@ -10,15 +10,15 @@
       </thead>
       <tbody>
       <tr class='table-rows'>
-        <th class='table-row'>[{{ this.getUserID }}]</th>
-        <td class='table-row table-row-username'>{{ this.getUserEmail }}</td>
-        <td class='table-row'>{{ this.getAuthToken }}</td>
+        <th class='table-row'>[{{ sessionStore.getUserID }}]</th>
+        <td class='table-row table-row-username'>{{ sessionStore.getUserEmail }}</td>
+        <td class='table-row'>{{ sessionStore.getAuthToken }}</td>
       </tr>
       </tbody>
     </table>
   </div>
   <div v-else>
-    <form @submit='onLogin' class='login-form'>
+    <form @submit.prevent='onLogin' class='login-form'>
       <a>user:  </a>
       <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
       <br />
@@ -30,54 +30,26 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue'
-import '@/store/index'
-import { mapActions, mapGetters } from 'vuex'
+<script setup lang='ts'>
+import { SessionStore } from '@/store/SessionStore'
+import { ref } from 'vue'
 
-export default defineComponent({
-  computed: {
-    ...mapGetters(['getAuthToken', 'getUserEmail', 'getUserID', 'isLoggedIn'])
-  },
-  data () {
-    return {
-      signUpEmail: '',
-      signUpPassword: '',
-      loginEmail: '',
-      loginPassword: ''
-    }
-  },
-  methods: {
-    ...mapActions(['registerUser', 'loginUser', 'logoutUser']),
-    onSignUp (event: Event) {
-      event.preventDefault()
-      const data = {
-        user: {
-          email: this.signUpEmail,
-          password: this.signUpPassword
-        }
-      }
-      this.registerUser(data)
-      this.resetData()
-    },
-    onLogin (event: Event) {
-      event.preventDefault()
-      const data = {
-        user: {
-          email: this.loginEmail,
-          password: this.loginPassword
-        }
-      }
-      this.loginUser(data)
-      this.resetData()
-    },
-    resetData () {
-      this.signUpEmail = ''
-      this.signUpPassword = ''
-      this.loginEmail = ''
-      this.loginPassword = ''
-    }
-  }
-})
+const sessionStore = SessionStore();
+const loginEmail = ref('');
+const loginPassword = ref('');
 
+const onLogin = () => {
+  let data = {
+    user: {
+      email: loginEmail.value,
+      password: loginPassword.value,
+    },
+  };
+  sessionStore.loginUser(data);
+  resetData();
+}
+const resetData = () => {
+  loginEmail.value = ''
+  loginPassword.value = ''
+}
 </script>

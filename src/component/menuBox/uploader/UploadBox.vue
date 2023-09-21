@@ -91,9 +91,13 @@ export default defineComponent({
     submitFile(){
       if(this.file != null){
         let formData = new FormData();
-        formData.append('pdf', this.file)
+        if (this.file.type.includes('pdf')) {
+          formData.append('pdf', this.file)
+        } else {
+          formData.append('image', this.file)
+        }
         formData.append('mixtape', store.mixtape)
-        formData.append('file_type', '.pdf')
+        formData.append('file_type', this.file.type)
         axios.post( store.urlRails + 'kernals',
           formData,
           {
@@ -107,6 +111,7 @@ export default defineComponent({
         })
         .catch(function(){
           console.log('FAILURE!!')
+          window.confirm('failure')
         })
       }
     },

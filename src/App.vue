@@ -1,84 +1,39 @@
 <template>
-  <div v-if='isLoggedIn'>
-    <nav id='nav'>
-      <a class='navItem' @click="logout">&#9736;</a>
-      <a class='navItem' @click="darkToggle">☪</a>
-      <DropDown/>
-      <a class='navItem' @click="reset">X</a>
-      <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
-    </nav>
+  <div v-if='sessionStore.isLoggedIn'>
     <router-view/>
   </div>
-
   <div class='main' id='main' v-else>
     <SessionManager/>
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, watch } from 'vue'
-
-import { mapGetters } from 'vuex'
-import '@/store/index'
+<script setup lang='ts'>
+import { defineComponent, onMounted, watch } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
 
 import { orientationChange } from '@/lib/IosOrientation' 
-import { darkToggle, darkSet } from '@/lib/DarkMode' 
+import { darkSet } from '@/lib/DarkMode' 
 
-import ContentModule from '@/component/content/ContentModule.vue'
 import SessionManager from '@/component/sessionManager/SessionManager.vue'
-import DropDown from '@/component/menuDropDown/DropDown.vue'
+import { SessionStore } from "@/store/SessionStore";
 
-export default defineComponent({
-  name: 'app',
-  computed: {
-    ...mapGetters(['isLoggedIn'])
-  },
-  components: {
-    SessionManager,
-    DropDown
-  },
-  data () {
-    return {
-      q: '',
+const sessionStore = SessionStore()
+
+onMounted(() => {
+  orientationChange()
+  darkSet()
+  const self = this
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e: MediaQueryListEvent) {
+    if (e.matches) {
+      localStorage.setItem('darkModeBool', 'true')
+    } else {
+      localStorage.setItem('darkModeBool', 'false')
     }
-  },
-  mounted () {
-    this.orientationChange()
     darkSet()
-    const self = this
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e: MediaQueryListEvent) {
-      if (e.matches) {
-        localStorage.setItem('darkModeBool', 'true')
-      } else {
-        localStorage.setItem('darkModeBool', 'false')
-      }
-      darkSet()
-    }.bind(self), false)
-    window.addEventListener('resize', this.orientationChange)
-    window.addEventListener('orientationchange', this.orientationChange)
-  },
-  methods: {
-    orientationChange,
-    darkToggle,
-    darkSet,
-    logout () {
-      localStorage.removeItem('auth_token')
-      location.reload()
-    },
-    search: function (e: string) {
-      const store = GlobalStore()
-      store.setFilter(e)
-    },
-    reset: function () {
-      const store = GlobalStore()
-      store.setFilter('')
-      store.setMixtape('')
-      store.setSortBy('time_posted desc')
-    },
-
-  }
- })
+  }.bind(self), false)
+  window.addEventListener('resize', orientationChange)
+  window.addEventListener('orientationchange', orientationChange)
+})
 </script>
 
 <style lang='scss'>

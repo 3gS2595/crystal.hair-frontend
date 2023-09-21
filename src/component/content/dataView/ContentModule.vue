@@ -2,14 +2,6 @@
   <div class="contentView">
     <DataView :value="props.contentData" :layout="layout" >
 
-      <template #header>
-        <div class="conten-head flex justify-content-start">
-          <DataViewLayoutOptions v-model="layout" />
-          <button @click="toggleUploadBox()">+</button>
-        </div>
-
-      </template>
-
       <template #list="slotProps">
         <div class="clb-0">
           <div v-if="slotProps.data.file_type === '.txt'">

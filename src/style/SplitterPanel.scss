@@ -25,18 +25,15 @@
 // slider section
 .splitpanes.default-theme .splitpanes__splitter {
     background-color: rgba(0,0,0,0);
-    border-left: 1px dotted var(--border-primary);
-    border-right: 1px dotted var(--border-primary);
     border-top: 0px dotted var(--border-primary);
 }
 .default-theme.splitpanes--horizontal>.splitpanes__splitter, .default-theme .splitpanes--horizontal>.splitpanes__splitter {
     display:grid;
-    height: 7px;
-    border-top: 1px dotted var(--border-primary);
-    border-bottom: 1px dotted var(--border-primary);
-    border-right: 0px dotted var(--border-primary);
-    border-left: 0px dotted var(--border-primary);
+    height: 0px;
     margin-top: -1px;
+}
+.default-theme.splitpanes--vertical>.splitpanes__splitter, .default-theme .splitpanes--vertical>.splitpanes__splitter{
+  width:1px;
 }
 .splitpanes {
   height:100%;
@@ -57,8 +54,8 @@
 }
 .splitpanes.default-theme .splitpanes__splitter {
     background-color: rgba(0, 0, 0, 0);
-    border-left: 1px dotted var(--border-primary);
-    border-right: 1px dotted var(--border-primary);
+    border-left: 0px solid var(--border-primary);
+    border-right: 0px solid var(--border-primary);
 }
 .splitpanes.default-theme .splitpanes__splitter {
     box-sizing: border-box;
@@ -74,6 +71,6 @@
 }
 
 .default-theme.splitpanes--horizontal > .splitpanes__splitter, .default-theme .splitpanes--horizontal > .splitpanes__splitter{
-box-shadow:0px -5px 16px 3px var(--background-primary);
-    background-color:var(--background-primary);
+  box-shadow:0px -5px 16px 3px var(--background-primary);
+  background-color:var(--background-primary);
 }

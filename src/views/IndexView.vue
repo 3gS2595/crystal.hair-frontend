@@ -9,9 +9,18 @@
       @resize="paneSize = $event[0].size; paneSizeOffSet = 0"
       @resized="resizeContentFit()"
     >
-      <pane v-on:dblclick="resize(100)" :size="paneSize + paneSizeOffSet">
+      <pane :size="paneSize + paneSizeOffSet">
         <div  class="three" >
           <ThreeMain :imageData="hypertexts" v-if='dataReturned'/>
+        </div>
+        <div class='nav'>
+          <nav id='nav'>
+            <a class='navItem' @click="logout">&#9736;</a>
+            <a class='navItem' @click="darkToggle">☪</a>
+            <DropDown/>
+            <a class='navItem' @click="reset">X</a>
+            <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
+          </nav>
         </div>
 
         <splitpanes class="data_pane" :horizontal="true">
@@ -58,6 +67,8 @@
 import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
+import { darkToggle, darkSet } from '@/lib/DarkMode' 
+import DropDown from '@/component/menuDropDown/DropDown.vue'
 
 const ThreeMain = defineAsyncComponent(() =>
   import('@/component/content/three/ThreeMain.vue')
@@ -85,7 +96,8 @@ export default defineComponent({
     DataModule,
     ThreeMain,
     LightBox,
-    UploadBox
+    UploadBox,
+    DropDown
   },
   data () {
     return {
@@ -95,6 +107,7 @@ export default defineComponent({
       paneSize: 30,
       paneSizeOffSet: 0,
       store: GlobalStore(),
+      q: ''
     }
   },
   setup () {
@@ -122,11 +135,27 @@ export default defineComponent({
     window.removeEventListener('visibilitychange', this.resizeContentFit)
   },
   methods: {
+    darkToggle,
+    darkSet,
+    logout () {
+      localStorage.removeItem('auth_token')
+      location.reload()
+    },
+    search: function (e: string) {
+      const store = GlobalStore()
+      store.setFilter(e)
+    },
+    reset: function () {
+      const store = GlobalStore()
+      store.setFilter('')
+      store.setMixtape('')
+      store.setSortBy('time_posted desc')
+    },
     resizeContentFit: function () {
       //site width
       const el = document.getElementById('contentMain')
       if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
-        const width = el.offsetWidth - 5
+        const width = el.offsetWidth
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 93
 
         if (this.paneSize === 30){
@@ -152,12 +181,11 @@ export default defineComponent({
       }
       this.resizeContentFit()
     },
-
     findScrollWidth: function () {
       const el = document.createElement('div')
       el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
       document.body.appendChild(el)
-      const width = el.offsetWidth + 2
+      const width = el.offsetWidth + 1
       el.remove()
       return width
     }
