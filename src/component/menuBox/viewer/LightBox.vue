@@ -56,10 +56,11 @@ import VueResizable from 'vue-resizable'
 import ViewText from './viewers/TextEditor.vue'
 import ViewPdf from './viewers/ViewPdf.vue'
 import ViewImg from './viewers/ViewImg.vue'
-import sessionManager from '@/store/modules/session_manager'
 import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
 import { GlobalStore } from '@/store/GlobalStore'
+import { SessionStore } from '@/store/SessionStore'
 
+const sessionStore = SessionStore()
 const store = GlobalStore()
 const lightBoxUi = ref(false)
 export default defineComponent({
@@ -88,12 +89,13 @@ export default defineComponent({
       event: '',
       dragSelector: '.drag-container-1',
       store: GlobalStore(),
+      sessionStore: SessionStore()
     }
   },
   methods: {
     deleteBlock(){
       const config = {
-        headers: { Authorization: sessionManager.state.auth_token },
+        headers: { Authorization: sessionStore.auth_token },
       }
       axios.delete( store.urlRails + 'kernals/' + this.viewerData[store.lightBoxIndex].id, config)
       .then(function(){

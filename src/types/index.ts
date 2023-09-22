@@ -32,6 +32,7 @@ export interface UploadBoxState {
   dragSelector: string,
   index: number,
   store: any,
+  sessionStore:any,
   file: File | null 
 }
 export interface InputFileEvent extends Event {

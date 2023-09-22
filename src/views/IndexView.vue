@@ -68,8 +68,10 @@ import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
 import { darkToggle, darkSet } from '@/lib/DarkMode' 
-import DropDown from '@/component/menuDropDown/DropDown.vue'
 
+const DropDown = defineAsyncComponent(() =>
+  import('@/component/menuDropDown/DropDown.vue')
+)
 const ThreeMain = defineAsyncComponent(() =>
   import('@/component/content/three/ThreeMain.vue')
 )

@@ -50,10 +50,12 @@ import { defineComponent, PropType } from 'vue'
 import axios from 'axios'
 import VueResizable from 'vue-resizable'
 
-import sessionManager from '@/store/modules/session_manager'
 import { GlobalStore } from '@/store/GlobalStore'
+import { SessionStore } from '@/store/SessionStore'
 
+const sessionStore = SessionStore()
 const store = GlobalStore()
+
 export default defineComponent({
   name: 'App',
   components: {
@@ -77,6 +79,7 @@ export default defineComponent({
       dragSelector: '.drag-container-1, .drag-container-2',
       index: 9,
       store: GlobalStore(),
+      sessionStore: SessionStore(),
       file: null 
     }
   },
@@ -103,7 +106,7 @@ export default defineComponent({
           {
             headers: {
               'Content-Type': 'multipart/form-data',
-              Authorization: sessionManager.state.auth_token
+              Authorization: sessionStore.auth_token
             }
           }
         ).then(function(){
