@@ -1,5 +1,5 @@
 <template>
-  <div class="dataView">
+  <div class="mixtapeView">
     <div class="header">
       <a>{{ props.header }}</a>
     </div>
@@ -8,12 +8,12 @@
       <template #list="slotProps">
         <div  @click="search(slotProps.data.id)" class="dgb-0">
           <div class="dgb-0-txt">
-              <a style="float:left; max-width:calc(100% - 40px);">
-              {{ slotProps.data.name }}
-              </a>
-              <a style="float:right;">
-                {{ convertDate(slotProps.data.updated_at) }}
-              </a>
+            <a style="float:left; max-width:calc(100% - 40px);">
+            {{ slotProps.data.name }}
+            </a>
+            <a style="float:right;">
+              {{ convertDate(slotProps.data.updated_at) }}
+            </a>
           </div>
         </div>
       </template>
@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
+import VanillaTilt from 'vanilla-tilt'
 import { GlobalStore } from '@/store/GlobalStore'
 import { ApiStore } from '@/store/ApiStore'
 
@@ -50,12 +51,13 @@ const convertDate = (datetime) => {
   const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
   return ( elapsed.toFixed(0) + 'd')
 }
+const blockCnt = (datetime) => {
+  console.log(datetime.length)
+  return datetime.length
+}
 watch(
   () => props.contentData,
   () => {
-    console.log()
-    console.log(props.header + '1 ' + props.contentData.length)
-    console.log('2 ' +store.pageSize)
     if(props.contentData.length < store.pageSize -1 ){
       pageNumber.value = 2
     }
@@ -70,6 +72,13 @@ const fetchPage = async () => {
   pageNumber.value = pageNumber.value + 1
 }
 const intersecting = (event) => {
+  VanillaTilt.init(document.querySelectorAll(".dgb-0"), {
+    max: 10,
+    speed: 400,
+    glare: true,
+    "max-glare": 0.2
+  })
+  console.log(document.querySelectorAll(".dgb-0"))
   for (const e of event){
     if (e.isIntersecting) {
       observer.disconnect()
@@ -78,6 +87,7 @@ const intersecting = (event) => {
   }
 }
 const watchIntersect = () =>{
+
   observer.disconnect()
   for (let i = 1; i <= 2; i++) {
     const el = document.getElementsByClassName("dgb-0")[(pageNumber.value-1)*store.pageSize-(5*i)]

@@ -25,7 +25,7 @@
 
         <splitpanes class="data_pane" :horizontal="true">
           <pane :size="60">
-            <DataModule
+            <MixtapeModule
               header = "mixtape"
               :contentData="mixtapes"
               :id="0"
@@ -81,6 +81,9 @@ const ContentModule = defineAsyncComponent(() =>
 const DataModule = defineAsyncComponent(() =>
   import('@/component/content/dataView/DataModule.vue')
 )
+const MixtapeModule = defineAsyncComponent(() =>
+  import('@/component/content/dataView/MixtapeModule.vue')
+)
 const LightBox = defineAsyncComponent(() =>
   import('@/component/menuBox/viewer/LightBox.vue')
 )
@@ -96,6 +99,7 @@ export default defineComponent({
     Pane,
     ContentModule,
     DataModule,
+    MixtapeModule,
     ThreeMain,
     LightBox,
     UploadBox,

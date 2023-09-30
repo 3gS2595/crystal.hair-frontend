@@ -40,7 +40,9 @@ onMounted(() => {
   @import './style/Main.scss';
   @import './style/Canvas.scss';
   @import './style/SessionManager.scss';
-  @import './style/Content.scss';
+  @import './style/ContentView.scss';
+  @import './style/DataView.scss';
+  @import './style/MixtapeView.scss';
   @import './style/SplitterPanel.scss';
   @import './style/Font.scss';
   @import './style/WebKit.scss';
