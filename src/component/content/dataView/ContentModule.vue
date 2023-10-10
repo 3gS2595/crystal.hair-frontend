@@ -63,6 +63,10 @@
 
               <template v-slot:preloader>
                 <div class ='cgb-loading' >
+                  <div 
+                    class="cgb-0-img"
+                    v-on:click="toggleLightBox(slotProps.index)"
+                  />
                   <div class="cgb-0-info">
                     <div class="file_path" style="font-size:11px;">
                       {{ convertDate(slotProps.data.time_posted) }}
@@ -175,6 +179,8 @@ const config = { root: document.getElementsByClassName("p-grid")[props.id], thre
 const observer = new IntersectionObserver(intersecting, config);
 onMounted(() => {
   const targetNode = document.getElementsByClassName("p-grid")[props.id]
-  new MutationObserver(watchIntersect).observe(targetNode, { childList: true });
+  if (typeof(targetNode) == "object"){
+    new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
+  }
 })
 </script>

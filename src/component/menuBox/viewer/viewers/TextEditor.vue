@@ -7,6 +7,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import StarterKit from '@tiptap/starter-kit'
+import Typography from '@tiptap/extension-typography'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import HardBreak from '@tiptap/extension-hard-break'
 
@@ -29,6 +30,7 @@ export default defineComponent({
   },
   watch: {
     modelValue(value: string) {
+      value = value.split("\n").join("<br />")
       const isSame = this.editor.getHTML() === value
       if (isSame) {
         return
@@ -40,9 +42,10 @@ export default defineComponent({
     this.editor = new Editor({
       extensions: [
         StarterKit,
-        HardBreak
+        HardBreak,
+        Typography
       ],
-      content: this.modelValue,
+      content: this.modelValue.split("\n").join("<br />"),
       onUpdate: () => {
         this.$emit('update:modelValue', this.editor.getHTML())
       }

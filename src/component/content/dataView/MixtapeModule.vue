@@ -1,7 +1,7 @@
 <template>
   <div class="mixtapeView">
     <div class="header">
-      <a>{{ props.header }}</a>
+      <a style="color:rgba(194, 194, 73, 0.973);" >{{ props.header }}</a>
     </div>
 
     <DataView class='dg-0' :value="props.contentData" :layout="list" >
@@ -11,8 +11,13 @@
             <a style="float:left; max-width:calc(100% - 40px);">
             {{ slotProps.data.name }}
             </a>
-            <a style="float:right;">
+
+            <br/>
+            <a style="color:rgba(223, 223, 223, 0.5);">
               {{ convertDate(slotProps.data.updated_at) }}
+            </a>
+            <a style="float:right; color:rgba(223, 223, 223, 0.5);">
+              {{ blockCnt(slotProps.data.content) }} kernals
             </a>
           </div>
         </div>
@@ -49,11 +54,13 @@ const search = (e) => {
 }
 const convertDate = (datetime) => {
   const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
-  return ( elapsed.toFixed(0) + 'd')
+  return ( elapsed.toFixed(0) + ' days ago')
 }
 const blockCnt = (datetime) => {
-  console.log(datetime.length)
-  return datetime.length
+  if(datetime != null) {
+    return datetime.length
+  }
+  return null
 }
 watch(
   () => props.contentData,
@@ -87,7 +94,6 @@ const intersecting = (event) => {
   }
 }
 const watchIntersect = () =>{
-
   observer.disconnect()
   for (let i = 1; i <= 2; i++) {
     const el = document.getElementsByClassName("dgb-0")[(pageNumber.value-1)*store.pageSize-(5*i)]
@@ -101,7 +107,9 @@ const config = { root: document.getElementsByClassName("p-grid")[props.id], thre
 const observer = new IntersectionObserver(intersecting, config)
 onMounted(() => {
   const targetNode = document.getElementsByClassName("p-grid")[props.id]
-  new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
+  if (typeof(targetNode) == "object"){
+    new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
+  }
   console.log('help')
 })
 </script>

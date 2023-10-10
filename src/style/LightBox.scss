@@ -67,14 +67,14 @@
         white-space: pre-wrap;
         overflow-y:auto;
 
-          img {
+        img {
           position:relative;
           max-width: 100%;
           max-height: calc(100% - 10px);
           width: 100%;
           height: calc(100%);
           object-fit: contain;
-        }  
+        }
       }
 
       .drag-container-1 {
@@ -136,7 +136,6 @@
       overflow-y:scroll;
       p{
         margin:0;
-        white-space:pre-wrap;
       }
     }
   }

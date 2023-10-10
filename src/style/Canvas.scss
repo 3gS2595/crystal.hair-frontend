@@ -1,12 +1,13 @@
 
 @import "./ThemeModes";
 .three{
-  width:calc(100%-1px)!important;
+  max-width:calc(100%-1px)!important;
   border-bottom: $tableBorder;
   border-right: $tableBorder;
-  height:80px!important;
+  height:250px!important;
   canvas {
-    max-width: 450px!important;
+
+  max-width:calc(100%)!important;
     max-height: 80px;
     height:80px!important;
   } 

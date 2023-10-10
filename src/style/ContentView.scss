@@ -73,25 +73,28 @@
 
         // grid
         .cgb-0{
-          margin:1.5px;
+          margin-left:5px;
+          margin-bottom:2px;
           *{
             animation-name: example!important;
-            animation-duration: .46s!important;
+            animation-duration: .16s!important;
           }
           .cgb-loading{
             outline: $tableBorder;
-            max-width:90px;
-            min-width:90px;
             
             .cgb-0-txt{
               width: 100%;
-              max-height: 100px;
               overflow-y:auto;
               overflow-x:hidden;
+              white-space: pre-wrap;
             }
-
+            .cgb-0-img {
+              width: 100%;
+              z-index: 0;
+            }
             .cgb-0-info{
-              padding-top:102px;
+              width: 100%;
+              border-top: $tableBorder;
               overflow:hidden;
               white-space: nowrap;
             }
@@ -101,12 +104,9 @@
             border-collapse: collapse;
             animation-duration: 0s!important;
             outline: $tableBorder;
-            max-width:90px;
-            min-width:90px;
 
             .cgb-0-txt{
               width: 100%;
-              max-height: 100px;
               overflow-y:auto;
               overflow-x:hidden;
               white-space: pre-wrap;
@@ -114,7 +114,6 @@
 
             .cgb-0-img {
               width: 100%;
-              max-height: 100px;
               object-fit: contain;
               z-index: 0;
             }

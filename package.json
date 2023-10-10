@@ -6,19 +6,17 @@
     "serve": "vue-cli-service serve --port 80",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "check-ts": "vue-tsc --noEmit"
+    "check-ts": "vue-tsc"
   },
   "dependencies": {
     "@tiptap/extension-hard-break": "^2.1.8",
+    "@tiptap/extension-typography": "^2.1.11",
     "@tiptap/pm": "^2.1.8",
     "@tiptap/starter-kit": "^2.1.8",
     "@tiptap/vue-3": "^2.1.8",
     "@types/three": "^0.152.1",
     "axios": "^1.4.0",
-    "core-js": "^3.8.3",
-    "cors": "^2.8.5",
     "node-sass": "^9.0.0",
-    "pdfvuer": "^2.0.1",
     "pinia": "^2.1.4",
     "primeflex": "^3.3.1",
     "primevue": "^3.29.2",
@@ -28,14 +26,11 @@
     "three.interactive": "^1.7.0",
     "vanilla-tilt": "^1.8.1",
     "vue": "^3.2.26",
+    "vue-force-graph": "^0.1.2",
     "vue-load-image": "^1.1.0",
-    "vue-pdf": "^4.3.0",
-    "vue-pdf-embed": "^1.1.6",
     "vue-resizable": "^2.1.7",
     "vue-router": "^4.0.3",
-    "vue-upload-component": "^3.1.8",
-    "vue3-pdf-app": "^1.0.3",
-    "vuex": "^4.1.0"
+    "vue3-pdf-app": "^1.0.3"
   },
   "devDependencies": {
     "@types/splitpanes": "^2.2.1",

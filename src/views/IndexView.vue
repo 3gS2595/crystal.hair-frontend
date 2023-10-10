@@ -11,27 +11,32 @@
     >
       <pane :size="paneSize + paneSizeOffSet">
         <div  class="three" >
-          <ThreeMain :imageData="hypertexts" v-if='dataReturned'/>
+          <ForceGraph :propKernals="kernals"/>
         </div>
         <div class='nav'>
           <nav id='nav'>
-            <a class='navItem' @click="logout">&#9736;</a>
-            <a class='navItem' @click="darkToggle">☪</a>
-            <DropDown/>
-            <a class='navItem' @click="reset">X</a>
-            <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
+            <div class='toggles'>
+              <a class='navItem' @click="logout">&#9736;</a>
+              <a class='navItem' @click="darkToggle">☪</a>
+              <a class='navItem' @click="cgbMinus">-</a>
+              <a class='navItem' @click="cgbPlus">+</a>
+            </div>
+            <div class='filters'>
+              <DropDown/>
+              <a class='navItem' @click="reset">X</a>
+              <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
+            </div>
           </nav>
         </div>
 
         <splitpanes class="data_pane" :horizontal="true">
           <pane :size="60">
             <MixtapeModule
-              header = "mixtape"
+              header = "mixtapes"
               :contentData="mixtapes"
               :id="0"
             />
           </pane>
-
           <pane :size="40">
             <splitpanes class="default-theme" :vertical="true">
               <pane :size="50">
@@ -72,8 +77,8 @@ import { darkToggle, darkSet } from '@/lib/DarkMode'
 const DropDown = defineAsyncComponent(() =>
   import('@/component/menuDropDown/DropDown.vue')
 )
-const ThreeMain = defineAsyncComponent(() =>
-  import('@/component/content/three/ThreeMain.vue')
+const ForceGraph = defineAsyncComponent(() =>
+  import('@/component/content/three/ForceGraph.vue')
 )
 const ContentModule = defineAsyncComponent(() =>
   import('@/component/content/dataView/ContentModule.vue')
@@ -100,7 +105,7 @@ export default defineComponent({
     ContentModule,
     DataModule,
     MixtapeModule,
-    ThreeMain,
+    ForceGraph,
     LightBox,
     UploadBox,
     DropDown
@@ -124,6 +129,9 @@ export default defineComponent({
     window.addEventListener('visibilitychange', this.resizeContentFit)
     window.addEventListener('orientationchange', this.resizeContentFit)
     window.addEventListener('resize', this.resizeContentFit)
+    const store = GlobalStore()
+    store.setCgbWidth(90)
+    this.resizeContentFit()
     ApiStore().initialize().then(async () => {
       this.dataReturned = true
     })
@@ -131,7 +139,7 @@ export default defineComponent({
     //load animation removal
     setTimeout (() => {
       var style = document.createElement('style')
-      style.innerText = '*{animation-duration:0s; }'
+      style.innerText = '*{animation-duration:0s; }' 
       document.head.appendChild(style)
     }, 1500)
   },
@@ -147,30 +155,43 @@ export default defineComponent({
       localStorage.removeItem('auth_token')
       location.reload()
     },
+    cgbPlus () {
+      const store = GlobalStore()
+      store.setCgbWidth(store.cgbWidth + 50)
+      this.resizeContentFit()
+    },
+    cgbMinus () {
+      const store = GlobalStore()
+      store.setCgbWidth(store.cgbWidth - 50)
+      this.resizeContentFit()
+    },
     search: function (e: string) {
       const store = GlobalStore()
+      store.setCgbWidth(300)
       store.setFilter(e)
     },
     reset: function () {
       const store = GlobalStore()
       store.setFilter('')
-      store.setMixtape('')
-      store.setSortBy('time_posted desc')
     },
     resizeContentFit: function () {
       //site width
+      const store = GlobalStore()
       const el = document.getElementById('contentMain')
+
+      const cgb_width = store.cgbWidth
+      const cgb_margin = 5
       if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
         const width = el.offsetWidth
-        let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % 93
+        let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % (cgb_width + cgb_margin) 
 
         if (this.paneSize === 30){
           if (window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
-            extra = extra + 93
+            extra = extra + cgb_width + cgb_margin
           } else {
-            const target = width - 220
+            const target = width - 250
             const psize = (width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth
-            extra = (-1 * (target - psize)) + ((target - psize) % 93) + (psize % 93)
+            extra = (-1 * (target - psize)) + ((target - psize) % (cgb_width + cgb_margin)) + (psize % (cgb_width + cgb_margin))
           }
         }
         const offset = (extra / width) * 100

@@ -53,9 +53,6 @@ const convertDate = (datetime) => {
 watch(
   () => props.contentData,
   () => {
-    console.log()
-    console.log(props.header + '1 ' + props.contentData.length)
-    console.log('2 ' +store.pageSize)
     if(props.contentData.length < store.pageSize -1 ){
       pageNumber.value = 2
     }
@@ -91,7 +88,9 @@ const config = { root: document.getElementsByClassName("p-grid")[props.id], thre
 const observer = new IntersectionObserver(intersecting, config)
 onMounted(() => {
   const targetNode = document.getElementsByClassName("p-grid")[props.id]
-  new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
+  if (typeof(targetNode) == "Node"){
+    new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
+  }
   console.log('help')
 })
 </script>

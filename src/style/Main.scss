@@ -3,7 +3,7 @@ $tableBorder: 1px solid var(--border-primary);
 $dropDownBorder: 3px solid var(--border-primary);
 
 
-$navH:17px;
+$navH:40px;
 $devH:100dvh;
 $devW:100dvw;
 
@@ -35,44 +35,62 @@ html, body {
       nav{
         background-color: var(--background-primary);
         position: relative;
-        display:flex;
-        width:100%;
+        width:calc(100% - 1px);
         height:$navH;
         padding-left:1px;
         overflow-y:hidden;
+        display: block; 
 
-        .navItem{
-          padding-right:1px;
-          padding-left:1px;
+        .toggles{
+          border-bottom:1px solid var(--border-primary);
           border-right:1px solid var(--border-primary);
+          display:flex;
+          a {
+            color:  var(--link)
+          }
+          a:link {
+            color:  var(--link)
+          }
+          a:visited {
+           color:  var(--link)
+          }
+          .navItem{
+            text-align: center;
+            font-size:16pt;
+            flex-grow: 1;
+            padding-right:1px;
+            padding-left:1px;
+            border-right:1px solid var(--border-primary);
+          }
         }
-        a {
-          color:  var(--link)
-        }
-        a:link {
-          color:  var(--link)
-        }
-        a:visited {
-         color:  var(--link)
-        }
-        select {
-          background-color: var(--background-primary);
-          border: 0;
-          outline-style: none;
-          box-shadow: none;
-          height:calc($navH);
-          -webkit-border-radius:0px;
-          color: var(--input-color)
-        }
-        select option:checked {
-          background-color: #d6d006 !important; /* for IE */
-        }
-        input {
-          flex-grow:1;
-          border:0;
-          background-color: rgba(0,0,0,0);
-          min-width:20px;
-          outline:0;
+        
+        .filters{
+            border-right:1px solid var(--border-primary);
+          display:flex;
+          select {
+            background-color: var(--background-primary);
+            border: 0;
+            outline-style: none;
+            box-shadow: none;
+            height:calc($navH);
+            -webkit-border-radius:0px;
+            color: var(--input-color)
+          }
+          select option:checked {
+            background-color: #d6d006 !important; /* for IE */
+          }
+          input {
+            flex-grow:1;
+            border:0;
+            background-color: rgba(0,0,0,0);
+            min-width:20px;
+            outline:0;
+          }
+          .navItem{
+            padding-right:1px;
+            padding-left:1px;
+            border-right:1px solid var(--border-primary);
+          }
         }
       }
 
