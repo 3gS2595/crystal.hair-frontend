@@ -101,7 +101,7 @@ export default defineComponent({
         }
         formData.append('mixtape', store.mixtape)
         formData.append('file_type', this.file.type)
-        axios.post( store.urlRails + 'kernals',
+        axios.post( sessionStore.getUrlRails + 'kernals',
           formData,
           {
             headers: {

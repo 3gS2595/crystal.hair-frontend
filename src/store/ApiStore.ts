@@ -6,7 +6,7 @@ import { SessionStore } from '@/store/SessionStore'
 
 const store = GlobalStore()
 const sessionStore = SessionStore()
-const base = store.urlRails
+const base = sessionStore.getUrlRails
 let controller = new AbortController();
 
 watch(

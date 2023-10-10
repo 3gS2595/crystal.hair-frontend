@@ -1,10 +1,13 @@
 import { defineStore } from "pinia"
 import axios from "axios"
 
-const BASE_URL = "http://3.130.240.169:3000/"
-
 export const SessionStore = defineStore("session", {
   state: () => ({
+    urlVue: 'http://3.130.240.169/',
+    urlRails: 'http://3.130.240.169:3000/',
+    urlS3: 'https://crystal-hair.nyc3.digitaloceanspaces.com/',
+    urlS3Nail: 'https://crystal-hair-nail.nyc3.digitaloceanspaces.com/',
+
     auth_token: null as string | null,
     user: {
       id: null,
@@ -13,6 +16,18 @@ export const SessionStore = defineStore("session", {
     }
   }),
   getters: {
+    getUrlVue: (state) => {
+      return state.urlVue
+    },
+    getUrlRails: (state) => {
+      return state.urlRails
+    },
+    getUrlS3: (state) => {
+      return state.urlS3
+    },
+    getUrlS3Nail: (state) => {
+      return state.urlS3Nail
+    },
     getAuthToken: (state) => {
       return state.auth_token
     },
@@ -32,7 +47,7 @@ export const SessionStore = defineStore("session", {
     registerUser(payload: any) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${BASE_URL}users`, payload)
+          .post(`${this.urlRails}users`, payload)
           .then((response) => {
             this.setUserInfo(response)
             resolve(response)
@@ -46,7 +61,7 @@ export const SessionStore = defineStore("session", {
       console.log(payload)
       new Promise((resolve, reject) => {
         axios
-          .post(`${BASE_URL}users/sign_in`, payload)
+          .post(`${this.urlRails}users/sign_in`, payload)
           .then((response) => {
             this.setUserInfo(response)
             resolve(response)
@@ -66,7 +81,7 @@ export const SessionStore = defineStore("session", {
       }
       new Promise<void>((resolve, reject) => {
         axios
-          .delete(`${BASE_URL}users/sign_out`, config)
+          .delete(`${this.urlRails}users/sign_out`, config)
           .then(() => {
             //Reset user info
             this.resetUserInfo()
@@ -86,7 +101,7 @@ export const SessionStore = defineStore("session", {
       }
       new Promise((resolve, reject) => {
         axios
-          .get(`${BASE_URL}member-data`, config)
+          .get(`${this.urlRails}member-data`, config)
           .then((response) => {
             //setUserInfoFromToken
             this.setUserInfoFromToken(response)

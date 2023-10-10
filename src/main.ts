@@ -4,26 +4,21 @@ import router from './router'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import { SessionStore } from "@/store/SessionStore";
+
 const app = createApp(App)
+  .use(createPinia())
+  .use(router)
+  .use(PrimeVue)
+  .mount('#app')
 
-app.use(createPinia())
-app.use(router)
-app.use(PrimeVue)
-app.mount('#app')
-
-const storeSessions = SessionStore();
-
-/**
- * Load JWT from Local Storage on Refresh
- */
-console.log("Loading JWT from Local Storage");
-let localAuthToken = localStorage.auth_token;
-let cookieExists = localAuthToken !== "undefined" && localAuthToken !== null;
+// Load JWT from Local Storage on Refresh
+const storeSessions = SessionStore()
+let localAuthToken = localStorage.auth_token
+let cookieExists = localAuthToken !== "undefined" && localAuthToken !== null
 if (cookieExists) {
   const auth_token = localStorage.getItem("auth_token");
-  const authTokenExists = auth_token !== "undefinde" && auth_token !== null;
-  console.log(`authTokenExists?: ${authTokenExists}`);
+  const authTokenExists = auth_token !== "undefinde" && auth_token !== null
   if (authTokenExists) {
-    storeSessions.loginUserWithToken({ auth_token });
+    storeSessions.loginUserWithToken({ auth_token })
   }
 }

@@ -97,7 +97,7 @@ export default defineComponent({
       const config = {
         headers: { Authorization: sessionStore.auth_token },
       }
-      axios.delete( store.urlRails + 'kernals/' + this.viewerData[store.lightBoxIndex].id, config)
+      axios.delete( sessionStore.getUrlRails + 'kernals/' + this.viewerData[store.lightBoxIndex].id, config)
       .then(function(){
         console.log('SUCCESS!!')
       })
