@@ -49,14 +49,14 @@ export const ApiStore = defineStore({
         signal: controller.signal
       }
       const params = '?sort=' + store.sortBy
-      const [ linkContents ] = await Promise.all([
+      const [ linkContents, Mixtapes, Kernals  ] = await Promise.all([
         axios.get(base + 'link_contents' + params, config),
-        this.fetchHypertexts(1)
+        this.fetchHypertexts(1),
+      this.fetchKernals(1),
+      this.fetchMixtapes(1)
       ])
       this.linkContents = linkContents.data
       this.fetchSourceUrls(1)
-      this.fetchMixtapes(1)
-      this.fetchKernals(1)
     },
     async search () {
       controller.abort()
@@ -116,6 +116,8 @@ export const ApiStore = defineStore({
           }
           store.setSortByValue(keys)
         }
+
+        return kernals
       } catch (e) {
         console.error(e);
       }
@@ -144,6 +146,7 @@ export const ApiStore = defineStore({
         const mixtapes = await axios.get(base + 'mixtapes'+ params, config)
         console.log('length: ' + mixtapes.data.length)
         this.mixtapes = this.mixtapes.concat(mixtapes.data)
+        return mixtapes
       } catch (e) {
         console.error(e);
       }

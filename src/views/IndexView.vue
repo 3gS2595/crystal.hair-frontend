@@ -11,7 +11,7 @@
     >
       <pane :size="paneSize + paneSizeOffSet">
         <div  class="three" >
-          <ForceGraph :propKernals="kernals"/>
+          <ForceGraph :propKernals="kernals" :propMixtapes="mixtapes"/>
         </div>
         <div class='nav'>
           <nav id='nav'>

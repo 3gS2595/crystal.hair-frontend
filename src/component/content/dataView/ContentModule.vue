@@ -76,15 +76,14 @@
               </template>
 
               <template v-slot:error>
-                <div class='cgb-loaded'>
-                  <div class="cgb-0-txt">
-                    <a v-on:click="toggleLightBox(slotProps.index)">
-                      {{ slotProps.data.description }}
-                    </a>
-                  </div>
+                <div class ='cgb-loading' >
+                  <div 
+                    class="cgb-0-img"
+                    v-on:click="toggleLightBox(slotProps.index)"
+                  />
                   <div class="cgb-0-info">
                     <div class="file_path" style="font-size:11px;">
-                      {{slotProps.data.file_type }}
+                      N/A IMAGE LOAD FAILED 
                     </div>
                   </div>
                 </div>
