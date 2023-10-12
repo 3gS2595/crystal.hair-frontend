@@ -49,13 +49,13 @@ export const ApiStore = defineStore({
         signal: controller.signal
       }
       const params = '?sort=' + store.sortBy
-      const [ linkContents, Mixtapes, Kernals  ] = await Promise.all([
+      const [ linkContents ] = await Promise.all([
         axios.get(base + 'link_contents' + params, config),
-        this.fetchHypertexts(1),
-      this.fetchKernals(1),
-      this.fetchMixtapes(1)
       ])
       this.linkContents = linkContents.data
+      this.fetchHypertexts(1),
+      this.fetchKernals(1),
+      this.fetchMixtapes(1)
       this.fetchSourceUrls(1)
     },
     async search () {

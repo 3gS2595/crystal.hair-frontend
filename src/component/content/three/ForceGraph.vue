@@ -2,12 +2,11 @@
   <VueForceGraph3D
     ref="fgRef"
     :graphData="JsonData"
-    nodeColor="green"
     backgroundColor="black"
-    linkColor="white"
-    linkOpacity="1.0"
+    linkOpacity="0.7"
     :showNavInfo=bool
     :linkWidth=lineWidth
+    cooldownTime="3200"
     :onNodeDragEnd="
       (node) => {
         node.fx = node.x;
@@ -20,14 +19,12 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
-import { GlobalStore } from '@/store/GlobalStore'
-import { ApiStore } from '@/store/ApiStore'
 import { VueForceGraph3D } from 'vue-force-graph';
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
-
+const color = ref("green")
 const bool = false
 const lineWidth = 2
-const store = GlobalStore()
+const aplhaDecay = 228
 const fgRef = ref();
 const props = withDefaults(defineProps<{
   propKernals: any[],
@@ -44,44 +41,56 @@ watch(
   }
 )
 
-let graphData = ""
+let nodeData = ""
+let linkData = ""
 let JsonData = ref()
 let loaded = ref(false)
 const setData = (propKernals) => {
   try {
     const ids = []
-    
-    graphData = "{ \"nodes\": ["
-    for (let i of props.propMixtapes) {
-      graphData = graphData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 20 }, "
-      ids.push(i.id)
-    }
+    const kId = []
+    const mId = []
     for (let i of props.propKernals) {
-      graphData = graphData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1 }, "
-      ids.push(i.id)
+      kId.push(i.id)
     }
-    graphData = graphData.substring(0, graphData.length - 2)
     
-    graphData = graphData + "], \"links\": [ "
+    linkData = "], \"links\": [ "
     for (let i of props.propMixtapes) {
       for (let n of i.content) {
-        if (ids.includes(n)){
-          console.log(ids.includes(n))
-          graphData = graphData + "{ \"source\": \"" + i.id + "\", \"target\": \"" + n + "\" }, "
-        }else {
-
-          console.log(ids.includes(n))
+        if (kId.includes(n)){
+          ids.push(n)
+          if (!mId.includes(i.id)){
+            mId.push(i.id)
+          }
+          linkData = linkData + "{ \"source\": \"" + i.id + "\", \"target\": \"" + n + "\", \"color\":\"#c2c249f8\"}, "
         }
       }
     }
-    graphData = graphData.substring(0, graphData.length - 2)
-    graphData = graphData + "]}"
+    linkData = linkData.substring(0, linkData.length - 2)
+    linkData = linkData + "]}"
 
-    JsonData = JSON.parse(graphData)
+    nodeData = "{ \"nodes\": ["
+    for (let i of props.propMixtapes) {
+      if(mId.includes(i.id)){
+        nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 20, \"color\":\"#aae574\"}, "
+      }
+    }
+    for (let i of props.propKernals) {
+      if (ids.includes(i.id)) {
+        nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1, \"color\":\"#aae574\"}, "
+      }
+    }
+    nodeData = nodeData.substring(0, nodeData.length - 2)
+   
+    JsonData = JSON.parse(nodeData + linkData)
     console.log(JsonData)
     if (JsonData != null) {
       loaded = true
     }
+    setTimeout (() => {
+      fgRef.value.zoomToFit(100)
+    }, 800)
+
   } catch (e) {
         console.error(e)
       }
@@ -89,8 +98,8 @@ const setData = (propKernals) => {
 }
 onMounted(() => {
   const bloomPass = new UnrealBloomPass()
-  bloomPass.strength = 1
-  bloomPass.radius = 1
+  bloomPass.strength = 0.2
+  bloomPass.radius = 0.5
   bloomPass.threshold = 0.1
   fgRef.value.postProcessingComposer().addPass(bloomPass)
 })

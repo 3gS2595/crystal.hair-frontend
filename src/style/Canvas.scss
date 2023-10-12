@@ -3,16 +3,13 @@
 .three{
   max-width:calc(100% - 1px)!important;
   height:250px!important;
-    border-bottom: 1px solid var(--border-secondary);
+  border-bottom: 1px solid var(--border-secondary);
+  border-right: 1px solid var(--border-secondary);
 
-    border-right: 1px solid var(--border-secondary);
   .scene-container {
-top:0px;
-  max-width:calc(100%)!important;
+    max-width:calc(100%)!important;
     width:100%;
-    max-width:100%;
-    max-height: 246px;
-    height:100%!important;
+    max-height: 246px!important;
   } 
   canvas{
     max-height:250px!important;
