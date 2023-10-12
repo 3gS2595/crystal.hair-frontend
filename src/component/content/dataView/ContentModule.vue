@@ -166,7 +166,6 @@ const intersecting = (event) => {
 }
 const watchIntersect = () =>{
   observer.disconnect()
-  console.log(store.pageSize)
   for (let i = 1; i < 5; i++) {
     const el = document.getElementsByClassName("cgb-0")[(pageNumber.value-1)*store.pageSize-(5*i)]
     if (el){

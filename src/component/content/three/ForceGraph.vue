@@ -1,5 +1,6 @@
 <template>
   <VueForceGraph3D
+    class="fg"
     ref="fgRef"
     :graphData="JsonData"
     backgroundColor="black"
@@ -37,6 +38,7 @@ const props = withDefaults(defineProps<{
 watch(
   () => props.propKernals,
   () => {
+    console.log('CHANGED')
       setData(props.propKernals)
   }
 )
@@ -77,18 +79,30 @@ const setData = (propKernals) => {
     }
     for (let i of props.propKernals) {
       if (ids.includes(i.id)) {
-        nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1, \"color\":\"#aae574\"}, "
+        if(i.file_type === ".avif"){
+          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1, \"color\":\"orange\"}, "
+        } else if(i.file_type === "link"){
+          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1, \"color\":\"pink\"}, "
+        } else if(i.file_type === ".pdf"){
+          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1, \"color\":\"white\"}, "
+        } else {
+          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1, \"color\":\"#aae574\"}, "
+        }
       }
     }
     nodeData = nodeData.substring(0, nodeData.length - 2)
    
-    JsonData = JSON.parse(nodeData + linkData)
+    console.log(nodeData + linkData)
+    if (nodeData + linkData !== "{ \"nodes\":], \"links\": ]}") {
+      JsonData = JSON.parse(nodeData + linkData)
+    }
     console.log(JsonData)
     if (JsonData != null) {
       loaded = true
     }
+
     setTimeout (() => {
-      fgRef.value.zoomToFit(100)
+      fgRef.value.zoomToFit(76)
     }, 800)
 
   } catch (e) {

@@ -36,13 +36,13 @@ export const ApiStore = defineStore({
     linkContents: [],
     sourceUrls: [],
     mixtapes: [],
+    forceGraph: []
   }),
 
   actions: {
     async initialize () {
       controller.abort()
       controller = new AbortController();
-
 
       const config = {
         headers: { Authorization: sessionStore.auth_token },
@@ -51,12 +51,13 @@ export const ApiStore = defineStore({
       const params = '?sort=' + store.sortBy
       const [ linkContents ] = await Promise.all([
         axios.get(base + 'link_contents' + params, config),
+        this.fetchHypertexts(1)
       ])
       this.linkContents = linkContents.data
-      this.fetchHypertexts(1),
       this.fetchKernals(1),
       this.fetchMixtapes(1)
       this.fetchSourceUrls(1)
+      this.fetchForceGraph()
     },
     async search () {
       controller.abort()
@@ -66,6 +67,7 @@ export const ApiStore = defineStore({
       this.linkContents = []
       this.sourceUrls = []
       this.kernals = []
+      this.forceGraph = []
 
       const config = {
         headers: { Authorization: sessionStore.auth_token },
@@ -81,6 +83,7 @@ export const ApiStore = defineStore({
         this.fetchSourceUrls(1)
         this.fetchKernals(1)
         this.fetchHypertexts(1)
+        this.fetchForceGraph()
       } catch (e) {
         console.error(e);
       }
@@ -89,9 +92,11 @@ export const ApiStore = defineStore({
       controller.abort()
       controller = new AbortController();
       this.kernals = []
+      this.forceGraph = []
 
       try {
         this.fetchKernals(1)
+        this.fetchForceGraph()
       } catch (e) {
         console.error(e);
       }
@@ -164,6 +169,20 @@ export const ApiStore = defineStore({
       } catch (e) {
         console.error(e);
       }
-    }
+    },
+    async fetchForceGraph () {
+      const config = {
+        headers: { Authorization: sessionStore.auth_token },
+        signal: controller.signal
+      }
+      let params = '?q=' + store.filter + '&forceGraph=true'
+      if (store.mixtape != '') { params = params + '&mixtape=' + store.mixtape }
+      try {
+        const forceGraph = await axios.get(base + 'kernals'+ params, config)
+        this.forceGraph = forceGraph.data
+      } catch (e) {
+        console.error(e);
+      }
+    },
   }
 })

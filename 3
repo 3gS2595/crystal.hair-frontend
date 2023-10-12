@@ -10,10 +10,9 @@
       @resized="resizeContentFit()"
     >
       <pane :size="paneSize + paneSizeOffSet">
-        <div class="three" >
-          <div v-if='dataReturned'>
-            <ThreeMain :imageData="hypertexts"/>
-          </div>
+
+         <div  class="three" >
+          <ThreeMain :imageData="hypertexts" v-if='dataReturned'/>
         </div>
         <div class='nav'>
           <nav id='nav'>
@@ -43,7 +42,7 @@
             <splitpanes class="default-theme" :vertical="true">
               <pane :size="50">
                 <div  class="forceGraph" >
-                  <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes"/>
+                  <ForceGraph :propKernals="kernals" :propMixtapes="mixtapes"/>
                 </div>
               </pane>
               <pane :size="50">
@@ -80,9 +79,6 @@ const DropDown = defineAsyncComponent(() =>
 const ForceGraph = defineAsyncComponent(() =>
   import('@/component/content/three/ForceGraph.vue')
 )
-const ThreeMain = defineAsyncComponent(() =>
-  import('@/component/content/three/ThreeMain.vue')
-)
 const ContentModule = defineAsyncComponent(() =>
   import('@/component/content/dataView/ContentModule.vue')
 )
@@ -111,8 +107,7 @@ export default defineComponent({
     ForceGraph,
     LightBox,
     UploadBox,
-    DropDown,
-    ThreeMain
+    DropDown
   },
   data () {
     return {
@@ -126,8 +121,8 @@ export default defineComponent({
     }
   },
   setup () {
-    const { hypertexts, sourceUrls, kernals, linkContents, mixtapes, forceGraph } = storeToRefs(ApiStore())
-    return { hypertexts, sourceUrls, kernals, linkContents, mixtapes, forceGraph }
+    const { hypertexts, sourceUrls, kernals, linkContents, mixtapes } = storeToRefs(ApiStore())
+    return { hypertexts, sourceUrls, kernals, linkContents, mixtapes }
   },
   mounted () {
     window.addEventListener('visibilitychange', this.resizeContentFit)

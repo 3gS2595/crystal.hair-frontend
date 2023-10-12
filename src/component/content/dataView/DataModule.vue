@@ -91,6 +91,5 @@ onMounted(() => {
   if (typeof(targetNode) == "Node"){
     new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
   }
-  console.log('help')
 })
 </script>
