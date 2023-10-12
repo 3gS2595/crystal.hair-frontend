@@ -19,7 +19,7 @@
           <nav id='nav'>
             <div class='toggles'>
               <a class='navItem' @click="logout">&#9736;</a>
-              <a class='navItem' @click="darkToggle">☪</a>
+              <a class='navItem' @click="darkToggle">Ͼ</a>
               <a class='navItem' @click="cgbMinus">-</a>
               <a class='navItem' @click="cgbPlus">+</a>
             </div>
@@ -42,22 +42,21 @@
           <pane :size="40">
             <splitpanes class="default-theme" :vertical="true">
               <pane :size="50">
-                <div  class="forceGraph" >
-                  <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes"/>
-                </div>
-              </pane>
-              <pane :size="50">
                 <DataModule
                   header = "hypertext"
                   :contentData="hypertexts"
                   :id="1" 
                 />
               </pane>
+              <pane :size="50">
+                <div  class="forceGraph" >
+                  <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes"/>
+                </div>
+              </pane>
             </splitpanes>
           </pane>
         </splitpanes>
       </pane>
-
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
         <ContentModule
           :contentData="kernals"

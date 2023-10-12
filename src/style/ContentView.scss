@@ -122,6 +122,9 @@
               border-top: $tableBorder;
               overflow:hidden;
               white-space: nowrap;
+              .file_path{
+              color:var(--text-descr);
+            }
             }
           }
         }

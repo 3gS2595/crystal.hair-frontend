@@ -49,6 +49,9 @@
             border:0;
             user-select: none;
             background:none;
+            .descr{
+              color:var(--text-descr);
+            }
 
             a{
               color:var(--link-visited);

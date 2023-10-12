@@ -13,10 +13,10 @@
             </a>
 
             <br/>
-            <a style="color:rgba(223, 223, 223, 0.5);">
+            <a class='descr'>
               {{ convertDate(slotProps.data.updated_at) }}
             </a>
-            <a style="float:right; color:rgba(223, 223, 223, 0.5);">
+            <a class='descr' style="float:right; ">
               {{ blockCnt(slotProps.data.content) }} kernals
             </a>
           </div>

@@ -7,7 +7,6 @@
     linkOpacity="0.7"
     :showNavInfo=bool
     :linkWidth=lineWidth
-    cooldownTime="3200"
     :onNodeDragEnd="
       (node) => {
         node.fx = node.x;
