@@ -2,16 +2,17 @@
 $tableBorder: 1px solid var(--border-primary);
 $dropDownBorder: 3px solid var(--border-primary);
 
+$cardBorder: 1px solid var(--border-card);
+
 
 $navH:40px;
-$devH:100vh;
-$devW:100vw;
+$devH:100dvh;
+$devW:100dvw;
 
 $iosTop: env(safe-area-inset-top, 0px);
 $border: 21px;
 
 html {
-  min-height:100dvh;
   animation-duration: 0s!important;
 }
 
@@ -23,8 +24,8 @@ html, body {
   #app {
     overflow:hidden;
     padding-top:$iosTop;
-    width: unquote("calc( #{$devW} - 4px )"); 
-    height:unquote("calc(#{$devH} - #{$iosTop} - 3px)");
+    width: unquote("calc( #{$devW} - 5px )"); 
+    height:unquote("calc(#{$devH} - #{$iosTop} - 4px)");
     margin-left:1px;
     margin-right:0px;
     border-bottom: 1px solid var(--border-secondary);
@@ -34,19 +35,19 @@ html, body {
     position: relative;
       nav{
         background-color: var(--background-primary);
-        position: relative;
-        width:calc(100% - 1px);
+        width:calc(100% - var(--size-margin));
+        max-width:calc(100% - var(--size-margin));
+        margin: var(--box-margin);
+        border: $tableBorder;
         height:$navH;
-        padding-left:1px;
         overflow-y:hidden;
         display: block; 
 
         .toggles{
           border-bottom:1px solid var(--border-primary);
-          border-right:1px solid var(--border-primary);
           display:flex;
           a {
-            color:  var(--link)
+            color: var(--input-color)
           }
           a:link {
             color:  var(--link)
@@ -62,10 +63,13 @@ html, body {
             padding-left:1px;
             border-right:1px solid var(--border-primary);
           }
+          .navItem:last-child{
+            border-right:0;
+          }
         }
         
+        
         .filters{
-            border-right:1px solid var(--border-primary);
           display:flex;
           select {
             background-color: var(--background-primary);
@@ -107,6 +111,9 @@ html, body {
         position:absolute;
         width:100%;
         height:100%;
+        .data_pane{
+          height:calc(100% - 144px)
+        }
       }
       a:link {
         color:  var(--link)

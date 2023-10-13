@@ -5,10 +5,12 @@
   to {opacity: 1;}
 }
 .dataView{
-  height:100%;
-  width:calc(100% - 1px);
-  border-top: 1px solid var(--border-primary);
-  border-right: $tableBorder;
+  height:calc(100% - var(--size-margin));
+  width:calc( 100% - var(--box-margin) - (var(--box-margin) / 2));
+  margin: var(--box-margin);
+  margin-top: 0px;
+  margin-right: calc(var(--box-margin) / 2);
+  border: $tableBorder;
 
   .p-dataview{
     height:calc(100%);

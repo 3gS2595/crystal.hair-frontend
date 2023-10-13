@@ -20,19 +20,19 @@
             <div class='toggles'>
               <a class='navItem' @click="logout">&#9736;</a>
               <a class='navItem' @click="darkToggle">Ͼ</a>
+              <a class='navItem' @click="reset">X</a>
               <a class='navItem' @click="cgbMinus">-</a>
               <a class='navItem' @click="cgbPlus">+</a>
             </div>
             <div class='filters'>
               <DropDown/>
-              <a class='navItem' @click="reset">X</a>
               <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
             </div>
           </nav>
         </div>
 
         <splitpanes class="data_pane" :horizontal="true">
-          <pane :size="60">
+          <pane :size="60" class="mixtape-pane">
             <MixtapeModule
               header = "mixtapes"
               :contentData="mixtapes"
@@ -41,13 +41,7 @@
           </pane>
           <pane :size="40">
             <splitpanes class="default-theme" :vertical="true">
-              <pane :size="50">
-                <DataModule
-                  header = "hypertext"
-                  :contentData="hypertexts"
-                  :id="1" 
-                />
-              </pane>
+
               <pane :size="50">
                 <div  class="forceGraph" >
                   <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes"/>
@@ -60,7 +54,7 @@
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
         <ContentModule
           :contentData="kernals"
-          :id="2"
+          :id="1"
         />
       </pane>
     </splitpanes>
@@ -176,6 +170,7 @@ export default defineComponent({
     reset: function () {
       const store = GlobalStore()
       store.setFilter('')
+      store.setMixtape('')
     },
     resizeContentFit: function () {
       //site width
@@ -183,7 +178,7 @@ export default defineComponent({
       const el = document.getElementById('contentMain')
 
       const cgb_width = store.cgbWidth
-      const cgb_margin = 5
+      const cgb_margin = 6
       if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
         const width = el.offsetWidth
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % (cgb_width + cgb_margin) 

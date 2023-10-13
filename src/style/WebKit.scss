@@ -3,13 +3,13 @@
   -webkit-text-size-adjust: none;
 }
 *::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 8px rgba(40,40,40,0.9);
+  box-shadow: inset 0 0 3px rgba(40,40,40,0.9);
 
   border-left: $tableBorder;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: var(--border-primary);
-    border: 4.9px solid transparent;
+  background-color: var(--scrollbar);
+    border: 7px solid transparent;
     background-clip: content-box;
 
 }

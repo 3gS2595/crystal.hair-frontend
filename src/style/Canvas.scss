@@ -1,9 +1,13 @@
 
 @import "./ThemeModes";
 .three{
-  width:calc(100% - 1px)!important;
-  border-right: $tableBorder;
-  border-bottom: $tableBorder;
+  width:calc(100% - var(--size-margin));
+  max-width:calc(100% - var(--size-margin));
+  margin: var(--box-margin);
+  margin-bottom: 0px;
+  border: $tableBorder;
+  overflow:hidden;
+
   height:80px!important;
   canvas {
     width: 450px!important;
@@ -13,12 +17,14 @@
 }
 
 .forceGraph{
-  max-width:calc(100% - 1px)!important;
-  height:100%!important;
-  max-height:100%;
-  border-top: 1px solid var(--border-secondary);
-  border-left: 1px solid var(--border-secondary);
-  border-right: 1px solid var(--border-secondary);
+  height:calc(100% - var(--size-margin));
+  width:calc( 100% - var(--box-margin) - (var(--box-margin) / 2));
+  margin: var(--box-margin);
+  margin-top: 0px;
+  margin-left: calc(var(--box-margin) / 2);
+  border: $tableBorder;
+
+
   div{ 
   position:inherit;
   }
@@ -32,9 +38,9 @@
   }
 }
 .fg{
-  height:100%; 
+  height:calc(100%); 
   *{
-    height:calc(100% - 42px); 
+    height:calc(100%); 
   }
   .scene-tooltip{
     height:0px!important;
@@ -46,7 +52,7 @@
 div.fg div:first-child{
   max-height:100%!important;
   .scene-container{
-    max-height:100px;
+    max-height:100%;
   }
 }
 
