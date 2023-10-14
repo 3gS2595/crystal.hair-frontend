@@ -1,15 +1,14 @@
 @import "./ThemeModes";
 *{
-  -webkit-text-size-adjust: none;
+  -webkit-text-size-adjust: 100%;
 }
 *::-webkit-scrollbar-track {
   box-shadow: inset 0 0 3px rgba(40,40,40,0.9);
-
   border-left: $tableBorder;
 }
 *::-webkit-scrollbar-thumb {
   background-color: var(--scrollbar);
-    border: 7px solid transparent;
+    border: 7.3px solid transparent;
     background-clip: content-box;
 
 }

@@ -39,17 +39,11 @@
               :id="0"
             />
           </pane>
-          <pane :size="40">
-            <splitpanes class="default-theme" :vertical="true">
-
-              <pane :size="50">
-                <div  class="forceGraph" >
-                  <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes"/>
-                </div>
-              </pane>
-            </splitpanes>
-          </pane>
         </splitpanes>
+
+        <div  class="forceGraph" >
+          <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes"/>
+        </div>
       </pane>
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
         <ContentModule
@@ -178,7 +172,7 @@ export default defineComponent({
       const el = document.getElementById('contentMain')
 
       const cgb_width = store.cgbWidth
-      const cgb_margin = 6
+      const cgb_margin = 7
       if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
         const width = el.offsetWidth
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % (cgb_width + cgb_margin) 
@@ -187,7 +181,7 @@ export default defineComponent({
           if (window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
             extra = extra + cgb_width + cgb_margin
           } else {
-            const target = width - 250
+            const target = width - 190
             const psize = (width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth
             extra = (-1 * (target - psize)) + ((target - psize) % (cgb_width + cgb_margin)) + (psize % (cgb_width + cgb_margin))
           }
@@ -210,7 +204,7 @@ export default defineComponent({
       const el = document.createElement('div')
       el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
       document.body.appendChild(el)
-      const width = el.offsetWidth + 1
+      const width = el.offsetWidth + 15
       el.remove()
       return width
     }

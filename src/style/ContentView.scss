@@ -8,7 +8,6 @@
 .contentView{
   height:calc(100% );
   width:calc(100%);
-  border-left:$tableBorder;
 
   .p-dataview{
     height:100%;
@@ -37,21 +36,28 @@
     }
 
     .p-dataview-content{
-      *::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 3px rgba(40,40,40,0.9);
-        border: $cardBorder;
-      }
 
       height:100%;
       width:100%;
 
+      *::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 3px rgba(40,40,40,0.9);
+        border-left: $cardBorder;
+      }
+
       .grid{
-        width:calc(100%-2px);
-        height:100%;
+        margin-left:1px;
+        outline: $tableBorder;
+        margin-top: var(--box-margin);
+        margin-right: var(--box-margin);
+        margin-bottom: var(--box-margin);
+        padding: calc(var(--box-margin) / 2);
+        width: calc(100% - var(--box-margin));
+        height:calc(100% - var(--size-margin));
+        max-height:100%;
+        overflow-y:scroll;
         justify-content: flex-start;
         align-content: flex-start;
-        max-height:calc(100%);
-        overflow-y:auto;
 
        // list 
         .w-9{
@@ -66,7 +72,7 @@
           }
             .clb-0-txt{
               width: 100%;
-              overflow-y:auto;
+              overflow-y:hidden;
               overflow-x:hidden;
             }
 
@@ -79,8 +85,8 @@
 
         // grid
         .cgb-0{
-          margin-left:6px;
-          margin-top:6px;
+
+          margin:3.5px;
           *{
             animation-name: example!important;
             animation-duration: .16s!important;
@@ -89,11 +95,8 @@
             outline: $cardBorder;
             
             .cgb-0-txt{
-
-
-
               width: 100%;
-              overflow-y:auto;
+              overflow-y:hidden;
               overflow-x:hidden;
               white-space: pre-wrap;
             }
@@ -110,6 +113,7 @@
 
           }
           .cgb-loaded{
+            position:relative;
             border-collapse: collapse;
             animation-duration: 0s!important;
             outline: $cardBorder;
@@ -119,11 +123,16 @@
                 border-left: $cardBorder;
               }
             .cgb-0-txt{
-
-              width: 100%;
-              overflow-y:auto;
+              padding: var(--box-margin);
+              font-size: 14px;
+              width: calc(100% - 10px);
+              height: calc(100% - 10px);
+              overflow-y:hidden;
               overflow-x:hidden;
               white-space: pre-wrap;
+              a{
+              color:var(--text-descr);
+            }
             }
 
             .cgb-0-img {
@@ -137,7 +146,12 @@
               overflow:hidden;
               white-space: nowrap;
               .file_path{
-              color:var(--text-descr);
+                color:var(--text-descr);
+                font-size:12px!important;
+                max-width:100%;
+                text-align:center;
+                overflow:hidden;
+                  margin: 0 auto;
             }
             }
           }

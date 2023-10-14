@@ -5,7 +5,7 @@
   max-width:calc(100% - var(--size-margin));
   margin: var(--box-margin);
   margin-bottom: 0px;
-  border: $tableBorder;
+  outline: $tableBorder;
   overflow:hidden;
 
   height:80px!important;
@@ -17,11 +17,11 @@
 }
 
 .forceGraph{
-  height:calc(100% - var(--size-margin));
-  width:calc( 100% - var(--box-margin) - (var(--box-margin) / 2));
+  height:148px;
+  width:calc( 100% - var(--size-margin));
   margin: var(--box-margin);
   margin-top: 0px;
-  margin-left: calc(var(--box-margin) / 2);
+  margin-left: calc(var(--box-margin));
   border: $tableBorder;
 
 

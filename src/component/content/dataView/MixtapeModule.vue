@@ -1,9 +1,5 @@
 <template>
   <div class="mixtapeView">
-    <div class="header">
-      <a style="color:rgba(194, 194, 73, 0.973);" >{{ props.header }}</a>
-    </div>
-
     <DataView class='dg-0' :value="props.contentData" :layout="list" >
       <template #list="slotProps">
         <div  @click="search(slotProps.data.id)" class="dgb-0">

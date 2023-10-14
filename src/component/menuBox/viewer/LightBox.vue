@@ -36,10 +36,10 @@
         />
 
         <div class='drag-container-1'>
-          <a @click='prev' v-if="store.lightBoxIndex != 0">prev----</a>
-          <a @click='close'>exit</a>
-          <a @click='deleteBlock'>delete</a>
-          <a @click='next' v-if="store.lightBoxIndex != viewerData.length - 1">----next</a>
+          <a class='navItem' @click='prev' v-if="store.lightBoxIndex != 0">prev</a>
+          <a class='navItem' @click='close'>exit</a>
+          <a class='navItem' @click='deleteBlock'>delete</a>
+          <a class='navItem' @click='next' v-if="store.lightBoxIndex != viewerData.length - 1">next</a>
         </div>
 
       </div>
@@ -168,10 +168,10 @@ export default defineComponent({
           this.top = 0
         }
       } else {
-        this.width = window.innerWidth - 63
-        this.height = window.innerHeight - 180
-        this.left = 30
-        this.top = 30
+        this.width = window.innerWidth - 18
+        this.height = window.innerHeight
+        this.left = 5.55
+        this.top = 0
       }
     },
   }

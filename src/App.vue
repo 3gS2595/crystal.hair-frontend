@@ -11,7 +11,7 @@
 import { defineComponent, onMounted, watch } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
 
-import { orientationChange } from '@/lib/IosOrientation' 
+//import { orientationChange } from '@/lib/IosOrientation' 
 import { darkSet } from '@/lib/DarkMode' 
 
 import SessionManager from '@/component/sessionManager/SessionManager.vue'
@@ -20,7 +20,7 @@ import { SessionStore } from "@/store/SessionStore";
 const sessionStore = SessionStore()
 
 onMounted(() => {
-  orientationChange()
+  //orientationChange()
   darkSet()
   const self = this
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e: MediaQueryListEvent) {
@@ -31,8 +31,8 @@ onMounted(() => {
     }
     darkSet()
   }.bind(self), false)
-  window.addEventListener('resize', orientationChange)
-  window.addEventListener('orientationchange', orientationChange)
+  //window.addEventListener('resize', orientationChange)
+  //window.addEventListener('orientationchange', orientationChange)
 })
 </script>
 

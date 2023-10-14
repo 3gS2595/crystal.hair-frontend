@@ -5,7 +5,7 @@ $dropDownBorder: 3px solid var(--border-primary);
 $cardBorder: 1px solid var(--border-card);
 
 
-$navH:40px;
+$navH:33px;
 $devH:100dvh;
 $devW:100dvw;
 
@@ -57,7 +57,7 @@ html, body {
           }
           .navItem{
             text-align: center;
-            font-size:14pt;
+            font-size:14px;
             flex-grow: 1;
             padding-right:1px;
             padding-left:1px;
@@ -71,7 +71,12 @@ html, body {
         
         .filters{
           display:flex;
+          width:100%;
           select {
+
+            overflow:hidden;
+            flex-grow: 1;
+            font-size:14px;
             background-color: var(--background-primary);
             border: 0;
             outline-style: none;
@@ -84,13 +89,18 @@ html, body {
             background-color: #d6d006 !important; /* for IE */
           }
           input {
+
+            max-width:33%;
+            font-size:14px;
             flex-grow:1;
             border:0;
             background-color: rgba(0,0,0,0);
-            min-width:20px;
             outline:0;
           }
           .navItem{
+            width:33%;
+            max-width:33%;
+            flex-grow:1;
             padding-right:1px;
             padding-left:1px;
             border-right:1px solid var(--border-primary);
@@ -111,8 +121,9 @@ html, body {
         position:absolute;
         width:100%;
         height:100%;
+
         .data_pane{
-          height:calc(100% - 144px)
+          height:calc(100% - 293px)
         }
       }
       a:link {

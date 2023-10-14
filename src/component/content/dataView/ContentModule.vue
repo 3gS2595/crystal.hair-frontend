@@ -34,11 +34,11 @@
           <div v-if="slotProps.data.file_type === '.txt'">
             <div class='cgb-loaded'>
               <div class="cgb-0-txt">
-                <a @click="toggleLightBox(slotProps.index)">{{ slotProps.data.description }}</a>
+                <a class ="text" @click="toggleLightBox(slotProps.index)">{{ slotProps.data.description }}</a>
               </div>
-              <div class="cgb-0-info">
+              <div class="cgb-0-info" style="margin-top:7px;">
                 <div class="file_path" style="font-size:10px;">
-                  {{ slotProps.data.time_posted }}
+                  {{ convertDate(slotProps.data.time_posted) }}
                 </div>
               </div>
             </div>
@@ -139,7 +139,7 @@ const toggleLightBox = (ind) => {
 }
 const convertDate = (datetime) => {
   const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
-  return (new Date(datetime))
+  return (new Date(datetime).toString().substring(4,11))
 }
 watch(
   () => props.contentData,

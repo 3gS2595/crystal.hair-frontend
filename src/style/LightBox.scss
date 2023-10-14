@@ -11,7 +11,8 @@
     pointer-events:auto;
     padding: 0;
     border: 1px solid var(--border-primary);
-    background: var(--background-primary);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
     font-weight: normal;
     z-index:2!important;
 
@@ -27,7 +28,7 @@
         position:relative;
         width:100%;
         height:100%;
-        max-height: calc(100% - 32px);
+        max-height: calc(100% );
         white-space: pre-wrap;
       }
 
@@ -35,7 +36,7 @@
         width:100%;
         max-width:100%;
         height:100%;
-        max-height: calc(100% - 32px);
+        max-height: calc(100%);
         white-space: pre-wrap;
         overflow-y:auto;
 
@@ -61,16 +62,17 @@
 
       .vue-load-image{
         width:100%;
-        max-width:100%;
         height:100%;
-        max-height: calc(100% - 32px);
+        max-height: calc(100% - 20px);
+        max-width: calc(100% - 20px);
+        padding:10px;
         white-space: pre-wrap;
-        overflow-y:auto;
+        overflow-y:hidden;
 
         img {
           position:relative;
           max-width: 100%;
-          max-height: calc(100% - 10px);
+          max-height: calc(100% );
           width: 100%;
           height: calc(100%);
           object-fit: contain;
@@ -87,6 +89,27 @@
 
       .drag-container-1{
         border-top:1px solid var(--border-primary);
+          display:flex;
+          a {
+            color: var(--link)
+          }
+          a:link {
+            color:  var(--link)
+          }
+          a:visited {
+           color:  var(--link)
+          }
+          .navItem{
+            text-align: center;
+            font-size:14pt;
+            flex-grow: 1;
+            padding-right:1px;
+            padding-left:1px;
+            border-right:1px solid var(--border-primary);
+          }
+          .navItem:last-child{
+            border-right:0;
+          }
       }
 
     }
@@ -133,7 +156,7 @@
     .tiptap{
       margin:25px;
       height:100%;
-      overflow-y:scroll;
+      overflow-y:auto;
       p{
         margin:0;
       }
