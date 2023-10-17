@@ -10,11 +10,7 @@
       @resized="resizeContentFit()"
     >
       <pane :size="paneSize + paneSizeOffSet">
-        <div class="three" >
-          <div v-if='dataReturned'>
-            <ThreeMain :imageData="hypertexts"/>
-          </div>
-        </div>
+
         <div class='nav'>
           <nav id='nav'>
             <div class='toggles'>
@@ -29,6 +25,11 @@
               <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
             </div>
           </nav>
+        </div>
+        <div class="three" >
+          <div v-if='dataReturned'>
+            <ThreeMain :imageData="hypertexts"/>
+          </div>
         </div>
 
         <splitpanes class="data_pane" :horizontal="true">
@@ -172,7 +173,7 @@ export default defineComponent({
       const el = document.getElementById('contentMain')
 
       const cgb_width = store.cgbWidth
-      const cgb_margin = 7
+      const cgb_margin = 4
       if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
         const width = el.offsetWidth
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % (cgb_width + cgb_margin) 

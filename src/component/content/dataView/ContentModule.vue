@@ -1,5 +1,14 @@
 <template>
   <div class="contentView">
+
+    <div id="tabAdd" class= "tab">
+      <a>+</a>
+    </div>
+    <div id="tabInfo" class= "tab">
+      <a>?</a>
+    </div>
+
+    
     <DataView :value="props.contentData" :layout="layout" >
 
       <template #list="slotProps">
@@ -140,6 +149,16 @@ const toggleLightBox = (ind) => {
 const convertDate = (datetime) => {
   const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
   return (new Date(datetime).toString().substring(4,11))
+}
+const getMixtape = (id) => {
+  console.log(ApiStore().forceGraph.length)
+  const mixtapes = ApiStore().mixtapes
+  let ret = ApiStore().forceGraph.length
+  for (const mix of mixtapes) {
+    if (mix.id === store.mixtape)
+      return mix.name + " " + ret
+  }
+  return ret
 }
 watch(
   () => props.contentData,

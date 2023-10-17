@@ -5,9 +5,41 @@
   to {opacity: 1;}
 }
 
+.tab{
+  position: absolute;
+  z-index:3;
+  width: 20px;
+  background: rgb(40, 40, 40);
+  font-size:16px;
+  right:0;
+  padding:4px;
+  text-align: center;
+  vertical-align: middle;
+  height:90px;
+  line-height: 90px; 
+  clip-path: polygon(0% 22%, 100% 0, 100% 100%, 0% 78%);
+  
+  a{
+    color:var(--link-visited);
+  }
+}
+#tabInfo{
+  margin: 0 auto;
+  margin-right: var(--box-margin);
+  margin-bottom: var(--box-margin);
+  bottom: var(--box-margin);
+}
+#tabAdd{
+  margin: 0 auto;
+  margin-right: var(--box-margin);
+  margin-bottom: var(--box-margin);
+  bottom: calc(var(--box-margin) + 110px);
+}
+
 .contentView{
   height:calc(100% );
   width:calc(100%);
+
 
   .p-dataview{
     height:100%;
@@ -52,7 +84,7 @@
         margin-right: var(--box-margin);
         margin-bottom: var(--box-margin);
         padding: calc(var(--box-margin) / 2);
-        width: calc(100% - var(--box-margin));
+        width: calc(100% - var(--box-margin) - 2px);
         height:calc(100% - var(--size-margin));
         max-height:100%;
         overflow-y:scroll;
@@ -64,7 +96,7 @@
           min-width: 100% !important;
         }
         .clb-0{
-          margin:1.5px;
+          margin: calc(var(--box-margin) / 2);
           width:100%;
           *{
             animation-name: example!important;
@@ -85,8 +117,8 @@
 
         // grid
         .cgb-0{
+          margin:calc(var(--box-margin) / 2);
 
-          margin:3.5px;
           *{
             animation-name: example!important;
             animation-duration: .16s!important;

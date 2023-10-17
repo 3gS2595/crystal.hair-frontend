@@ -24,26 +24,20 @@ html, body {
   #app {
     overflow:hidden;
     padding-top:$iosTop;
-    width: unquote("calc( #{$devW} - 5px )"); 
-    height:unquote("calc(#{$devH} - #{$iosTop} - 4px)");
-    margin-left:1px;
-    margin-right:0px;
-    border-bottom: 1px solid var(--border-secondary);
-    border-right: 1px solid var(--border-secondary);
-    border-left: 1px solid var(--border-secondary);
-    border-top: 1px solid var(--border-secondary);
-    position: relative;
+    width: calc( #{$devW}); 
+    height: calc(#{$devH} - #{$iosTop});
       nav{
         background-color: var(--background-primary);
         width:calc(100% - var(--size-margin));
         max-width:calc(100% - var(--size-margin));
         margin: var(--box-margin);
-        border: $tableBorder;
-        height:$navH;
+        outline: $tableBorder;
+          height: auto;
         overflow-y:hidden;
         display: block; 
 
         .toggles{
+          height:16px;
           border-bottom:1px solid var(--border-primary);
           display:flex;
           a {
@@ -72,8 +66,11 @@ html, body {
         .filters{
           display:flex;
           width:100%;
+          height:16px;
           select {
-
+             -webkit-appearance: none;
+ -moz-appearance: none;
+ appearance: none;
             overflow:hidden;
             flex-grow: 1;
             font-size:14px;
@@ -89,7 +86,6 @@ html, body {
             background-color: #d6d006 !important; /* for IE */
           }
           input {
-
             max-width:33%;
             font-size:14px;
             flex-grow:1;
@@ -123,7 +119,7 @@ html, body {
         height:100%;
 
         .data_pane{
-          height:calc(100% - 293px)
+          height:calc(100% - 261px - (var(--box-margin) * 4)
         }
       }
       a:link {

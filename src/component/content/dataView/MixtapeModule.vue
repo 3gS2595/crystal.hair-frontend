@@ -4,7 +4,7 @@
       <template #list="slotProps">
         <div  @click="search(slotProps.data.id)" class="dgb-0">
           <div class="dgb-0-txt">
-            <a style="float:left; max-width:calc(100% - 40px);">
+            <a style="float:left; max-width:calc(100%);">
             {{ slotProps.data.name }}
             </a>
 

@@ -33,12 +33,10 @@ const props = withDefaults(defineProps<{
   propKernals: [],
   propMixtapes: []
 })
-
 watch(
   () => props.propKernals,
   () => {
-    console.log('CHANGED')
-      setData(props.propKernals)
+    setData(props.propKernals)
   }
 )
 
@@ -54,7 +52,7 @@ const setData = (propKernals) => {
     for (let i of props.propKernals) {
       kId.push(i.id)
     }
-    
+
     linkData = "], \"links\": [ "
     for (let i of props.propMixtapes) {
       for (let n of i.content) {
@@ -90,24 +88,18 @@ const setData = (propKernals) => {
       }
     }
     nodeData = nodeData.substring(0, nodeData.length - 2)
-   
-    console.log(nodeData + linkData)
     if (nodeData + linkData !== "{ \"nodes\":], \"links\": ]}") {
       JsonData = JSON.parse(nodeData + linkData)
     }
-    console.log(JsonData)
     if (JsonData != null) {
       loaded = true
     }
-
     setTimeout (() => {
       fgRef.value.zoomToFit(76)
     }, 800)
-
   } catch (e) {
-        console.error(e)
-      }
-
+    console.error(e)
+  }
 }
 onMounted(() => {
   const bloomPass = new UnrealBloomPass()
