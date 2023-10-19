@@ -1,4 +1,4 @@
-interface kernalType {
+export interface kernalType {
   id: string,
   source_url_id: string,
   hypertext_id: string,
@@ -10,7 +10,7 @@ interface kernalType {
   author: string,
   time_posted: Date,
   time_scraped: string,
-  description string,
+  description: string,
   key_words: string,
   hashtags: string,
   likes: string,
@@ -21,7 +21,7 @@ interface kernalType {
   updated_at: Date
 }
 
-interface linkContentType {
+export interface linkContentType {
   id: string,
   names: string,
   url: string,
@@ -31,7 +31,7 @@ interface linkContentType {
   text_body: string
 }
 
-interface hypertextType {
+export interface hypertextType {
   id: string,
   url: string,
   name: string,
@@ -42,7 +42,7 @@ interface hypertextType {
   created_at: Date,
   updated_at: Date
 }
-interface sourceUrlType {
+export interface sourceUrlType {
   id: string,
   domain: string,
   tag_list: string,
@@ -51,7 +51,7 @@ interface sourceUrlType {
   created_at: Date,
   updated_at: Date
 }
-interface mixtapeType {
+export interface mixtapeType {
   id: string,
   name: string,
   content: string[]

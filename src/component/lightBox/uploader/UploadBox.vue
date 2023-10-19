@@ -42,7 +42,7 @@
 </template>
 
 <script lang='ts'>
-import type { kernalType } from '@/types/index'
+import type { kernalType } from '@/types/ApiTypes'
 import type { InputFileEvent } from '@/types/index'
 import type { UploadBoxState } from '@/types/index'
 

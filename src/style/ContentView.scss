@@ -157,13 +157,13 @@
             .cgb-0-txt{
               padding: var(--box-margin);
               font-size: 14px;
-              width: calc(100% - 10px);
-              height: calc(100% - 10px);
+              width: calc(100%);
+              height: calc(100%);
               overflow-y:hidden;
               overflow-x:hidden;
               white-space: pre-wrap;
               a{
-              color:var(--text-descr);
+                color: var(--text-data);
             }
             }
 
@@ -178,7 +178,7 @@
               overflow:hidden;
               white-space: nowrap;
               .file_path{
-                color:var(--text-descr);
+                color: var(--text-data);
                 font-size:12px!important;
                 max-width:100%;
                 text-align:center;

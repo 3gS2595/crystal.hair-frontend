@@ -23,6 +23,8 @@
 </template>
 
 <script setup lang="ts">
+import type { mixtapeType } from '@/types/ApiTypes'
+
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
 import VanillaTilt from 'vanilla-tilt'
@@ -34,7 +36,7 @@ const pageNumber = ref<number>(2)
 
 const props = withDefaults(defineProps<{
   header: string,
-  contentData: any[],
+  contentData: PropType<mixtapeType[]>,
   id: number
 }> (), {
   contentData: []

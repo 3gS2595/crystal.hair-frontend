@@ -7,7 +7,7 @@ export const GlobalStore = defineStore('counter', () => {
   const uploadBoxView = ref<boolean>(false)
   const lightBoxView = ref<boolean>(false)
   const lightBoxIndex = ref(-1)
-  const cgbWidth = ref<number>(90)
+  const cgbWidth = ref<number>(120)
 
   // result filters
   const filter = ref<string>('')

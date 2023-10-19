@@ -10,7 +10,6 @@ import StarterKit from '@tiptap/starter-kit'
 import Typography from '@tiptap/extension-typography'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import HardBreak from '@tiptap/extension-hard-break'
-
 export default defineComponent({
   components: {
     EditorContent,

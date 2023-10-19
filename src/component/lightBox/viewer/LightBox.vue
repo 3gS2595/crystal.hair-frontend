@@ -48,7 +48,7 @@
 </template>
 
 <script lang='ts'>
-import type { kernalType } from '@/types/index'
+import type { kernalType } from '@/types/ApiTypes'
 
 import { ref, defineComponent, PropType } from 'vue'
 import VueResizable from 'vue-resizable'

@@ -109,7 +109,7 @@
 
 <script setup lang="ts">
 import type { InputFileEvent } from '@/types/index'
-import type { kernalType } from '@/types/index'
+import type { kernalType } from '@/types/ApiTypes'
 import { ref, watch, onMounted } from 'vue'
 import { ApiStore } from '@/store/ApiStore'
 import { GlobalStore } from '@/store/GlobalStore'
@@ -131,24 +131,15 @@ const props = withDefaults(defineProps<{
 const toggleUploadBox = () => {
   store.setUploadBoxView(!store.uploadBoxView)
 }
-let numClicks = 0
 const toggleLightBox = (ind) => {
-  numClicks++
-  if (numClicks === 1) {
-    setTimeout(function() {
-      if (numClicks === 1) {
-          if (store.lightBoxIndex === -1) {
-            store.setLightBoxView(!store.lightBoxView)
-          }
-          store.setLightBoxIndex(ind)
-      }
-    numClicks = 0
-  }, 200)
- }
+  if (store.lightBoxIndex === -1) {
+    store.setLightBoxView(!store.lightBoxView)
+  }
+  store.setLightBoxIndex(ind)
 }
 const convertDate = (datetime) => {
-  const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
-  return (new Date(datetime).toString().substring(4,11))
+const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
+return (new Date(datetime).toString().substring(4,11))
 }
 const getMixtape = (id) => {
   console.log(ApiStore().forceGraph.length)

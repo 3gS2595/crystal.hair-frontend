@@ -66,26 +66,24 @@ const DropDown = defineAsyncComponent(() =>
   import('@/component/menuDropDown/DropDown.vue')
 )
 const ForceGraph = defineAsyncComponent(() =>
-  import('@/component/content/three/ForceGraph.vue')
+  import('@/component/three/ForceGraph.vue')
 )
 const ThreeMain = defineAsyncComponent(() =>
-  import('@/component/content/three/ThreeMain.vue')
+  import('@/component/three/ThreeMain.vue')
 )
 const ContentModule = defineAsyncComponent(() =>
-  import('@/component/content/dataView/ContentModule.vue')
+  import('@/component/dataGrid/ContentModule.vue')
 )
 const DataModule = defineAsyncComponent(() =>
-  import('@/component/content/dataView/DataModule.vue')
+  import('@/component/dataGrid/DataModule.vue')
 )
 const MixtapeModule = defineAsyncComponent(() =>
-  import('@/component/content/dataView/MixtapeModule.vue')
+  import('@/component/dataGrid/MixtapeModule.vue')
 )
-const LightBox = defineAsyncComponent(() =>
-  import('@/component/menuBox/viewer/LightBox.vue')
-)
-const UploadBox = defineAsyncComponent(() =>
-  import('@/component/menuBox/uploader/UploadBox.vue')
-)
+
+import LightBox from '@/component/lightBox/viewer/LightBox.vue'
+import UploadBox from '@/component/lightBox/uploader/UploadBox.vue'
+
 import { ApiStore } from '@/store/ApiStore'
 import { GlobalStore } from '@/store/GlobalStore'
 
@@ -122,7 +120,7 @@ export default defineComponent({
     window.addEventListener('orientationchange', this.resizeContentFit)
     window.addEventListener('resize', this.resizeContentFit)
     const store = GlobalStore()
-    store.setCgbWidth(90)
+    store.setCgbWidth(store.cgbWidth)
     this.resizeContentFit()
     ApiStore().initialize().then(async () => {
       this.dataReturned = true
@@ -149,17 +147,16 @@ export default defineComponent({
     },
     cgbPlus () {
       const store = GlobalStore()
-      store.setCgbWidth(store.cgbWidth + 50)
+      store.setCgbWidth(store.cgbWidth + 25)
       this.resizeContentFit()
     },
     cgbMinus () {
       const store = GlobalStore()
-      store.setCgbWidth(store.cgbWidth - 50)
+      store.setCgbWidth(store.cgbWidth - 25)
       this.resizeContentFit()
     },
     search: function (e: string) {
       const store = GlobalStore()
-      store.setCgbWidth(300)
       store.setFilter(e)
     },
     reset: function () {
@@ -205,7 +202,10 @@ export default defineComponent({
       const el = document.createElement('div')
       el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
       document.body.appendChild(el)
-      const width = el.offsetWidth + 15
+      let width = el.offsetWidth + 9
+      if(el.offsetWidth > 0) {
+        width = el.offsetWidth + 12
+      }
       el.remove()
       return width
     }
