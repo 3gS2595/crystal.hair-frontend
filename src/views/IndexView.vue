@@ -87,6 +87,8 @@ import UploadBox from '@/component/lightBox/uploader/UploadBox.vue'
 import { ApiStore } from '@/store/ApiStore'
 import { GlobalStore } from '@/store/GlobalStore'
 
+import type { kernalType } from '@/types/ApiTypes'
+
 export default defineComponent({
   components: {
     Splitpanes,

@@ -1,8 +1,16 @@
 import { defineStore } from 'pinia'
-import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
 import { watch, ref } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
 import { SessionStore } from '@/store/SessionStore'
+import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
+
+import type { 
+  kernalType, 
+  mixtapeType, 
+  hypertextType, 
+  linkContentType, 
+  sourceUrlType 
+} from '@/types/ApiTypes'
 
 const store = GlobalStore()
 const sessionStore = SessionStore()
@@ -25,12 +33,12 @@ watch(
 export const ApiStore = defineStore({
   id: 'apiData',
   state: () => ({
-    hypertexts: [],
-    kernals: [],
-    linkContents: [],
-    sourceUrls: [],
-    mixtapes: [],
-    forceGraph: []
+    hypertexts: <hypertextType[]>[],
+    kernals: <kernalType[]>[],
+    linkContents: <linkContentType[]>[],
+    sourceUrls: <sourceUrlType[]>[],
+    mixtapes: <mixtapeType[]>[],
+    forceGraph: <kernalType[]>[]
   }),
 
   actions: {
