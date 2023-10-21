@@ -8,7 +8,6 @@
       <a>?</a>
     </div>
 
-    
     <DataView :value="props.contentData" :layout="layout" >
 
       <template #list="slotProps">
@@ -57,9 +56,9 @@
             <vue-load-image>
               <template v-slot:image>
                 <div class='cgb-loaded'>
-                  <img 
-                    class="cgb-0-img" 
-                    :src="`${slotProps.data.signed_url_nail}`" 
+                  <img
+                    class="cgb-0-img"
+                    :src="`${slotProps.data.signed_url_nail}`"
                     v-on:click="toggleLightBox(slotProps.index)"
                   />
                   <div class="cgb-0-info">
@@ -72,7 +71,7 @@
 
               <template v-slot:preloader>
                 <div class ='cgb-loading' >
-                  <div 
+                  <div
                     class="cgb-0-img"
                     v-on:click="toggleLightBox(slotProps.index)"
                   />
@@ -86,13 +85,13 @@
 
               <template v-slot:error>
                 <div class ='cgb-loading' >
-                  <div 
+                  <div
                     class="cgb-0-img"
                     v-on:click="toggleLightBox(slotProps.index)"
                   />
                   <div class="cgb-0-info">
                     <div class="file_path" style="font-size:11px;">
-                      N/A IMAGE LOAD FAILED 
+                      N/A IMAGE LOAD FAILED
                     </div>
                   </div>
                 </div>
@@ -153,7 +152,7 @@ const getMixtape = (id) => {
 }
 watch(
   () => props.contentData,
-  () => { 
+  () => {
     if (props.contentData.length < store.pageSize  ) {
       pageNumber.value = 2
     }
