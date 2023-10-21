@@ -16,9 +16,8 @@
   text-align: center;
   vertical-align: middle;
   height:90px;
-  line-height: 90px; 
+  line-height: 90px;
   clip-path: polygon(0% 22%, 100% 0, 100% 100%, 0% 78%);
-  
   a{
     color:var(--link-visited);
   }
@@ -101,7 +100,7 @@
           }
           .cgb-loading{
             outline: $cardBorder;
-            
+
             .cgb-0-txt{
               width: 100%;
               overflow-y:hidden;

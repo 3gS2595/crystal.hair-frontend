@@ -54,13 +54,13 @@
       </pane>
     </splitpanes>
   </div>
- </template>
+</template>
 
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
-import { darkToggle, darkSet } from '@/lib/DarkMode' 
+import { darkToggle, darkSet } from '@/lib/DarkMode'
 
 import DropDown from '@/component/menuDropDown/DropDown.vue'
 import ForceGraph from '@/component/three/ForceGraph.vue'
@@ -90,7 +90,6 @@ export default defineComponent({
   data () {
     return {
       dataReturned: false,
-      scrollWidth: this.findScrollWidth(),
       paneSizeTemp: 0,
       paneSize: 30,
       paneSizeOffSet: 0,
@@ -116,7 +115,7 @@ export default defineComponent({
     //load animation removal
     setTimeout (() => {
       var style = document.createElement('style')
-      style.innerText = '*{animation-duration:0s; }' 
+      style.innerText = '*{animation-duration:0s; }'
       document.head.appendChild(style)
     }, 1500)
   },
@@ -156,23 +155,26 @@ export default defineComponent({
       const store = GlobalStore()
       const el = document.getElementById('contentMain')
       const cgb_width = store.cgbWidth
-      const cbg = document.querySelector('.cgb-0')
+      const cgb: Element | null = document.querySelector('.cgb-0')
       let cgb_margin = 12
-      if (cbg != null) {
-        cgb_margin = cbg.computedStyleMap().get('margin-left').value + 1
+      let scrollWidth = 12
+      if (cgb != null) {
+        const width  = window.getComputedStyle(cgb).marginLeft
+        cgb_margin = Number(width.substring(0, width.length - 2)) + 1
+        scrollWidth = cgb_margin * 2
         console.log(cgb_margin)
       }
 
       if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
         const width = el.offsetWidth
-        let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % (cgb_width + cgb_margin) 
+        let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - (scrollWidth)) % (cgb_width + cgb_margin)
 
         if (this.paneSize === 30){
           if (window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
             extra = extra + cgb_width + cgb_margin
           } else {
             const target = width - 190
-            const psize = (width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth - (cgb_margin)
+            const psize = (width * ((100.0 - this.paneSize) / 100.0)) - (scrollWidth) - (cgb_margin)
             extra = (-1 * (target - psize)) + ((target - psize) % (cgb_width + cgb_margin)) + (psize % (cgb_width + cgb_margin))
           }
         }
@@ -189,17 +191,6 @@ export default defineComponent({
         this.paneSize = this.paneSizeTemp
       }
       this.resizeContentFit()
-    },
-    findScrollWidth: function () {
-      const el = document.createElement('div')
-      el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
-      document.body.appendChild(el)
-      let width = el.offsetWidth + 9
-      if(el.offsetWidth > 0) {
-        width = el.offsetWidth + 2
-      }
-      el.remove()
-      return width
     }
   }
 })

@@ -55,7 +55,6 @@ import { SessionStore } from '@/store/SessionStore'
 
 const sessionStore = SessionStore()
 const store = GlobalStore()
-
 export default defineComponent({
   name: 'App',
   components: {
@@ -80,7 +79,7 @@ export default defineComponent({
       index: 9,
       store: GlobalStore(),
       sessionStore: SessionStore(),
-      file: null 
+      file: null
     }
   },
   methods: {
@@ -142,7 +141,7 @@ export default defineComponent({
           this.height = window.innerHeight - 180
           this.left = 30
           this.top = 30
-        
+
       }
     },
     res () {
@@ -151,7 +150,7 @@ export default defineComponent({
       window.addEventListener('keyup', this.esc, true)
 
       const identifiers = ['rb', 'rt', 'rl', 'rr']
-      for (const id of identifiers) { 
+      for (const id of identifiers) {
         const rb = document.createElement('img')
         rb.src = id + '.png'
         rb.id = id
@@ -162,7 +161,7 @@ export default defineComponent({
     esc (e: KeyboardEvent) {
       if (e.key === 'Escape') {
         this.close()
-      }  
+      }
     },
     close () {
       store.setUploadBoxView(false)
