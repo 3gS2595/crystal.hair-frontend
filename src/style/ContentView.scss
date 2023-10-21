@@ -40,7 +40,6 @@
   height:calc(100% );
   width:calc(100%);
 
-
   .p-dataview{
     height:100%;
     width:100%;
@@ -60,6 +59,7 @@
           border:0;
           background:none;
         }
+
         button{
           border:0;
           background:none;
@@ -68,12 +68,10 @@
     }
 
     .p-dataview-content{
-
       height:100%;
       width:100%;
 
       *::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 3px rgba(40,40,40,0.9);
         border-left: $cardBorder;
       }
 
@@ -83,7 +81,6 @@
         margin-top: var(--box-margin);
         margin-right: var(--box-margin);
         margin-bottom: var(--box-margin);
-        padding: calc(var(--box-margin) / 2);
         width: calc(100% - var(--box-margin) - 2px);
         height:calc(100% - var(--size-margin));
         max-height:100%;
@@ -91,33 +88,12 @@
         justify-content: flex-start;
         align-content: flex-start;
 
-       // list 
-        .w-9{
-          min-width: 100% !important;
-        }
-        .clb-0{
-          margin: calc(var(--box-margin) / 2);
-          width:100%;
-          *{
-            animation-name: example!important;
-            animation-duration: .46s!important;
-          }
-            .clb-0-txt{
-              width: 100%;
-              overflow-y:hidden;
-              overflow-x:hidden;
-            }
-
-            .clb-0-img {
-              width: 100%;
-              object-fit: contain;
-              z-index: 0;
-            }
-        }
-
         // grid
         .cgb-0{
-          margin:calc(var(--box-margin) / 2);
+          margin-top:calc(var(--box-margin));
+          margin-left:calc(var(--box-margin));
+          margin-bottom:1px;
+          margin-right:1px;
 
           *{
             animation-name: example!important;
@@ -145,26 +121,21 @@
 
           }
           .cgb-loaded{
-            position:relative;
-            border-collapse: collapse;
             animation-duration: 0s!important;
             outline: $cardBorder;
-              *::-webkit-scrollbar-track {
-                box-shadow: inset 0 0 3px rgba(40,40,40,0.9);
-                border:0;
-                border-left: $cardBorder;
-              }
+
             .cgb-0-txt{
               padding: var(--box-margin);
               font-size: 14px;
-              width: calc(100%);
-              height: calc(100%);
+              width:100%;
+              height: 100%;
               overflow-y:hidden;
               overflow-x:hidden;
               white-space: pre-wrap;
+
               a{
                 color: var(--text-data);
-            }
+              }
             }
 
             .cgb-0-img {
@@ -175,16 +146,17 @@
 
             .cgb-0-info{
               border-top: $cardBorder;
-              overflow:hidden;
+              background:var(--background-primary);
               white-space: nowrap;
+
               .file_path{
                 color: var(--text-data);
                 font-size:12px!important;
                 max-width:100%;
-                text-align:center;
                 overflow:hidden;
-                  margin: 0 auto;
-            }
+                padding-left: var(--box-margin);
+                margin: 0;
+              }
             }
           }
         }

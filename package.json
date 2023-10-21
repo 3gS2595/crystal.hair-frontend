@@ -16,7 +16,6 @@
     "@tiptap/vue-3": "^2.1.8",
     "@types/three": "^0.152.1",
     "axios": "^1.4.0",
-    "node-sass": "^9.0.0",
     "pinia": "^2.1.4",
     "primeflex": "^3.3.1",
     "primevue": "^3.29.2",
@@ -34,26 +33,14 @@
   },
   "devDependencies": {
     "@types/splitpanes": "^2.2.1",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-typescript": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "terser-webpack-plugin": "^5.3.9",
+    "eslint": "^8.52.0",
+    "typescript": "^5.2.2",
     "vue-tsc": "^1.8.8"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "@vue/standard",
-      "@vue/typescript/recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2024
-    },
-    "rules": {}
   },
   "browserslist": [
     "> 1%",

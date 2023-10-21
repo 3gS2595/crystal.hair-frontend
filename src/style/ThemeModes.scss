@@ -1,32 +1,29 @@
 
 .theme-dark {
-  --background-primary: #07070a;
-  ;
+  --background-primary: black;
 
   --text-primary: #dfdfdfd3;
   --text-header: #bbe574;
   --text-descr: #bbe57480;
   --text-data: rgba(223, 223, 223, 0.8);
   --text-menu: #ffff80;
-  ;
-  ;
 
   --text-link: rgba(194, 194, 73, 0.973);
   --text-link-visited: #bbe574;
 
   --color-scheme: dark;
   --border-primary: #575766;
-  --border-card: #474756;
+  --border-card: #575766;
   --border-secondary: #696967;
   --splitter-box: lightyellow;
   --input-color: rgba(223, 223, 223, 0.5);
 
   --scrollbar:  #474756;
-  --size-margin: 8px;
-  --box-margin: 4px;
+  --size-margin: 4px;
+  --box-margin: 2px;
 }
 .theme-light {
-  --background-primary: rgb(255, 255, 255);
+  --background-primary: rgb(230, 230, 230);
   --link: #000;
   --link-visited: #000;
   --text-primary: #000;
@@ -35,6 +32,7 @@
   --color-scheme: light;
   --border-primary: #535353;
   --border-secondary: #000;
+  --border-card: #535353;
   --input-color: rgba(023, 023, 023, 0.5);
   --splitter-box: purple;
   --scrollbar: #53535375;

@@ -62,32 +62,17 @@ import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
 import { darkToggle, darkSet } from '@/lib/DarkMode' 
 
-const DropDown = defineAsyncComponent(() =>
-  import('@/component/menuDropDown/DropDown.vue')
-)
-const ForceGraph = defineAsyncComponent(() =>
-  import('@/component/three/ForceGraph.vue')
-)
-const ThreeMain = defineAsyncComponent(() =>
-  import('@/component/three/ThreeMain.vue')
-)
-const ContentModule = defineAsyncComponent(() =>
-  import('@/component/dataGrid/ContentModule.vue')
-)
-const DataModule = defineAsyncComponent(() =>
-  import('@/component/dataGrid/DataModule.vue')
-)
-const MixtapeModule = defineAsyncComponent(() =>
-  import('@/component/dataGrid/MixtapeModule.vue')
-)
-
+import DropDown from '@/component/menuDropDown/DropDown.vue'
+import ForceGraph from '@/component/three/ForceGraph.vue'
+import ThreeMain from '@/component/three/ThreeMain.vue'
+import ContentModule from '@/component/dataGrid/ContentModule.vue'
+import DataModule from '@/component/dataGrid/DataModule.vue'
+import MixtapeModule from '@/component/dataGrid/MixtapeModule.vue'
 import LightBox from '@/component/lightBox/viewer/LightBox.vue'
 import UploadBox from '@/component/lightBox/uploader/UploadBox.vue'
 
 import { ApiStore } from '@/store/ApiStore'
 import { GlobalStore } from '@/store/GlobalStore'
-
-import type { kernalType } from '@/types/ApiTypes'
 
 export default defineComponent({
   components: {
@@ -170,9 +155,14 @@ export default defineComponent({
       //site width
       const store = GlobalStore()
       const el = document.getElementById('contentMain')
-
       const cgb_width = store.cgbWidth
-      const cgb_margin = 4
+      const cbg = document.querySelector('.cgb-0')
+      let cgb_margin = 12
+      if (cbg != null) {
+        cgb_margin = cbg.computedStyleMap().get('margin-left').value + 1
+        console.log(cgb_margin)
+      }
+
       if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
         const width = el.offsetWidth
         let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth) % (cgb_width + cgb_margin) 
@@ -182,7 +172,7 @@ export default defineComponent({
             extra = extra + cgb_width + cgb_margin
           } else {
             const target = width - 190
-            const psize = (width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth
+            const psize = (width * ((100.0 - this.paneSize) / 100.0)) - this.scrollWidth - (cgb_margin)
             extra = (-1 * (target - psize)) + ((target - psize) % (cgb_width + cgb_margin)) + (psize % (cgb_width + cgb_margin))
           }
         }
@@ -206,7 +196,7 @@ export default defineComponent({
       document.body.appendChild(el)
       let width = el.offsetWidth + 9
       if(el.offsetWidth > 0) {
-        width = el.offsetWidth + 12
+        width = el.offsetWidth + 2
       }
       el.remove()
       return width

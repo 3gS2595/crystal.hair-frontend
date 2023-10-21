@@ -4,7 +4,7 @@
   width:calc(100% - var(--size-margin));
   max-width:calc(100% - var(--size-margin));
   margin: var(--box-margin);
-  margin-top: 0px;
+  margin-top: 5px;
   outline: $tableBorder;
   overflow:hidden;
 
@@ -20,7 +20,7 @@
   height:148px;
   width:calc( 100% - var(--size-margin));
   margin: var(--box-margin);
-  margin-top: 0px;
+  margin-top: 1px;
   margin-left: calc(var(--box-margin));
   outline: $tableBorder;
 

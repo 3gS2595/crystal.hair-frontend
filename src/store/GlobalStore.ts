@@ -43,29 +43,33 @@ export const GlobalStore = defineStore('counter', () => {
   }
   function setCgbWidth (newCgbWidth: number) {
     cgbWidth.value = newCgbWidth
-    var style = document.createElement('style')
+    const cgbHeightRatio = 1.2896666
+    const style = document.createElement('style')
     style.innerText = ''
       + '.cgb-loading{'
-      + 'max-height:' + newCgbWidth * 1.2666666 + 'px!important;'
+      + 'max-height:' + newCgbWidth * cgbHeightRatio + 'px!important;'
       + 'max-width:' + newCgbWidth + 'px!important;'
       + 'min-width:' + newCgbWidth + 'px!important;'
       + '}'
       + '.cgb-loading .cgb-0-img{'
-      + 'height:' + (newCgbWidth * 1.2666666 - 20) + 'px!important;'
+      + 'height:' + (newCgbWidth * cgbHeightRatio - 25) + 'px!important;'
       + '}'
       + '.cgb-loaded{'
-      + 'max-height:' + newCgbWidth * 1.2666666 + 'px!important;'
+      + 'max-height:' + newCgbWidth *cgbHeightRatio + 'px!important;'
       + 'max-width:' + newCgbWidth + 'px!important;'
       + 'min-width:' + newCgbWidth + 'px!important;'
       + '}'
       + '.cgb-0-img{'
-      + 'max-height:' + (newCgbWidth * 1.2666666 - 20) + 'px!important;'
+      + 'max-height:' + (newCgbWidth * cgbHeightRatio - 25) + 'px!important;'
       + '}'
       + '.cgb-0-txt{'
-      + 'max-height:' + (newCgbWidth * 1.2666666 - 20) + 'px!important;'
+      + 'max-height:' + (newCgbWidth * cgbHeightRatio - 25) + 'px!important;'
       + '}'
       + '.cgb-0-info{'
       + 'height:' +  12 + 'px!important;'
+      + '}'
+      + '.cgb-0{'
+      + 'max-height:' + (newCgbWidth * cgbHeightRatio) + 'px!important;'
       + '}'
     document.head.appendChild(style)
   }

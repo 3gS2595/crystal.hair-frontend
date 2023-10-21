@@ -3,7 +3,7 @@
     class="fg"
     ref="fgRef"
     :graphData="JsonData"
-    backgroundColor="black"
+    backgroundColor="rgba(255,255,255,0)"
     linkOpacity="0.7"
     :showNavInfo=bool
     :linkWidth=lineWidth
@@ -107,6 +107,7 @@ onMounted(() => {
   bloomPass.radius = 0.5
   bloomPass.threshold = 0.1
   fgRef.value.postProcessingComposer().addPass(bloomPass)
+  setData(props.propKernals)
 })
 
 </script>
