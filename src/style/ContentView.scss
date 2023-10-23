@@ -75,12 +75,11 @@
       }
 
       .grid{
-        margin-left:1px;
-        outline: $tableBorder;
+        border: $tableBorder;
         margin-top: var(--box-margin);
         margin-right: var(--box-margin);
         margin-bottom: var(--box-margin);
-        width: calc(100% - var(--box-margin) - 2px);
+        width: calc(100% - var(--box-margin));
         height:calc(100% - var(--size-margin));
         max-height:100%;
         overflow-y:scroll;
@@ -91,15 +90,13 @@
         .cgb-0{
           margin-top:calc(var(--box-margin));
           margin-left:calc(var(--box-margin));
-          margin-bottom:1px;
-          margin-right:1px;
 
           *{
             animation-name: example!important;
             animation-duration: .16s!important;
           }
           .cgb-loading{
-            outline: $cardBorder;
+            border: $cardBorder;
 
             .cgb-0-txt{
               width: 100%;
@@ -121,7 +118,7 @@
           }
           .cgb-loaded{
             animation-duration: 0s!important;
-            outline: $cardBorder;
+            border: $cardBorder;
 
             .cgb-0-txt{
               padding: var(--box-margin);

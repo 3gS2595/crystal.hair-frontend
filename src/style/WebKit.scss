@@ -7,7 +7,7 @@
   border-left: $tableBorder;
 }
 *::-webkit-scrollbar-thumb {
-  max-width:var(--size-margin);
+  max-width:calc(var(--size-margin) - 3px);
   background-color: var(--scrollbar);
   background-clip: content-box;
 

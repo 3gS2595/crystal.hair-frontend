@@ -6,7 +6,7 @@
     <splitpanes class="default-theme"
       style="width=100%"
       @ready="resizeContentFit()"
-      @resize="paneSize = $event[0].size; paneSizeOffSet = 0"
+      @resize="paneSize = $event[0].size; "
       @resized="resizeContentFit()"
     >
       <pane :size="paneSize + paneSizeOffSet">
@@ -91,8 +91,8 @@ export default defineComponent({
     return {
       dataReturned: false,
       paneSizeTemp: 0,
-      paneSize: 30,
-      paneSizeOffSet: 0,
+      paneSize: 30.0,
+      paneSizeOffSet: 0.0,
       store: GlobalStore(),
       q: ''
     }
@@ -155,31 +155,33 @@ export default defineComponent({
       const store = GlobalStore()
       const el = document.getElementById('contentMain')
       const cgb_width = store.cgbWidth
-      const cgb: Element | null = document.querySelector('.cgb-0')
-      let cgb_margin = 12
-      let scrollWidth = 12
+      const cgb = document.querySelector('.cgb-0')
+      let cgb_margin = 6
+      let scroll_width = 6
       if (cgb != null) {
         const width  = window.getComputedStyle(cgb).marginLeft
-        cgb_margin = Number(width.substring(0, width.length - 2)) + 1
-        scrollWidth = cgb_margin * 2
-        console.log(cgb_margin)
+        cgb_margin = Number(width.substring(0, width.length - 2))
+        scroll_width = cgb_margin * 2
       }
 
       if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
         const width = el.offsetWidth
-        let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - (scrollWidth)) % (cgb_width + cgb_margin)
+        let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - scroll_width) % (cgb_width + cgb_margin)
 
         if (this.paneSize === 30){
           if (window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
             extra = extra + cgb_width + cgb_margin
           } else {
-            const target = width - 190
-            const psize = (width * ((100.0 - this.paneSize) / 100.0)) - (scrollWidth) - (cgb_margin)
-            extra = (-1 * (target - psize)) + ((target - psize) % (cgb_width + cgb_margin)) + (psize % (cgb_width + cgb_margin))
+            const max_cont_width = el.offsetWidth - 163 - scroll_width - (cgb_margin)
+            const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 14
+            const content_width_percent = (max_cont_width - extra_width) / el.offsetWidth
+            const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
+            this.paneSizeOffSet =(offset_size)
           }
+        } else {
+          const offset = (extra / width) * 100
+          this.paneSizeOffSet = offset
         }
-        const offset = (extra / width) * 100
-        this.paneSizeOffSet = offset
       }
     },
     resize: function (size: number) {

@@ -3,8 +3,8 @@ import axios from "axios"
 
 export const SessionStore = defineStore("session", {
   state: () => ({
-    urlVue: 'http://3.130.240.169/',
-    urlRails: 'http://3.130.240.169:3000/',
+    urlVue: 'https://3.130.240.169/',
+    urlRails: 'https://3.130.240.169:3000/',
     urlS3: 'https://crystal-hair.nyc3.digitaloceanspaces.com/',
     urlS3Nail: 'https://crystal-hair-nail.nyc3.digitaloceanspaces.com/',
 
