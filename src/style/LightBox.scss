@@ -3,16 +3,16 @@
 .lightbox{
   position:absolute!important;
   width:100%;
-  pointer-events: none; 
+  pointer-events: none;
   background: none !important;
   height: 100%;
-
+}
   .resizable-component{
     pointer-events:auto;
     padding: 0;
     border: 1px solid var(--border-primary);
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(20px);
+    background: var(--lightbox-back);
+    backdrop-filter: blur(20px);
     font-weight: normal;
     z-index:2!important;
 
@@ -33,16 +33,48 @@
       }
 
       .uploader{
+        position:relative;
+        min-height: calc(100% - 32px);
         width:100%;
         max-width:100%;
-        height:100%;
-        max-height: calc(100%);
+        height: calc(100% - 32px);
         white-space: pre-wrap;
         overflow-y:auto;
 
-          button{
+        #fileSelect{
+          position:absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+          .file-upload{
+            max-width: 163px;
+          }
+
+          input::file-selector-button {
+            text-rendering: initial;
+            font-family: "ＭＳ Ｐゴシック";
+            font-weight:400;
+            color: var(--text-primary);
+            text-decoration: none;
             border:0;
-            background:none;
+            background: none;
+          }
+        }
+
+        button{
+          border:0;
+          background:none;
+        }
+
+        #textEditor{
+          position:relative;
+          min-height:80%;
+
+          .tiptap{
+            position:relative;
+            height:100%;
+          }
         }
       }
 
@@ -56,7 +88,7 @@
           max-width: 100%;
           max-height: 100%;
           width: 100%;
-          height: calc(100%);
+          height:100%;
         }
       }
 
@@ -146,7 +178,7 @@
       transform: translate(8px, -50%);
     }
   }
-}
+
 
 
 .txt{
@@ -171,18 +203,4 @@
 }
 .pdf-app.light {
   --pdf-toolbar-color: white;
-}
-
-.uploader{
-  label{
-    input::file-selector-button {
-    text-rendering: initial;
-    font-family: "ＭＳ Ｐゴシック";
-    font-weight:400;
-    color: var(--text-primary);
-    text-decoration: none;
-            border:0;
-    background: var(--background-primary);
-  }
-}
 }

@@ -4,8 +4,7 @@
   width:calc(100% - var(--size-margin));
   max-width:calc(100% - var(--size-margin));
   margin: var(--box-margin);
-  margin-top: 5px;
-  outline: $tableBorder;
+  border: $tableBorder;
   overflow:hidden;
 
   height:80px!important;
@@ -13,34 +12,34 @@
     width: 450px!important;
     max-height: 80px;
     height:80px!important;
-  } 
+  }
 }
 
 .forceGraph{
   height:148px;
   width:calc( 100% - var(--size-margin));
   margin: var(--box-margin);
-  margin-top: 1px;
   margin-left: calc(var(--box-margin));
-  outline: $tableBorder;
+  margin-bottom: 0;
+  margin-top:0;
+  border: $tableBorder;
 
-
-  div{ 
+  div{
   position:inherit;
   }
   .scene-container {
     max-width:calc(100%)!important;
     width:100%;
-  } 
+  }
   canvas{
     max-height:100%!important;
     max-width:100%!important;
   }
 }
 .fg{
-  height:calc(100%); 
+  height:calc(100%);
   *{
-    height:calc(100%); 
+    height:calc(100%);
   }
   .scene-tooltip{
     height:0px!important;

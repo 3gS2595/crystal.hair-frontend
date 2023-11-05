@@ -3,8 +3,9 @@
     class="fg"
     ref="fgRef"
     :graphData="JsonData"
-    backgroundColor="rgba(255,255,255,0)"
-    linkOpacity="0.7"
+    :backgroundColor=bgColor
+    :linkOpacity= lineOpacity
+    :nodeOpacity= nodeOpacity
     :showNavInfo=bool
     :linkWidth=lineWidth
     :onNodeDragEnd="
@@ -21,10 +22,14 @@
 import { ref, watch, onMounted } from 'vue'
 import { VueForceGraph3D } from 'vue-force-graph';
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
+import { GlobalStore } from '@/store/GlobalStore'
+const store = GlobalStore()
+
 const color = ref("green")
 const bool = false
-const lineWidth = 2
-const aplhaDecay = 228
+const lineWidth = ref(1)
+const lineOpacity = ref(0.7)
+const nodeOpacity = ref(0.9)
 const fgRef = ref();
 const props = withDefaults(defineProps<{
   propKernals: any[],
@@ -40,12 +45,51 @@ watch(
   }
 )
 
+const bgSet = () => {
+  if(store.darkMode === false){
+    nodeOpacity.value = 1.0
+    lineOpacity.value = 1.0
+    lineWidth.value = 5
+    return "rgba(0,0,0,0)"
+  } else {
+    nodeOpacity.value = 0.9
+    lineOpacity.value = 0.7
+    lineWidth.value = 3
+    return "#000"
+  }
+}
+const bgColor = ref(bgSet())
+watch(
+  () => store.darkMode,
+  () => {
+    bgColor.value = bgSet()
+    setData(props.propKernals)
+  }
+)
+
+
 let nodeData = ""
 let linkData = ""
 let JsonData = ref()
 let loaded = ref(false)
 const setData = (propKernals) => {
   try {
+    let linkC = "#c2c249f8"
+    let mixtapeC = "blue"
+    let imgC = "orange"
+    let pdfC = "white"
+    let siteC = "pink"
+    let nodeC = "#aae574"
+
+    if (store.darkMode === false) {
+      linkC = "black"
+      mixtapeC = "black"
+      imgC = "black"
+      pdfC = "black"
+      siteC = "black"
+      nodeC = "black"
+
+    }
     const ids = []
     const kId = []
     const mId = []
@@ -61,7 +105,7 @@ const setData = (propKernals) => {
           if (!mId.includes(i.id)){
             mId.push(i.id)
           }
-          linkData = linkData + "{ \"source\": \"" + i.id + "\", \"target\": \"" + n + "\", \"color\":\"#c2c249f8\"}, "
+          linkData = linkData + "{ \"source\": \"" + i.id + "\", \"target\": \"" + n + "\", \"color\":\"" + linkC + "\"}, "
         }
       }
     }
@@ -71,19 +115,19 @@ const setData = (propKernals) => {
     nodeData = "{ \"nodes\": ["
     for (let i of props.propMixtapes) {
       if(mId.includes(i.id)){
-        nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 20, \"color\":\"#aae574\"}, "
+        nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 4, \"color\":\"" + mixtapeC + "\"}, "
       }
     }
     for (let i of props.propKernals) {
       if (ids.includes(i.id)) {
         if(i.file_type === ".avif"){
-          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1, \"color\":\"orange\"}, "
+          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 2, \"color\":\"" + imgC + "\"}, "
         } else if(i.file_type === "link"){
-          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1, \"color\":\"pink\"}, "
+          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 2, \"color\":\"" + siteC + "\"}, "
         } else if(i.file_type === ".pdf"){
-          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1, \"color\":\"white\"}, "
+          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 2, \"color\":\"" + pdfC + "\"}, "
         } else {
-          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 1, \"color\":\"#aae574\"}, "
+          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 2, \"color\":\"" + nodeC + "\"}, "
         }
       }
     }
@@ -95,19 +139,16 @@ const setData = (propKernals) => {
       loaded = true
     }
     setTimeout (() => {
-      fgRef.value.zoomToFit(76)
+      fgRef.value.zoomToFit(200)
     }, 800)
   } catch (e) {
     console.error(e)
   }
 }
+
+
 onMounted(() => {
-  const bloomPass = new UnrealBloomPass()
-  bloomPass.strength = 0.2
-  bloomPass.radius = 0.5
-  bloomPass.threshold = 0.1
-  fgRef.value.postProcessingComposer().addPass(bloomPass)
-  setData(props.propKernals)
+   setData(props.propKernals)
 })
 
 </script>

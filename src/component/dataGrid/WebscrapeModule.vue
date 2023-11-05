@@ -6,9 +6,7 @@
           <div class="dgb-0-txt">
             <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ slotProps.data.name }}</a>
 
-
-            <a class='descr' style="float:left;">{{ convertDate(slotProps.data.updated_at) }}</a>
-            <a class='descr' style="float:right;">{{ blockCnt(slotProps.data.content) }} kernals</a>
+            <a class='descr' style="float:left;">{{ convertDate(slotProps.data.time_last_scrape) }}</a>
           </div>
         </div>
       </template>
@@ -29,18 +27,19 @@ const store = GlobalStore()
 const pageNumber = ref<number>(2)
 
 const props = withDefaults(defineProps<{
-  contentData: PropType<mixtapeType[]>,
+  header: string,
+  contentData: PropType<hypertextType[]>,
   id: number
 }> (), {
   contentData: []
 })
 
 const search = (e) => {
-  store.setFilter('')
-  if(JSON.stringify(store.mixtape) === JSON.stringify(e)) {
-    store.setMixtape('')
+  store.setMixtape('')
+  if(JSON.stringify(store.filter) === JSON.stringify(e)) {
+    store.setFilter('')
   }else {
-    store.setMixtape(e)
+    store.setFilter(e)
   }
 }
 const convertDate = (datetime) => {
@@ -64,7 +63,7 @@ watch(
 
 // infinite scrollling intersectionObserver
 const fetchPage = async () => {
-  ApiStore().fetchMixtapes(pageNumber.value)
+  ApiStore().fetchHypertexts(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
 }
 const intersecting = (event) => {

@@ -1,7 +1,7 @@
 <template>
   <div class="contentView">
 
-    <div id="tabAdd" class= "tab">
+    <div id="tabAdd" @click="toggleUploadBox()" class= "tab">
       <a>+</a>
     </div>
     <div id="tabInfo" class= "tab">

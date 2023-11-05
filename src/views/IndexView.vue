@@ -34,11 +34,20 @@
 
         <splitpanes class="data_pane" :horizontal="true">
           <pane :size="60" class="mixtape-pane">
-            <MixtapeModule
-              header = "mixtapes"
-              :contentData="mixtapes"
-              :id="0"
-            />
+            <TabView>
+              <TabPanel header="mixtapes">
+                <MixtapeModule
+                  :contentData="mixtapes"
+                  :id="0"
+                />
+              </TabPanel>
+              <TabPanel header="webscrapes">
+                <WebscrapeModule
+                  :contentData="hypertexts"
+                  :id="1"
+                />
+              </TabPanel>
+            </TabView>
           </pane>
         </splitpanes>
 
@@ -49,7 +58,7 @@
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
         <ContentModule
           :contentData="kernals"
-          :id="1"
+          :id="2"
         />
       </pane>
     </splitpanes>
@@ -61,6 +70,8 @@ import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
 import { darkToggle, darkSet } from '@/lib/DarkMode'
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
 
 import DropDown from '@/component/menuDropDown/DropDown.vue'
 import ForceGraph from '@/component/three/ForceGraph.vue'
@@ -68,6 +79,7 @@ import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/dataGrid/ContentModule.vue'
 import DataModule from '@/component/dataGrid/DataModule.vue'
 import MixtapeModule from '@/component/dataGrid/MixtapeModule.vue'
+import WebscrapeModule from '@/component/dataGrid/WebscrapeModule.vue'
 import LightBox from '@/component/lightBox/viewer/LightBox.vue'
 import UploadBox from '@/component/lightBox/uploader/UploadBox.vue'
 
@@ -85,7 +97,10 @@ export default defineComponent({
     LightBox,
     UploadBox,
     DropDown,
-    ThreeMain
+    ThreeMain,
+    TabView,
+    TabPanel,
+    WebscrapeModule
   },
   data () {
     return {
@@ -172,11 +187,14 @@ export default defineComponent({
           if (window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
             extra = extra + cgb_width + cgb_margin
           } else {
-            const max_cont_width = el.offsetWidth - 163 - scroll_width - (cgb_margin)
+            const max_cont_width = el.offsetWidth - 200 - scroll_width - (cgb_margin)
             const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 14
-            const content_width_percent = (max_cont_width - extra_width) / el.offsetWidth
+            const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
+            console.log(Math.trunc(tt))
+            const content_width_percent = (max_cont_width) / el.offsetWidth
             const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
             this.paneSizeOffSet =(offset_size)
+            store.setCgbWidthSized(store.cgbWidth + (extra_width / Math.trunc(tt)))
           }
         } else {
           const offset = (extra / width) * 100

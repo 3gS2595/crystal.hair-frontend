@@ -36,7 +36,7 @@
 }
 
 .contentView{
-  height:calc(100% );
+  height:calc(100%);
   width:calc(100%);
 
   .p-dataview{
@@ -80,8 +80,8 @@
         margin-right: var(--box-margin);
         margin-bottom: var(--box-margin);
         width: calc(100% - var(--box-margin));
-        height:calc(100% - var(--size-margin));
-        max-height:100%;
+        height: calc(100% - var(--size-margin));
+        max-height: calc(100% - var(--size-margin));
         overflow-y:scroll;
         justify-content: flex-start;
         align-content: flex-start;
@@ -107,10 +107,10 @@
             .cgb-0-img {
               width: 100%;
               z-index: 0;
+              border-bottom: $cardBorder;
             }
             .cgb-0-info{
               width: 100%;
-              border-top: $cardBorder;
               overflow:hidden;
               white-space: nowrap;
             }
@@ -130,7 +130,7 @@
               white-space: pre-wrap;
 
               a{
-                color: var(--text-data);
+                color: var(--text-primary);
               }
             }
 

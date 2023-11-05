@@ -3,11 +3,15 @@ import { ref } from 'vue'
 
 export const GlobalStore = defineStore('counter', () => {
 
+  // dark mode
+  const darkMode = ref<boolean>(true)
+
   // viewer box display toggles/ index/ block sizes
   const uploadBoxView = ref<boolean>(false)
   const lightBoxView = ref<boolean>(false)
   const lightBoxIndex = ref(-1)
   const cgbWidth = ref<number>(120)
+  const cgbWidthSized = ref<number>(120)
 
   // result filters
   const filter = ref<string>('')
@@ -41,35 +45,41 @@ export const GlobalStore = defineStore('counter', () => {
   function setMixtape (newMixtape: string) {
     mixtape.value = newMixtape
   }
+  function setDarkMode (newDarkMode: boolean) {
+    darkMode.value = newDarkMode
+  }
   function setCgbWidth (newCgbWidth: number) {
     cgbWidth.value = newCgbWidth
+  }
+  function setCgbWidthSized (newCgbWidthSized: number) {
+    cgbWidthSized.value = newCgbWidthSized
     const cgbHeightRatio = 1.2896666
     const style = document.createElement('style')
     style.innerText = ''
       + '.cgb-loading{'
-      + 'max-height:' + newCgbWidth * cgbHeightRatio + 'px!important;'
-      + 'max-width:' + newCgbWidth + 'px!important;'
-      + 'min-width:' + newCgbWidth + 'px!important;'
+      + 'max-height:' + newCgbWidthSized * cgbHeightRatio + 'px!important;'
+      + 'max-width:' + newCgbWidthSized + 'px!important;'
+      + 'min-width:' + newCgbWidthSized + 'px!important;'
       + '}'
       + '.cgb-loading .cgb-0-img{'
-      + 'height:' + (newCgbWidth * cgbHeightRatio - 25) + 'px!important;'
+      + 'height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
       + '}'
       + '.cgb-loaded{'
-      + 'max-height:' + newCgbWidth *cgbHeightRatio + 'px!important;'
-      + 'max-width:' + newCgbWidth + 'px!important;'
-      + 'min-width:' + newCgbWidth + 'px!important;'
+      + 'max-height:' + newCgbWidthSized *cgbHeightRatio + 'px!important;'
+      + 'max-width:' + newCgbWidthSized + 'px!important;'
+      + 'min-width:' + newCgbWidthSized + 'px!important;'
       + '}'
       + '.cgb-0-img{'
-      + 'max-height:' + (newCgbWidth * cgbHeightRatio - 25) + 'px!important;'
+      + 'max-height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
       + '}'
       + '.cgb-0-txt{'
-      + 'max-height:' + (newCgbWidth * cgbHeightRatio - 25) + 'px!important;'
+      + 'max-height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
       + '}'
       + '.cgb-0-info{'
       + 'height:' +  12 + 'px!important;'
       + '}'
       + '.cgb-0{'
-      + 'max-height:' + (newCgbWidth * cgbHeightRatio) + 'px!important;'
+      + 'max-height:' + (newCgbWidthSized * cgbHeightRatio) + 'px!important;'
       + '}'
     document.head.appendChild(style)
   }
@@ -79,11 +89,13 @@ export const GlobalStore = defineStore('counter', () => {
     filter, setFilter,
     uploadBoxView, setUploadBoxView,
     lightBoxView, setLightBoxView,
-    lightBoxIndex, setLightBoxIndex, 
+    lightBoxIndex, setLightBoxIndex,
     sortBy, setSortBy,
     sortByValue, setSortByValue,
     sortByOrder, setSortByOrder,
     mixtape, setMixtape,
-    cgbWidth, setCgbWidth
+    cgbWidth, setCgbWidth,
+    cgbWidthSized, setCgbWidthSized,
+    darkMode, setDarkMode
   }
 })

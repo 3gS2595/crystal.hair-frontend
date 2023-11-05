@@ -3,16 +3,16 @@
   -webkit-text-size-adjust: 100%;
 }
 *::-webkit-scrollbar-track {
-  max-width:var(--size-margin);
+  max-width:var(--box-margin);
   border-left: $tableBorder;
 }
 *::-webkit-scrollbar-thumb {
-  max-width:calc(var(--size-margin) - 3px);
+  max-width:calc(var(--box-margin) - 4px)!important;
   background-color: var(--scrollbar);
   background-clip: content-box;
 
 }
 *::-webkit-scrollbar {
-  max-width:var(--size-margin)!important;
+  max-width:var(--box-margin)!important;
   background-color: var(--background-primary);
 }

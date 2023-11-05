@@ -22,18 +22,17 @@
     >
       <div class='block'>
         <div class="uploader">
-          <label>
-            <input type="file" class="file-upload" @change="handleFileUpload( $event )"/>
+          <div class="txt">
+            <editor-content :editor="editor" id="textEditor" />
+          </div>
+          <label id="fileSelect">
+            <input v-show="editorEmpty" type="file" class="file-upload" @change="handleFileUpload( $event )"/>
           </label>
-          <br>
-          <button v-on:click="submitFile()">Submit</button>
         </div>
 
-        <div class='drag-container-2'>
-          <a
-            style='border:none; background-color:rgba(0, 0, 0, 0.0); padding:0px; margin:0px;'
-            @click='close'
-            >exit</a>
+        <div class='drag-container-1'>
+         <a class='navItem' @click='close'>exit</a>
+         <a class='navItem' @click='submitFile()'>submit</a>
         </div>
 
       </div>
@@ -46,11 +45,17 @@ import type { kernalType } from '@/types/ApiTypes'
 import type { InputFileEvent } from '@/types/index'
 import type { UploadBoxState } from '@/types/index'
 
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import axios from 'axios'
 import VueResizable from 'vue-resizable'
 
+import StarterKit from '@tiptap/starter-kit'
+import Typography from '@tiptap/extension-typography'
+import { Editor, EditorContent } from '@tiptap/vue-3'
+import HardBreak from '@tiptap/extension-hard-break'
+
 import { GlobalStore } from '@/store/GlobalStore'
+import { ApiStore } from '@/store/ApiStore'
 import { SessionStore } from '@/store/SessionStore'
 
 const sessionStore = SessionStore()
@@ -59,6 +64,7 @@ export default defineComponent({
   name: 'App',
   components: {
     VueResizable,
+    EditorContent,
   },
   props: {
     viewerData: {
@@ -79,7 +85,10 @@ export default defineComponent({
       index: 9,
       store: GlobalStore(),
       sessionStore: SessionStore(),
-      file: null
+      file: null,
+      editor: null,
+      enteredText: ref(''),
+      editorEmpty: true
     }
   },
   methods: {
@@ -89,17 +98,27 @@ export default defineComponent({
       if (fileList && event) {
         this.file = fileList[0]
       }
+      this.submitFile()
     },
     submitFile(){
+      this.editorEmpty = false
+      let formData = new FormData();
       if(this.file != null){
-        let formData = new FormData();
+        formData.append('file_type', this.file.type)
         if (this.file.type.includes('pdf')) {
           formData.append('pdf', this.file)
         } else {
           formData.append('image', this.file)
         }
-        formData.append('mixtape', store.mixtape)
-        formData.append('file_type', this.file.type)
+        if(store.mixtape !== ''){
+          formData.append('mixtape', store.mixtape)
+        }
+      }
+      if(this.editor.getHTML() !== "<p></p>"){
+        formData.append('text', this.editor.getHTML())
+        formData.append('file_type', '.txt')
+      }
+      if(formData.has("file_type")){
         axios.post( sessionStore.getUrlRails + 'kernals',
           formData,
           {
@@ -110,6 +129,7 @@ export default defineComponent({
           }
         ).then(function(){
           store.setUploadBoxView(false)
+          ApiStore().mixtapeSearch()
         })
         .catch(function(){
           console.log('FAILURE!!')
@@ -141,7 +161,6 @@ export default defineComponent({
           this.height = window.innerHeight - 180
           this.left = 30
           this.top = 30
-
       }
     },
     res () {
@@ -166,7 +185,27 @@ export default defineComponent({
     close () {
       store.setUploadBoxView(false)
       window.removeEventListener('keyup', this.esc, true)
-    },
+    }
+  },
+  mounted() {
+    this.editor = new Editor({
+      extensions: [
+        StarterKit,
+        HardBreak,
+        Typography
+      ],
+      content: this.enteredText.split("\n").join("<br />"),
+      onUpdate: () => {
+        if(this.editor.getHTML() !== "<p></p>") {
+          this.editorEmpty = false
+        } else {
+          this.editorEmpty = true
+        }
+      }
+    })
+  },
+  beforeUnmount() {
+    this.editor.destroy()
   }
 })
 

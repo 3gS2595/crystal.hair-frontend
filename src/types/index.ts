@@ -10,7 +10,10 @@ export interface UploadBoxState {
   index: number,
   store: any,
   sessionStore:any,
-  file: File | null 
+  file: File | null,
+  editor: any,
+  enteredText: any,
+  editorEmpty: boolean
 }
 export interface InputFileEvent extends Event {
     target: HTMLInputElement;

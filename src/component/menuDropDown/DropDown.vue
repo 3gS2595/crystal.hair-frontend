@@ -3,7 +3,7 @@ import { ref, onMounted,watch } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
 
 const selectedOrder = ref('desc')
-const sortOrder = ['asc', 'desc'] 
+const sortOrder = ['asc', 'desc']
 
 const selectedData = ref('time_posted')
 const store = GlobalStore()
@@ -28,12 +28,12 @@ watch(
 <template>
       <select class='navItem' v-model="selectedData">
         <option v-for="key in getOptions()" :value="key">
-          ⌄ {{key}}
+          ⌄{{key}}
         </option>
       </select>
       <select class='navItem' v-model="selectedOrder">
         <option v-for="key in sortOrder"  :value="key">
-          ⌄ {{key}}
+          ⌄{{key}}
         </option>
       </select>
 </template>

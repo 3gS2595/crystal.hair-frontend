@@ -22,17 +22,17 @@
     >
       <div class='block'>
 
-        <ViewImg 
+        <ViewImg
           v-if="viewerData[store.lightBoxIndex].file_type != '.pdf' && viewerData[store.lightBoxIndex].file_type != '.txt'"
           v-model="viewerData[store.lightBoxIndex].signed_url"
         />
-        <ViewPdf 
+        <ViewPdf
           v-if="viewerData[store.lightBoxIndex].file_type == '.pdf'"
           v-model="viewerData[store.lightBoxIndex].signed_url"
         />
-        <ViewText 
+        <ViewText
           v-if="viewerData[store.lightBoxIndex].file_type == '.txt'"
-          v-model="viewerData[store.lightBoxIndex].description" 
+          v-model="viewerData[store.lightBoxIndex].description"
         />
 
         <div class='drag-container-1'>
@@ -57,9 +57,10 @@ import ViewText from './viewers/TextEditor.vue'
 import ViewPdf from './viewers/ViewPdf.vue'
 import ViewImg from './viewers/ViewImg.vue'
 import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
+
 import { GlobalStore } from '@/store/GlobalStore'
 import { SessionStore } from '@/store/SessionStore'
-
+import { ApiStore } from '@/store/ApiStore'
 const sessionStore = SessionStore()
 const store = GlobalStore()
 const lightBoxUi = ref(false)
@@ -71,14 +72,9 @@ export default defineComponent({
     ViewPdf,
     ViewImg
   },
-  props: {
-    viewerData: {
-      type: Object as PropType<kernalType[]>,
-      required: true
-    }
-  },
   data () {
     return {
+      viewerData: ApiStore().kernals,
       handlers: ['r', 'rb', 'b', 'lb', 'l', 'lt', 't', 'rt'],
       left: 50,
       top: 50,
@@ -99,11 +95,13 @@ export default defineComponent({
       }
       axios.delete( sessionStore.getUrlRails + 'kernals/' + this.viewerData[store.lightBoxIndex].id, config)
       .then(function(){
-        console.log('SUCCESS!!')
+        console.log('Deletion Successful')
+        ApiStore().mixtapeSearch()
       })
       .catch(function(){
-        console.log('FAILURE!!')
+        console.log('Deletion Failure')
       })
+      this.close()
     },
     esc (e: KeyboardEvent) {
       if(document.getElementsByClassName('tiptap')[0] != document.activeElement) {
@@ -145,7 +143,7 @@ export default defineComponent({
       window.addEventListener('orientationchange', this.orientationChange)
       window.addEventListener('keyup', this.esc, true)
       const identifiers = ['rb', 'rt', 'rl', 'rr']
-      for (const id of identifiers) { 
+      for (const id of identifiers) {
         const rb = document.createElement('img')
         rb.src = id + '.png'
         rb.id = id
