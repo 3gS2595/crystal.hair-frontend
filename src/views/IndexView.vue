@@ -118,23 +118,21 @@ export default defineComponent({
     window.addEventListener('visibilitychange', this.resizeContentFit)
     window.addEventListener('orientationchange', this.resizeContentFit)
     window.addEventListener('resize', this.resizeContentFit)
+
     const store = GlobalStore()
     store.setCgbWidth(store.cgbWidth)
+    this.resizeContentFit()
+
     ApiStore().initialize().then(async () => {
       this.dataReturned = true
-      this.resizeContentFit()
     })
 
-    this.resizeContentFit()
     //load animation removal
     setTimeout (() => {
       var style = document.createElement('style')
       style.innerText = '*{animation-duration:0s; }'
       document.head.appendChild(style)
-      this.resizeContentFit()
     }, 1500)
-
-
   },
   unmounted () {
     window.removeEventListener('orientationchange', this.resizeContentFit, true)
@@ -171,37 +169,33 @@ export default defineComponent({
     resizeContentFit: function () {
       //site width
       const store = GlobalStore()
-      const el = document.getElementById('contentMain')
+      const el = document.getElementById('app')
       const cgb_width = store.cgbWidth
       const cgb = document.querySelector('.cgb-0')
-      let cgb_margin = 6
-      let scroll_width = 6
+      let cgb_margin = 4
+      let scroll_width = 8
       if (cgb != null) {
         const width  = window.getComputedStyle(cgb).marginLeft
         cgb_margin = Number(width.substring(0, width.length - 2))
         scroll_width = cgb_margin * 2
       }
 
-      if (this.paneSize !== 100 && this.paneSize !== 0 && el != null) {
-        const width = el.offsetWidth
-        let extra = ((width * ((100.0 - this.paneSize) / 100.0)) - scroll_width) % (cgb_width + cgb_margin)
+      if ( el != null) {
 
-        if (this.paneSize === 30){
-          if (window.innerWidth < 400 && (window.innerHeight > window.innerWidth)){
-            extra = extra + cgb_width + cgb_margin
-          } else {
+        if (this.paneSize === 30 ){
             const max_cont_width = el.offsetWidth - 200 - scroll_width - (cgb_margin)
             const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 14
             const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
-            console.log(Math.trunc(tt))
             const content_width_percent = (max_cont_width) / el.offsetWidth
             const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
             this.paneSizeOffSet =(offset_size)
             store.setCgbWidthSized(store.cgbWidth + (extra_width / Math.trunc(tt)))
-          }
-        } else {
-          const offset = (extra / width) * 100
-          this.paneSizeOffSet = offset
+        }
+        if (this.paneSize === 0 ){
+            const max_cont_width = el.offsetWidth - scroll_width - (cgb_margin)
+            const extra_width = max_cont_width % (cgb_width + (cgb_margin))
+            const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
+            store.setCgbWidthSized(store.cgbWidth + (extra_width / Math.trunc(tt)))
         }
       }
     },

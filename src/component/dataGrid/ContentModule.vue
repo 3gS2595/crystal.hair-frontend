@@ -1,16 +1,13 @@
 <template>
   <DataView class="contentView" :value="props.contentData" layout="grid" >
     <template #grid="slotProps">
+      <div class="cgb-0" v-on:click="toggleLightBox(slotProps.index)">
 
-      <div class="cgb-0" v-if="slotProps.data.file_type === '.txt'" @click="toggleLightBox(slotProps.index)">
-        <div class="cgb-0-txt">
-          <a class ="text">{{ slotProps.data.description }}</a>
+        <div class="cgb-0-txt" v-if="slotProps.data.file_type === '.txt'">
+          <a>{{ slotProps.data.description }}</a>
         </div>
-        <div class="cgb-0-info">{{ slotProps.data.author }}</div>
-      </div>
 
-      <div class="cgb-0" v-else v-on:click="toggleLightBox(slotProps.index)">
-        <vue-load-image>
+        <vue-load-image v-else >
           <template v-slot:image>
             <img :src="`${slotProps.data.signed_url_nail}`"/>
           </template>
@@ -18,12 +15,13 @@
             <div class="loading"/>
           </template>
           <template v-slot:error>
-            <div/>
+            <div>(FATAL ERROR)</div>
           </template>
         </vue-load-image>
-        <div class="cgb-0-info">{{ slotProps.data.url }}</div>
-      </div>
 
+        <div class="cgb-0-info">{{ slotProps.data.url }}</div>
+
+      </div>
     </template>
   </DataView>
 </template>
@@ -62,13 +60,13 @@
     store.setLightBoxIndex(ind)
   }
 
-  // INFINITE SCROLL METHODS
   const fetchPage = async () => {
     observer.disconnect()
     ApiStore().fetchKernals(pageNumber.value)
     pageNumber.value = pageNumber.value + 1
   }
 
+// INFINITE SCROLL METHODS
   const intersecting = (event) => {
     for (const e of event){
       if (e.isIntersecting) {

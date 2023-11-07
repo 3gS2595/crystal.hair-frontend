@@ -62,7 +62,6 @@ export const GlobalStore = defineStore('counter', () => {
       + 'min-width:' + newCgbWidthSized + 'px!important;'
       + '}'
       + '.cgb-0 .vue-load-image{'
-      + 'height: fit-content!important;'
       + 'max-height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
       + '}'
       + '.cgb-0 .vue-load-image .loading{'
