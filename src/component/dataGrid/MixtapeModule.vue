@@ -2,11 +2,9 @@
   <div class="mixtapeView">
     <DataView class='dg-0' :value="props.contentData" :layout="list" >
       <template #list="slotProps">
-        <div  @click="search(slotProps.data.id)" class="dgb-0">
+        <div @click="search(slotProps.data.id)" class="dgb-0">
           <div class="dgb-0-txt">
             <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ slotProps.data.name }}</a>
-
-
             <a class='descr' style="float:left;">{{ convertDate(slotProps.data.updated_at) }}</a>
             <a class='descr' style="float:right;">{{ blockCnt(slotProps.data.content) }} kernals</a>
           </div>
@@ -25,15 +23,22 @@ import VanillaTilt from 'vanilla-tilt'
 import { GlobalStore } from '@/store/GlobalStore'
 import { ApiStore } from '@/store/ApiStore'
 
-const store = GlobalStore()
 const pageNumber = ref<number>(2)
-
+const store = GlobalStore()
 const props = withDefaults(defineProps<{
   contentData: PropType<mixtapeType[]>,
   id: number
 }> (), {
   contentData: []
 })
+watch(
+  () => props.contentData,
+  () => {
+    if(props.contentData.length < store.pageSize -1 ){
+      pageNumber.value = 2
+    }
+  }
+)
 
 const search = (e) => {
   store.setFilter('')
@@ -53,14 +58,6 @@ const blockCnt = (datetime) => {
   }
   return null
 }
-watch(
-  () => props.contentData,
-  () => {
-    if(props.contentData.length < store.pageSize -1 ){
-      pageNumber.value = 2
-    }
-  }
-)
 
 // infinite scrollling intersectionObserver
 const fetchPage = async () => {
@@ -77,7 +74,6 @@ const intersecting = (event) => {
     axis: "x",
     "reset-to-start": true,
   })
-  console.log(document.querySelectorAll(".dgb-0"))
   for (const e of event){
     if (e.isIntersecting) {
       observer.disconnect()

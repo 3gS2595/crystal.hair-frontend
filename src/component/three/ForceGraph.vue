@@ -7,6 +7,7 @@
     :linkOpacity= lineOpacity
     :nodeOpacity= nodeOpacity
     :showNavInfo=bool
+    nodeResolution=1
     :linkWidth=lineWidth
     :onNodeDragEnd="
       (node) => {
@@ -47,9 +48,9 @@ watch(
 
 const bgSet = () => {
   if(store.darkMode === false){
-    nodeOpacity.value = 1.0
-    lineOpacity.value = 1.0
-    lineWidth.value = 5
+    nodeOpacity.value = 0.9
+    lineOpacity.value = 0.7
+    lineWidth.value = 3
     return "rgba(0,0,0,0)"
   } else {
     nodeOpacity.value = 0.9
@@ -82,13 +83,12 @@ const setData = (propKernals) => {
     let nodeC = "#aae574"
 
     if (store.darkMode === false) {
-      linkC = "black"
-      mixtapeC = "black"
-      imgC = "black"
-      pdfC = "black"
+      linkC = "#5c5266"
+      mixtapeC = "#cba64e"
+      imgC = "#61262c"
+      pdfC = "#777747"
       siteC = "black"
       nodeC = "black"
-
     }
     const ids = []
     const kId = []

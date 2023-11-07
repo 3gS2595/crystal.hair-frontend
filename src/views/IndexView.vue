@@ -14,9 +14,9 @@
         <div class='nav'>
           <nav id='nav'>
             <div class='toggles'>
-              <a class='navItem' @click="logout">&#9736;</a>
+              <a class='navItem' @click="logout">🔒&#xFE0E;</a>
               <a class='navItem' @click="darkToggle">Ͼ</a>
-              <a class='navItem' @click="reset">X</a>
+              <a class='navItem' @click="reset">&#8962;</a>
               <a class='navItem' @click="cgbMinus">-</a>
               <a class='navItem' @click="cgbPlus">+</a>
             </div>
@@ -77,7 +77,6 @@ import DropDown from '@/component/menuDropDown/DropDown.vue'
 import ForceGraph from '@/component/three/ForceGraph.vue'
 import ThreeMain from '@/component/three/ThreeMain.vue'
 import ContentModule from '@/component/dataGrid/ContentModule.vue'
-import DataModule from '@/component/dataGrid/DataModule.vue'
 import MixtapeModule from '@/component/dataGrid/MixtapeModule.vue'
 import WebscrapeModule from '@/component/dataGrid/WebscrapeModule.vue'
 import LightBox from '@/component/lightBox/viewer/LightBox.vue'
@@ -91,7 +90,6 @@ export default defineComponent({
     Splitpanes,
     Pane,
     ContentModule,
-    DataModule,
     MixtapeModule,
     ForceGraph,
     LightBox,
@@ -122,17 +120,21 @@ export default defineComponent({
     window.addEventListener('resize', this.resizeContentFit)
     const store = GlobalStore()
     store.setCgbWidth(store.cgbWidth)
-    this.resizeContentFit()
     ApiStore().initialize().then(async () => {
       this.dataReturned = true
+      this.resizeContentFit()
     })
 
+    this.resizeContentFit()
     //load animation removal
     setTimeout (() => {
       var style = document.createElement('style')
       style.innerText = '*{animation-duration:0s; }'
       document.head.appendChild(style)
+      this.resizeContentFit()
     }, 1500)
+
+
   },
   unmounted () {
     window.removeEventListener('orientationchange', this.resizeContentFit, true)
@@ -155,6 +157,7 @@ export default defineComponent({
       const store = GlobalStore()
       store.setCgbWidth(store.cgbWidth - 25)
       this.resizeContentFit()
+      // window.open('http://3.130.240.169', '_blank', 'toolbar=0,location=0,menubar=0')
     },
     search: function (e: string) {
       const store = GlobalStore()

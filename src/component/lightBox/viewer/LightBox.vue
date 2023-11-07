@@ -36,10 +36,10 @@
         />
 
         <div class='drag-container-1'>
-          <a class='navItem' @click='prev' v-if="store.lightBoxIndex != 0">prev</a>
-          <a class='navItem' @click='close'>exit</a>
-          <a class='navItem' @click='deleteBlock'>delete</a>
-          <a class='navItem' @click='next' v-if="store.lightBoxIndex != viewerData.length - 1">next</a>
+          <a class='navItem' style="margin-top:-.5px;" @click='deleteBlock'>🗑</a>
+          <a class='navItem' style="margin-top:4px;" @click='close'>✕</a>
+          <a class='navItem' style="margin-top:3px;" @click='prev' v-if="store.lightBoxIndex != 0">←</a>
+          <a class='navItem' style="margin-top:3px;" @click='next' v-if="store.lightBoxIndex != viewerData.length - 1">→</a>
         </div>
 
       </div>

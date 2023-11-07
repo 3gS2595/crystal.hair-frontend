@@ -28,12 +28,12 @@ watch(
 <template>
       <select class='navItem' v-model="selectedData">
         <option v-for="key in getOptions()" :value="key">
-          ⌄{{key}}
+          ⇓ sort
         </option>
       </select>
       <select class='navItem' v-model="selectedOrder">
         <option v-for="key in sortOrder"  :value="key">
-          ⌄{{key}}
+          ⇓ {{key}}
         </option>
       </select>
 </template>

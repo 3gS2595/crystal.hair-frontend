@@ -1,193 +1,101 @@
 <template>
-  <div class="contentView">
+  <DataView class="contentView" :value="props.contentData" layout="grid" >
+    <template #grid="slotProps">
 
-    <div id="tabAdd" @click="toggleUploadBox()" class= "tab">
-      <a>+</a>
-    </div>
-    <div id="tabInfo" class= "tab">
-      <a>?</a>
-    </div>
-
-    <DataView :value="props.contentData" :layout="layout" >
-
-      <template #list="slotProps">
-        <div class="clb-0">
-          <div v-if="slotProps.data.file_type === '.txt'">
-              <div class="clb-0-txt">
-                <a>{{ slotProps.data.description }}</a>
-              </div>
-            </div>
-          <div v-else >
-            <vue-load-image>
-              <template v-slot:image>
-                <img class="clb-0-img" :src="`${slotProps.data.signed_url}`"/>
-              </template>
-              <template v-slot:preloader>
-                <img class="clb-0-img" src="`${slotProps.data.signed_url_nail}`"/>
-              </template>
-              <template v-slot:error>
-                <img class="clb-0-img" src="`${slotProps.data.signed_url_nail}`"/>
-              </template>
-            </vue-load-image>
-          </div>
-          <span class="flex align-items-left gap-2">
-            <span>{{ slotProps.data.created_at }}</span>
-          </span>
+      <div class="cgb-0" v-if="slotProps.data.file_type === '.txt'" @click="toggleLightBox(slotProps.index)">
+        <div class="cgb-0-txt">
+          <a class ="text">{{ slotProps.data.description }}</a>
         </div>
-      </template>
+        <div class="cgb-0-info">{{ slotProps.data.author }}</div>
+      </div>
 
-      <template #grid="slotProps">
-        <div class="cgb-0" id="contentBlock">
+      <div class="cgb-0" v-else v-on:click="toggleLightBox(slotProps.index)">
+        <vue-load-image>
+          <template v-slot:image>
+            <img :src="`${slotProps.data.signed_url_nail}`"/>
+          </template>
+          <template v-slot:preloader>
+            <div class="loading"/>
+          </template>
+          <template v-slot:error>
+            <div/>
+          </template>
+        </vue-load-image>
+        <div class="cgb-0-info">{{ slotProps.data.url }}</div>
+      </div>
 
-          <div v-if="slotProps.data.file_type === '.txt'">
-            <div class='cgb-loaded'>
-              <div class="cgb-0-txt">
-                <a class ="text" @click="toggleLightBox(slotProps.index)">{{ slotProps.data.description }}</a>
-              </div>
-              <div class="cgb-0-info" style="margin-top:7px;">
-                <div class="file_path" style="font-size:10px;">
-                  {{ convertDate(slotProps.data.time_posted) }}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div v-else >
-            <vue-load-image>
-              <template v-slot:image>
-                <div class='cgb-loaded'>
-                  <img
-                    class="cgb-0-img"
-                    :src="`${slotProps.data.signed_url_nail}`"
-                    v-on:click="toggleLightBox(slotProps.index)"
-                  />
-                  <div class="cgb-0-info">
-                    <div class="file_path" style="font-size:11px;">
-                      {{ convertDate(slotProps.data.time_posted) }}
-                    </div>
-                  </div>
-                </div>
-              </template>
-
-              <template v-slot:preloader>
-                <div class ='cgb-loading' >
-                  <div
-                    class="cgb-0-img"
-                    v-on:click="toggleLightBox(slotProps.index)"
-                  />
-                  <div class="cgb-0-info">
-                    <div class="file_path" style="font-size:11px;">
-                      {{ convertDate(slotProps.data.time_posted) }}
-                    </div>
-                  </div>
-                </div>
-              </template>
-
-              <template v-slot:error>
-                <div class ='cgb-loading' >
-                  <div
-                    class="cgb-0-img"
-                    v-on:click="toggleLightBox(slotProps.index)"
-                  />
-                  <div class="cgb-0-info">
-                    <div class="file_path" style="font-size:11px;">
-                      N/A IMAGE LOAD FAILED
-                    </div>
-                  </div>
-                </div>
-              </template>
-            </vue-load-image>
-          </div>
-
-        </div>
-      </template>
-
-    </DataView>
-  </div>
+    </template>
+  </DataView>
 </template>
 
 <script setup lang="ts">
-import type { InputFileEvent } from '@/types/index'
-import type { kernalType } from '@/types/ApiTypes'
-import { ref, watch, onMounted } from 'vue'
-import { ApiStore } from '@/store/ApiStore'
-import { GlobalStore } from '@/store/GlobalStore'
-import DataView from 'primevue/dataview'
-import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
-import VueLoadImage from 'vue-load-image'
+  import { ref, watch, onMounted } from 'vue'
+  import DataView from 'primevue/dataview'
 
-const store = GlobalStore()
-const pageNumber = ref<number>(2)
-const layout = ref('grid')
-const props = withDefaults(defineProps<{
-  contentData: PropType<kernalType[]>,
-  id: number
-}>(), {
-  contentData: [],
-  id:-1
-})
+  import type { kernalType } from '@/types/ApiTypes'
+  import { ApiStore } from '@/store/ApiStore'
+  import { GlobalStore } from '@/store/GlobalStore'
+  import VueLoadImage from 'vue-load-image'
 
-const toggleUploadBox = () => {
-  store.setUploadBoxView(!store.uploadBoxView)
-}
-const toggleLightBox = (ind) => {
-  if (store.lightBoxIndex === -1) {
-    store.setLightBoxView(!store.lightBoxView)
+  const pageNumber = ref<number>(2)
+  const store = GlobalStore()
+  const props = withDefaults(defineProps<{
+    contentData: PropType<kernalType[]>,
+    id: number
+  }>(), {
+    contentData: [],
+    id:-1
+  })
+  watch(
+    () => props.contentData,
+    () => {
+      if (props.contentData.length < store.pageSize  ) {
+        pageNumber.value = 2
+      }
+    }
+  )
+
+  const toggleLightBox = (ind) => {
+    if (store.lightBoxIndex === -1) {
+      store.setLightBoxView(!store.lightBoxView)
+    }
+    store.setLightBoxIndex(ind)
   }
-  store.setLightBoxIndex(ind)
-}
-const convertDate = (datetime) => {
-const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
-return (new Date(datetime).toString().substring(4,11))
-}
-const getMixtape = (id) => {
-  console.log(ApiStore().forceGraph.length)
-  const mixtapes = ApiStore().mixtapes
-  let ret = ApiStore().forceGraph.length
-  for (const mix of mixtapes) {
-    if (mix.id === store.mixtape)
-      return mix.name + " " + ret
+
+  // INFINITE SCROLL METHODS
+  const fetchPage = async () => {
+    observer.disconnect()
+    ApiStore().fetchKernals(pageNumber.value)
+    pageNumber.value = pageNumber.value + 1
   }
-  return ret
-}
-watch(
-  () => props.contentData,
-  () => {
-    if (props.contentData.length < store.pageSize  ) {
-      pageNumber.value = 2
+
+  const intersecting = (event) => {
+    for (const e of event){
+      if (e.isIntersecting) {
+        observer.disconnect()
+        fetchPage()
+      }
     }
   }
-)
 
-// infinite scrollling intersectionObserver
-const fetchPage = async () => {
-  observer.disconnect()
-  ApiStore().fetchKernals(pageNumber.value)
-  pageNumber.value = pageNumber.value + 1
-}
-const intersecting = (event) => {
-  for (const e of event){
-    if (e.isIntersecting) {
-      observer.disconnect()
-      fetchPage()
+  const watchIntersect = () =>{
+    observer.disconnect()
+    for (let i = 1; i < 5; i++) {
+      const el = document.getElementsByClassName("cgb-0")[(pageNumber.value - 1) * store.pageSize - (5 * i)]
+      if (el){
+        observer.observe(el)
+      }
     }
   }
-}
-const watchIntersect = () =>{
-  observer.disconnect()
-  for (let i = 1; i < 5; i++) {
-    const el = document.getElementsByClassName("cgb-0")[(pageNumber.value-1)*store.pageSize-(5*i)]
-    if (el){
-      observer.observe(el)
+
+  const config = {root: document.getElementsByClassName("p-grid")[props.id], threshold: 0.5}
+  const observer = new IntersectionObserver(intersecting, config);
+  onMounted(() => {
+    const targetNode = document.getElementsByClassName("p-grid")[props.id]
+    if (typeof(targetNode) == "object"){
+      new MutationObserver(watchIntersect).observe(targetNode, {
+        childList: true
+      })
     }
-  }
-}
-const config = { root: document.getElementsByClassName("p-grid")[props.id], threshold: 0.5 }
-const observer = new IntersectionObserver(intersecting, config);
-onMounted(() => {
-  const targetNode = document.getElementsByClassName("p-grid")[props.id]
-  if (typeof(targetNode) == "object"){
-    new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
-  }
-})
+  })
 </script>

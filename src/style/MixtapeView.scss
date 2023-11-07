@@ -31,6 +31,7 @@
           max-height:calc(100% );
           overflow-y:auto;
           overflow-x:hidden;
+          padding-top: var(--box-margin);
 
           .dgb-0:last-child{
             margin-bottom:40px;
@@ -113,6 +114,7 @@
     width: 100%;
     margin:0;
     padding: var(--box-margin);
+    padding-bottom: var(--size-margin);
     transition: box-shadow 0.2s;
     .p-tabview-title{
       color: var(--text-menu);

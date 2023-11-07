@@ -34,7 +34,7 @@ html, body {
       width:100%;
       height:100%;
       .data_pane{
-        height:calc(100% - 265px - (var(--box-margin) * 4));
+        height:calc(100% - 268px - (var(--box-margin) * 4));
         width:calc(100% - var(--size-margin));
         margin:var(--box-margin)
       }
@@ -51,29 +51,33 @@ html, body {
       display: block;
 
       .toggles{
-        height:16px;
+        height:18px;
         border-bottom:1px solid var(--border-primary);
         display:flex;
         a {
-          color: var(--text-menu)
+          color: var(--text-menu);
         }
         a:link {
-          color:  var(--text-menu)
+          color: var(--text-menu);
         }
         a:visited {
-         color: var(--text-menu)
+         color: var(--text-menu);
         }
         .navItem{
           text-align: center;
           font-size:14px;
           flex-grow: 1;
-          padding-right:1px;
-          padding-left:1px;
+          width:20%;
+          padding:1px;
           border-right:1px solid var(--border-primary);
         }
         .navItem:last-child{
           border-right:0;
         }
+        .navItem:first-child{
+          margin-top: -2.3px;
+        }
+
       }
       .filters{
         display:flex;
@@ -81,8 +85,8 @@ html, body {
         height:16px;
 
         .navItem{
-          width:33%;
-          max-width:33%;
+          width:25%;
+          max-width:25%;
           flex-grow:1;
           padding-right:1px;
           padding-left:1px;

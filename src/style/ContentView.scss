@@ -39,122 +39,77 @@
   height:calc(100%);
   width:calc(100%);
 
-  .p-dataview{
+  .p-dataview-content{
     height:100%;
     width:100%;
 
-    .p-dataview-header{
-      height:18.72px;
-      border-bottom: $tableBorder;
-
-      .conten-head{
-        display: flex;
-        width:100%;
-        .p-dataview-layout-options{
-          width:auto;
-        }
-
-        .p-button-icon-only{
-          border:0;
-          background:none;
-        }
-
-        button{
-          border:0;
-          background:none;
-        }
-      }
+    *::-webkit-scrollbar-track {
+      border-left: $cardBorder;
     }
 
-    .p-dataview-content{
-      height:100%;
-      width:100%;
+    .grid{
+      border: $tableBorder;
+      margin-top: var(--box-margin);
+      margin-right: var(--box-margin);
+      margin-bottom: var(--box-margin);
+      width: calc(100% - var(--box-margin));
+      height: calc(100% - var(--size-margin));
+      max-height: calc(100% - var(--size-margin));
+      overflow-y:scroll;
+      justify-content: flex-start;
+      align-content: flex-start;
 
-      *::-webkit-scrollbar-track {
-        border-left: $cardBorder;
-      }
+      // grid
+      .cgb-0{
+        margin-top:calc(var(--box-margin));
+        margin-left:calc(var(--box-margin));
+        animation-duration: 0s!important;
+        border: $cardBorder;
+        height: fit-content;
 
-      .grid{
-        border: $tableBorder;
-        margin-top: var(--box-margin);
-        margin-right: var(--box-margin);
-        margin-bottom: var(--box-margin);
-        width: calc(100% - var(--box-margin));
-        height: calc(100% - var(--size-margin));
-        max-height: calc(100% - var(--size-margin));
-        overflow-y:scroll;
-        justify-content: flex-start;
-        align-content: flex-start;
+        *{
+          animation-name: example!important;
+          animation-duration: .16s!important;
+        }
+        .cgb-0-txt{
+          padding: var(--box-margin);
+          font-size: 14px;
+          width:100%;
+          height: 100%;
+          overflow-y:hidden;
+          overflow-x:hidden;
+          white-space: pre-wrap;
 
-        // grid
-        .cgb-0{
-          margin-top:calc(var(--box-margin));
-          margin-left:calc(var(--box-margin));
-
-          *{
-            animation-name: example!important;
-            animation-duration: .16s!important;
+          a{
+            color: var(--text-primary);
           }
-          .cgb-loading{
-            border: $cardBorder;
+        }
 
-            .cgb-0-txt{
-              width: 100%;
-              overflow-y:hidden;
-              overflow-x:hidden;
-              white-space: pre-wrap;
-            }
-            .cgb-0-img {
-              width: 100%;
-              z-index: 0;
-              border-bottom: $cardBorder;
-            }
-            .cgb-0-info{
-              width: 100%;
-              overflow:hidden;
-              white-space: nowrap;
-            }
-
+        .vue-load-image{
+          height:100%;
+          width:100%;
+          img {
+            width: 100%;
+            max-height:inherit;
+            object-fit: contain;
+            z-index: 0;
           }
-          .cgb-loaded{
-            animation-duration: 0s!important;
-            border: $cardBorder;
-
-            .cgb-0-txt{
-              padding: var(--box-margin);
-              font-size: 14px;
-              width:100%;
-              height: 100%;
-              overflow-y:hidden;
-              overflow-x:hidden;
-              white-space: pre-wrap;
-
-              a{
-                color: var(--text-primary);
-              }
-            }
-
-            .cgb-0-img {
-              width: 100%;
-              object-fit: contain;
-              z-index: 0;
-            }
-
-            .cgb-0-info{
-              border-top: $cardBorder;
-              background:var(--background-primary);
-              white-space: nowrap;
-
-              .file_path{
-                color: var(--text-data);
-                font-size:12px!important;
-                max-width:100%;
-                overflow:hidden;
-                padding-left: var(--box-margin);
-                margin: 0;
-              }
-            }
+          .loading{
+            height:146.741px;
           }
+        }
+
+        .cgb-0-info{
+          border-top: $cardBorder;
+          background:var(--background-primary);
+          white-space: nowrap;
+          color: var(--text-data);
+          font-size:12px!important;
+          max-width:100%;
+          overflow:hidden;
+          height: 12px;
+          padding-left: var(--box-margin);
+          margin: 0;
         }
       }
     }
