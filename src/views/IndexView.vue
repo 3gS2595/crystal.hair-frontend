@@ -1,7 +1,8 @@
 <template>
   <div class='contentMain' id="contentMain" >
     <LightBox v-if='store.lightBoxView' :viewerData="kernals"/>
-    <UploadBox v-if='store.uploadBoxView'/>
+    <AddContentBox v-if='store.uploadBoxView'/>
+    <AddMixtapeBox v-if='store.addMixtapeBoxView'/>
 
     <splitpanes class="default-theme"
       style="width=100%"
@@ -17,8 +18,6 @@
               <a class='navItem' @click="logout">🔒&#xFE0E;</a>
               <a class='navItem' @click="darkToggle">Ͼ</a>
               <a class='navItem' @click="reset">&#8962;</a>
-              <a class='navItem' @click="cgbMinus">-</a>
-              <a class='navItem' @click="cgbPlus">+</a>
             </div>
             <div class='filters'>
               <DropDown/>
@@ -34,20 +33,23 @@
 
         <splitpanes class="data_pane" :horizontal="true">
           <pane :size="60" class="mixtape-pane">
-            <TabView>
-              <TabPanel header="mixtapes">
-                <MixtapeModule
-                  :contentData="mixtapes"
-                  :id="0"
-                />
-              </TabPanel>
-              <TabPanel header="webscrapes">
-                <WebscrapeModule
-                  :contentData="hypertexts"
-                  :id="1"
-                />
-              </TabPanel>
-            </TabView>
+            <div>
+              <a class="tab-header" @click='tab = 1' :class="{'tab-active': tab === 1}">mixtapes</a>
+              <a class="tab-header" @click='tab = 2' :class="{'tab-active': tab === 2}">webscrapes</a>
+              <a class="tab-header" @click='toggleAddMixtapeBox()'>+</a>
+            </div>
+            <div class="tab-content" v-if='tab === 1'>
+              <MixtapeModule
+                :contentData="mixtapes"
+                :id="0"
+              />
+            </div>
+            <div class="tab-content" v-if='tab === 2'>
+              <WebscrapeModule
+                :contentData="hypertexts"
+                :id="0"
+              />
+            </div>
           </pane>
         </splitpanes>
 
@@ -56,9 +58,18 @@
         </div>
       </pane>
       <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
+
+        <div id="content-tabs">
+          <div id="slide">
+            <vue-slider v-model="store.cgbWidth"  min="0" :max="maxSliderWidth" :tooltip="'none'" @change="cgbSlide(0)" ></vue-slider>
+          </div>
+          <div id="tabAdd" @click="toggleUploadBox()" class= "tab">
+            <a>+</a>
+          </div>
+        </div>
         <ContentModule
           :contentData="kernals"
-          :id="2"
+          :id="1"
         />
       </pane>
     </splitpanes>
@@ -70,8 +81,7 @@ import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
 import { darkToggle, darkSet } from '@/lib/DarkMode'
-import TabView from 'primevue/tabview'
-import TabPanel from 'primevue/tabpanel'
+import VueSlider from 'vue-slider-component'
 
 import DropDown from '@/component/menuDropDown/DropDown.vue'
 import ForceGraph from '@/component/three/ForceGraph.vue'
@@ -80,7 +90,8 @@ import ContentModule from '@/component/dataGrid/ContentModule.vue'
 import MixtapeModule from '@/component/dataGrid/MixtapeModule.vue'
 import WebscrapeModule from '@/component/dataGrid/WebscrapeModule.vue'
 import LightBox from '@/component/lightBox/viewer/LightBox.vue'
-import UploadBox from '@/component/lightBox/uploader/UploadBox.vue'
+import AddContentBox from '@/component/lightBox/uploader/AddContent.vue'
+import AddMixtapeBox from '@/component/lightBox/uploader/AddMixtape.vue'
 
 import { ApiStore } from '@/store/ApiStore'
 import { GlobalStore } from '@/store/GlobalStore'
@@ -93,12 +104,12 @@ export default defineComponent({
     MixtapeModule,
     ForceGraph,
     LightBox,
-    UploadBox,
+    AddContentBox,
+    AddMixtapeBox,
     DropDown,
     ThreeMain,
-    TabView,
-    TabPanel,
-    WebscrapeModule
+    WebscrapeModule,
+    VueSlider
   },
   data () {
     return {
@@ -107,7 +118,9 @@ export default defineComponent({
       paneSize: 30.0,
       paneSizeOffSet: 0.0,
       store: GlobalStore(),
-      q: ''
+      maxSliderWidth: GlobalStore().cgbWidth * 2,
+      q: '',
+      tab: 1
     }
   },
   setup () {
@@ -156,6 +169,19 @@ export default defineComponent({
       store.setCgbWidth(store.cgbWidth - 25)
       this.resizeContentFit()
       // window.open('http://3.130.240.169', '_blank', 'toolbar=0,location=0,menubar=0')
+    },
+   cgbSlide(e: any) {
+      setTimeout (() => {
+        this.resizeContentFit()
+      }, 50)
+    },
+    toggleUploadBox() {
+      const store = GlobalStore()
+      store.setUploadBoxView(!store.uploadBoxView)
+    },
+    toggleAddMixtapeBox() {
+      const store = GlobalStore()
+      store.setAddMixtapeBoxView(!store.addMixtapeBoxView)
     },
     search: function (e: string) {
       const store = GlobalStore()

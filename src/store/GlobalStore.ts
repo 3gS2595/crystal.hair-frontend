@@ -12,6 +12,7 @@ export const GlobalStore = defineStore('counter', () => {
   const lightBoxIndex = ref(-1)
   const cgbWidth = ref<number>(120)
   const cgbWidthSized = ref<number>(120)
+  const addMixtapeBoxView = ref<boolean>(false)
 
   // result filters
   const filter = ref<string>('')
@@ -36,6 +37,9 @@ export const GlobalStore = defineStore('counter', () => {
   function setUploadBoxView (newUploadBoxView: boolean) {
     uploadBoxView.value = newUploadBoxView
   }
+  function setAddMixtapeBoxView (newAddMixtapeBoxView: boolean) {
+    addMixtapeBoxView.value = newAddMixtapeBoxView
+  }
   function setLightBoxView (newLightBoxView: boolean) {
     lightBoxView.value = newLightBoxView
   }
@@ -50,6 +54,7 @@ export const GlobalStore = defineStore('counter', () => {
   }
   function setCgbWidth (newCgbWidth: number) {
     cgbWidth.value = newCgbWidth
+    console.log(';asdfasdf')
   }
   function setCgbWidthSized (newCgbWidthSized: number) {
     cgbWidthSized.value = newCgbWidthSized
@@ -82,6 +87,7 @@ export const GlobalStore = defineStore('counter', () => {
     uploadBoxView, setUploadBoxView,
     lightBoxView, setLightBoxView,
     lightBoxIndex, setLightBoxIndex,
+    addMixtapeBoxView, setAddMixtapeBoxView,
     sortBy, setSortBy,
     sortByValue, setSortByValue,
     sortByOrder, setSortByOrder,

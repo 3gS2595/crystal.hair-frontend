@@ -16,6 +16,7 @@ import { darkSet } from '@/lib/DarkMode'
 
 import SessionManager from '@/component/sessionManager/SessionManager.vue'
 import { SessionStore } from "@/store/SessionStore"
+import 'vue-slider-component/theme/default.css'
 
 const sessionStore = SessionStore()
 

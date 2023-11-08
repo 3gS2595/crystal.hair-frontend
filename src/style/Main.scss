@@ -64,6 +64,8 @@ html, body {
          color: var(--text-menu);
         }
         .navItem{
+
+          cursor: pointer;
           text-align: center;
           font-size:14px;
           flex-grow: 1;
@@ -85,6 +87,7 @@ html, body {
         height:16px;
 
         .navItem{
+          cursor: pointer;
           width:25%;
           max-width:25%;
           flex-grow:1;

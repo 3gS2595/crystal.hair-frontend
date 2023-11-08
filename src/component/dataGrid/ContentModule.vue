@@ -1,4 +1,7 @@
 <template>
+
+
+
   <DataView class="contentView" :value="props.contentData" layout="grid" >
     <template #grid="slotProps">
       <div class="cgb-0" v-on:click="toggleLightBox(slotProps.index)">
@@ -24,13 +27,19 @@
       </div>
     </template>
   </DataView>
+
 </template>
 
 <script setup lang="ts">
+  import type { kernalType } from '@/types/ApiTypes'
+  import { storeToRefs } from "pinia";
+
+
+  const { cgbWidth } = storeToRefs(GlobalStore())
+
   import { ref, watch, onMounted } from 'vue'
   import DataView from 'primevue/dataview'
 
-  import type { kernalType } from '@/types/ApiTypes'
   import { ApiStore } from '@/store/ApiStore'
   import { GlobalStore } from '@/store/GlobalStore'
   import VueLoadImage from 'vue-load-image'
@@ -53,7 +62,11 @@
     }
   )
 
-  const toggleLightBox = (ind) => {
+  const toggleUploadBox = () => {
+    store.setUploadBoxView(!store.uploadBoxView)
+  }
+
+  const toggleLightBox = (ind: number) => {
     if (store.lightBoxIndex === -1) {
       store.setLightBoxView(!store.lightBoxView)
     }
