@@ -12,7 +12,7 @@ import { defineComponent, onMounted, watch } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
 
 //import { orientationChange } from '@/lib/IosOrientation'
-import { darkSet } from '@/ts/DarkMode'
+import { darkSet } from '@/lib/DarkMode'
 
 import SessionManager from '@/components/sessionManager/SessionManager.vue'
 import { SessionStore } from "@/store/SessionStore"

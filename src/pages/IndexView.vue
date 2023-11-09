@@ -75,7 +75,7 @@
 import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
-import { darkToggle, darkSet } from '@/ts/DarkMode'
+import { darkToggle, darkSet } from '@/lib/DarkMode'
 import VueSlider from 'vue-slider-component'
 
 import DropDown from '@/components/menuDropDown/DropDown.vue'
