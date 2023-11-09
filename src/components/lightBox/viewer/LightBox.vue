@@ -50,13 +50,13 @@
 <script lang='ts'>
 import type { kernalType } from '@/types/ApiTypes'
 
-import { ref, defineComponent, PropType } from 'vue'
+import { ref, defineComponent, type PropType } from 'vue'
 import VueResizable from 'vue-resizable'
 
 import ViewText from './viewers/TextEditor.vue'
 import ViewPdf from './viewers/ViewPdf.vue'
 import ViewImg from './viewers/ViewImg.vue'
-import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
+import axios, { type AxiosInstance, type CancelTokenStatic } from 'axios'
 
 import { GlobalStore } from '@/store/GlobalStore'
 import { SessionStore } from '@/store/SessionStore'

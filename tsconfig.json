@@ -1,17 +1,7 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "allowJs": true,
-    "baseUrl": ".",
+  "extends": "@vue/tsconfig/tsconfig.json",
+    "compilerOptions": {
+      "verbatimModuleSyntax": false,
     "types": [
       "webpack-env"
     ],
@@ -38,6 +28,6 @@
     "src/declaration.d.ts"
   ],
   "exclude": [
-    "node_modules"
-  ]
+    "./node_modules"
+  ]   
 }

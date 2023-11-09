@@ -1,11 +1,11 @@
 <template>
- <div class='pdf'> 
+ <div class='pdf'>
   <VuePdfApp :config="config" theme="dark" :pdf="modelValue" />
  </div>
 </template>
 
 <script lang='ts'>
-import { ref, defineComponent, PropType } from 'vue'
+import { ref, defineComponent, type PropType } from 'vue'
 import VuePdfApp from "vue3-pdf-app";
 import "vue3-pdf-app/dist/icons/main.css";
 

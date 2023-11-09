@@ -1,5 +1,5 @@
 <template>
- <div class='pdf'> 
+ <div class='pdf'>
   <vue-load-image  >
     <template v-slot:image>
       <img :src="modelValue" @load="handleLoad"/>
@@ -15,7 +15,7 @@
 </template>
 
 <script lang='ts'>
-import { ref, defineComponent, PropType } from 'vue'
+import { ref, defineComponent, type PropType } from 'vue'
 import VueLoadImage from 'vue-load-image'
 
 export default defineComponent({
@@ -25,7 +25,7 @@ export default defineComponent({
   },
   props: ['modelValue'],
   setup (props) {
-    console.log(props) 
+    console.log(props)
   }
 })
 </script>

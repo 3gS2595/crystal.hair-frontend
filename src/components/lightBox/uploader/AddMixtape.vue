@@ -41,7 +41,7 @@
 import type { InputFileEvent } from '@/types/index'
 import type { AddMixtapeBoxState } from '@/types/index'
 
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, type PropType, ref } from 'vue'
 import axios from 'axios'
 import VueResizable from 'vue-resizable'
 

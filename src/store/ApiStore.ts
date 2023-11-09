@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { watch, ref } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
 import { SessionStore } from '@/store/SessionStore'
-import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
+import axios, { type AxiosInstance, type CancelTokenStatic } from 'axios'
 
 import type {
   kernalType,
