@@ -1,4 +1,4 @@
-@import "./ThemeModes";
+@import "./Theme";
 $tableBorder: 1px solid var(--border-primary);
 $dropDownBorder: 3px solid var(--border-primary);
 
@@ -33,7 +33,7 @@ html, body {
       position:absolute;
       width:100%;
       height:100%;
-      .data_pane{
+      .mixtape-pane{
         height:calc(100% - 268px - (var(--box-margin) * 4));
         width:calc(100% - var(--size-margin));
         margin:var(--box-margin)
@@ -64,10 +64,8 @@ html, body {
          color: var(--text-menu);
         }
         .navItem{
-
           cursor: pointer;
           text-align: center;
-          font-size:14px;
           flex-grow: 1;
           width:20%;
           padding:1px;
@@ -84,12 +82,24 @@ html, body {
       .filters{
         display:flex;
         width:100%;
-        height:16px;
-
+        height:25px;
+        a {
+          color: var(--text-menu);
+          font-size:16px;
+          padding:var(--box-margin);
+        }
+        a:link {
+          color: var(--text-menu);
+        }
+        a:visited {
+         color: var(--text-menu);
+        }
         .navItem{
           cursor: pointer;
-          width:25%;
-          max-width:25%;
+          text-align: center;
+          flex-grow: 1;
+          cursor: pointer;
+          max-width:26px;
           flex-grow:1;
           padding-right:1px;
           padding-left:1px;
@@ -117,7 +127,6 @@ html, body {
         }
         input {
           width:33%;
-          max-width:33%;
           font-size:14px;
           flex-grow:1;
           border:0;
@@ -125,7 +134,7 @@ html, body {
           outline:0;
         }
         ::placeholder {
-          color: var(--text-menu)
+          color: #ffff8080
         }
       }
     }

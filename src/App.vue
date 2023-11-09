@@ -12,9 +12,9 @@ import { defineComponent, onMounted, watch } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
 
 //import { orientationChange } from '@/lib/IosOrientation'
-import { darkSet } from '@/lib/DarkMode'
+import { darkSet } from '@/ts/DarkMode'
 
-import SessionManager from '@/component/sessionManager/SessionManager.vue'
+import SessionManager from '@/components/sessionManager/SessionManager.vue'
 import { SessionStore } from "@/store/SessionStore"
 import 'vue-slider-component/theme/default.css'
 
@@ -38,15 +38,17 @@ onMounted(() => {
 </script>
 
 <style lang='scss'>
-  @import './style/Main.scss';
-  @import './style/Canvas.scss';
-  @import './style/SessionManager.scss';
-  @import './style/ContentView.scss';
-  @import './style/DataView.scss';
-  @import './style/MixtapeView.scss';
-  @import './style/SplitterPanel.scss';
-  @import './style/Font.scss';
-  @import './style/WebKit.scss';
-  @import './style/LightBox.scss';
+  @import './scss/Main.scss';
+  @import './scss/Typography.scss';
+  @import './scss/WebKit.scss';
+
+  @import './scss/components/Canvas.scss';
+  @import './scss/components/SessionManager.scss';
+  @import './scss/components/ContentView.scss';
+  @import './scss/components/DataView.scss';
+  @import './scss/components/MixtapeView.scss';
+  @import './scss/components/LightBox.scss';
+  @import './scss/components/SplitterPanel.scss';
+
   @import 'splitpanes/dist/splitpanes.css';
 </style>

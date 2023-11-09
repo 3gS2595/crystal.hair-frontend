@@ -15,6 +15,21 @@ export interface UploadBoxState {
   enteredText: any,
   editorEmpty: boolean
 }
+
+export interface AddMixtapeBoxState {
+  handlers: string[];
+  left: number,
+  top: number,
+  height: number,
+  width: number,
+  maxW: number,
+  maxH: number,
+  dragSelector: string,
+  index: number,
+  store: any,
+  sessionStore:any,
+  title: any
+}
 export interface InputFileEvent extends Event {
     target: HTMLInputElement;
 }

@@ -4,12 +4,12 @@ import { GlobalStore } from '@/store/GlobalStore'
 import { SessionStore } from '@/store/SessionStore'
 import axios, { AxiosInstance, CancelTokenStatic } from 'axios'
 
-import type { 
-  kernalType, 
-  mixtapeType, 
-  hypertextType, 
-  linkContentType, 
-  sourceUrlType 
+import type {
+  kernalType,
+  mixtapeType,
+  hypertextType,
+  linkContentType,
+  sourceUrlType
 } from '@/types/ApiTypes'
 
 const store = GlobalStore()
@@ -70,7 +70,7 @@ export const ApiStore = defineStore({
       this.kernals = []
       this.forceGraph = []
 
-      let params = '?q=' + store.filter + '&sort=' + store.sortBy 
+      let params = '?q=' + store.filter + '&sort=' + store.sortBy
       const config = {
         headers: { Authorization: sessionStore.auth_token },
         signal: controller.signal
@@ -103,7 +103,7 @@ export const ApiStore = defineStore({
     },
 
     async fetchKernals (pageNumber: number) {
-      let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy 
+      let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy
       if (store.mixtape != '') { params = params + '&mixtape=' + store.mixtape }
       const config = {
         headers: { Authorization: sessionStore.auth_token },
@@ -112,7 +112,7 @@ export const ApiStore = defineStore({
       try {
         const kernals = await axios.get(base + 'kernals'+ params +'&q=' + store.filter, config)
         this.kernals = this.kernals.concat(kernals.data)
-        if(this.kernals.length === store.pageSize){ 
+        if(this.kernals.length === store.pageSize){
           const keys: string[] = []
           for (let k in this.kernals[0]){
             if(k != 'signed_url' && k != 'signed_url_nail' && k != 'id' && k != 'file_path') {
@@ -128,7 +128,7 @@ export const ApiStore = defineStore({
     },
 
     async fetchHypertexts (pageNumber: number) {
-      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter 
+      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
       const config = {
         headers: { Authorization: sessionStore.auth_token },
         signal: controller.signal
@@ -142,7 +142,7 @@ export const ApiStore = defineStore({
     },
 
     async fetchMixtapes (pageNumber: number) {
-      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter 
+      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
       const config = {
         headers: { Authorization:  sessionStore.auth_token },
         signal: controller.signal
@@ -158,7 +158,7 @@ export const ApiStore = defineStore({
     },
 
     async fetchSourceUrls (pageNumber: number) {
-      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter 
+      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
       const config = {
         headers: { Authorization: sessionStore.auth_token },
         signal: controller.signal

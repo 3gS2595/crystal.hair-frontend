@@ -1,4 +1,4 @@
-@import "./ThemeModes";
+@import "../Theme";
 
 @keyframes example {
   from {opacity: 0;}
@@ -15,7 +15,6 @@
     box-shadow: none!important;
 }
 .vue-slider{
-
   padding:2px!important;
 }
 .vue-slider-dot-handle-focus {
@@ -40,7 +39,7 @@
     margin: var(--box-margin);
     margin-bottom:0;
     margin-right:0;
-    height:18px;
+    height:27px;
     padding: var(--box-margin);
     width:150px;
     border: $tableBorder;
@@ -55,7 +54,7 @@
     background:none;
     font-size:18px;
     right:0;
-    height:16px;
+    height:27px;
     text-align: center;
     vertical-align: middle;
     border: $tableBorder;
@@ -69,7 +68,7 @@
   #tabAdd{
     margin: var(--box-margin);
     margin-bottom:0;
-    height:18px;
+    height:27px;
   }
 }
 
@@ -127,6 +126,7 @@
           height: fit-content!important;
           width:100%;
           img {
+              filter: brightness(.84) contrast(1.2);
             width: 100%;
             max-height:inherit;
             object-fit: contain;
@@ -147,7 +147,6 @@
           overflow:hidden;
           height: 12px;
           padding-left: var(--box-margin);
-          margin: 0;
         }
       }
     }

@@ -1,5 +1,6 @@
 .theme-dark {
-  --background-primary: black;
+  --color-scheme: dark;
+  --background-primary: #101010;
   --background-tilt: rgba(255, 255, 255, 0.05);
 
   --text-primary: rgba(255, 255, 255, 0.86);
@@ -11,7 +12,6 @@
   --text-link: rgba(194, 194, 73, 0.973);
   --text-link-visited: #bbe574;
 
-  --color-scheme: dark;
   --border-primary: #575766e7;
   --border-card: #575766e7;
   --border-mix: #575766e7;
@@ -28,6 +28,7 @@
 }
 
 .theme-light {
+  --color-scheme: light;
   --background-primary: rgb(230, 230, 230);
   --background-tilt: rgba(0, 0, 0, 0.05);
 
@@ -36,7 +37,6 @@
   --text-primary: #000;
   --text-descr: rgba(3, 3, 3, 0.7);
   --text-secondary: #516076;
-  --color-scheme: light;
   --border-primary: #535353;
   --border-secondary: #000;
   --border-card: #535353;

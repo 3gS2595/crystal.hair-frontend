@@ -10,55 +10,50 @@
       @resize="paneSize = $event[0].size; "
       @resized="resizeContentFit()"
     >
+
+      <!-- NAVIGATION -->
       <pane :size="paneSize + paneSizeOffSet">
 
-        <div class='nav'>
-          <nav id='nav'>
-            <div class='toggles'>
-              <a class='navItem' @click="logout">🔒&#xFE0E;</a>
-              <a class='navItem' @click="darkToggle">Ͼ</a>
-              <a class='navItem' @click="reset">&#8962;</a>
-            </div>
-            <div class='filters'>
-              <DropDown/>
-              <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
-            </div>
-          </nav>
-        </div>
+        <nav id='nav'>
+          <div class='filters'>
+            <a class='navItem' @click="logout">🔒&#xFE0E;</a>
+            <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
+          </div>
+        </nav>
+
         <div class="three" >
           <div v-if='dataReturned'>
             <ThreeMain :imageData="hypertexts"/>
           </div>
         </div>
 
-        <splitpanes class="data_pane" :horizontal="true">
-          <pane :size="60" class="mixtape-pane">
-            <div>
-              <a class="tab-header" @click='tab = 1' :class="{'tab-active': tab === 1}">mixtapes</a>
-              <a class="tab-header" @click='tab = 2' :class="{'tab-active': tab === 2}">webscrapes</a>
-              <a class="tab-header" @click='toggleAddMixtapeBox()'>+</a>
-            </div>
-            <div class="tab-content" v-if='tab === 1'>
-              <MixtapeModule
-                :contentData="mixtapes"
-                :id="0"
-              />
-            </div>
-            <div class="tab-content" v-if='tab === 2'>
-              <WebscrapeModule
-                :contentData="hypertexts"
-                :id="0"
-              />
-            </div>
-          </pane>
-        </splitpanes>
+        <div class="mixtape-pane">
+          <div>
+            <a class="tab-header" @click='tab = 1' :class="{'tab-active': tab === 1}">mixtapes</a>
+            <a class="tab-header" @click='tab = 2' :class="{'tab-active': tab === 2}">webscrapes</a>
+            <a class="tab-header" @click='toggleAddMixtapeBox()'>+</a>
+          </div>
+          <div class="tab-content" v-if='tab === 1'>
+            <MixtapeModule
+              :contentData="mixtapes"
+              :id="0"
+            />
+          </div>
+          <div class="tab-content" v-if='tab === 2'>
+            <WebscrapeModule
+              :contentData="hypertexts"
+              :id="0"
+            />
+          </div>
+        </div>
 
         <div  class="forceGraph" >
           <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes"/>
         </div>
       </pane>
-      <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
 
+      <!-- CONTENT -->
+      <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
         <div id="content-tabs">
           <div id="slide">
             <vue-slider v-model="store.cgbWidth"  min="0" :max="maxSliderWidth" :tooltip="'none'" @change="cgbSlide(0)" ></vue-slider>
@@ -80,18 +75,18 @@
 import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
-import { darkToggle, darkSet } from '@/lib/DarkMode'
+import { darkToggle, darkSet } from '@/ts/DarkMode'
 import VueSlider from 'vue-slider-component'
 
-import DropDown from '@/component/menuDropDown/DropDown.vue'
-import ForceGraph from '@/component/three/ForceGraph.vue'
-import ThreeMain from '@/component/three/ThreeMain.vue'
-import ContentModule from '@/component/dataGrid/ContentModule.vue'
-import MixtapeModule from '@/component/dataGrid/MixtapeModule.vue'
-import WebscrapeModule from '@/component/dataGrid/WebscrapeModule.vue'
-import LightBox from '@/component/lightBox/viewer/LightBox.vue'
-import AddContentBox from '@/component/lightBox/uploader/AddContent.vue'
-import AddMixtapeBox from '@/component/lightBox/uploader/AddMixtape.vue'
+import DropDown from '@/components/menuDropDown/DropDown.vue'
+import ForceGraph from '@/components/three/ForceGraph.vue'
+import ThreeMain from '@/components/three/ThreeMain.vue'
+import ContentModule from '@/components/dataGrid/ContentModule.vue'
+import MixtapeModule from '@/components/dataGrid/MixtapeModule.vue'
+import WebscrapeModule from '@/components/dataGrid/WebscrapeModule.vue'
+import LightBox from '@/components/lightBox/viewer/LightBox.vue'
+import AddContentBox from '@/components/lightBox/uploader/AddContent.vue'
+import AddMixtapeBox from '@/components/lightBox/uploader/AddMixtape.vue'
 
 import { ApiStore } from '@/store/ApiStore'
 import { GlobalStore } from '@/store/GlobalStore'
@@ -205,9 +200,7 @@ export default defineComponent({
         cgb_margin = Number(width.substring(0, width.length - 2))
         scroll_width = cgb_margin * 2
       }
-
       if ( el != null) {
-
         if (this.paneSize === 30 ){
             const max_cont_width = el.offsetWidth - 200 - scroll_width - (cgb_margin)
             const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 14

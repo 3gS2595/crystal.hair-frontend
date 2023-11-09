@@ -14,7 +14,7 @@ function darkSet () {
     } else {
       app.classList.add('theme-dark')
       store.setDarkMode(true)
-      document.getElementsByTagName('html')[0].style.backgroundColor = ' black'
+      document.getElementsByTagName('html')[0].style.backgroundColor = '#101010'
     }
   }
 }

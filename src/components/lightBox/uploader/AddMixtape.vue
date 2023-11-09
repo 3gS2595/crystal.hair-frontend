@@ -39,7 +39,7 @@
 
 <script lang='ts'>
 import type { InputFileEvent } from '@/types/index'
-import type { UploadBoxState } from '@/types/index'
+import type { AddMixtapeBoxState } from '@/types/index'
 
 import { defineComponent, PropType, ref } from 'vue'
 import axios from 'axios'
@@ -56,7 +56,7 @@ export default defineComponent({
   components: {
     VueResizable,
   },
-  data(): UploadBoxState {
+  data(): AddMixtapeBoxState {
     return {
       handlers: ['r', 'rb', 'b', 'lb', 'l', 'lt', 't', 'rt'],
       left: 50,
@@ -69,7 +69,6 @@ export default defineComponent({
       index: 9,
       store: GlobalStore(),
       sessionStore: SessionStore(),
-      enteredText: ref(''),
       title: ref("")
     }
   },

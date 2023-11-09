@@ -4,7 +4,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: () => import('@/views/IndexView.vue')
+    component: () => import('@/pages/IndexView.vue')
   }
 ]
 
