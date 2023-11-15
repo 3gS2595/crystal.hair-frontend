@@ -149,7 +149,6 @@ export const ApiStore = defineStore({
       }
       try {
         const mixtapes = await axios.get(base + 'mixtapes'+ params, config)
-        console.log('length: ' + mixtapes.data.length)
         this.mixtapes = this.mixtapes.concat(mixtapes.data)
         return mixtapes
       } catch (e) {
@@ -230,9 +229,17 @@ export const ApiStore = defineStore({
       }
     },
 
-    async addKernal(formData: any) {
-      console.log(formData)
+    async addKernal(formData: FormData) {
+      store.setUploadView(true)
       const config = {
+        onUploadProgress: function(progressEvent: any) {
+          let percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total )
+          store.setUploadPercent(percentCompleted)
+          if(percentCompleted === 100) {
+            store.setUploadView(false)
+            store.setUploadPercent(0)
+          }
+        },
         headers: { 'Content-Type': 'multipart/form-data', Authorization: sessionStore.auth_token }
       }
       if(formData.has("file_type")){
@@ -240,9 +247,7 @@ export const ApiStore = defineStore({
           const [ bool ] = await Promise.all([
             axios.post( sessionStore.getUrlRails + 'kernals', formData, config)
           ])
-          console.log(bool)
           this.kernals.unshift(bool.data)
-          store.setUploadBoxView(false)
         } catch (e) {
           console.error(e);
         }

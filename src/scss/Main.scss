@@ -12,6 +12,20 @@ $devW:100dvw;
 $iosTop: env(safe-area-inset-top, 0px);
 $border: 21px;
 
+.p-progressbar{
+  width: 100dvw!important;
+  height: 4px;
+  position:absolute!important;
+  bottom:0;
+  z-index:540;
+  .p-progressbar-value{
+    background:var(--text-data-title)
+  }
+}
+.p-progressbar-label{
+  opacity:0;
+}
+
 html {
   animation-duration: 0s!important;
 }

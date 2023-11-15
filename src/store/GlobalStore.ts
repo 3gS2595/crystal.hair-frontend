@@ -21,6 +21,8 @@ export const GlobalStore = defineStore('counter', () => {
   const sortByValue = ref<string[]>(['time_posted', 'time_scraped' ])
   const sortByOrder = ref<string>('desc')
   const pageSize = ref<number>(40)
+  const uploadPercent = ref<number>(0)
+  const uploadView = ref<boolean>(false)
 
   function setFilter (newFilter: string) {
     filter.value = newFilter
@@ -46,6 +48,12 @@ export const GlobalStore = defineStore('counter', () => {
   function setLightBoxIndex (newLightBoxIndex: number) {
     lightBoxIndex.value = newLightBoxIndex
   }
+  function setUploadPercent (newUploadPercent: number) {
+    uploadPercent.value = newUploadPercent
+  }
+  function setUploadView (newUploadView: boolean) {
+    uploadView.value = newUploadView
+  }
   function setMixtape (newMixtape: string) {
     mixtape.value = newMixtape
   }
@@ -54,7 +62,6 @@ export const GlobalStore = defineStore('counter', () => {
   }
   function setCgbWidth (newCgbWidth: number) {
     cgbWidth.value = newCgbWidth
-    console.log(';asdfasdf')
   }
   function setCgbWidthSized (newCgbWidthSized: number) {
     cgbWidthSized.value = newCgbWidthSized
@@ -94,6 +101,8 @@ export const GlobalStore = defineStore('counter', () => {
     mixtape, setMixtape,
     cgbWidth, setCgbWidth,
     cgbWidthSized, setCgbWidthSized,
-    darkMode, setDarkMode
+    darkMode, setDarkMode,
+    uploadView, setUploadView,
+    uploadPercent, setUploadPercent
   }
 })

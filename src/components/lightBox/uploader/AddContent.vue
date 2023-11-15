@@ -120,6 +120,7 @@ export default defineComponent({
         formData.append('file_type', '.txt')
       }
       if(formData.has("file_type")){
+        store.setUploadBoxView(false)
         ApiStore().addKernal(formData)
       }
     },

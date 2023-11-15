@@ -1,5 +1,6 @@
 <template>
   <div class='contentMain' id="contentMain" >
+    <ProgressBar v-if="store.uploadView" :value="store.uploadPercent"></ProgressBar>
     <LightBox v-if='store.lightBoxView' :viewerData="kernals"/>
     <AddContentBox v-if='store.uploadBoxView'/>
     <AddMixtapeBox v-if='store.addMixtapeBoxView'/>
@@ -91,6 +92,7 @@ import { Splitpanes, Pane } from 'splitpanes'
 import { storeToRefs } from 'pinia'
 import { darkToggle, darkSet } from '@/lib/DarkMode'
 import VueSlider from 'vue-slider-component'
+import ProgressBar from 'primevue/progressbar';
 
 import DropDown from '@/components/menuDropDown/DropDown.vue'
 import ForceGraph from '@/components/three/ForceGraph.vue'
@@ -118,7 +120,8 @@ export default defineComponent({
     DropDown,
     ThreeMain,
     WebscrapeModule,
-    VueSlider
+    VueSlider,
+    ProgressBar
   },
   data () {
     return {
@@ -132,7 +135,8 @@ export default defineComponent({
       q: '',
       tab: 1,
       set: false,
-      mixtapeHeader: 'root'
+      mixtapeHeader: 'root',
+      uploadStage: 'determinate'
     }
   },
   watch: {
