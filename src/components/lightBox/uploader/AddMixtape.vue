@@ -74,27 +74,8 @@ export default defineComponent({
   },
   methods: {
     submitFile(){
-      let formData = new FormData();
-      console.log(this.title)
-      if(this.title !== ''){
-        formData.append('name', this.title)
-        axios.post( sessionStore.getUrlRails + 'mixtapes',
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: sessionStore.auth_token
-            }
-          }
-        ).then(function(){
-          store.setAddMixtapeBoxView(false)
-          ApiStore().mixtapeSearch()
-        })
-        .catch(function(){
-          console.log('FAILURE!!')
-          window.confirm('failure')
-        })
-      }
+      ApiStore().addMixtape(this.title)
+      store.setAddMixtapeBoxView(false)
     },
     eHandler () {
       this.maxW = window.innerWidth

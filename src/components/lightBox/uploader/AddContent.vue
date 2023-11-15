@@ -100,13 +100,14 @@ export default defineComponent({
       }
       this.submitFile()
     },
-    submitFile(){
+    async submitFile(){
       this.editorEmpty = false
       let formData = new FormData();
       if(this.file != null){
         formData.append('file_type', this.file.type)
         if (this.file.type.includes('pdf')) {
           formData.append('pdf', this.file)
+          formData.set('file_type','.pdf');
         } else {
           formData.append('image', this.file)
         }
@@ -119,22 +120,7 @@ export default defineComponent({
         formData.append('file_type', '.txt')
       }
       if(formData.has("file_type")){
-        axios.post( sessionStore.getUrlRails + 'kernals',
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: sessionStore.auth_token
-            }
-          }
-        ).then(function(){
-          store.setUploadBoxView(false)
-          ApiStore().mixtapeSearch()
-        })
-        .catch(function(){
-          console.log('FAILURE!!')
-          window.confirm('failure')
-        })
+        ApiStore().addKernal(formData)
       }
     },
     eHandler () {

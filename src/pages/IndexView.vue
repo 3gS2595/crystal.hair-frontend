@@ -28,10 +28,14 @@
         </div>
 
         <div class="mixtape-pane">
-          <div>
-            <a class="tab-header" @click='tab = 1' :class="{'tab-active': tab === 1}">mixtapes</a>
-            <a class="tab-header" @click='tab = 2' :class="{'tab-active': tab === 2}">webscrapes</a>
-            <a class="tab-header" @click='toggleAddMixtapeBox()'>+</a>
+          <div class="tabs">
+            <div class="tabs-left">
+              <a class="tab-header" @click='tab = 1' :class="{'tab-active': tab === 1}">mixtapes</a>
+              <a class="tab-header" @click='tab = 2' :class="{'tab-active': tab === 2}">webscrapes</a>
+            </div>
+            <div class="tabs-right">
+              <a class="tab-header tab-active" @click='toggleAddMixtapeBox()'>+</a>
+            </div>
           </div>
           <div class="tab-content" v-if='tab === 1'>
             <MixtapeModule
@@ -53,16 +57,26 @@
       </pane>
 
       <!-- CONTENT -->
-      <pane v-on:dblclick="resize(0)" :size="100 - (paneSize + paneSizeOffSet)">
-        <div id="content-tabs">
-          <div id="slide">
-            <vue-slider v-model="store.cgbWidth"  min="0" :max="maxSliderWidth" :tooltip="'none'" @change="cgbSlide(0)" ></vue-slider>
+      <pane  :size="100 - (paneSize + paneSizeOffSet)">
+        <div class="tabs" style="margin-top:4px; width:calc(100% - 4px)!important;">
+          <div class="tabs-left">
+            <a class="tab-header tab-active" style="padding-top:0px;" @click='set = !set'>⚙</a>
+            <a class="tab-header tab-active" @click='reset()'>{{mixtapeHeader}}</a>
           </div>
-          <div id="tabAdd" @click="toggleUploadBox()" class= "tab">
-            <a>+</a>
+          <div class="tabs-right">
+            <div id="settings" v-if="set">
+              <div id="slide">
+                <vue-slider v-model="store.cgbWidth"  min="0" :max="maxSliderWidth" :tooltip="'none'" @change="cgbSlide(0)" ></vue-slider>
+              </div>
+              <a class="set-btn" id="set-btn-2" @click="darkToggle()">dark mode</a>
+              <a v-if="store.mixtape != ''" class="set-btn" id="set-btn-3" @click="apiStore.deleteMixtape(store.mixtape); set = !set">delete mixtape</a>
+            </div>
+            <a class="tab-header tab-active" @click='toggleUploadBox()'>+</a>
           </div>
         </div>
+
         <ContentModule
+          v-on:dblclick="resize(0)"
           :contentData="kernals"
           :id="1"
         />
@@ -113,28 +127,39 @@ export default defineComponent({
       paneSize: 30.0,
       paneSizeOffSet: 0.0,
       store: GlobalStore(),
+      apiStore: ApiStore(),
       maxSliderWidth: GlobalStore().cgbWidth * 2,
       q: '',
-      tab: 1
+      tab: 1,
+      set: false,
+      mixtapeHeader: 'root'
+    }
+  },
+  watch: {
+    mixtape(newQuestion, oldQuestion) {
+      const result = this.mixtapes.find(person => person.id === this.store.mixtape)
+      if(result  !== undefined) {
+        this.mixtapeHeader = result.name
+      } else {
+        this.mixtapeHeader = 'root'
+      }
     }
   },
   setup () {
     const { hypertexts, sourceUrls, kernals, linkContents, mixtapes, forceGraph } = storeToRefs(ApiStore())
-    return { hypertexts, sourceUrls, kernals, linkContents, mixtapes, forceGraph }
+    const { mixtape } = storeToRefs(GlobalStore());
+    return { hypertexts, sourceUrls, kernals, linkContents, mixtapes, forceGraph, mixtape }
   },
   mounted () {
     window.addEventListener('visibilitychange', this.resizeContentFit)
     window.addEventListener('orientationchange', this.resizeContentFit)
     window.addEventListener('resize', this.resizeContentFit)
-
-    const store = GlobalStore()
-    store.setCgbWidth(store.cgbWidth)
+    this.store.setCgbWidth(this.store.cgbWidth)
     this.resizeContentFit()
 
     ApiStore().initialize().then(async () => {
       this.dataReturned = true
     })
-
     //load animation removal
     setTimeout (() => {
       var style = document.createElement('style')
@@ -147,6 +172,7 @@ export default defineComponent({
     window.removeEventListener('resize', this.resizeContentFit, true)
     window.removeEventListener('visibilitychange', this.resizeContentFit)
   },
+
   methods: {
     darkToggle,
     darkSet,
@@ -155,43 +181,35 @@ export default defineComponent({
       location.reload()
     },
     cgbPlus () {
-      const store = GlobalStore()
-      store.setCgbWidth(store.cgbWidth + 25)
+      this.store.setCgbWidth(this.store.cgbWidth + 25)
       this.resizeContentFit()
     },
     cgbMinus () {
-      const store = GlobalStore()
-      store.setCgbWidth(store.cgbWidth - 25)
+      this.store.setCgbWidth(this.store.cgbWidth - 25)
       this.resizeContentFit()
-      // window.open('http://3.130.240.169', '_blank', 'toolbar=0,location=0,menubar=0')
     },
-   cgbSlide(e: any) {
+    cgbSlide(e: any) {
       setTimeout (() => {
         this.resizeContentFit()
       }, 50)
     },
     toggleUploadBox() {
-      const store = GlobalStore()
-      store.setUploadBoxView(!store.uploadBoxView)
+      this.store.setUploadBoxView(!this.store.uploadBoxView)
     },
     toggleAddMixtapeBox() {
-      const store = GlobalStore()
-      store.setAddMixtapeBoxView(!store.addMixtapeBoxView)
+      this.store.setAddMixtapeBoxView(!this.store.addMixtapeBoxView)
     },
     search: function (e: string) {
-      const store = GlobalStore()
-      store.setFilter(e)
+      this.store.setFilter(e)
     },
     reset: function () {
-      const store = GlobalStore()
-      store.setFilter('')
-      store.setMixtape('')
+      this.store.setFilter('')
+      this.store.setMixtape('')
     },
     resizeContentFit: function () {
       //site width
-      const store = GlobalStore()
       const el = document.getElementById('app')
-      const cgb_width = store.cgbWidth
+      const cgb_width = this.store.cgbWidth
       const cgb = document.querySelector('.cgb-0')
       let cgb_margin = 4
       let scroll_width = 8
@@ -208,13 +226,13 @@ export default defineComponent({
             const content_width_percent = (max_cont_width) / el.offsetWidth
             const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
             this.paneSizeOffSet =(offset_size)
-            store.setCgbWidthSized(store.cgbWidth + (extra_width / Math.trunc(tt)))
+            this.store.setCgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
         }
         if (this.paneSize === 0 ){
             const max_cont_width = el.offsetWidth - scroll_width - (cgb_margin)
             const extra_width = max_cont_width % (cgb_width + (cgb_margin))
             const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
-            store.setCgbWidthSized(store.cgbWidth + (extra_width / Math.trunc(tt)))
+            this.store.setCgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
         }
       }
     },

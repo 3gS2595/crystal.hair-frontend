@@ -14,11 +14,11 @@
     background: var(--lightbox-back);
     backdrop-filter: blur(20px);
     font-weight: normal;
-    z-index:2!important;
+    z-index:20!important;
 
     .block {
       position:relative;
-      z-index:2!important;
+      z-index:10!important;
       width:100%;
       height:100%;
       max-width: 100%;
@@ -116,7 +116,7 @@
         height: 30px;
         text-align: center;
         cursor: pointer;
-        z-index:2!important;
+        z-index:10!important;
       }
 
       .drag-container-1{
@@ -132,7 +132,7 @@
            color:  var(--link)
           }
           .navItem{
-            color: var(--text-menu);
+            color: var(--text-header);
             text-align: center;
             font-size:14pt;
             flex-grow: 1;

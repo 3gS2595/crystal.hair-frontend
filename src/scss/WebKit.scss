@@ -6,14 +6,17 @@
 *::-webkit-scrollbar-track {
   max-width:var(--box-margin);
   border-left: $tableBorder;
+  border-top: $tableBorder;
 }
 *::-webkit-scrollbar-thumb {
-  max-width:calc(var(--box-margin) - 4px)!important;
   background-color: var(--scrollbar);
   background-clip: content-box;
+  border-left: $tableBorder;
 
 }
 *::-webkit-scrollbar {
   max-width:var(--box-margin)!important;
   background-color: var(--background-primary);
+}
+*::-webkit-scrollbar-track-piece{
 }

@@ -22,12 +22,12 @@
     >
       <div class='block'>
 
-        <ViewImg
-          v-if="viewerData[store.lightBoxIndex].file_type != '.pdf' && viewerData[store.lightBoxIndex].file_type != '.txt'"
+        <ViewPdf
+          v-if="viewerData[store.lightBoxIndex].file_type.includes('pdf')"
           v-model="viewerData[store.lightBoxIndex].signed_url"
         />
-        <ViewPdf
-          v-if="viewerData[store.lightBoxIndex].file_type == '.pdf'"
+        <ViewImg
+          v-if="!viewerData[store.lightBoxIndex].file_type.includes('pdf') && viewerData[store.lightBoxIndex].file_type != '.txt'"
           v-model="viewerData[store.lightBoxIndex].signed_url"
         />
         <ViewText
@@ -90,17 +90,7 @@ export default defineComponent({
   },
   methods: {
     deleteBlock(){
-      const config = {
-        headers: { Authorization: sessionStore.auth_token },
-      }
-      axios.delete( sessionStore.getUrlRails + 'kernals/' + this.viewerData[store.lightBoxIndex].id, config)
-      .then(function(){
-        console.log('Deletion Successful')
-        ApiStore().mixtapeSearch()
-      })
-      .catch(function(){
-        console.log('Deletion Failure')
-      })
+      ApiStore().deleteKernal(this.viewerData[store.lightBoxIndex].id)
       this.close()
     },
     esc (e: KeyboardEvent) {
@@ -133,6 +123,7 @@ export default defineComponent({
       if ((store.lightBoxIndex - 1) >= 0) {
         store.setLightBoxIndex(store.lightBoxIndex - 1)
       }
+      console.log(this.viewerData[store.lightBoxIndex])
     },
     eHandler () {
       this.maxW = window.innerWidth

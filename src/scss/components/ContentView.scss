@@ -14,9 +14,6 @@
     box-sizing: border-box;
     box-shadow: none!important;
 }
-.vue-slider{
-  padding:2px!important;
-}
 .vue-slider-dot-handle-focus {
     cursor: pointer;
     width: 100%;
@@ -31,26 +28,54 @@
     background-color: var(--border-card);
     border-radius: 15px;
 }
-
-#content-tabs{
-  display: flex;
-  justify-content: flex-end;
-  #slide{
-    margin: var(--box-margin);
-    margin-bottom:0;
-    margin-right:0;
+ #slide{
+    margin-right:var(--box-margin);
     height:27px;
     padding: var(--box-margin);
     width:150px;
     border: $tableBorder;
     border-bottom:0;
+    position: absolute;
+    right: 4px;
+    top: 33px;
+    z-index: 15;
+    background: var(--lightbox-back);
+    backdrop-filter: blur(20px);
+
     .vue-slider-process {
-        background-color: var(--text-menu);
+        background-color: var(--text-header);
         border-radius: 15px;
     }
   }
-  .tab{
-    width: 30px;
+
+ .set-btn{
+    background: var(--lightbox-back);
+    backdrop-filter: blur(20px);
+    margin-right:var(--box-margin);
+    height:27px;
+    padding: var(--box-margin);
+    width:150px;
+    border: $tableBorder;
+    position: absolute;
+    right: 4px;
+    top: 60px;
+    z-index: 15;
+    color: var(--text-data-title);
+  }
+  #set-btn-2{
+    top:60px;
+  }
+  #set-btn-3{
+    border-top:0;
+    top:87px;
+  }
+
+
+#content-tabs{
+  display: flex;
+  justify-content: flex-end;
+   .tab{
+    width:20px;
     background:none;
     font-size:18px;
     right:0;
@@ -59,9 +84,10 @@
     vertical-align: middle;
     border: $tableBorder;
     border-bottom:0;
+    padding: var(--box-margin);
     // clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
     a{
-         color: var(--text-menu);
+      color: var(--text-header);
     }
   }
 
@@ -73,28 +99,27 @@
 }
 
 .contentView{
-  height:calc(100%);
-  width:calc(100%);
+  margin-top: -4px;
+  border: $tableBorder;
+  width: calc(100% - var(--box-margin));
+  height: calc(100% - var(--size-margin) - 27px);
 
   .p-dataview-content{
     height:100%;
     width:100%;
 
-    *::-webkit-scrollbar-track {
-      border-left: $cardBorder;
-    }
-
     .grid{
-      border: $tableBorder;
       margin-top: 0;
       margin-right: var(--box-margin);
       margin-bottom: var(--box-margin);
-      width: calc(100% - var(--box-margin));
-      height: calc(100% - var(--size-margin));
-      max-height: calc(100% - var(--size-margin));
+      height:calc(100%);
+      width:calc(100%);
       overflow-y:scroll;
       justify-content: flex-start;
       align-content: flex-start;
+      background:var(--background-primary);
+      z-index: 10!important;
+      position: relative;
 
       // grid
       .cgb-0{
@@ -118,7 +143,7 @@
           white-space: pre-wrap;
 
           a{
-            color: var(--text-primary);
+            color: var(--text-content-descr);
           }
         }
 
@@ -141,14 +166,27 @@
           border-top: $cardBorder;
           background:var(--background-primary);
           white-space: nowrap;
-          color: var(--text-data);
+          color: var(--text-content-descr);
           font-size:12px!important;
           max-width:100%;
           overflow:hidden;
-          height: 12px;
-          padding-left: var(--box-margin);
+          height:fit-content!important;
+          padding: 2px;
         }
       }
     }
   }
+}
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-right: -0.5rem;
+    margin-left: -0.5rem;
+    margin-top: -0.5rem;
+}
+.grid-nogutter {
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 0;
 }

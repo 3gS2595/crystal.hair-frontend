@@ -185,5 +185,70 @@ export const ApiStore = defineStore({
         console.error(e);
       }
     },
+
+    async addMixtape(title: string) {
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: sessionStore.auth_token }
+      }
+      let formData = new FormData();
+      formData.append('name', title)
+      if(title !== ''){
+        try {
+          const [ bool ] = await Promise.all([
+            axios.post( sessionStore.getUrlRails + 'mixtapes', formData, config)
+          ])
+          this.mixtapes.unshift(bool.data)
+          store.setMixtape(bool.data.id)
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    },
+
+    async deleteMixtape (uuid: string) {
+      const config = {
+        headers: { Authorization: sessionStore.auth_token },
+      }
+      try {
+        const del = axios.delete( sessionStore.getUrlRails + 'mixtapes/' + uuid, config)
+        this.mixtapes = this.mixtapes.filter(item => item.id !== uuid)
+        store.setMixtape('')
+      } catch (e) {
+        console.error(e);
+      }
+    },
+
+    async deleteKernal (uuid: string) {
+      const config = {
+        headers: { Authorization: sessionStore.auth_token },
+      }
+      try {
+        const del = axios.delete( sessionStore.getUrlRails + 'kernals/' + uuid, config)
+        this.kernals = this.kernals.filter(item => item.id !== uuid)
+      } catch (e) {
+        console.error(e);
+      }
+    },
+
+    async addKernal(formData: any) {
+      console.log(formData)
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: sessionStore.auth_token }
+      }
+      if(formData.has("file_type")){
+        try {
+          const [ bool ] = await Promise.all([
+            axios.post( sessionStore.getUrlRails + 'kernals', formData, config)
+          ])
+          console.log(bool)
+          this.kernals.unshift(bool.data)
+          store.setUploadBoxView(false)
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    },
+
   }
 })
+

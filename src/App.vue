@@ -11,7 +11,6 @@
 import { defineComponent, onMounted, watch } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
 
-//import { orientationChange } from '@/lib/IosOrientation'
 import { darkSet } from '@/lib/DarkMode'
 
 import SessionManager from '@/components/sessionManager/SessionManager.vue'
@@ -21,9 +20,7 @@ import 'vue-slider-component/theme/default.css'
 const sessionStore = SessionStore()
 
 onMounted(() => {
-  //orientationChange()
   darkSet()
-  const self = this
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e: MediaQueryListEvent) {
     if (e.matches) {
       localStorage.setItem('darkModeBool', 'true')
@@ -31,9 +28,7 @@ onMounted(() => {
       localStorage.setItem('darkModeBool', 'false')
     }
     darkSet()
-  }.bind(self), false)
-  //window.addEventListener('resize', orientationChange)
-  //window.addEventListener('orientationchange', orientationChange)
+  }.bind(this), false)
 })
 </script>
 
@@ -45,7 +40,6 @@ onMounted(() => {
   @import './scss/components/Canvas.scss';
   @import './scss/components/SessionManager.scss';
   @import './scss/components/ContentView.scss';
-  @import './scss/components/DataView.scss';
   @import './scss/components/MixtapeView.scss';
   @import './scss/components/LightBox.scss';
   @import './scss/components/SplitterPanel.scss';

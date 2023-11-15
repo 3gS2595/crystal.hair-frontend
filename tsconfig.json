@@ -1,7 +1,8 @@
 {
   "extends": "@vue/tsconfig/tsconfig.json",
-    "compilerOptions": {
-      "verbatimModuleSyntax": false,
+  "compilerOptions": {
+    "verbatimModuleSyntax": false,
+    "baseUrl": ".",
     "types": [
       "webpack-env"
     ],
@@ -11,7 +12,7 @@
     ],
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ]
     },
     "lib": [
@@ -22,10 +23,10 @@
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "src/declaration.d.ts"
+    "./src/**/*.ts",
+    "./src/**/*.vue",
+    "./tests/**/*.ts",
+    "./src/declaration.d.ts"
   ],
   "exclude": [
     "./node_modules"

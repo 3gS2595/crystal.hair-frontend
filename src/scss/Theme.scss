@@ -1,25 +1,20 @@
 .theme-dark {
   --color-scheme: dark;
   --background-primary: #101010;
-  --background-tilt: rgba(255, 255, 255, 0.05);
+  --background-tilt: rgba(255, 255, 255, 0.00);
 
-  --text-primary: rgba(255, 255, 255, 0.86);
-  --text-header: #bbe574;
-  --text-descr: #bbe57480;
-  --text-data: rgba(255, 255, 255, 0.6);
-  --text-menu: #ffff80;
+  --text-header: #886c27;
+  --text-data-title: #ffc83d;
+  --text-data-descr: #886c27;
+  --text-content: rgba(255, 255, 255, 0.86);
+  --text-content-descr: rgba(255, 255, 255, 0.6);
 
-  --text-link: rgba(194, 194, 73, 0.973);
-  --text-link-visited: #bbe574;
-
-  --border-primary: #575766e7;
-  --border-card: #575766e7;
-  --border-mix: #575766e7;
+  --border-primary: #575766;
+  --border-card: #57576688;
+  --border-mix: #57576688;
   --border-secondary: #696967;
-  --splitter-box: lightyellow;
-  --input-color: rgba(223, 223, 223, 0.5);
 
-  --scrollbar: #a87432;
+  --scrollbar: #ffff0080;
   --size-margin: 8px;
   --box-margin: 4px;
 
@@ -41,8 +36,7 @@
   --border-secondary: #000;
   --border-card: #535353;
   --border-mix: #535353e7;
-  --input-color: rgba(023, 023, 023, 0.5);
-  --splitter-box: purple;
+
   --scrollbar: #53535375;
   --size-margin: 8px;
   --box-margin: 4px;
