@@ -29,17 +29,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style>
-  /* for dark theme */
-  .pdf-app.dark {
-    --pdf-toolbar-color: black;
-    --pdf-app-background-color:black;
-    --pdf-loading-bar-color:rgba(194, 194, 73, 0.973);
-  }
-
-  /* for light theme */
-  .pdf-app.light {
-    --pdf-toolbar-color: white;
-  }
-</style>

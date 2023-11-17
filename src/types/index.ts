@@ -13,11 +13,10 @@ export interface UploadBoxState {
   file: File | null,
   editor: any,
   enteredText: any,
-  editorEmpty: boolean
+  editorEmpty: boolean,
 }
 
 export interface AddMixtapeBoxState {
-  handlers: string[];
   left: number,
   top: number,
   height: number,

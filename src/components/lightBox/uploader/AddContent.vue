@@ -111,9 +111,9 @@ export default defineComponent({
         } else {
           formData.append('image', this.file)
         }
-        if(store.mixtape !== ''){
-          formData.append('mixtape', store.mixtape)
-        }
+      }
+      if(store.mixtape !== ''){
+        formData.append('mixtape', store.mixtape)
       }
       if(this.editor.getHTML() !== "<p></p>"){
         formData.append('text', this.editor.getHTML())

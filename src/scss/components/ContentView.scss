@@ -47,7 +47,10 @@
         border-radius: 15px;
     }
   }
-
+#settings{
+    position: absolute;
+    left: 161px;
+    top: -4px;
  .set-btn{
     background: var(--lightbox-back);
     backdrop-filter: blur(20px);
@@ -69,6 +72,7 @@
     border-top:0;
     top:87px;
   }
+}
 
 
 #content-tabs{
@@ -101,7 +105,7 @@
 .contentView{
   margin-top: -4px;
   border: $tableBorder;
-  width: calc(100% - var(--box-margin));
+  width: calc(100% - var(--box-margin) - 1px);
   height: calc(100% - var(--size-margin) - 27px);
 
   .p-dataview-content{

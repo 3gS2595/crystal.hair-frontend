@@ -51,7 +51,7 @@
             border:1px solid var(--border-mix);
             width:100%;
             min-width:90px;
-            margin: 4px;
+            margin: 5px;
             margin-top:0;
             margin-bottom:1px;
 
@@ -89,6 +89,8 @@
   width:100%;
 }
 .tabs-left{
+  width:calc(100% - 25px);
+  display:flex;
   .tab-header {
     margin-left:var(--box-margin);
   }
@@ -111,6 +113,7 @@
   width:100%;
   display: flex;
   justify-content: space-between;
+      position: relative;
 }
 
 .tab-active{
@@ -118,7 +121,12 @@
     z-index:5!important;
     background: var(--background-primary);
 }
-
+.current-dir{
+  max-width:calc(100% - 35px);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 .tab-header {
   cursor: pointer;
   display: inline-flex;

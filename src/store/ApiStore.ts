@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
-import { watch, ref } from 'vue'
+import { watch } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
 import { SessionStore } from '@/store/SessionStore'
-import axios, { type AxiosInstance, type CancelTokenStatic } from 'axios'
+import axios from 'axios'
 
 import type {
   kernalType,
@@ -142,6 +142,7 @@ export const ApiStore = defineStore({
     },
 
     async fetchMixtapes (pageNumber: number) {
+      console.log(this.mixtapes)
       let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
       const config = {
         headers: { Authorization:  sessionStore.auth_token },
@@ -193,11 +194,11 @@ export const ApiStore = defineStore({
       formData.append('name', title)
       if(title !== ''){
         try {
-          const [ bool ] = await Promise.all([
+          const [ mix ] = await Promise.all([
             axios.post( sessionStore.getUrlRails + 'mixtapes', formData, config)
           ])
-          this.mixtapes.unshift(bool.data)
-          store.setMixtape(bool.data.id)
+          this.mixtapes.unshift(mix.data)
+          store.setMixtape(mix.data.id)
         } catch (e) {
           console.error(e);
         }
@@ -209,21 +210,9 @@ export const ApiStore = defineStore({
         headers: { Authorization: sessionStore.auth_token },
       }
       try {
-        const del = axios.delete( sessionStore.getUrlRails + 'mixtapes/' + uuid, config)
+        axios.delete( sessionStore.getUrlRails + 'mixtapes/' + uuid, config)
         this.mixtapes = this.mixtapes.filter(item => item.id !== uuid)
         store.setMixtape('')
-      } catch (e) {
-        console.error(e);
-      }
-    },
-
-    async deleteKernal (uuid: string) {
-      const config = {
-        headers: { Authorization: sessionStore.auth_token },
-      }
-      try {
-        const del = axios.delete( sessionStore.getUrlRails + 'kernals/' + uuid, config)
-        this.kernals = this.kernals.filter(item => item.id !== uuid)
       } catch (e) {
         console.error(e);
       }
@@ -244,16 +233,70 @@ export const ApiStore = defineStore({
       }
       if(formData.has("file_type")){
         try {
-          const [ bool ] = await Promise.all([
+          const [ ker ] = await Promise.all([
             axios.post( sessionStore.getUrlRails + 'kernals', formData, config)
           ])
-          this.kernals.unshift(bool.data)
+          this.kernals.unshift(ker.data)
+          if(store.mixtape !== '') {
+
+           this.mixtapes.find(person => person.id === store.mixtape).content.unshift(ker.data.id)
+          }
+
         } catch (e) {
           console.error(e);
         }
       }
     },
 
+    async deleteKernal (uuid: string) {
+      const config = {
+        headers: { Authorization: sessionStore.auth_token },
+      }
+      try {
+        axios.delete( sessionStore.getUrlRails + 'kernals/' + uuid, config)
+        this.kernals = this.kernals.filter(item => item.id !== uuid)
+        if(store.mixtape !== '') {
+          this.remMixCont(uuid, store.mixtape)
+        }
+
+      } catch (e) {
+        console.error(e);
+      }
+    },
+
+    async addMixCont(kId: string, mId: string) {
+      const config = {
+        headers: { Authorization: sessionStore.auth_token }
+      }
+      console.log(sessionStore.auth_token)
+      try {
+        const [ mix ] = await Promise.all([
+          axios.patch( sessionStore.getUrlRails + 'mixtapes/' + mId + '?addKernal=' + kId, {}, config)
+        ])
+        this.mixtapes = this.mixtapes.filter(item => item.id !== mix.data.id)
+        this.mixtapes.unshift(mix.data)
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async remMixCont(kId: string, mId: string) {
+      const config = {
+        headers: { Authorization: sessionStore.auth_token }
+      }
+      console.log(sessionStore.auth_token)
+      try {
+        const [ mix ] = await Promise.all([
+          axios.patch( sessionStore.getUrlRails + 'mixtapes/' + mId + '?remKernal=' + kId, {}, config)
+        ])
+        this.mixtapes = this.mixtapes.filter(item => item.id !== mix.data.id)
+        this.mixtapes.unshift(mix.data)
+        if(store.mixtape === mix.data.id){
+          this.kernals = this.kernals.filter(item => item.id !== kId)
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
   }
 })
 

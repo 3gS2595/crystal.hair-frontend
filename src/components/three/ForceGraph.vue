@@ -4,18 +4,14 @@
     ref="fgRef"
     :graphData="JsonData"
     :backgroundColor=bgColor
+    height=145
+    width=201
+    :showNavInfo=bool
     :linkOpacity= lineOpacity
     :nodeOpacity= nodeOpacity
-    :showNavInfo=bool
-    nodeResolution=1
+    nodeLabel="name"
     :linkWidth=lineWidth
-    :onNodeDragEnd="
-      (node) => {
-        node.fx = node.x;
-        node.fy = node.y;
-        node.fz = node.z;
-      }
-    "
+    :d3AlphaDecay= dec
   ></VueForceGraph3D>
 </template>
 
@@ -32,6 +28,7 @@ const lineWidth = ref(1)
 const lineOpacity = ref(0.7)
 const nodeOpacity = ref(0.9)
 const fgRef = ref();
+const dec = ref(0.0228)
 const props = withDefaults(defineProps<{
   propKernals: any[],
   propMixtapes: any[]
@@ -55,7 +52,7 @@ const bgSet = () => {
   } else {
     nodeOpacity.value = 0.9
     lineOpacity.value = 0.7
-    lineWidth.value = 3
+    lineWidth.value = 4
     return "#101010"
   }
 }
@@ -75,10 +72,10 @@ let JsonData = ref()
 let loaded = ref(false)
 const setData = (propKernals) => {
   try {
-    let linkC = "#c2c249f8"
-    let mixtapeC = "blue"
-    let imgC = "orange"
-    let pdfC = "white"
+    let linkC = "#a3ad99"
+    let mixtapeC = "#3459b1"
+    let imgC = "#9ed9d3"
+    let pdfC = "#8888b8"
     let siteC = "pink"
     let nodeC = "#aae574"
 
@@ -87,8 +84,8 @@ const setData = (propKernals) => {
       mixtapeC = "#cba64e"
       imgC = "#61262c"
       pdfC = "#777747"
-      siteC = "black"
-      nodeC = "black"
+      siteC = "#ffffff"
+      nodeC = "#ffffff"
     }
     const ids = []
     const kId = []
@@ -115,7 +112,7 @@ const setData = (propKernals) => {
     nodeData = "{ \"nodes\": ["
     for (let i of props.propMixtapes) {
       if(mId.includes(i.id)){
-        nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 4, \"color\":\"" + mixtapeC + "\"}, "
+        nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.name + "\", \"val\": 8, \"color\":\"" + mixtapeC + "\"}, "
       }
     }
     for (let i of props.propKernals) {
@@ -138,9 +135,15 @@ const setData = (propKernals) => {
     if (JsonData != null) {
       loaded = true
     }
-    setTimeout (() => {
-      fgRef.value.zoomToFit(200)
-    }, 800)
+    if(store.mixtape === ''){
+      dec.value = .1096
+      fgRef.value.cameraPosition({ z:930, y:80, x:500},{ x:0, y:-50, z:0 }, 200)
+    } else {
+      dec.value = 0.0228
+      setTimeout (() => {
+        fgRef.value.zoomToFit(200, 1)
+      }, 800)
+    }
   } catch (e) {
     console.error(e)
   }

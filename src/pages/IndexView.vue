@@ -17,7 +17,7 @@
 
         <nav id='nav'>
           <div class='filters'>
-            <a class='navItem' @click="logout">🔒&#xFE0E;</a>
+            <a class='navItem' @click="logout">🎭&#xFE0E;</a>
             <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
           </div>
         </nav>
@@ -61,18 +61,19 @@
       <pane  :size="100 - (paneSize + paneSizeOffSet)">
         <div class="tabs" style="margin-top:4px; width:calc(100% - 4px)!important;">
           <div class="tabs-left">
-            <a class="tab-header tab-active" style="padding-top:0px;" @click='set = !set'>⚙</a>
-            <a class="tab-header tab-active" @click='reset()'>{{mixtapeHeader}}</a>
+            <a class="tab-header tab-active" style="padding-top:3px;" @click='set = !set'>⚙&#xFE0E;</a>
+            <a class="tab-header tab-active current-dir" v-if="mixtapeHeader!= 'root'" @click='reset()'>{{mixtapeHeader}}</a>
           </div>
           <div class="tabs-right">
-            <div id="settings" v-if="set">
-              <div id="slide">
-                <vue-slider v-model="store.cgbWidth"  min="0" :max="maxSliderWidth" :tooltip="'none'" @change="cgbSlide(0)" ></vue-slider>
-              </div>
-              <a class="set-btn" id="set-btn-2" @click="darkToggle()">dark mode</a>
-              <a v-if="store.mixtape != ''" class="set-btn" id="set-btn-3" @click="apiStore.deleteMixtape(store.mixtape); set = !set">delete mixtape</a>
-            </div>
             <a class="tab-header tab-active" @click='toggleUploadBox()'>+</a>
+          </div>
+
+          <div id="settings" v-if="set">
+            <div id="slide">
+              <vue-slider v-model="store.cgbWidth"  min="0" :max="maxSliderWidth" :tooltip="'none'" @change="cgbSlide(0)" ></vue-slider>
+            </div>
+            <a class="set-btn" id="set-btn-2" @click="darkToggle()">dark mode</a>
+            <a v-if="store.mixtape != ''" class="set-btn" id="set-btn-3" @click="apiStore.deleteMixtape(store.mixtape); set = !set">delete mixtape</a>
           </div>
         </div>
 
@@ -160,7 +161,7 @@ export default defineComponent({
     window.addEventListener('resize', this.resizeContentFit)
     this.store.setCgbWidth(this.store.cgbWidth)
     this.resizeContentFit()
-
+    console.log(this.kernals)
     ApiStore().initialize().then(async () => {
       this.dataReturned = true
     })
@@ -225,7 +226,7 @@ export default defineComponent({
       if ( el != null) {
         if (this.paneSize === 30 ){
             const max_cont_width = el.offsetWidth - 200 - scroll_width - (cgb_margin)
-            const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 14
+            const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 15
             const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
             const content_width_percent = (max_cont_width) / el.offsetWidth
             const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100

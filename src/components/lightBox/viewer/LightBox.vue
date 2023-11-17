@@ -23,23 +23,29 @@
       <div class='block'>
 
         <ViewPdf
-          v-if="viewerData[store.lightBoxIndex].file_type.includes('pdf')"
-          v-model="viewerData[store.lightBoxIndex].signed_url"
+          v-if="kernals[store.lightBoxIndex].file_type == 'pdf'"
+          v-model="kernals[store.lightBoxIndex].signed_url"
         />
         <ViewImg
-          v-if="!viewerData[store.lightBoxIndex].file_type.includes('pdf') && viewerData[store.lightBoxIndex].file_type != '.txt'"
-          v-model="viewerData[store.lightBoxIndex].signed_url"
+          @click='viewInfo = !viewInfo'
+          v-if="kernals[store.lightBoxIndex].file_type != 'pdf' && kernals[store.lightBoxIndex].file_type != '.txt'"
+          v-model="kernals[store.lightBoxIndex].signed_url"
         />
         <ViewText
-          v-if="viewerData[store.lightBoxIndex].file_type == '.txt'"
-          v-model="viewerData[store.lightBoxIndex].description"
+          v-if="kernals[store.lightBoxIndex].file_type == '.txt'"
+          v-model="kernals[store.lightBoxIndex].description"
+        />
+
+        <ViewInfo
+          v-if="viewInfo"
+          v-model="kernals[store.lightBoxIndex]"
         />
 
         <div class='drag-container-1'>
-          <a class='navItem' style="margin-top:-.5px;" @click='deleteBlock'>🗑</a>
-          <a class='navItem' style="margin-top:4px;" @click='close'>✕</a>
+          <a class='navItem' style="margin-top:3px;" @click='close'>✕</a>
+          <a class='navItem' style="margin-top:3px;" @click='viewInfo = !viewInfo'>&#9432;&#xFE0E;</a>
           <a class='navItem' style="margin-top:3px;" @click='prev' v-if="store.lightBoxIndex != 0">←</a>
-          <a class='navItem' style="margin-top:3px;" @click='next' v-if="store.lightBoxIndex != viewerData.length - 1">→</a>
+          <a class='navItem' style="margin-top:3px;" @click='next' v-if="store.lightBoxIndex != kernals.length - 1">→</a>
         </div>
 
       </div>
@@ -51,11 +57,13 @@
 import type { kernalType } from '@/types/ApiTypes'
 
 import { ref, defineComponent, type PropType } from 'vue'
+import { storeToRefs } from 'pinia'
 import VueResizable from 'vue-resizable'
 
 import ViewText from './viewers/TextEditor.vue'
 import ViewPdf from './viewers/ViewPdf.vue'
 import ViewImg from './viewers/ViewImg.vue'
+import ViewInfo from './viewers/ViewInfo.vue'
 import axios, { type AxiosInstance, type CancelTokenStatic } from 'axios'
 
 import { GlobalStore } from '@/store/GlobalStore'
@@ -63,40 +71,45 @@ import { SessionStore } from '@/store/SessionStore'
 import { ApiStore } from '@/store/ApiStore'
 const sessionStore = SessionStore()
 const store = GlobalStore()
-const lightBoxUi = ref(false)
+
 export default defineComponent({
   name: 'App',
   components: {
     VueResizable,
     ViewText,
     ViewPdf,
-    ViewImg
+    ViewImg,
+    ViewInfo
+  },
+  setup () {
+    const { kernals } = storeToRefs(ApiStore())
+    return { kernals }
   },
   data () {
     return {
-      viewerData: ApiStore().kernals,
       handlers: ['r', 'rb', 'b', 'lb', 'l', 'lt', 't', 'rt'],
-      left: 50,
-      top: 50,
-      height: 200,
-      width: 200,
-      maxW: window.innerWidth,
-      maxH: window.innerHeight,
+      left: 4,
+      top: 4,
+      height: window.innerHeight - 8,
+      width: window.innerWidth - 9,
+      maxW: window.innerWidth - 9,
+      maxH: window.innerHeight - 8,
       event: '',
       dragSelector: '.drag-container-1',
       store: GlobalStore(),
-      sessionStore: SessionStore()
+      sessionStore: SessionStore(),
+      viewInfo:false
     }
   },
   methods: {
-    deleteBlock(){
-      ApiStore().deleteKernal(this.viewerData[store.lightBoxIndex].id)
-      this.close()
-    },
     esc (e: KeyboardEvent) {
       if(document.getElementsByClassName('tiptap')[0] != document.activeElement) {
         if (e.key === 'Escape') {
-          this.close()
+          if(this.viewInfo == true){
+            this.viewInfo = false
+          } else {
+            this.close()
+          }
         } else if (e.key === 'ArrowRight') {
           this.next()
         } else if (e.key === 'ArrowLeft') {
@@ -111,11 +124,11 @@ export default defineComponent({
     close () {
       store.setLightBoxView(false)
       store.setLightBoxIndex(-1)
-      lightBoxUi.value = false
+      this.viewInfo = false
       window.removeEventListener('keyup', this.esc, true)
     },
     next () {
-      if ((store.lightBoxIndex + 1) <= (this.viewerData.length -1)) {
+      if ((store.lightBoxIndex + 1) <= (this.kernals.length -1)) {
         store.setLightBoxIndex(store.lightBoxIndex + 1)
       }
     },
@@ -123,7 +136,6 @@ export default defineComponent({
       if ((store.lightBoxIndex - 1) >= 0) {
         store.setLightBoxIndex(store.lightBoxIndex - 1)
       }
-      console.log(this.viewerData[store.lightBoxIndex])
     },
     eHandler () {
       this.maxW = window.innerWidth
@@ -133,34 +145,21 @@ export default defineComponent({
       window.addEventListener('resize', this.orientationChange)
       window.addEventListener('orientationchange', this.orientationChange)
       window.addEventListener('keyup', this.esc, true)
-      const identifiers = ['rb', 'rt', 'rl', 'rr']
-      for (const id of identifiers) {
-        const rb = document.createElement('img')
-        rb.src = id + '.png'
-        rb.id = id
-        document.getElementsByClassName('resizable-' + id.charAt(id.length - 1))[0].appendChild(rb)
-      }
       this.orientationChange()
     },
     orientationChange () {
       const orientation = window.orientation
       if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
         if (orientation === 0) {
-          this.width = window.innerWidth
-          this.height = window.innerHeight - 300
-          this.left = 0
-          this.top = 40
+          this.width = window.innerWidth - 9
+          this.height = window.innerHeight - 8
         } else if (orientation === 90 || orientation === -90) {
-          this.width = window.innerWidth - 124
-          this.height = window.innerHeight - 17
-          this.left = 40
-          this.top = 0
+          this.width = window.innerWidth -9
+          this.height = window.innerHeight - 8
         }
       } else {
-        this.width = window.innerWidth - 18
-        this.height = window.innerHeight
-        this.left = 5.55
-        this.top = 0
+        this.width = window.innerWidth - 9
+        this.height = window.innerHeight - 8
       }
     },
   }
