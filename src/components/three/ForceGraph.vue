@@ -135,7 +135,7 @@ const setData = (propKernals) => {
     if (JsonData != null) {
       loaded = true
     }
-    if(store.mixtape === ''){
+    if(store.mixtape === '' && store.filter === ''){
       dec.value = .1096
       fgRef.value.cameraPosition({ z:930, y:80, x:500},{ x:0, y:-50, z:0 }, 200)
     } else {

@@ -57,7 +57,6 @@ export const ApiStore = defineStore({
       this.linkContents = linkContents.data
       this.fetchKernals(1),
       this.fetchMixtapes(1)
-      this.fetchSourceUrls(1)
       this.fetchForceGraph()
     },
 
@@ -65,21 +64,10 @@ export const ApiStore = defineStore({
       controller.abort()
       controller = new AbortController();
       this.hypertexts = []
-      this.linkContents = []
-      this.sourceUrls = []
       this.kernals = []
       this.forceGraph = []
 
-      let params = '?q=' + store.filter + '&sort=' + store.sortBy
-      const config = {
-        headers: { Authorization: sessionStore.auth_token },
-        signal: controller.signal
-      }
       try {
-        const [ linkContents ] = await Promise.all([
-          axios.get(base + 'link_contents' + params, config),
-        ])
-        this.linkContents = linkContents.data
         this.fetchSourceUrls(1)
         this.fetchKernals(1)
         this.fetchHypertexts(1)
@@ -95,22 +83,23 @@ export const ApiStore = defineStore({
       this.forceGraph = []
 
       try {
+        await Promise.all([this.fetchForceGraph()])
         this.fetchKernals(1)
-        this.fetchForceGraph()
       } catch (e) {
         console.error(e);
       }
     },
 
     async fetchKernals (pageNumber: number) {
-      let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy
+      let params = '?page=' + pageNumber + '&sort=' + store.sortBy
+      if (store.filter != '') { params = params + '&q=' + store.filter }
       if (store.mixtape != '') { params = params + '&mixtape=' + store.mixtape }
       const config = {
         headers: { Authorization: sessionStore.auth_token },
         signal: controller.signal
       }
       try {
-        const kernals = await axios.get(base + 'kernals'+ params +'&q=' + store.filter, config)
+        const kernals = await axios.get(base + 'kernals'+ params, config)
         this.kernals = this.kernals.concat(kernals.data)
         if(this.kernals.length === store.pageSize){
           const keys: string[] = []
@@ -151,6 +140,8 @@ export const ApiStore = defineStore({
       try {
         const mixtapes = await axios.get(base + 'mixtapes'+ params, config)
         this.mixtapes = this.mixtapes.concat(mixtapes.data)
+
+      console.log(this.mixtapes)
         return mixtapes
       } catch (e) {
         console.error(e);
@@ -237,6 +228,7 @@ export const ApiStore = defineStore({
             axios.post( sessionStore.getUrlRails + 'kernals', formData, config)
           ])
           this.kernals.unshift(ker.data)
+          this.forceGraph.unshift(ker.data)
           if(store.mixtape !== '') {
 
            this.mixtapes.find(person => person.id === store.mixtape).content.unshift(ker.data.id)

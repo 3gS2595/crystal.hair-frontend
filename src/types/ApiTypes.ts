@@ -18,7 +18,8 @@ export interface kernalType {
   signed_url: string,
   signed_url_nail: string,
   created_at: Date,
-  updated_at: Date
+  updated_at: Date,
+  permissions: string[]
 }
 
 export interface linkContentType {
@@ -56,5 +57,6 @@ export interface mixtapeType {
   name: string,
   content: string[]
   created_at: Date,
-  updated_at: Date
+  updated_at: Date,
+  permissions: string[]
 }

@@ -143,6 +143,7 @@ export default defineComponent({
   watch: {
     mixtape(newQuestion, oldQuestion) {
       const result = this.mixtapes.find(person => person.id === this.store.mixtape)
+      console.log(this.store.mixtape)
       if(result  !== undefined) {
         this.mixtapeHeader = result.name
       } else {

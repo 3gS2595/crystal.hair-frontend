@@ -19,6 +19,8 @@
   </div>
   <div v-else>
     <form @submit.prevent='onLogin' class='login-form'>
+      <a>PRE-BETA DEV SERVER</a>
+      <br />
       <a>user:  </a>
       <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
       <br />
@@ -26,6 +28,8 @@
       <input class='login-form-password' type='password' v-model='loginPassword' placeholder='password' />
       <br />
       <input type='submit' value='request' class='login-form-submit' />
+      <br />
+      <a @click='onDemo()'>CLICK FOR DEMO ACCOUNT</a>
     </form>
   </div>
 </template>
@@ -43,6 +47,16 @@ const onLogin = () => {
     user: {
       email: loginEmail.value,
       password: loginPassword.value,
+    },
+  };
+  sessionStore.loginUser(data);
+  resetData();
+}
+const onDemo = () => {
+  let data = {
+    user: {
+      email: 'public',
+      password: 'public',
     },
   };
   sessionStore.loginUser(data);
