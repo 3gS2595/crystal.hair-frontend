@@ -17,9 +17,9 @@
       </tbody>
     </table>
   </div>
-  <div v-else>
+  <div v-else id='login'>
     <form @submit.prevent='onLogin' class='login-form'>
-      <a>PRE-BETA DEV SERVER</a>
+      <a>Development Server At the Momenet! Apologies!</a>
       <br />
       <a>user:  </a>
       <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
@@ -28,9 +28,8 @@
       <input class='login-form-password' type='password' v-model='loginPassword' placeholder='password' />
       <br />
       <input type='submit' value='request' class='login-form-submit' />
-      <br />
-      <a @click='onDemo()'>CLICK FOR DEMO ACCOUNT</a>
     </form>
+    <img src="sitedemo.gif" rel='preload'/>
   </div>
 </template>
 

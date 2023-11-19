@@ -20,7 +20,7 @@
           </template>
         </vue-load-image>
 
-        <div class="cgb-0-info">{{ slotProps.data.url }}</div>
+        <div v-if='slotProps.data.url != null' class="cgb-0-info">{{ slotProps.data.url }}</div>
 
       </div>
     </template>

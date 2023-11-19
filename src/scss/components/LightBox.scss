@@ -23,7 +23,7 @@ input{
 }
 
   .resizable-component{
-    position:relative;
+    position:absolute;
     pointer-events:auto;
     padding: 0;
     border: 1px solid var(--border-primary);
@@ -39,6 +39,7 @@ input{
       height:100%;
       max-width: 100%;
       max-height: 100%;
+      overflow:hidden;
 
       .pdf{
         position:relative;
@@ -212,7 +213,20 @@ input{
     }
   }
 }
-
+#savekernal{
+  position:fixed;
+  right: 0;
+  top:0;
+  z-index:1;
+  border:1px solid var(--border-primary);
+  color: var(--text-header);
+  text-align: center;
+  width: 100px;
+  height: 26px;
+  font-size: 18px;
+  background: var(--lightbox-back);
+  backdrop-filter: blur(20px);
+}
 .pdf-app.dark {
   --pdf-toolbar-color: black;
   --pdf-app-background-color:black;

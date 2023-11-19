@@ -4,7 +4,7 @@
       <template #list="slotProps">
         <div @click="search(slotProps.data.id)" class="dgb-0">
           <div class="dgb-0-txt">
-            <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ slotProps.data.name }}</a>
+            <a style="float:left; width:calc(100%); ">{{ slotProps.data.name }}</a>
             <a class='descr' style="float:left;">{{ convertDate(slotProps.data.updated_at) }}</a>
             <a class='descr' style="float:right;">{{ blockCnt(slotProps.data.content) }} kernals</a>
           </div>
@@ -41,7 +41,6 @@ watch(
 )
 
 const search = (e) => {
-  store.setFilter('')
   if(JSON.stringify(store.mixtape) === JSON.stringify(e)) {
     store.setMixtape('')
   }else {

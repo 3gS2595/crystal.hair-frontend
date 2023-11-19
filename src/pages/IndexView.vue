@@ -13,7 +13,7 @@
     >
 
       <!-- NAVIGATION -->
-      <pane :size="paneSize + paneSizeOffSet">
+      <pane id="main-left" :size="paneSize + paneSizeOffSet">
 
         <nav id='nav'>
           <div class='filters'>
@@ -22,20 +22,15 @@
           </div>
         </nav>
 
-        <div class="three" >
-          <div v-if='dataReturned'>
-            <ThreeMain :imageData="hypertexts"/>
-          </div>
-        </div>
 
         <div class="mixtape-pane">
           <div class="tabs">
             <div class="tabs-left">
+              <a class="tab-header tab-active tab-add" @click='toggleAddMixtapeBox()'>+</a>
               <a class="tab-header" @click='tab = 1' :class="{'tab-active': tab === 1}">mixtapes</a>
               <a class="tab-header" @click='tab = 2' :class="{'tab-active': tab === 2}">webscrapes</a>
             </div>
             <div class="tabs-right">
-              <a class="tab-header tab-active" @click='toggleAddMixtapeBox()'>+</a>
             </div>
           </div>
           <div class="tab-content" v-if='tab === 1'>
@@ -51,21 +46,24 @@
             />
           </div>
         </div>
-
         <div  class="forceGraph" >
           <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes"/>
         </div>
+
+
+
       </pane>
 
       <!-- CONTENT -->
-      <pane  :size="100 - (paneSize + paneSizeOffSet)">
+      <pane id="main-right" :size="100 - (paneSize + paneSizeOffSet)">
         <div class="tabs" style="margin-top:4px; width:calc(100% - 4px)!important;">
           <div class="tabs-left">
-            <a class="tab-header tab-active" style="padding-top:3px;" @click='set = !set'>⚙&#xFE0E;</a>
-            <a class="tab-header tab-active current-dir" v-if="mixtapeHeader!= 'root'" @click='reset()'>{{mixtapeHeader}}</a>
+            <a class="tab-header tab-active tab-add" @click='toggleUploadBox()'>+</a>
+            <a class="tab-header tab-active current-dir" v-if="store.filter != ''" @click='store.setFilter("")'>{{store.filter}}</a>
+            <a class="tab-header tab-active current-dir" v-if="mixtapeHeader!= 'root'" @click='store.setMixtape("")'>{{mixtapeHeader}}</a>
           </div>
           <div class="tabs-right">
-            <a class="tab-header tab-active" @click='toggleUploadBox()'>+</a>
+            <a class="tab-header tab-active" style="padding-top:3px;" @click='set = !set'>⚙&#xFE0E;</a>
           </div>
 
           <div id="settings" v-if="set">
@@ -160,18 +158,14 @@ export default defineComponent({
     window.addEventListener('visibilitychange', this.resizeContentFit)
     window.addEventListener('orientationchange', this.resizeContentFit)
     window.addEventListener('resize', this.resizeContentFit)
-    this.store.setCgbWidth(this.store.cgbWidth)
+    if (window.innerWidth <= 430 && (window.innerHeight > window.innerWidth)){
+      this.store.setCgbWidth(65)
+    }
     this.resizeContentFit()
     console.log(this.kernals)
     ApiStore().initialize().then(async () => {
       this.dataReturned = true
     })
-    //load animation removal
-    setTimeout (() => {
-      var style = document.createElement('style')
-      style.innerText = '*{animation-duration:0s; }'
-      document.head.appendChild(style)
-    }, 1500)
   },
   unmounted () {
     window.removeEventListener('orientationchange', this.resizeContentFit, true)
@@ -207,6 +201,7 @@ export default defineComponent({
     },
     search: function (e: string) {
       this.store.setFilter(e)
+      this.q = ''
     },
     reset: function () {
       this.store.setFilter('')
@@ -226,19 +221,20 @@ export default defineComponent({
       }
       if ( el != null) {
         if (this.paneSize === 30 ){
-            const max_cont_width = el.offsetWidth - 200 - scroll_width - (cgb_margin)
-            const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 15
-            const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
-            const content_width_percent = (max_cont_width) / el.offsetWidth
-            const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
-            this.paneSizeOffSet =(offset_size)
-            this.store.setCgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
+
+          const max_cont_width = el.offsetWidth - 212 - scroll_width - (cgb_margin)
+          const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 18
+          const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
+          const content_width_percent = (max_cont_width) / el.offsetWidth
+          const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
+          this.paneSizeOffSet =(offset_size)
+          this.store.setCgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
         }
         if (this.paneSize === 0 ){
-            const max_cont_width = el.offsetWidth - scroll_width - (cgb_margin)
-            const extra_width = max_cont_width % (cgb_width + (cgb_margin))
-            const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
-            this.store.setCgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
+          const max_cont_width = el.offsetWidth - scroll_width - (cgb_margin)
+          const extra_width = max_cont_width % (cgb_width + (cgb_margin))
+          const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
+          this.store.setCgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
         }
       }
     },

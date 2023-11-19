@@ -1,7 +1,10 @@
 .theme-dark {
+  img{
+    filter: brightness(.79) contrast(1.12);
+  }
   --color-scheme: dark;
   --background-primary: #101010;
-  --background-tilt: rgba(255, 255, 255, 0.00);
+  --background-tilt: rgba(23, 23, 23, 1);
 
   --text-header: #886c27;
   --text-data-title: #ffc83d;
@@ -23,6 +26,9 @@
 }
 
 .theme-light {
+  img{
+    filter: brightness(1) contrast(1);
+  }
   --color-scheme: light;
   --background-primary: rgb(230, 230, 230);
   --background-tilt: rgba(0, 0, 0, 0.05);

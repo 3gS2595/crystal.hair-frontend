@@ -1,4 +1,5 @@
 <template>
+    <a v-if='save' id="savekernal" @click='saveKernal()'>save</a>
   <div class="txt">
     <editor-content :editor="editor" id="textEditor" />
   </div>
@@ -6,35 +7,38 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import type { kernalType } from '@/types/ApiTypes'
 import StarterKit from '@tiptap/starter-kit'
 import Typography from '@tiptap/extension-typography'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import HardBreak from '@tiptap/extension-hard-break'
+import { ApiStore } from '@/store/ApiStore'
 export default defineComponent({
   components: {
     EditorContent,
   },
-  props: {
-    modelValue: {
-      type: String,
-      default: ''
-    }
-  },
-  emits: ['update:modelValue'],
+  props: ['modelValue'],
   data() : {
+    save: boolean,
     editor: any
     } { return {
+      save: false,
       editor: null
     }
   },
   watch: {
-    modelValue(value: string) {
-      value = value.split("\n").join("<br />")
-      const isSame = this.editor.getHTML() === value
+    modelValue(value: any) {
+      value.description = value.description.split("\n").join("<br />")
+      const isSame = this.editor.getHTML() === value.description
       if (isSame) {
         return
       }
-      this.editor.commands.setContent(value, false)
+      this.editor.commands.setContent(value.description, false)
+    }
+  },
+  methods: {
+    saveKernal() {
+      ApiStore().patchKernalDescr(this.modelValue.id, this.editor.view.dom.innerText)
     }
   },
   mounted() {
@@ -44,9 +48,15 @@ export default defineComponent({
         HardBreak,
         Typography
       ],
-      content: this.modelValue.split("\n").join("<br />"),
+      content: this.modelValue.description.split("\n").join("<br />"),
       onUpdate: () => {
-        this.$emit('update:modelValue', this.editor.getHTML())
+        console.log(this.editor.view.dom.innerText)
+        console.log(this.modelValue.description)
+        console.log(this.editor.view.dom.innerText != this.modelValue.description)
+        if( this.editor.view.dom.innerText != this.modelValue.description){
+          this.save = true
+        }
+        this.$emit('update:modelValue.description', this.editor.getHTML())
       }
     })
   },

@@ -147,7 +147,7 @@
           white-space: pre-wrap;
 
           a{
-            color: var(--text-content-descr);
+          color: var(--text-content-descr);
           }
         }
 
@@ -155,7 +155,6 @@
           height: fit-content!important;
           width:100%;
           img {
-              filter: brightness(.84) contrast(1.2);
             width: 100%;
             max-height:inherit;
             object-fit: contain;
@@ -176,6 +175,7 @@
           overflow:hidden;
           height:fit-content!important;
           padding: 2px;
+          opacity:.8;
         }
       }
     }

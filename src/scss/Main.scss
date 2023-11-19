@@ -29,6 +29,14 @@ $border: 21px;
 html {
   animation-duration: 0s!important;
 }
+#main-right{
+  margin-left:4px;
+}
+#main-left{
+  display: flex;
+  flex-flow: column;
+  height: calc(100% - 4px);
+}
 
 html, body {
   margin:0;
@@ -47,22 +55,14 @@ html, body {
       position:absolute;
       width:100%;
       height:100%;
-      .mixtape-pane{
-        max-height:calc(100% - 267px - (var(--box-margin) * 2));
-        width:calc(100% - var(--size-margin));
-        margin:var(--box-margin)
-      }
     }
 
     nav{
       background-color: var(--background-primary);
-      width:calc(100% - var(--size-margin));
-      max-width:calc(100% );
       margin: var(--box-margin);
+      margin-bottom:1px;
       border: $tableBorder;
-      height: auto;
-      overflow-y:hidden;
-      display: block;
+      flex: 0 1 auto;
 
       .filters{
         display:flex;

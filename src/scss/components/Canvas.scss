@@ -1,29 +1,27 @@
 
 @import "../Theme";
 .three{
+  flex: 0 1 35px;
   width:calc(100% - var(--size-margin));
   max-width:calc(100% - var(--size-margin));
   margin: var(--box-margin);
+  margin-bottom:0;
   border: $tableBorder;
-  overflow:hidden;
-
-  height:80px!important;
   canvas {
     width: 450px!important;
-    max-height: 80px;
+    max-height: 35px;
     height:80px!important;
   }
 }
 
 .forceGraph{
-  height:148px;
+  flex: 0 1 125px;
   width:calc( 100% - var(--size-margin));
   margin: var(--box-margin);
   margin-left: calc(var(--box-margin));
-  margin-bottom: 0;
-  margin-top:0;
+  margin-bottom: 1px;
+  margin-top:1px;
   border: $tableBorder;
-  overflow:hidden;
 
   .fg{
     max-width:100%!important;
@@ -32,11 +30,11 @@
   }
  }
  .scene-container{
-   width:201px!important;
-   height:145px!important;
+   width:211px!important;
+   height:125px!important;
    canvas{
-   width:201px!important;
-   height:145px!important;
+   width:211px!important;
+   height:125px!important;
    }
  }
 

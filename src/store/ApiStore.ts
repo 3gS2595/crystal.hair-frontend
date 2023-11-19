@@ -260,7 +260,6 @@ export const ApiStore = defineStore({
       const config = {
         headers: { Authorization: sessionStore.auth_token }
       }
-      console.log(sessionStore.auth_token)
       try {
         const [ mix ] = await Promise.all([
           axios.patch( sessionStore.getUrlRails + 'mixtapes/' + mId + '?addKernal=' + kId, {}, config)
@@ -275,7 +274,6 @@ export const ApiStore = defineStore({
       const config = {
         headers: { Authorization: sessionStore.auth_token }
       }
-      console.log(sessionStore.auth_token)
       try {
         const [ mix ] = await Promise.all([
           axios.patch( sessionStore.getUrlRails + 'mixtapes/' + mId + '?remKernal=' + kId, {}, config)
@@ -288,7 +286,21 @@ export const ApiStore = defineStore({
       } catch (e) {
         console.error(e);
       }
-    }
+    },
+    async patchKernalDescr(kId: string, text: string) {
+      const config = {
+        headers: { Authorization: sessionStore.auth_token }
+      }
+      try {
+        const [ kernal ] = await Promise.all([
+          axios.patch( sessionStore.getUrlRails + 'kernals/' + kId + '?description=' + text, {}, config)
+        ])
+        console.log(Array.prototype.findIndex.call(this.kernals, (x) => x.id = kId))
+        this.kernals[store.lightBoxIndex] = kernal.data
+      } catch (e) {
+        console.error(e);
+      }
+    },
   }
 })
 

@@ -101,6 +101,7 @@ export default defineComponent({
       this.submitFile()
     },
     async submitFile(){
+      console.log(this.editor.view.dom.innerText)
       this.editorEmpty = false
       let formData = new FormData();
       if(this.file != null){
@@ -116,7 +117,7 @@ export default defineComponent({
         formData.append('mixtape', store.mixtape)
       }
       if(this.editor.getHTML() !== "<p></p>"){
-        formData.append('text', this.editor.getHTML())
+        formData.append('text', this.editor.view.dom.innerText)
         formData.append('file_type', '.txt')
       }
       if(formData.has("file_type")){
@@ -155,13 +156,6 @@ export default defineComponent({
       window.addEventListener('orientationchange', this.orientationChange)
       window.addEventListener('keyup', this.esc, true)
 
-      const identifiers = ['rb', 'rt', 'rl', 'rr']
-      for (const id of identifiers) {
-        const rb = document.createElement('img')
-        rb.src = id + '.png'
-        rb.id = id
-        document.getElementsByClassName('resizable-' + id.charAt(id.length - 1))[0].appendChild(rb)
-      }
       this.orientationChange()
     },
     esc (e: KeyboardEvent) {

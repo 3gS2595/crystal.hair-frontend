@@ -4,8 +4,9 @@
     ref="fgRef"
     :graphData="JsonData"
     :backgroundColor=bgColor
-    height=145
+    height=220
     width=201
+    linkCurvature=1
     :showNavInfo=bool
     :linkOpacity= lineOpacity
     :nodeOpacity= nodeOpacity

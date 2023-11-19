@@ -21,33 +21,30 @@
       @drag:end='eHandler'
     >
       <div class='block'>
-
         <ViewPdf
-          v-if="kernals[store.lightBoxIndex].file_type == 'pdf'"
+          v-if="kernals[store.lightBoxIndex].file_type.includes('pdf')"
           v-model="kernals[store.lightBoxIndex].signed_url"
         />
         <ViewImg
           @click='viewInfo = !viewInfo'
-          v-if="kernals[store.lightBoxIndex].file_type != 'pdf' && kernals[store.lightBoxIndex].file_type != '.txt'"
+          v-if="!kernals[store.lightBoxIndex].file_type.includes('pdf') && kernals[store.lightBoxIndex].file_type != '.txt'"
           v-model="kernals[store.lightBoxIndex].signed_url"
         />
         <ViewText
           v-if="kernals[store.lightBoxIndex].file_type == '.txt'"
-          v-model="kernals[store.lightBoxIndex].description"
+          v-model="kernals[store.lightBoxIndex]"
         />
-
         <ViewInfo
           v-if="viewInfo"
           v-model="kernals[store.lightBoxIndex]"
         />
 
         <div class='drag-container-1'>
-          <a class='navItem' style="margin-top:3px;" @click='close'>✕</a>
-          <a class='navItem' style="margin-top:3px;" @click='viewInfo = !viewInfo'>&#9432;&#xFE0E;</a>
-          <a class='navItem' style="margin-top:3px;" @click='prev' v-if="store.lightBoxIndex != 0">←</a>
-          <a class='navItem' style="margin-top:3px;" @click='next' v-if="store.lightBoxIndex != kernals.length - 1">→</a>
+          <a class='navItem' style="padding-top:3px;" @click='close'>✕</a>
+          <a class='navItem' style="padding-top:3px;" @click='viewInfo = !viewInfo'>&#9432;&#xFE0E;</a>
+          <a class='navItem' style="padding-top:3px;" @click='prev' v-if="store.lightBoxIndex != 0">←</a>
+          <a class='navItem' style="padding-top:3px;" @click='next' v-if="store.lightBoxIndex != kernals.length - 1">→</a>
         </div>
-
       </div>
     </vue-resizable>
   </div>
@@ -87,7 +84,6 @@ export default defineComponent({
   },
   data () {
     return {
-      handlers: ['r', 'rb', 'b', 'lb', 'l', 'lt', 't', 'rt'],
       left: 4,
       top: 4,
       height: window.innerHeight - 8,
