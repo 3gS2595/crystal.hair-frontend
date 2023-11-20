@@ -117,8 +117,14 @@ export default defineComponent({
         formData.append('mixtape', store.mixtape)
       }
       if(this.editor.getHTML() !== "<p></p>"){
-        formData.append('text', this.editor.view.dom.innerText)
-        formData.append('file_type', '.txt')
+        if(this.editor.view.dom.innerText.match(/([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm) && !this.editor.view.dom.innerText.includes(' ')){
+          console.log("winner")
+          formData.append('url', this.editor.view.dom.innerText)
+          formData.append('file_type', 'link')
+        } else {
+          formData.append('text', this.editor.view.dom.innerText)
+          formData.append('file_type', '.txt')
+        }
       }
       if(formData.has("file_type")){
         store.setUploadBoxView(false)
