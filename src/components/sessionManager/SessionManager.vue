@@ -29,7 +29,7 @@
       <br />
       <input type='submit' value='request' class='login-form-submit' />
     </form>
-    <img src="sitedemo.gif" rel='preload'/>
+    <img class="splash-image" src="sitedemo.gif" rel='preload'/>
   </div>
 </template>
 

@@ -42,7 +42,10 @@ onMounted(() => {
   @import './scss/components/ContentView.scss';
   @import './scss/components/MixtapeView.scss';
   @import './scss/components/LightBox.scss';
-  @import './scss/components/SplitterPanel.scss';
+  @import './scss/components/Tabs.scss';
+  @import './scss/helpers/SplitterPanel.scss';
+  @import './scss/helpers/ProgressBar.scss';
+  @import './scss/helpers/NavSearch.scss';
 
   @import 'splitpanes/dist/splitpanes.css';
 </style>

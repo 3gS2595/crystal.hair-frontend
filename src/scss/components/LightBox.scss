@@ -7,27 +7,13 @@
   background: none !important;
   height: 100%;
 }
-input{
-  background: black;
-  border: 1px solid white;
-  width: -webkit-fill-available;
-  font-size:14px;
-  border:0;
-  background-color: rgba(0,0,0,0);
-  outline:0;
-  color: var(--text-header);
-}
-::placeholder {
-  color: var(--text-header);
-  opacity: 0.51;
-}
 
   .resizable-component{
     position:absolute;
     pointer-events:auto;
     padding: 0;
     border: 1px solid var(--border-primary);
-    background: var(--lightbox-back);
+    background: var(--background-lightbox);
     backdrop-filter: blur(20px);
     font-weight: normal;
     z-index:20!important;
@@ -134,66 +120,31 @@ input{
         text-align: center;
         cursor: pointer;
         z-index:10!important;
-      }
-
-      .drag-container-1{
         border-top:1px solid var(--border-primary);
-          display:flex;
-          a {
-            color: var(--link)
-          }
-          a:link {
-            color:  var(--link)
-          }
-          a:visited {
-           color:  var(--link)
-          }
-          .navItem{
-            color: var(--text-header);
-            text-align: center;
-            font-size:14pt;
-            flex-grow: 1;
-            padding-right:1px;
-            padding-left:1px;
-            border-right:1px solid var(--border-primary);
-          }
-          .navItem:last-child{
-            border-right:0;
-          }
+        display:flex;
+        a {
+          color: var(--link)
+        }
+        a:link {
+          color:  var(--link)
+        }
+        a:visited {
+         color:  var(--link)
+        }
+        .navItem{
+          color: var(--text-header);
+          text-align: center;
+          font-size:14pt;
+          flex-grow: 1;
+          padding-right:1px;
+          padding-left:1px;
+          border-right:1px solid var(--border-primary);
+        }
+        .navItem:last-child{
+          border-right:0;
+        }
       }
 
-    }
-
-    #rb{
-      max-height:80px;
-      max-width:80px;
-      position:absolute;
-      left: 50%;
-      transform: translate(-50%, 8px);
-    }
-
-    #rt{
-      max-height:80px;
-      max-width:80px;
-      position:absolute;
-      left: 50%;
-      transform: translate(-50%, -14px);
-    }
-
-    #rl{
-      max-height:80px;
-      max-width:80px;
-      position:absolute;
-      top: 50%;
-      transform: translate(-14px, -50%);
-    }
-
-    #rr{
-      max-height:80px;
-      max-width:80px;
-      position:absolute;
-      top: 50%;
-      transform: translate(8px, -50%);
     }
   }
 
@@ -224,7 +175,7 @@ input{
   width: 100px;
   height: 26px;
   font-size: 18px;
-  background: var(--lightbox-back);
+  background: var(--background-lightbox);
   backdrop-filter: blur(20px);
 }
 .pdf-app.dark {

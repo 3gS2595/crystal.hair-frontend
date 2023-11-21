@@ -12,16 +12,12 @@
       @resized="resizeContentFit()"
     >
 
-      <!-- NAVIGATION -->
+  <!-- NAVIGATION PANE-->
       <pane id="main-left" :size="paneSize + paneSizeOffSet">
-
-        <nav id='nav'>
-          <div class='filters'>
-            <a class='navItem' @click="logout">🎭&#xFE0E;</a>
-            <input class='search' v-model="q" placeholder="search" @keyup.enter="search(q)" />
-          </div>
+        <nav class='nav'>
+          <a class='navItem text-main-1' @click="logout">🎭&#xFE0E;</a>
+          <input class='search input-standard text-main-0' v-model="q" placeholder="search" @keyup.enter="search(q)" />
         </nav>
-
 
         <div class="mixtape-pane">
           <div class="tabs">
@@ -34,27 +30,19 @@
             </div>
           </div>
           <div class="tab-content" v-if='tab === 1'>
-            <MixtapeModule
-              :contentData="mixtapes"
-              :id="0"
-            />
+            <MixtapeModule :id="0" :contentData="mixtapes"/>
           </div>
           <div class="tab-content" v-if='tab === 2'>
-            <WebscrapeModule
-              :contentData="hypertexts"
-              :id="0"
-            />
+            <WebscrapeModule :id="0" :contentData="hypertexts"/>
           </div>
         </div>
+
         <div  class="forceGraph" >
           <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes"/>
         </div>
-
-
-
       </pane>
 
-      <!-- CONTENT -->
+  <!-- CONTENT PANE -->
       <pane id="main-right" :size="100 - (paneSize + paneSizeOffSet)">
         <div class="tabs" style="margin-top:4px; width:calc(100% - 4px)!important;">
           <div class="tabs-left">
@@ -222,7 +210,7 @@ export default defineComponent({
       if ( el != null) {
         if (this.paneSize === 30 ){
 
-          const max_cont_width = el.offsetWidth - 212 - scroll_width - (cgb_margin)
+          const max_cont_width = el.offsetWidth - 200 - scroll_width - (cgb_margin)
           const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 18
           const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
           const content_width_percent = (max_cont_width) / el.offsetWidth

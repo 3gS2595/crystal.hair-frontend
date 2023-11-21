@@ -1,5 +1,5 @@
-
 @import "../Theme";
+
 .three{
   flex: 0 1 35px;
   width:calc(100% - var(--size-margin));
@@ -7,6 +7,7 @@
   margin: var(--box-margin);
   margin-bottom:0;
   border: $tableBorder;
+
   canvas {
     width: 450px!important;
     max-height: 35px;
@@ -28,13 +29,15 @@
     max-height:100%!important;
     opacity:.8;
   }
- }
- .scene-container{
-   width:211px!important;
+}
+
+.scene-container{
+ width:100%!important;
+ height:125px!important;
+
+ canvas{
+   width:100%!important;
    height:125px!important;
-   canvas{
-   width:211px!important;
-   height:125px!important;
-   }
  }
+}
 

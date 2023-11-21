@@ -1,10 +1,8 @@
 .theme-dark {
-  .cgb-0 img{
-    filter: brightness(.79) contrast(1.12);
-  }
   --color-scheme: dark;
   --background-primary: #101010;
   --background-tilt: rgba(23, 23, 23, 1);
+  --background-lightbox: rgba(0, 0, 0, 0.7);
 
   --text-header: #886c27;
   --text-data-title: #ffc83d;
@@ -21,17 +19,16 @@
   --size-margin: 8px;
   --box-margin: 4px;
 
-  --lightbox-back: rgba(0, 0, 0, 0.7);
-  --border-width:2px;
+  .cgb-0 img{
+    filter: brightness(.79) contrast(1.12);
+  }
 }
 
 .theme-light {
-  img{
-    filter: brightness(1) contrast(1);
-  }
   --color-scheme: light;
   --background-primary: rgb(230, 230, 230);
   --background-tilt: rgba(0, 0, 0, 0.05);
+  --background-lightbox: rgba(230, 230, 230, 0.7);
 
   --link: #000;
   --link-visited: #000;
@@ -47,6 +44,78 @@
   --size-margin: 8px;
   --box-margin: 4px;
 
-  --lightbox-back: rgba(230, 230, 230, 0.7);
-  --border-width:2px;
+  img{
+    filter: brightness(1) contrast(1);
+  }
 }
+
+.text-main-0{
+  color: var(--text-data-title);
+}
+.text-main-1{
+  color: var(--text-data-descr);
+}
+
+$navH:33px;
+$devH:100dvh;
+$devW:100dvw;
+
+$tableBorder: 1px solid var(--border-primary);
+$cardBorder: 1px solid var(--border-card);
+$dropDownBorder: 3px solid var(--border-primary);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// CUSTOM IOS/SAFARI NOTCH SIZING
+$iosTop: env(safe-area-inset-top, 0px);
+:root {
+  --sat: env(safe-area-inset-top);
+  --sar: env(safe-area-inset-right);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+}
+.ios1{
+  margin-left:1px!important;
+  margin-left:39px!important;
+  width: calc(#{$devW} - 42px)!important;
+  border-bottom-left-radius: 0pt!important;
+  border-bottom-right-radius: 34pt!important;
+}
+.ios2{
+  margin-left:1px!important;
+  margin-right:39px!important;
+  width: calc(#{$devW} - 42px)!important;
+  border-bottom-left-radius: 34pt!important;
+  border-bottom-right-radius: 0pt!important;
+}
+.ios3{
+  margin-left:1px!important;
+  width: calc(#{$devW} - 4px)!important;
+  border-bottom-left-radius: 34pt!important;
+  border-bottom-right-radius: 34pt!important;
+}
+.ios4{
+  margin-left:1px!important;
+  margin-right:1px!important;
+  width: calc(#{$devW} - 4px)!important;
+  border-bottom-left-radius: 0pt!important;
+  border-bottom-right-radius: 0pt!important;
+}
+

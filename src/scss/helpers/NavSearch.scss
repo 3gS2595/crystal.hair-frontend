@@ -1,0 +1,19 @@
+.nav{
+  flex: 0 1 auto;
+  display:flex;
+  border: $tableBorder;
+  margin: var(--box-margin);
+  margin-bottom:1px;
+
+  .navItem{
+    text-align: center;
+    cursor: pointer;
+    max-width:25px;
+    flex-grow:1;
+    border-right:1px solid var(--border-primary);
+  }
+  .input-search {
+    flex-grow:1;
+    width:33%;
+  }
+}

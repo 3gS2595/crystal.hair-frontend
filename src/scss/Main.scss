@@ -1,159 +1,33 @@
 @import "./Theme";
-$tableBorder: 1px solid var(--border-primary);
-$dropDownBorder: 3px solid var(--border-primary);
 
-$cardBorder: 1px solid var(--border-card);
-
-
-$navH:33px;
-$devH:100dvh;
-$devW:100dvw;
-
-$iosTop: env(safe-area-inset-top, 0px);
-$border: 21px;
-
-.p-progressbar{
-  width: 100dvw!important;
-  height: 4px;
-  position:absolute!important;
-  bottom:0;
-  z-index:540;
-  .p-progressbar-value{
-    background:var(--text-data-title)
-  }
-}
-.p-progressbar-label{
-  opacity:0;
-}
-
-html {
-  animation-duration: 0s!important;
-}
-#main-right{
-  margin-left:4px;
-}
-#main-left{
-  display: flex;
-  flex-flow: column;
-  height: calc(100% - 4px);
-}
-
-html, body {
+body {
   margin:0;
-  overscroll-behavior: none;
-  overflow: hidden;
-  background-color: var(--background-primary);
+}
 
-  #app {
-    overflow:hidden;
-    padding-top:$iosTop;
-    width: calc( #{$devW});
-    height: calc(#{$devH} - #{$iosTop});
+.contentMain {
+  position:absolute;
+  width:100%;
+  height:100%;
 
-    // content Control Panel
-    .contentMain {
-      position:absolute;
-      width:100%;
-      height:100%;
-    }
-
-    nav{
-      background-color: var(--background-primary);
-      margin: var(--box-margin);
-      margin-bottom:1px;
-      border: $tableBorder;
-      flex: 0 1 auto;
-
-      .filters{
-        display:flex;
-        width:100%;
-        height:25px;
-
-        .navItem{
-          cursor: pointer;
-          text-align: center;
-          flex-grow: 1;
-          cursor: pointer;
-          max-width:24px;
-          flex-grow:1;
-          padding-right:1px;
-          padding-left:1px;
-          padding-top:2px;
-          border-right:1px solid var(--border-primary);
-          color: var(--text-data-descr);
-          font-size:16px;
-        }
-
-        select {
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          appearance: none;
-          overflow:hidden;
-          flex-grow: 1;
-          font-size:14px;
-          background-color: var(--background-primary);
-          border: 0;
-          outline-style: none;
-          box-shadow: none;
-          height:calc($navH);
-          -webkit-border-radius:0px;
-          border-radius:0px;
-          color: var(--text-menu)
-        }
-        select option:checked {
-          background-color: #d6d006 !important; /* for IE */
-        }
-        input {
-          width:33%;
-          font-size:14px;
-          flex-grow:1;
-          border:0;
-          background-color: rgba(0,0,0,0);
-          outline:0;
-          color: var(--text-header);
-        }
-        ::placeholder {
-          color: var(--text-header);
-          opacity: 0.51;
-        }
-      }
-    }
+  #main-right{
+    margin-left:4px;
+  }
+  #main-left{
+    display: flex;
+    flex-flow: column;
+    height: calc(100% - 4px);
   }
 }
 
-:root {
-    --sat: env(safe-area-inset-top);
-    --sar: env(safe-area-inset-right);
-    --sab: env(safe-area-inset-bottom);
-    --sal: env(safe-area-inset-left);
+.input-standard {
+  font-size:14px;
+  border:0;
+  outline:0;
+  background-color: rgba(0,0,0,0);
+}
+.input-standard::placeholder {
+  color: var(--text-header);
+  opacity: 0.51;
 }
 
-
-.ios1{
-  margin-left:1px!important;
-  margin-left:39px!important;
-  width: calc(#{$devW} - 42px)!important;
-  border-bottom-left-radius: 0pt!important;
-  border-bottom-right-radius: 34pt!important;
-}
-.ios2{
-  margin-left:1px!important;
-  margin-right:39px!important;
-  width: calc(#{$devW} - 42px)!important;
-  border-bottom-left-radius: 34pt!important;
-  border-bottom-right-radius: 0pt!important;
-}
-.ios3{
-  margin-left:1px!important;
-  width: calc(#{$devW} - 4px)!important;
-  border-bottom-left-radius: 34pt!important;
-  border-bottom-right-radius: 34pt!important;
-}
-.ios4{
-  margin-left:1px!important;
-  margin-right:1px!important;
-  width: calc(#{$devW} - 4px)!important;
-  border-bottom-left-radius: 0pt!important;
-  border-bottom-right-radius: 0pt!important;
-}
 

@@ -22,7 +22,7 @@
       <div class='block'>
         <div class="uploader">
           <div class="txt">
-            <input placeholder="enter title" v-model="title">
+            <input class="input-standard" placeholder="enter title" v-model="title">
           </div>
         </div>
 

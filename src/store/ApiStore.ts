@@ -230,10 +230,8 @@ export const ApiStore = defineStore({
           this.kernals.unshift(ker.data)
           this.forceGraph.unshift(ker.data)
           if(store.mixtape !== '') {
-
-           this.mixtapes.find(person => person.id === store.mixtape).content.unshift(ker.data.id)
+            this.mixtapes.find(person => person.id === store.mixtape)!.content.unshift(ker.data.id)
           }
-
         } catch (e) {
           console.error(e);
         }
@@ -250,7 +248,6 @@ export const ApiStore = defineStore({
         if(store.mixtape !== '') {
           this.remMixCont(uuid, store.mixtape)
         }
-
       } catch (e) {
         console.error(e);
       }

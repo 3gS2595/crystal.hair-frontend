@@ -1,0 +1,14 @@
+.p-progressbar{
+  width: 100dvw!important;
+  height: 4px;
+  position:absolute!important;
+  bottom:0;
+  z-index:540;
+
+  .p-progressbar-value{
+    background:var(--text-data-title)
+  }
+  .p-progressbar-label{
+    opacity:0;
+  }
+}

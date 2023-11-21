@@ -2,11 +2,11 @@
   <div class="mixtapeView">
     <DataView class='dg-0' :value="props.contentData" :layout="list" >
       <template #list="slotProps">
-        <div @click="search(slotProps.data.id)" class="dgb-0">
+        <div @click="search(slotProps.data.id)" class="dgb-mixtape">
           <div class="dgb-0-txt">
-            <a style="float:left; width:calc(100%); ">{{ slotProps.data.name }}</a>
-            <a class='descr' style="float:left;">{{ convertDate(slotProps.data.updated_at) }}</a>
-            <a class='descr' style="float:right;">{{ blockCnt(slotProps.data.content) }} kernals</a>
+            <a class='title text text-main-0'>{{ slotProps.data.name }}</a>
+            <a class='descr text text-main-0'>{{ convertDate(slotProps.data.updated_at) }}</a>
+            <a class='descr text text-main-0' style="float:right;">{{ blockCnt(slotProps.data.content) }} kernals</a>
           </div>
         </div>
       </template>
@@ -83,7 +83,7 @@ const intersecting = (event) => {
 const watchIntersect = () =>{
   observer.disconnect()
   for (let i = 1; i <= 2; i++) {
-    const el = document.getElementsByClassName("dgb-0")[(pageNumber.value-1)*store.pageSize-(5*i)]
+    const el = document.getElementsByClassName("dgb-mixtape")[(pageNumber.value-1)*store.pageSize-(5*i)]
     if (el){
       observer.observe(el)
     }

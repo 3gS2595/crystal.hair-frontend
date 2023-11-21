@@ -1,145 +1,58 @@
 @import "../Theme";
 
-@keyframes example {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
 .mixtape-pane{
   margin:var(--box-margin);
   flex: 1 1 auto;
   overflow-y: auto;
-
-  .mixtapeView{
-    height:calc(100% + 3px);
-    width:100%;
-    margin-top: -7px;
-    border: $tableBorder;
-
-    .p-dataview{
-      height:100%;
-      width:100%;
-
-      .p-dataview-content{
-        height:100%;
-        width:100%;
-        padding-top:4px;
-        z-index: 10;
-        position: sticky;
-        background: var(--background-primary);
-
-        .grid{
-          position:relative;
-          z-index:5;
-          width:100%;
-          max-height:calc(100% );
-          overflow-y:auto;
-          overflow-x:hidden;
-
-          .dgb-0:last-child{
-            margin-bottom:40px;
-          }
-          .dgb-0{
-            position: relative;
-            background: var(--background-tilt);
-            // background-image: radial-gradient(black 33%, transparent 33%);
-            // background-size: 3px 3px;
-            backdrop-filter: blur(5px);
-            cursor: pointer;
-            height:fit-content;
-            padding:3px;
-            overflow:hidden;
-            border:1px solid var(--border-mix);
-            width:100%;
-            min-width:90px;
-            margin: 5px;
-            margin-top:0;
-            margin-bottom:1px;
-
-            .dgb-0-txt{
-              cursor: pointer;
-              width:100%;
-              margin: 0;
-              border:0;
-              user-select: none;
-              background:none;
-              .descr{
-                color:var(--text-data-title);
-                opacity:.50;
-                font-size:12px;
-              }
-
-              a{
-                color:var(--text-data-title);
-                font-size:16px;
-                text-align:left;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
-.tab-content{
-  height: calc(100% - 26px);
-  width:100%;
-}
-.tabs-left{
-  width:calc(100% - 25px);
-  display:flex;
-  .tab-header {
-    margin-left:var(--box-margin);
-  }
-}
-.tabs-right{
-  display: flex;
-  justify-content: flex-end;
-  .tab-header {
-    font-size:18px;
-    right:0;
-    text-align: center;
-    vertical-align: middle;
-    margin-right:var(--box-margin);
-    a{
-       color: var(--text-header);
-    }
-  }
-}
-.tabs{
-  width:100%;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-}
-.tab-add{
-  min-width:25px;
-}
+.mixtapeView{
+  height:calc(100% + 3px);
+  margin-top: -7px;
+  border: $tableBorder;
 
-.tab-active{
-    opacity: 1!important;
-    z-index:5!important;
+  .p-dataview .p-dataview-content{
+    height:100%;
+    padding-top:4px;
+    z-index: 10;
+    position: sticky;
     background: var(--background-primary);
-}
-.current-dir{
-  max-width:calc(100% - 35px);
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.tab-header {
-  text-align: center;
-  cursor: pointer;
-  height:30px;
-  opacity: 0.51;
-  z-index:0;
-  padding:var(--box-margin);
-  border:1px solid var(--border-primary);
-  color: var(--text-header);
-  position: relative;
-  display: block!important;
+
+    .grid{
+      position:relative;
+      z-index:5;
+      max-height:calc(100% );
+      overflow-y:auto;
+    }
+  }
 }
 
+// Mixtape card
+.dgb-mixtape{
+  background: var(--background-tilt);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  padding:3px;
+  border:1px solid var(--border-mix);
+  width:100%;
+  min-width:90px;
+  margin: 5px;
+  margin-top:0;
+  margin-bottom:1px;
+
+  .descr{
+    opacity:.50;
+    font-size:12px;
+  }
+  .title{
+    float:left;
+    width:calc(100%);
+    font-size:16px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+.dgb-0:last-child{
+  margin-bottom:40px;
+}
