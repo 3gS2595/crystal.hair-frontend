@@ -129,7 +129,7 @@
           color:  var(--link)
         }
         a:visited {
-         color:  var(--link)
+          color:  var(--link)
         }
         .navItem{
           color: var(--text-header);
@@ -164,6 +164,7 @@
     }
   }
 }
+
 #savekernal{
   position:fixed;
   right: 0;
@@ -178,11 +179,14 @@
   background: var(--background-lightbox);
   backdrop-filter: blur(20px);
 }
-.pdf-app.dark {
-  --pdf-toolbar-color: black;
-  --pdf-app-background-color:black;
-  --pdf-loading-bar-color:rgba(194, 194, 73, 0.973);
-}
-.pdf-app.light {
-  --pdf-toolbar-color: white;
-}
+
+  /* for dark theme */
+  .pdf-app.dark {
+    --pdf-toolbar-color: black;
+    --pdf-app-background-color:black;
+    --pdf-loading-bar-color:rgba(194, 194, 73, 0.973);
+  }
+  /* for light theme */
+  .pdf-app.light {
+    --pdf-toolbar-color: white;
+  }

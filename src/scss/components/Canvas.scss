@@ -28,16 +28,15 @@
     max-width:100%!important;
     max-height:100%!important;
     opacity:.8;
+
+    .scene-container{
+     width:100%!important;
+     height:125px!important;
+
+     canvas{
+       width:100%!important;
+       height:125px!important;
+     }
+    }
   }
 }
-
-.scene-container{
- width:100%!important;
- height:125px!important;
-
- canvas{
-   width:100%!important;
-   height:125px!important;
- }
-}
-

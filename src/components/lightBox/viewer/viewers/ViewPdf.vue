@@ -18,7 +18,9 @@ export default defineComponent({
   data () {
     return {
       config: {
-        toolbar: false
+        toolbar: false,
+        EventBus: false,
+        sidebar: false
       }
     }
   }

@@ -1,28 +1,36 @@
 @import "../Theme";
 
 .mixtape-pane{
-  margin:var(--box-margin);
+  margin: var(--box-margin);
   flex: 1 1 auto;
   overflow-y: auto;
 }
 
 .mixtapeView{
-  height:calc(100% + 3px);
-  margin-top: -7px;
+  height: calc(100% + 1px);
+  margin-top: -4px;
   border: $tableBorder;
 
-  .p-dataview .p-dataview-content{
-    height:100%;
-    padding-top:4px;
+  .p-dataview-content{
+    padding-top: 4px;
+    z-index: 10;
+    position: sticky;
+    background: var(--background-primary);
+  }
+  .p-dataview, .p-dataview-content{
+    height: 100%;
+    padding-top: 2px;
     z-index: 10;
     position: sticky;
     background: var(--background-primary);
 
     .grid{
-      position:relative;
-      z-index:5;
-      max-height:calc(100% );
-      overflow-y:auto;
+      position: relative;
+      z-index: 5;
+      max-height: calc(100% );
+      overflow-y: auto;
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 }
@@ -32,27 +40,27 @@
   background: var(--background-tilt);
   backdrop-filter: blur(5px);
   cursor: pointer;
-  padding:3px;
-  border:1px solid var(--border-mix);
-  width:100%;
-  min-width:90px;
+  padding: 3px;
+  border: 1px solid var(--border-mix);
+  width: 100%;
+  min-width: 90px;
   margin: 5px;
-  margin-top:0;
-  margin-bottom:1px;
+  margin-top: 0;
+  margin-bottom: 1px;
 
   .descr{
-    opacity:.50;
-    font-size:12px;
+    opacity: 0.50;
+    font-size: 12px;
   }
   .title{
-    float:left;
-    width:calc(100%);
-    font-size:16px;
+    float: left;
+    width: 100%;
+    font-size: 16px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
   }
 }
 .dgb-0:last-child{
-  margin-bottom:40px;
+  margin-bottom: 40px;
 }

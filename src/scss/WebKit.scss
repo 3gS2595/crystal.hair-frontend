@@ -6,9 +6,11 @@
 *::-webkit-scrollbar-track {
   max-width:var(--box-margin);
   border-left: $tableBorder;
+  border-top: $tableBorder;
 }
 *::-webkit-scrollbar-thumb {
   border-top: $tableBorder;
+  border-bottom: $tableBorder;
   background-color: var(--scrollbar);
   background-clip: content-box;
   border-left: $tableBorder;

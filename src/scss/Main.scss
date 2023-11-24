@@ -20,14 +20,35 @@ body {
 }
 
 .input-standard {
-  font-size:14px;
+  font-size:16px;
   border:0;
   outline:0;
   background-color: rgba(0,0,0,0);
 }
+
 .input-standard::placeholder {
   color: var(--text-header);
   opacity: 0.51;
 }
+
+// Text Colors
+.text-main-0{
+  color: var(--text-data-title);
+}
+
+.text-main-1{
+  color: var(--text-data-descr);
+}
+
+.text-content-0{
+  color: var(--text-content-descr);
+}
+
+// Global Variables
+$tableBorder: 1px solid var(--border-primary);
+$cardBorder: 1px solid var(--border-card);
+$dropDownBorder: 3px solid var(--border-primary);
+
+
 
 

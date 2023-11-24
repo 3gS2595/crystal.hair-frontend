@@ -1,12 +1,12 @@
 .theme-dark {
   --color-scheme: dark;
-  --background-primary: #101010;
+  --background-primary: #151515;
   --background-tilt: rgba(23, 23, 23, 1);
   --background-lightbox: rgba(0, 0, 0, 0.7);
 
   --text-header: #886c27;
   --text-data-title: #ffc83d;
-  --text-data-descr: #886c27;
+  --text-data-descr: #DAC181;
   --text-content: rgba(255, 255, 255, 0.86);
   --text-content-descr: rgba(255, 255, 255, 0.6);
 
@@ -19,8 +19,8 @@
   --size-margin: 8px;
   --box-margin: 4px;
 
-  .cgb-0 img{
-    filter: brightness(.79) contrast(1.12);
+  .cgb-0, img{
+    filter: brightness(.85) contrast(1);
   }
 }
 

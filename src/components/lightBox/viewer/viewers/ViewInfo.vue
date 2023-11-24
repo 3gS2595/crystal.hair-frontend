@@ -82,9 +82,9 @@ const deleteBlock = () => {
 
 <style>
   .lightbox-info {
+    background: var(--background-lightbox);
     position:absolute;
     border: 1px solid var(--border-primary);
-    background: var(--lightbox-back);
     backdrop-filter: blur(20px);
     bottom: 50px;
     left: 50%;

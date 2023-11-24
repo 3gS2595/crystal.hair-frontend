@@ -1,3 +1,5 @@
+@import "../Theme";
+
 .nav{
   flex: 0 1 auto;
   display:flex;
@@ -6,9 +8,10 @@
   margin-bottom:1px;
 
   .navItem{
+    font-size: 16px;
     text-align: center;
     cursor: pointer;
-    max-width:25px;
+    min-width:25px;
     flex-grow:1;
     border-right:1px solid var(--border-primary);
   }
@@ -16,4 +19,17 @@
     flex-grow:1;
     width:33%;
   }
+}
+
+.input-standard {
+  font-size:16px;
+  border:0;
+  padding: 4px;
+  outline:0;
+  background-color: rgba(0,0,0,0);
+}
+
+.input-standard::placeholder {
+  color: var(--text-header);
+  opacity: 0.51;
 }

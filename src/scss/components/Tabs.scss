@@ -1,54 +1,66 @@
-.tab-content{
-  height: calc(100% - 26px);
-}
-.tabs-left{
-  display:flex;
-  .tab-header {
-    margin-left:var(--box-margin);
-  }
-}
-.tabs-right{
-  display: flex;
-  justify-content: flex-end;
-  .tab-header {
-    font-size:18px;
-    right:0;
-    text-align: center;
-    vertical-align: middle;
-    margin-right:var(--box-margin);
-    a{
-       color: var(--text-header);
-    }
-  }
-}
 .tabs{
   display: flex;
   justify-content: space-between;
   position: relative;
-}
-.tab-add{
-  min-width:25px;
-}
 
-.tab-active{
-    opacity: 1!important;
-    z-index:5!important;
-    background: var(--background-primary);
-}
-.current-dir{
-  max-width:calc(100% - 35px);
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  .tabs-left{
+    display: flex;
+    width: calc(100% - 29px);
+
+    .tab-header {
+      margin-left: var(--box-margin);
+    }
+  }
+  .tabs-right{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2px;
+
+    .tab-header {
+      margin-right: var(--box-margin);
+      right: 0;
+    }
+  }
 }
 .tab-header {
   text-align: center;
   cursor: pointer;
-  height:30px;
+  height: 30px;
   opacity: 0.51;
-  z-index:0;
-  padding:var(--box-margin);
-  border:1px solid var(--border-primary);
+  z-index: 0;
+  padding: var(--box-margin);
+  border: 1px solid var(--border-primary);
   color: var(--text-header);
 }
+.tab-active{
+  opacity: 1!important;
+  z-index: 5!important;
+  background: var(--background-primary);
+}
+
+.tab-content-mixtape{
+  height: calc(100% - 27px);
+}
+
+.tab-content-kernal{
+  height: calc(100% - 26px);
+}
+
+
+// Add button specific
+.tab-add{
+  min-width: 25px;
+}
+
+// Current Search and Mixtape info/close
+.current-dir{
+  max-width: calc(100% - 35px);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
+
+
 

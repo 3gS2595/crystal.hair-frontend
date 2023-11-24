@@ -15,7 +15,8 @@
   <!-- NAVIGATION PANE-->
       <pane id="main-left" :size="paneSize + paneSizeOffSet">
         <nav class='nav'>
-          <a class='navItem text-main-1' @click="logout">🎭&#xFE0E;</a>
+          <img class='navItem' src="logout.png" @click="logout"/>
+        <!--   <a class='navItem text-main-1' @click="logout">🃟&#xFE0E;</a>   -->
           <input class='search input-standard text-main-0' v-model="q" placeholder="search" @keyup.enter="search(q)" />
         </nav>
 
@@ -29,10 +30,10 @@
             <div class="tabs-right">
             </div>
           </div>
-          <div class="tab-content" v-if='tab === 1'>
+          <div class="tab-content-mixtape" v-if='tab === 1'>
             <MixtapeModule :id="0" :contentData="mixtapes"/>
           </div>
-          <div class="tab-content" v-if='tab === 2'>
+          <div class="tab-content-mixtape" v-if='tab === 2'>
             <WebscrapeModule :id="0" :contentData="hypertexts"/>
           </div>
         </div>
@@ -54,8 +55,8 @@
             <a class="tab-header tab-active" style="padding-top:3px;" @click='set = !set'>⚙&#xFE0E;</a>
           </div>
 
-          <div id="settings" v-if="set">
-            <div id="slide">
+          <div class="settings" v-if="set">
+            <div class="slide">
               <vue-slider v-model="store.cgbWidth"  min="0" :max="maxSliderWidth" :tooltip="'none'" @change="cgbSlide(0)" ></vue-slider>
             </div>
             <a class="set-btn" id="set-btn-2" @click="darkToggle()">dark mode</a>
@@ -63,11 +64,13 @@
           </div>
         </div>
 
-        <ContentModule
-          v-on:dblclick="resize(0)"
-          :contentData="kernals"
-          :id="1"
-        />
+        <div class="tab-content-kernal">
+          <ContentModule
+            v-on:dblclick="resize(0)"
+            :contentData="kernals"
+            :id="1"
+          />
+        </div>
       </pane>
     </splitpanes>
   </div>
@@ -164,6 +167,9 @@ export default defineComponent({
   methods: {
     darkToggle,
     darkSet,
+    coun () {
+      return 5
+    },
     logout () {
       localStorage.removeItem('auth_token')
       location.reload()
@@ -177,6 +183,8 @@ export default defineComponent({
       this.resizeContentFit()
     },
     cgbSlide(e: any) {
+      let me = this.coun
+      console.log(me)
       setTimeout (() => {
         this.resizeContentFit()
       }, 50)

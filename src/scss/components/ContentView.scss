@@ -1,196 +1,71 @@
 @import "../Theme";
 
-@keyframes example {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-.vue-slider-dot-handle {
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-    border-radius: 0!important;
-    background-color: transparent!important;
-    box-sizing: border-box;
-    box-shadow: none!important;
-}
-.vue-slider-dot-handle-focus {
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-    border-radius: 0!important;
-    background-color: transparent!important;
-    box-sizing: border-box;
-    box-shadow: none!important;
-}
-
-.vue-slider-rail {
-    background-color: var(--border-card);
-    border-radius: 15px;
-}
- #slide{
-    margin-right:var(--box-margin);
-    height:27px;
-    padding: var(--box-margin);
-    width:150px;
-    border: $tableBorder;
-    border-bottom:0;
-    position: absolute;
-    right: 4px;
-    top: 33px;
-    z-index: 15;
-    background: var(--lightbox-back);
-    backdrop-filter: blur(20px);
-
-    .vue-slider-process {
-        background-color: var(--text-header);
-        border-radius: 15px;
-    }
-  }
-#settings{
-    position: absolute;
-    left: 161px;
-    top: -4px;
- .set-btn{
-    background: var(--lightbox-back);
-    backdrop-filter: blur(20px);
-    margin-right:var(--box-margin);
-    height:27px;
-    padding: var(--box-margin);
-    width:150px;
-    border: $tableBorder;
-    position: absolute;
-    right: 4px;
-    top: 60px;
-    z-index: 15;
-    color: var(--text-data-title);
-  }
-  #set-btn-2{
-    top:60px;
-  }
-  #set-btn-3{
-    border-top:0;
-    top:87px;
-  }
-}
-
-
-#content-tabs{
-  display: flex;
-  justify-content: flex-end;
-   .tab{
-    width:20px;
-    background:none;
-    font-size:18px;
-    right:0;
-    height:27px;
-    text-align: center;
-    vertical-align: middle;
-    border: $tableBorder;
-    border-bottom:0;
-    padding: var(--box-margin);
-    // clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
-    a{
-      color: var(--text-header);
-    }
-  }
-
-  #tabAdd{
-    margin: var(--box-margin);
-    margin-bottom:0;
-    height:27px;
-  }
-}
-
 .contentView{
   margin-top: -4px;
   border: $tableBorder;
   width: calc(100% - var(--box-margin) - 1px);
-  height: calc(100% - var(--size-margin) - 27px);
+  height: calc(100% - var(--size-margin) - 1px);
 
   .p-dataview-content{
-    height:100%;
-    width:100%;
+    padding-top: 5px;
+    z-index: 10;
+    position: sticky;
+    background: var(--background-primary);
+    height: 100%;
+    width: 100%;
 
     .grid{
-      margin-top: 0;
-      margin-right: var(--box-margin);
+      display: flex;
+      flex-wrap: wrap;
       margin-bottom: var(--box-margin);
-      height:calc(100%);
-      width:calc(100%);
-      overflow-y:scroll;
-      justify-content: flex-start;
+      height: 100%;
+      overflow-y: scroll;
       align-content: flex-start;
-      background:var(--background-primary);
+      background: var(--background-primary);
       z-index: 10!important;
       position: relative;
-
-      // grid
-      .cgb-0{
-        margin-top:calc(var(--box-margin));
-        margin-left:calc(var(--box-margin));
-        animation-duration: 0s!important;
-        border: $cardBorder;
-        height: fit-content;
-
-        *{
-          animation-name: example!important;
-          animation-duration: .16s!important;
-        }
-        .cgb-0-txt{
-          padding: var(--box-margin);
-          font-size: 14px;
-          width:100%;
-          height: 100%;
-          overflow-y:hidden;
-          overflow-x:hidden;
-          white-space: pre-wrap;
-
-          a{
-          color: var(--text-content-descr);
-          }
-        }
-
-        .vue-load-image{
-          height: fit-content!important;
-          width:100%;
-          img {
-            width: 100%;
-            max-height:inherit;
-            object-fit: contain;
-            z-index: 0;
-          }
-          .loading{
-            height:146.741px;
-          }
-        }
-
-        .cgb-0-info{
-          border-top: $cardBorder;
-          background:var(--background-primary);
-          white-space: nowrap;
-          color: var(--text-content-descr);
-          font-size:12px!important;
-          max-width:100%;
-          overflow:hidden;
-          height:fit-content!important;
-          padding: 2px;
-          opacity:.8;
-        }
-      }
     }
   }
 }
-.grid {
-    display: flex;
-    flex-wrap: wrap;
 
-    margin-right: -0.5rem;
-    margin-left: -0.5rem;
-    margin-top: -0.5rem;
+// Content card
+.cgb-0{
+  margin-bottom: calc(var(--box-margin) + 1px);
+  margin-left: var(--box-margin);
+  border: $cardBorder;
+  height: fit-content;
+
+  .cgb-0-txt{
+    padding: var(--box-margin);
+    font-size: 14px;
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+  }
+
+  .vue-load-image{
+    .thumbnail {
+      width: 100%;
+      max-height: inherit;
+      object-fit: contain;
+    }
+    .loading{
+      height: 146.741px;
+    }
+  }
+
+  .cgb-0-info{
+    border-top: $cardBorder;
+    color: var(--text-content-descr);
+    font-size: 12px!important;
+    max-width: 100%;
+    overflow: hidden;
+    height: fit-content!important;
+    padding: 2px;
+    white-space: nowrap;
+    opacity: 0.8;
+  }
 }
-.grid-nogutter {
-    margin-right: 0;
-    margin-left: 0;
-    margin-top: 0;
-}
+

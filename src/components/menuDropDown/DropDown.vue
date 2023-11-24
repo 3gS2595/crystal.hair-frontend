@@ -1,3 +1,16 @@
+<template>
+  <select class='navItem' v-model="selectedData">
+    <option v-for="key in getOptions()" :value="key">
+  ⇓{{key}}
+    </option>
+  </select>
+  <select class='navItem' v-model="selectedOrder">
+    <option v-for="key in sortOrder"  :value="key">
+      ⇓{{key}}
+    </option>
+  </select>
+</template>
+
 <script setup lang='ts'>
 import { ref, onMounted,watch } from 'vue'
 import { GlobalStore } from '@/store/GlobalStore'
@@ -7,6 +20,7 @@ const sortOrder = ['asc', 'desc']
 
 const selectedData = ref('time_posted')
 const store = GlobalStore()
+
 const getOptions = () => {
   return store.sortByValue
 }
@@ -24,16 +38,3 @@ watch(
   }
 )
 </script>
-
-<template>
-      <select class='navItem' v-model="selectedData">
-        <option v-for="key in getOptions()" :value="key">
-      ⇓{{key}}
-        </option>
-      </select>
-      <select class='navItem' v-model="selectedOrder">
-        <option v-for="key in sortOrder"  :value="key">
-          ⇓{{key}}
-        </option>
-      </select>
-</template>

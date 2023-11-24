@@ -5,12 +5,12 @@
       <div class="cgb-0" v-on:click="toggleLightBox(slotProps.index)">
 
         <div class="cgb-0-txt" v-if="slotProps.data.file_type === '.txt'">
-          <a>{{ slotProps.data.description }}</a>
+          <a class="text-content-0">{{ slotProps.data.description }}</a>
         </div>
 
         <vue-load-image v-else >
           <template v-slot:image>
-            <img :src="`${slotProps.data.signed_url_nail}`"/>
+            <img class="thumbnail" :src="`${slotProps.data.signed_url_nail}`"/>
           </template>
           <template v-slot:preloader>
             <div class="loading"/>
