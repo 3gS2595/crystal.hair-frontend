@@ -8,12 +8,8 @@
       <template #list="slotProps">
         <div  @click="search(slotProps.data.id)" class="dgb-0">
           <div class="dgb-0-txt">
-              <a style="float:left; max-width:calc(100% - 40px);">
-              {{ slotProps.data.name }}
-              </a>
-              <a style="float:right;">
-                {{ convertDate(slotProps.data.updated_at) }}
-              </a>
+            <a style="float:left; max-width:calc(100% - 40px);">{{ slotProps.data.name }}</a>
+            <a style="float:right;">{{ convertDate(slotProps.data.updated_at) }}</a>
           </div>
         </div>
       </template>

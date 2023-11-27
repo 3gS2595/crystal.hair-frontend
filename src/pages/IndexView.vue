@@ -16,23 +16,23 @@
       <pane id="main-left" :size="paneSize + paneSizeOffSet">
         <nav class='nav'>
           <img class='navItem' src="logout.png" @click="logout"/>
-          <input class='search input-standard text-main-0' v-model="q" placeholder="Search" @keyup.enter="search(q)" />
+          <input class='search input-standard text-main-0' v-model="searchValue" placeholder="Search" @keyup.enter="search(searchValue)" />
         </nav>
 
         <div class="mixtape-pane">
           <div class="tabs">
             <div class="tabs-left">
               <a class="tab-header tab-active tab-add" @click='toggleAddMixtapeBox()'>+</a>
-              <a class="tab-header" @click='tab = 1' :class="{'tab-active': tab === 1}">Mixtapes</a>
-              <a class="tab-header" @click='tab = 2' :class="{'tab-active': tab === 2}">Webscrapes</a>
+              <a class="tab-header" @click='tab = 1' :class="{'tab-active': currentTab === 1}">Mixtapes</a>
+              <a class="tab-header" @click='tab = 2' :class="{'tab-active': currentTab === 2}">Webscrapes</a>
             </div>
             <div class="tabs-right">
             </div>
           </div>
-          <div class="tab-content-mixtape" v-if='tab === 1'>
+          <div class="tab-content-mixtape" v-if='currentTab === 1'>
             <MixtapeModule :id="0" :contentData="mixtapes"/>
           </div>
-          <div class="tab-content-mixtape" v-if='tab === 2'>
+          <div class="tab-content-mixtape" v-if='currentTab === 2'>
             <WebscrapeModule :id="0" :contentData="hypertexts"/>
           </div>
         </div>
@@ -46,19 +46,23 @@
       <pane id="main-right" :size="100 - (paneSize + paneSizeOffSet)">
         <div class="tabs" style="margin-top:4px; width:calc(100% - 4px)!important;">
           <div class="tabs-left">
-            <a class="tab-header tab-active" style="padding-top:0px!important;" @click='set = !set'>⚙&#xFE0E;</a>
+            <a class="tab-header tab-active" style="padding-top:0px!important;" @click='viewSettings = !viewSettings'>⚙&#xFE0E;</a>
             <a class="tab-header tab-active current-dir" v-if="store.filter != ''" @click='store.setFilter("")'>{{store.filter}}</a>
             <a class="tab-header tab-active current-dir" v-if="mixtapeHeader!= ''" @click='store.setMixtape("")'>{{mixtapeHeader}}</a>
           </div>
+
           <div class="tabs-right">
             <a class="tab-header tab-active tab-add" @click='toggleUploadBox()'>+</a>
           </div>
 
-          <div class="settings" v-if="set">
+          <div class="settings" v-if="viewSettings">
             <a class="set-btn" id="set-btn-1" @click="darkToggle()">dark mode</a>
             <a class="set-btn" id="set-btn-2" @click="cgbPlus()">+</a>
             <a class="set-btn" id="set-btn-3" @click="cgbMinus()">-</a>
-            <a v-if="store.mixtape != ''" class="set-btn" id="set-btn-3" @click="apiStore.deleteMixtape(store.mixtape); set = !set">delete mixtape</a>
+            <a class="set-btn" id="set-btn-4"
+              v-if="store.mixtape != ''"
+              @click="apiStore.deleteMixtape(store.mixtape); viewSettings=!viewSettings"
+            >delete mixtape</a>
           </div>
         </div>
 
@@ -77,18 +81,18 @@
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
-import { storeToRefs } from 'pinia'
-import { darkToggle, darkSet } from '@/lib/DarkMode'
 
+import { darkToggle, darkSet } from '@/lib/DarkMode'
 import DropDown from '@/components/menuDropDown/DropDown.vue'
-import ForceGraph from '@/components/three/ForceGraph.vue'
+import ForceGraph from '@/components/forceGraph/ForceGraph.vue'
 import ContentModule from '@/components/dataGrid/ContentModule.vue'
 import MixtapeModule from '@/components/dataGrid/MixtapeModule.vue'
 import WebscrapeModule from '@/components/dataGrid/WebscrapeModule.vue'
-import LightBox from '@/components/lightBox/viewer/LightBox.vue'
-import AddContentBox from '@/components/lightBox/uploader/AddContent.vue'
-import AddMixtapeBox from '@/components/lightBox/uploader/AddMixtape.vue'
+import LightBox from '@/components/contentViewer/LightBox.vue'
+import AddContentBox from '@/components/uploaders/AddContent.vue'
+import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
 
+import { storeToRefs } from 'pinia'
 import { ApiStore } from '@/store/ApiStore'
 import { GlobalStore } from '@/store/GlobalStore'
 
@@ -104,6 +108,9 @@ export default defineComponent({
     AddMixtapeBox,
     WebscrapeModule
   },
+
+
+// Page Variables
   data () {
     return {
       paneSizeTemp: 0,
@@ -111,19 +118,21 @@ export default defineComponent({
       paneSizeOffSet: 0.0,
       store: GlobalStore(),
       apiStore: ApiStore(),
-      maxSliderWidth: GlobalStore().cgbWidth * 2,
-      q: '',
-      tab: 1,
-      set: false,
+      viewSettings: false,
+      currentTab: 1,
+      searchValue: '',
       mixtapeHeader: '',
     }
   },
   watch: {
-    mixtape(newQuestion, oldQuestion) {
+    mixtape() {
       const result = this.mixtapes.find(person => person.id === this.store.mixtape)
       this.mixtapeHeader = (result !== undefined) ? result.name : ''
     }
   },
+
+
+// Page Lifecycle hooks
   setup () {
     const { hypertexts, sourceUrls, kernals, linkContents, mixtapes, forceGraph } = storeToRefs(ApiStore())
     const { mixtape } = storeToRefs(GlobalStore());
@@ -137,15 +146,16 @@ export default defineComponent({
       this.store.setCgbWidth(65)
     }
     this.resizeContentFit()
-    console.log(this.kernals)
     ApiStore().initialize()
   },
   unmounted () {
+    window.removeEventListener('visibilitychange', this.resizeContentFit)
     window.removeEventListener('orientationchange', this.resizeContentFit, true)
     window.removeEventListener('resize', this.resizeContentFit, true)
-    window.removeEventListener('visibilitychange', this.resizeContentFit)
   },
 
+
+// Page Methods
   methods: {
     darkToggle,
     darkSet,
@@ -169,13 +179,12 @@ export default defineComponent({
     },
     search: function (e: string) {
       this.store.setFilter(e)
-      this.q = ''
+      this.searchValue = ''
     },
     reset: function () {
       this.store.setFilter('')
       this.store.setMixtape('')
     },
-
     resizeContentFit: function () {
       const el = document.getElementById('app')
       const cgb_width = this.store.cgbWidth
@@ -206,7 +215,7 @@ export default defineComponent({
         }
 
         const images = document.getElementsByClassName('thumbnail');
-        if (images[0] != undefined) {
+        if (images[0] !== undefined && images[0].parentElement !== null) {
           const width = images[0].parentElement.offsetWidth
           for(let i = 0; i < images.length; i++) {
             const f = this.kernals.findIndex(x => x.id === images[i].id)
@@ -223,7 +232,6 @@ export default defineComponent({
         }
       }
     },
-
     resize: function (size: number) {
       if (this.paneSize !== size) {
         this.paneSizeTemp = this.paneSize
