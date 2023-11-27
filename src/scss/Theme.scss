@@ -1,7 +1,7 @@
 .theme-dark {
   --color-scheme: dark;
-  --background-primary: #151515;
-  --background-tilt: rgba(23, 23, 23, 1);
+  --background-primary: #101010;
+  --background-tilt: #101010;
   --background-lightbox: rgba(0, 0, 0, 0.7);
 
   --text-header: #886c27;
@@ -15,12 +15,15 @@
   --border-mix: #57576688;
   --border-secondary: #696967;
 
-  --scrollbar: #ffff0080;
+  --scrollbar: #ff572299;
   --size-margin: 8px;
   --box-margin: 4px;
-
-  .cgb-0, img{
-    filter: brightness(.85) contrast(1);
+  .cgb-0{
+    .vue-load-image{
+      .thumbnail{
+        filter: brightness(.85) contrast(1);
+      }
+    }
   }
 }
 
@@ -38,15 +41,12 @@
   --border-primary: #535353;
   --border-secondary: #000;
   --border-card: #535353;
-  --border-mix: #535353e7;
+  --border-mix: #535353;
 
   --scrollbar: #53535375;
   --size-margin: 8px;
   --box-margin: 4px;
 
-  img{
-    filter: brightness(1) contrast(1);
-  }
 }
 
 .text-main-0{

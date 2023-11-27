@@ -30,13 +30,15 @@
     opacity:.8;
 
     .scene-container{
-     width:100%!important;
-     height:125px!important;
+      max-width:100%!important;
+      width:100%!important;
+      height:125px!important;
 
-     canvas{
-       width:100%!important;
-       height:125px!important;
-     }
+      canvas{
+        max-width:100%!important;
+        width:100%!important;
+        height:125px!important;
+      }
     }
   }
 }

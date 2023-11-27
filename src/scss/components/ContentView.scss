@@ -7,7 +7,6 @@
   height: calc(100% - var(--size-margin) - 1px);
 
   .p-dataview-content{
-    padding-top: 5px;
     z-index: 10;
     position: sticky;
     background: var(--background-primary);
@@ -30,14 +29,14 @@
 
 // Content card
 .cgb-0{
-  margin-bottom: calc(var(--box-margin) + 1px);
-  margin-left: var(--box-margin);
+  margin-top: var(--box-margin);
+  margin-left:calc(var(--box-margin) + 1px);
   border: $cardBorder;
   height: fit-content;
 
   .cgb-0-txt{
     padding: var(--box-margin);
-    font-size: 14px;
+    font-size: 13px;
     width: 100%;
     height: 100%;
     overflow-y: hidden;
@@ -59,7 +58,7 @@
   .cgb-0-info{
     border-top: $cardBorder;
     color: var(--text-content-descr);
-    font-size: 12px!important;
+    font-size: 13px!important;
     max-width: 100%;
     overflow: hidden;
     height: fit-content!important;

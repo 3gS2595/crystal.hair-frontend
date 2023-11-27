@@ -9,13 +9,10 @@
 
 <script setup lang='ts'>
 import { defineComponent, onMounted, watch } from 'vue'
-import { GlobalStore } from '@/store/GlobalStore'
-
 import { darkSet } from '@/lib/DarkMode'
 
 import SessionManager from '@/components/sessionManager/SessionManager.vue'
 import { SessionStore } from "@/store/SessionStore"
-import 'vue-slider-component/theme/default.css'
 
 const sessionStore = SessionStore()
 
@@ -48,6 +45,7 @@ onMounted(() => {
   @import './scss/helpers/ProgressBar.scss';
   @import './scss/helpers/NavSearch.scss';
   @import './scss/helpers/Settings.scss';
+  @import './scss/helpers/AddMixtape.scss';
 
   @import 'splitpanes/dist/splitpanes.css';
 </style>

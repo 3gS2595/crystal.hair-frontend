@@ -10,7 +10,7 @@
 
         <vue-load-image v-else >
           <template v-slot:image>
-            <img class="thumbnail" :src="`${slotProps.data.signed_url_nail}`"/>
+            <img :id="`${slotProps.data.id}`" class="thumbnail" :src="`${slotProps.data.signed_url_s}`"/>
           </template>
           <template v-slot:preloader>
             <div class="loading"/>

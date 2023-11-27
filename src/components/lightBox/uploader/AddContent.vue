@@ -50,9 +50,7 @@ import axios from 'axios'
 import VueResizable from 'vue-resizable'
 
 import StarterKit from '@tiptap/starter-kit'
-import Typography from '@tiptap/extension-typography'
 import { Editor, EditorContent } from '@tiptap/vue-3'
-import HardBreak from '@tiptap/extension-hard-break'
 
 import { GlobalStore } from '@/store/GlobalStore'
 import { ApiStore } from '@/store/ApiStore'
@@ -177,17 +175,11 @@ export default defineComponent({
   mounted() {
     this.editor = new Editor({
       extensions: [
-        StarterKit,
-        HardBreak,
-        Typography
+        StarterKit
       ],
       content: this.enteredText.split("\n").join("<br />"),
       onUpdate: () => {
-        if(this.editor.getHTML() !== "<p></p>") {
-          this.editorEmpty = false
-        } else {
-          this.editorEmpty = true
-        }
+        this.editorEmpty = (this.editor.getHTML() !== "<p></p>") ? false : true
       }
     })
   },

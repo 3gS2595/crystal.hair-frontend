@@ -21,13 +21,13 @@
     <form @submit.prevent='onLogin' class='login-form'>
       <a>Development Server At the Momenet! Apologies!</a>
       <br />
-      <a>user:  </a>
+      <a>Usr:  </a>
       <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
       <br />
-      <a>pass: </a>
+      <a>Pwd: </a>
       <input class='login-form-password' type='password' v-model='loginPassword' placeholder='password' />
       <br />
-      <input type='submit' value='request' class='login-form-submit' />
+      <input type='submit' value='Login' class='login-form-submit' />
     </form>
     <img class="splash-image" src="sitedemo.gif" rel='preload'/>
   </div>

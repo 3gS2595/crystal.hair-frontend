@@ -65,15 +65,13 @@ const props = withDefaults(defineProps<{
 const mixes = computed(() => mixtapes.value.filter(mix => !mix.content.includes(props.modelValue.id)))
 const mixesBelong = computed(() => mixtapes.value.filter(mix => mix.content.includes(props.modelValue.id)))
 
-const convertDate = (datetime) => {
-  const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
-  return ( elapsed.toFixed(0) + ' days ago')
+const convertDate = (d) => {
+  const ret = (d === null) ? null:((new Date() - new Date(d))/1000/60/60/24).toFixed(0)
+  return ret + ' days ago'
 }
-const blockCnt = (datetime) => {
-  if(datetime != null) {
-    return datetime.length
-  }
-  return null
+const blockCnt = (kArr) => {
+  const ret = (kArr === null) ? null:kArr.length
+  return ret
 }
 const deleteBlock = () => {
   ApiStore().deleteKernal(props.modelValue.id)

@@ -2,7 +2,7 @@
  <div class='pdf'>
   <vue-load-image  >
     <template v-slot:image>
-      <img :src="modelValue" @load="handleLoad"/>
+      <img class="lightBox-viewer" :src="modelValue.signed_url_m" :onLoad="Load()"/>
     </template>
     <template v-slot:preloader>
       <img src="image-loader.gif" rel='preload'/>
@@ -24,8 +24,24 @@ export default defineComponent({
     VueLoadImage
   },
   props: ['modelValue'],
-  setup (props) {
-    console.log(props)
+   methods: {
+    Load () {
+      const viewer = document.getElementsByClassName('lightBox-viewer');
+      for(var i = 0; i < viewer.length; i++) {
+        var width = viewer[i].parentElement.offsetWidth;
+        console.log(width)
+        if (width > 140 && width <= 1000){
+          viewer[i].setAttribute('src', this.modelValue.signed_url_l);
+        } else if (width > 1000) {
+          viewer[i].setAttribute('src', this.modelValue.signed_url);
+        } else {
+          viewer[i].setAttribute('src', this.modelValue.signed_url_s);
+        }
+      }
+    }
+  },
+  mounted () {
+    window.addEventListener('resize', this.Load)
   }
 })
 </script>

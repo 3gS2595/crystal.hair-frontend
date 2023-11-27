@@ -16,7 +16,9 @@ export interface kernalType {
   likes: string,
   reposts: string,
   signed_url: string,
-  signed_url_nail: string,
+  signed_url_s: string,
+  signed_url_m: string,
+  signed_url_l: string,
   created_at: Date,
   updated_at: Date,
   permissions: string[]

@@ -28,7 +28,7 @@
         <ViewImg
           @click='viewInfo = !viewInfo'
           v-if="!kernals[store.lightBoxIndex].file_type.includes('pdf') && kernals[store.lightBoxIndex].file_type != '.txt'"
-          v-model="kernals[store.lightBoxIndex].signed_url"
+          v-model="kernals[store.lightBoxIndex]"
         />
         <ViewText
           v-if="kernals[store.lightBoxIndex].file_type == '.txt'"

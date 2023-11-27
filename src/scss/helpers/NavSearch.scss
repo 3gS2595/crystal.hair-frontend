@@ -7,11 +7,13 @@
   margin: var(--box-margin);
   margin-bottom:1px;
 
+    background: var(--background-primary);
+
   .navItem{
     font-size: 16px;
     text-align: center;
     cursor: pointer;
-    min-width:25px;
+    max-width: 25px;
     flex-grow:1;
     border-right:1px solid var(--border-primary);
   }

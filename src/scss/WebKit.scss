@@ -7,6 +7,7 @@
   max-width:var(--box-margin);
   border-left: $tableBorder;
   border-top: $tableBorder;
+  border-bottom: $tableBorder;
 }
 *::-webkit-scrollbar-thumb {
   border-top: $tableBorder;

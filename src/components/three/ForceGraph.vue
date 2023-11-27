@@ -6,7 +6,6 @@
     :backgroundColor=bgColor
     height=220
     width=201
-    linkCurvature=1
     :showNavInfo=bool
     :linkOpacity= lineOpacity
     :nodeOpacity= nodeOpacity
@@ -65,7 +64,6 @@ watch(
     setData(props.propKernals)
   }
 )
-
 
 let nodeData = ""
 let linkData = ""
@@ -149,7 +147,6 @@ const setData = (propKernals) => {
     console.error(e)
   }
 }
-
 
 onMounted(() => {
    setData(props.propKernals)

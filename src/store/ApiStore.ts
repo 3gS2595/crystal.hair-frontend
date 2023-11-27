@@ -229,6 +229,7 @@ export const ApiStore = defineStore({
           ])
           this.kernals.unshift(ker.data)
           this.forceGraph.unshift(ker.data)
+          console.log(ker.data)
           if(store.mixtape !== '') {
             this.mixtapes.find(person => person.id === store.mixtape)!.content.unshift(ker.data.id)
           }

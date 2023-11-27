@@ -4,9 +4,9 @@
       <template #list="slotProps">
         <div @click="search(slotProps.data.id)" class="dgb-mixtape">
           <div class="dgb-0-txt">
-            <a class='title text text-main-0'>{{ slotProps.data.name }}</a>
-            <a class='descr text text-main-0'>{{ convertDate(slotProps.data.updated_at) }}</a>
-            <a class='descr text text-main-0' style="float:right;">{{ blockCnt(slotProps.data.content) }} kernals</a>
+            <a class='title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
+            <a class='descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:21%; padding-right:2px;">{{blockCnt(slotProps.data.content)}} 🔗&#xFE0E; </a>
+            <a class='descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">&#128198;&#xFE0E; {{convertDate(slotProps.data.updated_at)}}</a>
           </div>
         </div>
       </template>
@@ -19,7 +19,6 @@ import type { mixtapeType } from '@/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
-import VanillaTilt from 'vanilla-tilt'
 import { GlobalStore } from '@/store/GlobalStore'
 import { ApiStore } from '@/store/ApiStore'
 
@@ -47,10 +46,27 @@ const search = (e) => {
     store.setMixtape(e)
   }
 }
-const convertDate = (datetime) => {
-  const elapsed = (new Date() - new Date(datetime))/1000/60/60/24
-  return ( elapsed.toFixed(0) + ' days ago')
+const convertTitle = (title) => {
+  title = title.replace(/^\s+|\s+$/gm,'')
+  if(title.length > 20){
+    return title.substring(0, 20).replace(/^\s+|\s+$/gm,'') + "_"
+  }
+  return title
 }
+const convertDate = (datetime) => {
+  const d = Math.trunc((new Date() - new Date(datetime))/1000/60/60/24)
+  const h = Math.trunc((new Date() - new Date(datetime))/1000/60/60) - (d * 24)
+  const m = Math.trunc((new Date() - new Date(datetime) )/1000/60) - (h * 60) - (d * 24 * 60)
+
+  if (h == 0 && d == 0){
+    return (m + ' mins ')
+  }
+  if (d == 0){
+    return (h + ' hrs ')
+  }
+  return (d + ' days ')
+}
+
 const blockCnt = (datetime) => {
   if(datetime != null) {
     return datetime.length
@@ -64,15 +80,6 @@ const fetchPage = async () => {
   pageNumber.value = pageNumber.value + 1
 }
 const intersecting = (event) => {
-  VanillaTilt.init(document.querySelectorAll(".dgb-0"), {
-    max: 13,
-    speed: 200,
-    startX: 0,
-    startY: 0,
-    reverse: true,
-    axis: "x",
-    "reset-to-start": true,
-  })
   for (const e of event){
     if (e.isIntersecting) {
       observer.disconnect()

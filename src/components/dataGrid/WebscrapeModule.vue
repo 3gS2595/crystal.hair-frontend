@@ -19,7 +19,6 @@ import type { mixtapeType } from '@/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
-import VanillaTilt from 'vanilla-tilt'
 import { GlobalStore } from '@/store/GlobalStore'
 import { ApiStore } from '@/store/ApiStore'
 
@@ -67,16 +66,6 @@ const fetchPage = async () => {
   pageNumber.value = pageNumber.value + 1
 }
 const intersecting = (event) => {
-  VanillaTilt.init(document.querySelectorAll(".dgb-0"), {
-    max: 13,
-    speed: 200,
-    startX: 0,
-    startY: 0,
-    reverse: true,
-    axis: "x",
-    "reset-to-start": true,
-  })
-  console.log(document.querySelectorAll(".dgb-0"))
   for (const e of event){
     if (e.isIntersecting) {
       observer.disconnect()

@@ -12,7 +12,8 @@
   border: $tableBorder;
 
   .p-dataview-content{
-    padding-top: 4px;
+    padding-top: 5px;
+    padding-bottom: 4px;
     z-index: 10;
     position: sticky;
     background: var(--background-primary);
@@ -40,23 +41,23 @@
   background: var(--background-tilt);
   backdrop-filter: blur(5px);
   cursor: pointer;
-  padding: 3px;
-  border: 1px solid var(--border-mix);
+  padding-bottom: 1px;
+  padding-left: 1px;
+  border: $cardBorder;
   width: 100%;
   min-width: 90px;
-  margin: 5px;
+  margin: 2px;
   margin-top: 0;
-  margin-bottom: 1px;
 
   .descr{
     opacity: 0.50;
-    font-size: 12px;
+    font-size: 13px;
   }
   .title{
     float: left;
-    width: 100%;
+    width: 78%;
     font-size: 16px;
-    text-overflow: ellipsis;
+    text-overflow: clip;
     overflow: hidden;
     white-space: nowrap;
   }

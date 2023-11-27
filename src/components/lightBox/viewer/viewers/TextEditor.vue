@@ -9,9 +9,7 @@
 import { defineComponent } from "vue";
 import type { kernalType } from '@/types/ApiTypes'
 import StarterKit from '@tiptap/starter-kit'
-import Typography from '@tiptap/extension-typography'
 import { Editor, EditorContent } from '@tiptap/vue-3'
-import HardBreak from '@tiptap/extension-hard-break'
 import { ApiStore } from '@/store/ApiStore'
 export default defineComponent({
   components: {
@@ -30,10 +28,7 @@ export default defineComponent({
     modelValue(value: any) {
       value.description = value.description.split("\n").join("<br />")
       const isSame = this.editor.getHTML() === value.description
-      if (isSame) {
-        return
-      }
-      this.editor.commands.setContent(value.description, false)
+      if (!isSame) this.editor.commands.setContent(value.description, false)
     }
   },
   methods: {
@@ -45,8 +40,6 @@ export default defineComponent({
     this.editor = new Editor({
       extensions: [
         StarterKit,
-        HardBreak,
-        Typography
       ],
       content: this.modelValue.description.split("\n").join("<br />"),
       onUpdate: () => {
