@@ -2,7 +2,7 @@ http://3.130.240.169
 =======
 Centralized content stream for mapping ideas, and building knowledge, visualizing live scraping data coupled with research.
 -----------
-![Site Screenshot](https://raw.githubusercontent.com/3gS2595/crystal.hair-frontend-vuejs/main/public/sitedemo.gif)
+![Site Screenshot](https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/sitedemo.gif)
 
 Typescript, Vue, SCSS, Pinia, Devise, Three.js, Vue-force-graph, Vanilla-tilt.js, Tiptap, Vue3-pdf-app, Axios, Terser, http-server AWS-EC2
 
