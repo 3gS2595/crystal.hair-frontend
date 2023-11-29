@@ -26,7 +26,8 @@
   text-align: center;
   cursor: pointer;
   height: 30px;
-  opacity: 0.51;
+  opacity: 0.71;
+  font-size:20px;
   z-index: 0;
   padding: var(--box-margin);
   border: 1px solid var(--border-primary);
@@ -58,6 +59,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  font-size:18px;
 }
 
 

@@ -6,10 +6,7 @@ import axios from 'axios'
 
 import type {
   kernalType,
-  mixtapeType,
-  hypertextType,
-  linkContentType,
-  sourceUrlType
+  mixtapeType
 } from '@/types/ApiTypes'
 
 const store = GlobalStore()
@@ -33,29 +30,14 @@ watch(
 export const ApiStore = defineStore({
   id: 'apiData',
   state: () => ({
-    hypertexts: <hypertextType[]>[],
     kernals: <kernalType[]>[],
-    linkContents: <linkContentType[]>[],
-    sourceUrls: <sourceUrlType[]>[],
     mixtapes: <mixtapeType[]>[],
     forceGraph: <kernalType[]>[]
   }),
 
   actions: {
     async initialize () {
-      controller.abort()
-      controller = new AbortController();
-      const config = {
-        headers: { Authorization: sessionStore.auth_token },
-        signal: controller.signal
-      }
-      const params = '?sort=' + store.sortBy
-      const [ linkContents ] = await Promise.all([
-        axios.get(base + 'link_contents' + params, config),
-        this.fetchHypertexts(1)
-      ])
-      this.linkContents = linkContents.data
-      this.fetchKernals(1),
+      this.fetchKernals(1)
       this.fetchMixtapes(1)
       this.fetchForceGraph()
     },
@@ -63,14 +45,11 @@ export const ApiStore = defineStore({
     async search () {
       controller.abort()
       controller = new AbortController();
-      this.hypertexts = []
       this.kernals = []
       this.forceGraph = []
 
       try {
-        this.fetchSourceUrls(1)
         this.fetchKernals(1)
-        this.fetchHypertexts(1)
         this.fetchForceGraph()
       } catch (e) {
         console.error(e);
@@ -116,20 +95,6 @@ export const ApiStore = defineStore({
       }
     },
 
-    async fetchHypertexts (pageNumber: number) {
-      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
-      const config = {
-        headers: { Authorization: sessionStore.auth_token },
-        signal: controller.signal
-      }
-      try {
-        const hypertexts = await axios.get(base + 'hypertexts'+ params, config)
-        this.hypertexts = this.hypertexts.concat(hypertexts.data)
-      } catch (e) {
-        console.error(e);
-      }
-    },
-
     async fetchMixtapes (pageNumber: number) {
       console.log(this.mixtapes)
       let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
@@ -143,20 +108,6 @@ export const ApiStore = defineStore({
 
       console.log(this.mixtapes)
         return mixtapes
-      } catch (e) {
-        console.error(e);
-      }
-    },
-
-    async fetchSourceUrls (pageNumber: number) {
-      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
-      const config = {
-        headers: { Authorization: sessionStore.auth_token },
-        signal: controller.signal
-      }
-      try {
-        const sourceUrls = await axios.get(base + 'source_urls'+ params, config)
-        this.sourceUrls = this.sourceUrls.concat(sourceUrls.data)
       } catch (e) {
         console.error(e);
       }

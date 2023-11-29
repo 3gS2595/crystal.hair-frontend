@@ -16,15 +16,15 @@
       <pane id="main-left" :size="paneSize + paneSizeOffSet">
         <nav class='nav'>
           <img class='navItem' src="logout.png" @click="logout"/>
-          <input class='search input-standard text-main-0' v-model="searchValue" placeholder="Search" @keyup.enter="search(searchValue)" />
+          <input class='search input-standard text-main-0' v-model="searchValue" placeholder="search" @keyup.enter="search(searchValue)" />
         </nav>
 
         <div class="mixtape-pane">
           <div class="tabs">
             <div class="tabs-left">
               <a class="tab-header tab-active tab-add" @click='toggleAddMixtapeBox()'>+</a>
-              <a class="tab-header" @click='tab = 1' :class="{'tab-active': currentTab === 1}">Mixtapes</a>
-              <a class="tab-header" @click='tab = 2' :class="{'tab-active': currentTab === 2}">Webscrapes</a>
+              <a class="tab-header" @click='currentTab = 1'  :class="{'tab-active': currentTab === 1}">※&#xFE0E;</a>
+              <a class="tab-header" @click='currentTab = 2' style="padding-top:0px!important; font-size: 18px;" :class="{'tab-active': currentTab === 2}">&#x1F4A2;&#xFE0E;</a>
             </div>
             <div class="tabs-right">
             </div>
@@ -32,9 +32,9 @@
           <div class="tab-content-mixtape" v-if='currentTab === 1'>
             <MixtapeModule :id="0" :contentData="mixtapes"/>
           </div>
-          <div class="tab-content-mixtape" v-if='currentTab === 2'>
+      <!--     <div class="tab-content-mixtape" v-if='currentTab === 2'>
             <WebscrapeModule :id="0" :contentData="hypertexts"/>
-          </div>
+          </div> -->
         </div>
 
         <div  class="forceGraph" >
@@ -46,7 +46,7 @@
       <pane id="main-right" :size="100 - (paneSize + paneSizeOffSet)">
         <div class="tabs" style="margin-top:4px; width:calc(100% - 4px)!important;">
           <div class="tabs-left">
-            <a class="tab-header tab-active" style="padding-top:0px!important;" @click='viewSettings = !viewSettings'>⚙&#xFE0E;</a>
+            <a class="tab-header tab-active" style="padding-top:0px!important;" @click='viewSettings = !viewSettings'>⛓&#xFE0E;</a>
             <a class="tab-header tab-active current-dir" v-if="store.filter != ''" @click='store.setFilter("")'>{{store.filter}}</a>
             <a class="tab-header tab-active current-dir" v-if="mixtapeHeader!= ''" @click='store.setMixtape("")'>{{mixtapeHeader}}</a>
           </div>
@@ -134,9 +134,9 @@ export default defineComponent({
 
 // Page Lifecycle hooks
   setup () {
-    const { hypertexts, sourceUrls, kernals, linkContents, mixtapes, forceGraph } = storeToRefs(ApiStore())
+    const { kernals, mixtapes, forceGraph } = storeToRefs(ApiStore())
     const { mixtape } = storeToRefs(GlobalStore());
-    return { hypertexts, sourceUrls, kernals, linkContents, mixtapes, forceGraph, mixtape }
+    return { kernals, mixtapes, forceGraph, mixtape }
   },
   mounted () {
     window.addEventListener('visibilitychange', this.resizeContentFit)
@@ -199,7 +199,7 @@ export default defineComponent({
 
       if ( el != null) {
         if (this.paneSize === 30 ){
-          const max_cont_width = el.offsetWidth - 200 - scroll_width - (cgb_margin)
+          const max_cont_width = el.offsetWidth - 207 - scroll_width - (cgb_margin)
           const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 18
           const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
           const content_width_percent = (max_cont_width) / el.offsetWidth
