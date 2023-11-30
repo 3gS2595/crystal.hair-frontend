@@ -1,6 +1,6 @@
 <template>
   <div class="mixtapeView">
-    <DataView class='dg-0' :value="props.contentData" :layout="list" >
+    <DataView class='dg-0' :value="mixtapes" :layout="list" >
       <template #list="slotProps">
         <div @click="search(slotProps.data.id)" class="dgb-mixtape">
           <div class="dgb-0-txt">
@@ -19,21 +19,25 @@ import type { mixtapeType } from '@/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
-import { GlobalStore } from '@/store/GlobalStore'
+
+import { storeToRefs } from 'pinia'
 import { ApiStore } from '@/store/ApiStore'
+import { GlobalStore } from '@/store/GlobalStore'
+import VueLoadImage from 'vue-load-image'
+
+const { mixtapes } = storeToRefs(ApiStore())
 
 const pageNumber = ref<number>(2)
 const store = GlobalStore()
 const props = withDefaults(defineProps<{
-  contentData: PropType<mixtapeType[]>,
   id: number
 }> (), {
-  contentData: []
+  id:-1
 })
 watch(
-  () => props.contentData,
+  () => mixtapes,
   () => {
-    if(props.contentData.length < store.pageSize -1 ){
+    if(mixtapes.value.length < store.pageSize -1 ){
       pageNumber.value = 2
     }
   }

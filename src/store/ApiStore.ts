@@ -62,8 +62,8 @@ export const ApiStore = defineStore({
       this.forceGraph = []
 
       try {
-        await Promise.all([this.fetchForceGraph()])
         this.fetchKernals(1)
+        this.fetchForceGraph()
       } catch (e) {
         console.error(e);
       }
@@ -89,7 +89,6 @@ export const ApiStore = defineStore({
           }
           store.setSortByValue(keys)
         }
-        return kernals
       } catch (e) {
         console.error(e);
       }

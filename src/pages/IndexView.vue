@@ -134,17 +134,14 @@ export default defineComponent({
 
 // Page Lifecycle hooks
   setup () {
-    const { kernals, mixtapes, forceGraph } = storeToRefs(ApiStore())
+    const { mixtapes, forceGraph } = storeToRefs(ApiStore())
     const { mixtape } = storeToRefs(GlobalStore());
-    return { kernals, mixtapes, forceGraph, mixtape }
+    return { mixtapes, mixtape, forceGraph }
   },
   mounted () {
     window.addEventListener('visibilitychange', this.resizeContentFit)
     window.addEventListener('orientationchange', this.resizeContentFit)
     window.addEventListener('resize', this.resizeContentFit)
-    if (window.innerWidth <= 430 && (window.innerHeight > window.innerWidth)){
-      this.store.setCgbWidth(65)
-    }
     this.resizeContentFit()
     ApiStore().initialize()
   },
@@ -164,12 +161,10 @@ export default defineComponent({
       location.reload()
     },
     cgbPlus () {
-      this.store.setCgbWidth(this.store.cgbWidth + 40)
-      this.resizeContentFit()
+      this.stepContentFit(1)
     },
     cgbMinus () {
-      this.store.setCgbWidth(this.store.cgbWidth - 40)
-      this.resizeContentFit()
+      this.stepContentFit(-1)
     },
     toggleUploadBox() {
       this.store.setUploadBoxView(!this.store.uploadBoxView)
@@ -180,10 +175,6 @@ export default defineComponent({
     search: function (e: string) {
       this.store.setFilter(e)
       this.searchValue = ''
-    },
-    reset: function () {
-      this.store.setFilter('')
-      this.store.setMixtape('')
     },
     resizeContentFit: function () {
       const el = document.getElementById('app')
@@ -196,10 +187,9 @@ export default defineComponent({
         cgb_margin = Number(width.substring(0, width.length - 2))
         scroll_width = cgb_margin * 2
       }
-
       if ( el != null) {
         if (this.paneSize === 30 ){
-          const max_cont_width = el.offsetWidth - 207 - scroll_width - (cgb_margin)
+          const max_cont_width = el.offsetWidth - 202 - scroll_width - (cgb_margin)
           const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 18
           const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
           const content_width_percent = (max_cont_width) / el.offsetWidth
@@ -213,21 +203,29 @@ export default defineComponent({
           const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
           this.store.setCgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
         }
-
-        const images = document.getElementsByClassName('thumbnail');
-        if (images[0] !== undefined && images[0].parentElement !== null) {
-          const width = images[0].parentElement.offsetWidth
-          for(let i = 0; i < images.length; i++) {
-            const f = this.kernals.findIndex(x => x.id === images[i].id)
-            if (width > 160 && width <= 400){
-              images[i].setAttribute('src', this.kernals[f].signed_url_m);
-            } else if (width > 400 && width <= 1000){
-              images[i].setAttribute('src', this.kernals[f].signed_url_l);
-            } else if (width > 1000) {
-              images[i].setAttribute('src', this.kernals[f].signed_url);
-            } else {
-              images[i].setAttribute('src', this.kernals[f].signed_url_s);
-            }
+      }
+    },
+    stepContentFit: function (step: number) {
+      const el = document.getElementById('app')
+      const cgb_width = this.store.cgbWidth
+      const cgb = document.querySelector('.cgb-0')
+      let cgb_margin = 5
+      let scroll_width = 8
+      if (cgb != null) {
+        const width  = window.getComputedStyle(cgb).marginLeft
+        cgb_margin = Number(width.substring(0, width.length - 2))
+        scroll_width = cgb_margin * 2
+      }
+      if ( el != null) {
+        if (this.paneSize === 30 ){
+          const max_cont_width = el.offsetWidth - 202 - scroll_width - (cgb_margin) - 20
+          const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 18
+          const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
+          if(step + Math.trunc(tt) >= 1){
+            const fitWidth = (max_cont_width - (step + Math.trunc(tt)) * cgb_margin) / (step + Math.trunc(tt))
+            this.store.setCgbWidth(fitWidth - (this.store.cgbWidthSized - this.store.cgbWidth))
+            this.store.setCgbWidthSized(fitWidth)
+            this.resizeContentFit()
           }
         }
       }
