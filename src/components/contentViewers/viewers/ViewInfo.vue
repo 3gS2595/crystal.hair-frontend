@@ -3,6 +3,7 @@
     <div class="infoCol">
       <a class="infoBox" :href="modelValue.url" target="_blank">url: {{modelValue.url}}</a>
       <div class="infoBox">description: {{modelValue.description}}</div>
+      <div class="infoBox">time_posted: {{modelValue.time_posted}}</div>
       <div class="infoBox">created_at: {{modelValue.created_at}}</div>
       <div class="infoBox">author: {{modelValue.author}}</div>
       <div class="infoBox">time_scraped: {{modelValue.time_scraped}}</div>

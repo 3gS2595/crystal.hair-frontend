@@ -53,11 +53,13 @@ const search = (e) => {
   }
 }
 const convertTitle = (title) => {
-  title = title.replace(/^\s+|\s+$/gm,'')
-  if(title.length > 20){
-    return title.substring(0, 20).replace(/^\s+|\s+$/gm,'') + "_"
+  if (title !== undefined){
+    title = title.replace(/^\s+|\s+$/gm,'')
+    if(title.length > 20){
+      return title.substring(0, 20).replace(/^\s+|\s+$/gm,'') + "_"
+    }
+    return title
   }
-  return title
 }
 const convertDate = (datetime) => {
   const d = Math.trunc((new Date() - new Date(datetime))/1000/60/60/24)
