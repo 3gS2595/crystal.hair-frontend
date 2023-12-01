@@ -17,6 +17,7 @@ export const GlobalStore = defineStore('counter', () => {
   // result filters
   const filter = ref<string>('')
   const mixtape = ref<string>('')
+  const srcUrlSubset = ref<string>('')
   const sortBy = ref<string>('time_posted desc')
   const sortByValue = ref<string[]>(['time_posted', 'time_scraped' ])
   const sortByOrder = ref<string>('desc')
@@ -56,6 +57,9 @@ export const GlobalStore = defineStore('counter', () => {
   }
   function setMixtape (newMixtape: string) {
     mixtape.value = newMixtape
+  }
+  function setSrcUrlSubset (newSrcUrlSubset: string) {
+    srcUrlSubset.value = newSrcUrlSubset
   }
   function setDarkMode (newDarkMode: boolean) {
     darkMode.value = newDarkMode
@@ -99,6 +103,7 @@ export const GlobalStore = defineStore('counter', () => {
     sortByValue, setSortByValue,
     sortByOrder, setSortByOrder,
     mixtape, setMixtape,
+    srcUrlSubset, setSrcUrlSubset,
     cgbWidth, setCgbWidth,
     cgbWidthSized, setCgbWidthSized,
     darkMode, setDarkMode,

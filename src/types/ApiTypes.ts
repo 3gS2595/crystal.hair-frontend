@@ -23,34 +23,11 @@ export interface kernalType {
   updated_at: Date,
   permissions: string[]
 }
-
-export interface linkContentType {
+export interface srcUrlType {
   id: string,
-  names: string,
-  url: string,
-  post_date: Date,
-  word_count: number,
-  author: string,
-  text_body: string
-}
-
-export interface hypertextType {
-  id: string,
-  url: string,
   name: string,
-  scrape_interval: number,
-  time_last_scrape: Date,
-  time_initial_scrape: Date,
-  logo_path: string,
-  created_at: Date,
-  updated_at: Date
-}
-export interface sourceUrlType {
-  id: string,
-  domain: string,
-  tag_list: string,
-  source: string,
-  logo_path: string,
+  url: string,
+  permissions: string[],
   created_at: Date,
   updated_at: Date
 }
@@ -58,7 +35,18 @@ export interface mixtapeType {
   id: string,
   name: string,
   content: string[]
+  permissions: string[],
   created_at: Date,
-  updated_at: Date,
+  updated_at: Date
+}
+export interface srcUrlSubsetType {
+  id: string,
+  src_url_id: string,
+  url: string,
+  name: string,
+  scrape_interval: number,
+  time_last_scraped: Date,
   permissions: string[]
+  created_at: Date,
+  updated_at: Date
 }

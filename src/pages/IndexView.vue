@@ -23,18 +23,18 @@
           <div class="tabs">
             <div class="tabs-left">
               <a class="tab-header tab-active tab-add" @click='toggleAddMixtapeBox()'>+</a>
-              <a class="tab-header" @click='currentTab = 1'  :class="{'tab-active': currentTab === 1}">※&#xFE0E;</a>
-              <a class="tab-header" @click='currentTab = 2' style="padding-top:0px!important; font-size: 18px;" :class="{'tab-active': currentTab === 2}">&#x1F4A2;&#xFE0E;</a>
+              <a class="tab-header" @click='currentTab = 1; changeTab()'  :class="{'tab-active': currentTab === 1}">※&#xFE0E;</a>
+              <a class="tab-header" @click='currentTab = 2; changeTab()' style="padding-top:0px!important; font-size: 18px;" :class="{'tab-active': currentTab === 2}">&#x1F4A2;&#xFE0E;</a>
             </div>
             <div class="tabs-right">
             </div>
           </div>
           <div class="tab-content-mixtape" v-if='currentTab === 1'>
-            <MixtapeModule :id="0" :contentData="mixtapes"/>
+            <MixtapeModule :id="0"/>
           </div>
-      <!--     <div class="tab-content-mixtape" v-if='currentTab === 2'>
-            <WebscrapeModule :id="0" :contentData="hypertexts"/>
-          </div> -->
+          <div class="tab-content-mixtape" v-if='currentTab === 2'>
+            <ScrapersModule :id="0"/>
+          </div>
         </div>
 
         <div  class="forceGraph" >
@@ -48,14 +48,14 @@
           <div class="tabs-left">
             <a class="tab-header tab-active" style="padding-top:0px!important;" @click='viewSettings = !viewSettings'>⛓&#xFE0E;</a>
             <a class="tab-header tab-active current-dir" v-if="store.filter != ''" @click='store.setFilter("")'>{{store.filter}}</a>
-            <a class="tab-header tab-active current-dir" v-if="mixtapeHeader!= ''" @click='store.setMixtape("")'>{{mixtapeHeader}}</a>
+            <a class="tab-header tab-active current-dir" v-if="mixtapeHeader!= ''" @click='closeHeader()'>{{mixtapeHeader}}</a>
           </div>
 
           <div class="tabs-right">
             <a class="tab-header tab-active tab-add" @click='toggleUploadBox()'>+</a>
           </div>
 
-          <div class="settings" v-if="viewSettings">
+          <div class="settings" v-if="viewSettings" v-click-away='onClickAway'>
             <a class="set-btn" id="set-btn-1" @click="darkToggle()">dark mode</a>
             <a class="set-btn" id="set-btn-2" @click="cgbPlus()">+</a>
             <a class="set-btn" id="set-btn-3" @click="cgbMinus()">-</a>
@@ -81,13 +81,14 @@
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
+import { directive } from 'vue3-click-away'
 
 import { darkToggle, darkSet } from '@/lib/DarkMode'
 import DropDown from '@/components/menuDropDown/DropDown.vue'
 import ForceGraph from '@/components/forceGraph/ForceGraph.vue'
 import ContentModule from '@/components/dataGrids/ContentModule.vue'
 import MixtapeModule from '@/components/dataGrids/MixtapeModule.vue'
-import WebscrapeModule from '@/components/dataGrids/WebscrapeModule.vue'
+import ScrapersModule from '@/components/dataGrids/ScrapersModule.vue'
 import LightBox from '@/components/contentViewers/LightBox.vue'
 import AddContentBox from '@/components/uploaders/AddContent.vue'
 import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
@@ -102,11 +103,11 @@ export default defineComponent({
     Pane,
     ContentModule,
     MixtapeModule,
+    ScrapersModule,
     ForceGraph,
     LightBox,
     AddContentBox,
-    AddMixtapeBox,
-    WebscrapeModule
+    AddMixtapeBox
   },
 
 
@@ -126,7 +127,11 @@ export default defineComponent({
   },
   watch: {
     mixtape() {
-      const result = this.mixtapes.find(person => person.id === this.store.mixtape)
+      const result = this.mixtapes.find(m => m.id === this.store.mixtape)
+      this.mixtapeHeader = (result !== undefined) ? result.name : ''
+    },
+    srcUrlSubset() {
+      const result = this.srcUrlSubsets.find(s => s.id === this.store.srcUrlSubset)
       this.mixtapeHeader = (result !== undefined) ? result.name : ''
     }
   },
@@ -134,9 +139,9 @@ export default defineComponent({
 
 // Page Lifecycle hooks
   setup () {
-    const { mixtapes, forceGraph } = storeToRefs(ApiStore())
-    const { mixtape } = storeToRefs(GlobalStore());
-    return { mixtapes, mixtape, forceGraph }
+    const { mixtapes, forceGraph, srcUrlSubsets } = storeToRefs(ApiStore())
+    const { mixtape, srcUrlSubset } = storeToRefs(GlobalStore());
+    return { mixtapes, mixtape, srcUrlSubsets, srcUrlSubset, forceGraph }
   },
   mounted () {
     window.addEventListener('visibilitychange', this.resizeContentFit)
@@ -153,9 +158,27 @@ export default defineComponent({
 
 
 // Page Methods
+
   methods: {
     darkToggle,
     darkSet,
+    closeHeader () {
+      this.store.setMixtape("")
+      if(this.currentTab === 2){
+        this.store.setSrcUrlSubset("-1")
+      } else {
+        this.store.setSrcUrlSubset("")
+      }
+    },
+    changeTab () {
+      if (this.store.mixtape == "" && (this.store.srcUrlSubset == "-1" || this.store.srcUrlSubset == "")) {
+        if (this.currentTab === 1){
+          this.store.setSrcUrlSubset("")
+        } else if (this.currentTab === 2){
+          this.store.setSrcUrlSubset("-1")
+        }
+      }
+    },
     logout () {
       localStorage.removeItem('auth_token')
       location.reload()
@@ -239,7 +262,13 @@ export default defineComponent({
         this.paneSize = this.paneSizeTemp
       }
       this.resizeContentFit()
-    }
+    },
+    onClickAway () {
+      this.viewSettings = false
+    },
+  },
+  directives: {
+    ClickAway: directive
   }
 })
 </script>

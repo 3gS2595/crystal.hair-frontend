@@ -1,8 +1,8 @@
 <template>
-  <div class="mixtapeView">
-    <DataView class='dg-0' :value="mixtapes" :layout="list" >
+  <div class="src-url-subset-view">
+    <DataView class='dg-0' :value="srcUrlSubsets" :layout="list" >
       <template #list="slotProps">
-        <div @click="search(slotProps.data.id)" class="dgb-mixtape">
+        <div @click="search(slotProps.data.id)" class="dgb-src-url-subset">
           <div class="dgb-0-txt">
             <a class='title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
             <a class='descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:21%; padding-right:2px;">{{blockCnt(slotProps.data.content)}} 🔗&#xFE0E; </a>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import type { mixtapeType } from '@/types/ApiTypes'
+import type { srcUrlSubsets } from '@/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
@@ -25,7 +25,7 @@ import { ApiStore } from '@/store/ApiStore'
 import { GlobalStore } from '@/store/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 
-const { mixtapes } = storeToRefs(ApiStore())
+const { srcUrlSubsets } = storeToRefs(ApiStore())
 
 const pageNumber = ref<number>(2)
 const store = GlobalStore()
@@ -35,21 +35,20 @@ const props = withDefaults(defineProps<{
   id:-1
 })
 watch(
-  () => mixtapes,
+  () => srcUrlSubsets.value,
   () => {
-    if(mixtapes.value.length < store.pageSize -1 ){
+    if(srcUrlSubsets.value.length < store.pageSize -1 ){
       pageNumber.value = 2
     }
   }
 )
 
 const search = (e) => {
-  if(JSON.stringify(store.mixtape) === JSON.stringify(e)) {
-    store.setSrcUrlSubset('')
-    store.setMixtape('')
+  if(JSON.stringify(store.srcUrlSubset) === JSON.stringify(e)) {
+    store.setSrcUrlSubset('-1')
   }else {
-    store.setSrcUrlSubset('')
-    store.setMixtape(e)
+    store.setSrcUrlSubset(e)
+    console.log(e)
   }
 }
 const convertTitle = (title) => {
@@ -82,7 +81,7 @@ const blockCnt = (datetime) => {
 
 // infinite scrollling intersectionObserver
 const fetchPage = async () => {
-  ApiStore().fetchMixtapes(pageNumber.value)
+  ApiStore().fetchSrcUrlSubsets(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
 }
 const intersecting = (event) => {
@@ -96,7 +95,7 @@ const intersecting = (event) => {
 const watchIntersect = () =>{
   observer.disconnect()
   for (let i = 1; i <= 2; i++) {
-    const el = document.getElementsByClassName("dgb-mixtape")[(pageNumber.value-1)*store.pageSize-(5*i)]
+    const el = document.getElementsByClassName("dgb-src-url-subset")[(pageNumber.value-1)*store.pageSize-(5*i)]
     if (el){
       observer.observe(el)
     }

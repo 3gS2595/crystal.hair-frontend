@@ -6,7 +6,8 @@ import axios from 'axios'
 
 import type {
   kernalType,
-  mixtapeType
+  mixtapeType,
+  srcUrlSubsetType
 } from '@/types/ApiTypes'
 
 const store = GlobalStore()
@@ -26,19 +27,25 @@ watch(
   () => store.mixtape,
   () => { ApiStore().mixtapeSearch() }
 )
+watch(
+  () => store.srcUrlSubset,
+  () => { ApiStore().mixtapeSearch() }
+)
 
 export const ApiStore = defineStore({
   id: 'apiData',
   state: () => ({
     kernals: <kernalType[]>[],
     mixtapes: <mixtapeType[]>[],
-    forceGraph: <kernalType[]>[]
+    forceGraph: <kernalType[]>[],
+    srcUrlSubsets: <srcUrlSubsetType[]>[]
   }),
 
   actions: {
     async initialize () {
       this.fetchKernals(1)
       this.fetchMixtapes(1)
+      this.fetchSrcUrlSubsets(1)
       this.fetchForceGraph()
     },
 
@@ -73,6 +80,7 @@ export const ApiStore = defineStore({
       let params = '?page=' + pageNumber + '&sort=' + store.sortBy
       if (store.filter != '') { params = params + '&q=' + store.filter }
       if (store.mixtape != '') { params = params + '&mixtape=' + store.mixtape }
+      if (store.srcUrlSubset != '') { params = params + '&src_url_subset_id=' + store.srcUrlSubset }
       const config = {
         headers: { Authorization: sessionStore.auth_token },
         signal: controller.signal
@@ -95,7 +103,6 @@ export const ApiStore = defineStore({
     },
 
     async fetchMixtapes (pageNumber: number) {
-      console.log(this.mixtapes)
       let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
       const config = {
         headers: { Authorization:  sessionStore.auth_token },
@@ -104,9 +111,20 @@ export const ApiStore = defineStore({
       try {
         const mixtapes = await axios.get(base + 'mixtapes'+ params, config)
         this.mixtapes = this.mixtapes.concat(mixtapes.data)
-
-      console.log(this.mixtapes)
         return mixtapes
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async fetchSrcUrlSubsets (pageNumber: number) {
+      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
+      const config = {
+        headers: { Authorization:  sessionStore.auth_token },
+        signal: controller.signal
+      }
+      try {
+        const newSrcUrlSubset = await axios.get(base + 'src_url_subsets'+ params, config)
+        this.srcUrlSubsets = this.srcUrlSubsets.concat(newSrcUrlSubset.data)
       } catch (e) {
         console.error(e);
       }

@@ -38,6 +38,7 @@ onMounted(() => {
   @import './scss/components/SessionManager.scss';
   @import './scss/components/ContentView.scss';
   @import './scss/components/MixtapeView.scss';
+  @import './scss/components/ScrapersView.scss';
   @import './scss/components/LightBox.scss';
   @import './scss/components/Tabs.scss';
 
