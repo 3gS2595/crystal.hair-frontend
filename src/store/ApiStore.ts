@@ -77,8 +77,7 @@ export const ApiStore = defineStore({
     },
 
     async fetchKernals (pageNumber: number) {
-      let params = '?page=' + pageNumber + '&sort=' + store.sortBy
-      if (store.filter != '') { params = params + '&q=' + store.filter }
+      let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy
       if (store.mixtape != '') { params = params + '&mixtape=' + store.mixtape }
       if (store.srcUrlSubset != '') { params = params + '&src_url_subset_id=' + store.srcUrlSubset }
       const config = {
@@ -91,7 +90,7 @@ export const ApiStore = defineStore({
         if(this.kernals.length === store.pageSize){
           const keys: string[] = []
           for (let k in this.kernals[0]){
-            if(k != 'signed_url' && k != 'signed_url_nail' && k != 'id' && k != 'file_path') {
+            if(k != 'signed_url' && k != 'signed_url_s' && k != 'signed_url_m' && k != 'signed_url_l' && k != 'id' && k != 'file_path') {
               keys.push(k)
             }
           }
@@ -117,7 +116,7 @@ export const ApiStore = defineStore({
       }
     },
     async fetchSrcUrlSubsets (pageNumber: number) {
-      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
+      let params = '?page=' + pageNumber + '&q=' + store.filter
       const config = {
         headers: { Authorization:  sessionStore.auth_token },
         signal: controller.signal
@@ -158,6 +157,26 @@ export const ApiStore = defineStore({
           ])
           this.mixtapes.unshift(mix.data)
           store.setMixtape(mix.data.id)
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    },
+    async addSrcUrlSubset(url: string, name:string, scrapeInterval:string) {
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: sessionStore.auth_token }
+      }
+      let formData = new FormData();
+      formData.append('url', url)
+      formData.append('name', name)
+      formData.append('scrapeInterval', scrapeInterval)
+      if(url !== '' && name !== '' && !isNaN(Number(scrapeInterval))) {
+        try {
+          const [ src ] = await Promise.all([
+            axios.post( sessionStore.getUrlRails + 'src_url_subsets', formData, config)
+          ])
+          this.srcUrlSubsets.unshift(src.data)
+          store.setSrcUrlSubset(src.data.id)
         } catch (e) {
           console.error(e);
         }

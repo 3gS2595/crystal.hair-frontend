@@ -4,6 +4,7 @@
     <LightBox v-if='store.lightBoxView' :viewerData="kernals"/>
     <AddContentBox v-if='store.uploadBoxView'/>
     <AddMixtapeBox v-if='store.addMixtapeBoxView'/>
+    <AddSrcUrlSubset v-if='store.addSrcUrlSubset'/>
 
     <splitpanes class="default-theme"
       style="width=100%"
@@ -22,11 +23,14 @@
         <div class="mixtape-pane">
           <div class="tabs">
             <div class="tabs-left">
-              <a class="tab-header tab-active tab-add" @click='toggleAddMixtapeBox()'>+</a>
               <a class="tab-header" @click='currentTab = 1; changeTab()'  :class="{'tab-active': currentTab === 1}">※&#xFE0E;</a>
               <a class="tab-header" @click='currentTab = 2; changeTab()' style="padding-top:0px!important; font-size: 18px;" :class="{'tab-active': currentTab === 2}">&#x1F4A2;&#xFE0E;</a>
             </div>
-            <div class="tabs-right">
+            <div class="tabs-right" v-if="currentTab == 1">
+              <a class="tab-header tab-active tab-add" @click='toggleAddMixtapeBox()'>+</a>
+            </div>
+            <div class="tabs-right" v-if="currentTab == 2">
+              <a class="tab-header tab-active tab-add" @click='toggleAddSrcUrlSubset()'>+</a>
             </div>
           </div>
           <div class="tab-content-mixtape" v-if='currentTab === 1'>
@@ -92,6 +96,7 @@ import ScrapersModule from '@/components/dataGrids/ScrapersModule.vue'
 import LightBox from '@/components/contentViewers/LightBox.vue'
 import AddContentBox from '@/components/uploaders/AddContent.vue'
 import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
+import AddSrcUrlSubset from '@/components/uploaders/AddSrcUrlSubset.vue'
 
 import { storeToRefs } from 'pinia'
 import { ApiStore } from '@/store/ApiStore'
@@ -107,7 +112,8 @@ export default defineComponent({
     ForceGraph,
     LightBox,
     AddContentBox,
-    AddMixtapeBox
+    AddMixtapeBox,
+    AddSrcUrlSubset
   },
 
 
@@ -194,6 +200,9 @@ export default defineComponent({
     },
     toggleAddMixtapeBox() {
       this.store.setAddMixtapeBoxView(!this.store.addMixtapeBoxView)
+    },
+    toggleAddSrcUrlSubset() {
+      this.store.setAddSrcUrlSubset(!this.store.addSrcUrlSubset)
     },
     search: function (e: string) {
       this.store.setFilter(e)
