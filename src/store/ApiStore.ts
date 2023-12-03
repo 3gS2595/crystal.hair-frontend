@@ -17,19 +17,19 @@ let controller = new AbortController();
 
 watch(
   () => store.filter,
-  () => { ApiStore().search() }
+  () => { ApiStore().eventHandler() }
 )
 watch(
   () => store.sortBy,
-  () => { ApiStore().search() }
+  () => { ApiStore().eventHandler() }
 )
 watch(
   () => store.mixtape,
-  () => { ApiStore().mixtapeSearch() }
+  () => { ApiStore().eventHandler() }
 )
 watch(
   () => store.srcUrlSubset,
-  () => { ApiStore().mixtapeSearch() }
+  () => { ApiStore().eventHandler() }
 )
 
 export const ApiStore = defineStore({
@@ -38,21 +38,40 @@ export const ApiStore = defineStore({
     kernals: <kernalType[]>[],
     mixtapes: <mixtapeType[]>[],
     forceGraph: <kernalType[]>[],
-    srcUrlSubsets: <srcUrlSubsetType[]>[]
+    srcUrlSubsets: <srcUrlSubsetType[]>[],
+    kernalCache: <any>{}
   }),
 
   actions: {
-    async initialize () {
+    async initializeCache () {
+      await this.fetchKernals(1)
+      store.setSrcUrlSubset("-1")
       this.fetchKernals(1)
+      store.setSrcUrlSubset("")
       this.fetchMixtapes(1)
       this.fetchSrcUrlSubsets(1)
       this.fetchForceGraph()
     },
 
-    async search () {
+    async eventHandler () {
+      if (store.srcUrlSubset === "-1") {
+        this.kernals = this.kernalCache['allSrc']
+      } else if (store.mixtape === "") {
+        this.kernals = this.kernalCache['allMix']
+      } else if (store.srcUrlSubset !== "-1" && store.srcUrlSubset !== "") {
+        if (this.kernalCache.has(store.srcUrlSubset)){
+          this.kernals = this.kernalCache[store.srcUrlSubset]
+        }
+      } else if (store.mixtape !== "") {
+        this.kernals = this.kernalCache['allSrc']
+      }
+
+    },
+
+    async update () {
       controller.abort()
       controller = new AbortController();
-      this.kernals = []
+      this.kernals = (store.srcUrlSubset === "-1") ? this.kernalCache['allSrc'] : this.kernalCache['allMix']
       this.forceGraph = []
 
       try {
@@ -62,20 +81,9 @@ export const ApiStore = defineStore({
         console.error(e);
       }
     },
-    async mixtapeSearch () {
-      controller.abort()
-      controller = new AbortController();
-      this.kernals = []
-      this.forceGraph = []
 
-      try {
-        this.fetchKernals(1)
-        this.fetchForceGraph()
-      } catch (e) {
-        console.error(e);
-      }
-    },
 
+// MAIN API GETTERS
     async fetchKernals (pageNumber: number) {
       let params = '?q=' + store.filter + '&page=' + pageNumber + '&sort=' + store.sortBy
       if (store.mixtape != '') { params = params + '&mixtape=' + store.mixtape }
@@ -96,10 +104,13 @@ export const ApiStore = defineStore({
           }
           store.setSortByValue(keys)
         }
+        if (store.srcUrlSubset === "-1" && pageNumber === 1) {this.kernalCache['allSrc'] = kernals.data}
+        else if (pageNumber ===1) {this.kernalCache['allMix'] = kernals.data}
       } catch (e) {
         console.error(e);
       }
     },
+
     async fetchMixtapes (pageNumber: number) {
       let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
       const config = {
