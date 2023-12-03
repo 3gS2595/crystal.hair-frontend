@@ -14,7 +14,7 @@
     >
 
   <!-- NAVIGATION PANE-->
-      <pane id="main-left" :size="paneSize + paneSizeOffSet">
+      <pane id="main-l" :size="paneSize + paneSizeOffSet">
         <nav class='nav'>
           <img class='navItem' src="logout.png" @click="logout"/>
           <input class='search input-standard text-main-0' v-model="searchValue" placeholder="search" @keyup.enter="search(searchValue)" />
@@ -22,15 +22,15 @@
 
         <div class="mixtape-pane">
           <div class="tabs">
-            <div class="tabs-left">
-              <a class="tab-header" @click='currentTab = 1; changeTab()'  :class="{'tab-active': currentTab === 1}">※&#xFE0E;</a>
-              <a class="tab-header" @click='currentTab = 2; changeTab()' style="padding-top:0px!important; font-size: 18px;" :class="{'tab-active': currentTab === 2}">&#x1F4A2;&#xFE0E;</a>
+            <div class="tabs-l">
+              <a class="tab" :class="{'tab-active': currentTab === 1}" @click='currentTab = 1; changeTab()'>※&#xFE0E;</a>
+              <a class="tab" :class="{'tab-active': currentTab === 2}" @click='currentTab = 2; changeTab()'>&#x1F4A2;&#xFE0E;</a>
             </div>
-            <div class="tabs-right" v-if="currentTab == 1">
-              <a class="tab-header tab-active tab-add" @click='toggleAddMixtapeBox()'>+</a>
+            <div class="tabs-r" v-if="currentTab == 1">
+              <a class="tab tab-active tab-add" @click='toggleAddMixtapeBox()'>+</a>
             </div>
-            <div class="tabs-right" v-if="currentTab == 2">
-              <a class="tab-header tab-active tab-add" @click='toggleAddSrcUrlSubset()'>+</a>
+            <div class="tabs-r" v-if="currentTab == 2">
+              <a class="tab tab-active tab-add" @click='toggleAddSrcUrlSubset()'>+</a>
             </div>
           </div>
           <div class="tab-content-mixtape" v-if='currentTab === 1'>
@@ -47,35 +47,28 @@
       </pane>
 
   <!-- CONTENT PANE -->
-      <pane id="main-right" :size="100 - (paneSize + paneSizeOffSet)">
-        <div class="tabs" style="margin-top:4px; width:calc(100% - 4px)!important;">
-          <div class="tabs-left">
-            <a class="tab-header tab-active" style="padding-top:0px!important;" @click='viewSettings = !viewSettings'>⛓&#xFE0E;</a>
-            <a class="tab-header tab-active current-dir" v-if="store.filter != ''" @click='store.setFilter("")'>{{store.filter}}</a>
-            <a class="tab-header tab-active current-dir" v-if="mixtapeHeader!= ''" @click='closeHeader()'>{{mixtapeHeader}}</a>
+      <pane id="main-r" :size="100 - (paneSize + paneSizeOffSet)">
+        <div class="tabs tabs-content">
+          <div class="tabs-l">
+            <a class="tab tab-active" @click='viewSettings = !viewSettings'>⛓&#xFE0E;</a>
+            <a class="tab tab-active current-dir" v-if="store.filter!=''" @click='store.setFilter("")'>{{store.filter}}</a>
+            <a class="tab tab-active current-dir" v-if="mixtapeHeader!=''" @click='closeHeader()'>{{mixtapeHeader}}</a>
           </div>
 
-          <div class="tabs-right">
-            <a class="tab-header tab-active tab-add" @click='toggleUploadBox()'>+</a>
+          <div class="tabs-r">
+            <a class="tab tab-active tab-add" @click='toggleUploadBox()'>+</a>
           </div>
 
           <div class="settings" v-if="viewSettings" v-click-away='onClickAway'>
             <a class="set-btn" id="set-btn-1" @click="darkToggle()">dark mode</a>
             <a class="set-btn" id="set-btn-2" @click="cgbPlus()">+</a>
             <a class="set-btn" id="set-btn-3" @click="cgbMinus()">-</a>
-            <a class="set-btn" id="set-btn-4"
-              v-if="store.mixtape != ''"
-              @click="apiStore.deleteMixtape(store.mixtape); viewSettings=!viewSettings"
-            >delete mixtape</a>
+            <a class="set-btn" id="set-btn-4" v-if="store.mixtape!=''" @click="apiStore.deleteMixtape(store.mixtape);viewSettings=!viewSettings">delete mixtape</a>
           </div>
         </div>
 
         <div class="tab-content-kernal">
-          <ContentModule
-            v-on:dblclick="resize(0)"
-            :contentData="kernals"
-            :id="1"
-          />
+          <ContentModule v-on:dblclick="resize(0)" :id="1"/>
         </div>
       </pane>
     </splitpanes>
@@ -164,7 +157,6 @@ export default defineComponent({
 
 
 // Page Methods
-
   methods: {
     darkToggle,
     darkSet,

@@ -65,20 +65,13 @@ const convertDate = (datetime) => {
   const d = Math.trunc((new Date() - new Date(datetime))/1000/60/60/24)
   const h = Math.trunc((new Date() - new Date(datetime))/1000/60/60) - (d * 24)
   const m = Math.trunc((new Date() - new Date(datetime) )/1000/60) - (h * 60) - (d * 24 * 60)
-
-  if (h == 0 && d == 0){
-    return (m + ' mins ')
-  }
-  if (d == 0){
-    return (h + ' hrs ')
-  }
+  if (h == 0 && d == 0) {return (m + ' mins ')}
+  if (d == 0) {return (h + ' hrs ')}
   return (d + ' days ')
 }
 
 const blockCnt = (datetime) => {
-  if(datetime != null) {
-    return datetime.length
-  }
+  if(datetime != null) {return datetime.length}
   return null
 }
 

@@ -7,13 +7,15 @@ export const GlobalStore = defineStore('counter', () => {
   const darkMode = ref<boolean>(true)
 
   // viewer box display toggles/ index/ block sizes
-  const uploadBoxView = ref<boolean>(false)
-  const lightBoxView = ref<boolean>(false)
-  const lightBoxIndex = ref(-1)
-  const cgbWidth = ref<number>(120)
-  const cgbWidthSized = ref<number>(120)
   const addMixtapeBoxView = ref<boolean>(false)
   const addSrcUrlSubset = ref<boolean>(false)
+  const uploadBoxView = ref<boolean>(false)
+
+  const lightBoxView = ref<boolean>(false)
+  const lightBoxIndex = ref(-1)
+
+  const cgbWidth = ref<number>(120)
+  const cgbWidthSized = ref<number>(120)
 
   // result filters
   const filter = ref<string>('')

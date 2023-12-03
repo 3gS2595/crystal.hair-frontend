@@ -3,26 +3,30 @@
   justify-content: space-between;
   position: relative;
 
-  .tabs-left{
+  .tabs-l{
     display: flex;
     width: calc(100% - 29px);
 
-    .tab-header {
+    .tab {
       margin-left: var(--box-margin);
     }
   }
-  .tabs-right{
+  .tabs-r{
     display: flex;
     justify-content: flex-end;
     margin-right: 2px;
 
-    .tab-header {
+    .tab {
       margin-right: var(--box-margin);
       right: 0;
     }
   }
 }
-.tab-header {
+.tabs-content{
+  margin-top:4px;
+  width:calc(100% - 4px)!important;
+}
+.tab {
   text-align: center;
   cursor: pointer;
   height: 30px;
