@@ -20,7 +20,7 @@
           </template>
         </vue-load-image>
 
-        <div v-if='slotProps.data.url != null' class="cgb-0-info">{{ slotProps.data.url }}</div>
+        <div v-if="setInfo(slotProps.data) != ''" class="cgb-0-info">{{setInfo(slotProps.data)}}</div>
 
       </div>
     </template>
@@ -35,13 +35,12 @@
   import DataView from 'primevue/dataview'
 
   import { storeToRefs } from 'pinia'
-  import { ApiStore } from '@/store/ApiStore'
+  import { useKernalStore } from '@/store/api/KernalStore'
   import { GlobalStore } from '@/store/GlobalStore'
   import VueLoadImage from 'vue-load-image'
 
-  const { kernals } = storeToRefs(ApiStore())
+  const { kernals, pageNumber } = storeToRefs(useKernalStore())
   const { cgbWidth } = storeToRefs(GlobalStore())
-  const pageNumber = ref<number>(2)
   const store = GlobalStore()
   const props = withDefaults(defineProps<{
     id: number
@@ -51,7 +50,7 @@
   watch(
     () => kernals.value,
     () => {
-      if (kernals.value.length < store.pageSize  ) {
+      if (kernals.value.length <= store.pageSize  ) {
         pageNumber.value = 2
       }
     }
@@ -68,6 +67,20 @@
       store.setLightBoxView(!store.lightBoxView)
     }
     store.setLightBoxIndex(ind)
+  }
+
+  const setInfo = (k: kernalType) => {
+    if (k.description != null) {
+      if (k.description.length > 0) {
+        return k.description
+      }
+    }
+    if (k.url != null) {
+      if (k.url.length > 0) {
+        return '🔗' + k.url.replace('https://', '')
+      }
+    }
+    return ''
   }
 
 
@@ -107,16 +120,13 @@
   }
 
 // INFINITE SCROLL METHODS
-  const fetchPage = async () => {
-    observer.disconnect()
-    ApiStore().fetchKernals(pageNumber.value)
-    pageNumber.value = pageNumber.value + 1
-  }
   const intersecting = (event) => {
     for (const e of event){
-      if (e.isIntersecting) {
+      if (e.isIntersecting && kernals.value[kernals.value.length - 1].signed_url != "page-loader.gif") {
         observer.disconnect()
-        fetchPage()
+        if(kernals.value.length >= store.pageSize) {
+          useKernalStore().fetchKernals(pageNumber.value)
+        }
       }
     }
   }

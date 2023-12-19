@@ -29,7 +29,15 @@
       <br />
       <input type='submit' value='Login' class='login-form-submit' />
     </form>
-    <img class="splash-image" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/sitedemo.gif" rel='preload'/>
+    <div class="splash">
+      <div class="img5">
+        <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/mobile-screen-shot.png">
+      </div>
+      <div class="img4">
+        <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/sitedemo.gif">
+      </div>
+
+    </div>
   </div>
 </template>
 

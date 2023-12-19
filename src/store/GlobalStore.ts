@@ -24,7 +24,7 @@ export const GlobalStore = defineStore('counter', () => {
   const sortBy = ref<string>('time_posted desc')
   const sortByValue = ref<string[]>(['time_posted', 'time_scraped' ])
   const sortByOrder = ref<string>('desc')
-  const pageSize = ref<number>(40)
+  const pageSize = ref<number>(50)
   const uploadPercent = ref<number>(0)
   const uploadView = ref<boolean>(false)
 
@@ -101,11 +101,6 @@ export const GlobalStore = defineStore('counter', () => {
   return {
     pageSize,
     filter, setFilter,
-    uploadBoxView, setUploadBoxView,
-    lightBoxView, setLightBoxView,
-    lightBoxIndex, setLightBoxIndex,
-    addMixtapeBoxView, setAddMixtapeBoxView,
-    addSrcUrlSubset, setAddSrcUrlSubset,
     sortBy, setSortBy,
     sortByValue, setSortByValue,
     sortByOrder, setSortByOrder,
@@ -114,7 +109,13 @@ export const GlobalStore = defineStore('counter', () => {
     cgbWidth, setCgbWidth,
     cgbWidthSized, setCgbWidthSized,
     darkMode, setDarkMode,
+    uploadPercent, setUploadPercent,
+
+    lightBoxView, setLightBoxView,
+    addMixtapeBoxView, setAddMixtapeBoxView,
+    lightBoxIndex, setLightBoxIndex,
+    uploadBoxView, setUploadBoxView,
     uploadView, setUploadView,
-    uploadPercent, setUploadPercent
+    addSrcUrlSubset, setAddSrcUrlSubset
   }
 })

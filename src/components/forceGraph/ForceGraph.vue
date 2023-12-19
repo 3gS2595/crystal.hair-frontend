@@ -18,8 +18,10 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import { VueForceGraph3D } from 'vue-force-graph';
-import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
+
+import { storeToRefs } from 'pinia'
 import { GlobalStore } from '@/store/GlobalStore'
+
 const store = GlobalStore()
 
 const color = ref("green")
@@ -31,13 +33,21 @@ const fgRef = ref();
 const dec = ref(0.0228)
 const props = withDefaults(defineProps<{
   propKernals: any[],
-  propMixtapes: any[]
+  propMixtapes: any[],
+  propMixtape: String
 }> (), {
   propKernals: [],
-  propMixtapes: []
+  propMixtapes: [],
+  propMixtape: ''
 })
 watch(
   () => props.propKernals,
+  () => {
+    setData(props.propKernals)
+  }
+)
+watch(
+  () => props.propMixtape,
   () => {
     setData(props.propKernals)
   }
@@ -70,6 +80,7 @@ let linkData = ""
 let JsonData = ref()
 let loaded = ref(false)
 const setData = (propKernals) => {
+  JsonData = ref()
   try {
     let linkC = "#a3ad99"
     let mixtapeC = "#3459b1"
@@ -89,8 +100,18 @@ const setData = (propKernals) => {
     const ids = []
     const kId = []
     const mId = []
-    for (let i of props.propKernals) {
-      kId.push(i.id)
+
+    if (props.propMixtape !== '') {
+      console.log(props.propMixtapes)
+      console.log(props.propMixtapes.find(mix => mix.id === props.propMixtape).content)
+      const curK = props.propMixtapes.find(mix => mix.id === props.propMixtape).content
+        for (let i of props.propKernals) {
+          if (curK.includes(i.id)) kId.push(i.id)
+        }
+    } else {
+      for (let i of props.propKernals) {
+        kId.push(i.id)
+      }
     }
 
     linkData = "], \"links\": [ "
@@ -134,14 +155,15 @@ const setData = (propKernals) => {
     if (JsonData != null) {
       loaded = true
     }
-    if(store.mixtape === '' && store.filter === ''){
+    console.log(linkData.length)
+    if(props.propMixtape === '' && store.filter === '' && linkData.length > 6000){
       dec.value = .1096
       fgRef.value.cameraPosition({ z:930, y:80, x:500},{ x:0, y:-50, z:0 }, 200)
     } else {
       dec.value = 0.0228
       setTimeout (() => {
-        fgRef.value.zoomToFit(200, 1)
-      }, 800)
+        fgRef.value.zoomToFit(200, 9)
+      }, 100)
     }
   } catch (e) {
     console.error(e)

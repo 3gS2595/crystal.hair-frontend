@@ -11,11 +11,12 @@
       <div class="infoBox">hashtags: {{modelValue.hashtags}}</div>
       <div class="infoBox">likes: {{modelValue.likes}}</div>
       <div class="infoBox">reposts: {{modelValue.reposts}}</div>
-      <div class="infoBox"></div>
       <div class="infoBox">file_name: {{modelValue.file_name}}</div>
       <div class="infoBox">file_type: {{modelValue.file_type}}</div>
       <div class="infoBox">file_path: {{modelValue.file_path}}</div>
-      <div class="infoBox">size: {{modelValue.size}}</div>
+      <div class="infoBox"></div>
+      <div class="infoBox">src_url: {{modelValue.src_url}}</div>
+      <div class="infoBox">src_url_subset: {{modelValue.src_url_subset_id}}</div>
 
       <a class='delete' style="margin-top:-.5px;" @click='deleteBlock'>Destroy Kernal</a>
     </div>
@@ -23,7 +24,7 @@
       <div class="select-mix">
         <DataView class='dg-0' :value="mixes" :layout="list" >
           <template #list="slotProps">
-            <div @click="ApiStore().addMixCont(modelValue.id, slotProps.data.id)" class="dgb-0">
+            <div @click="useMixtapeStore().addMixCont(modelValue.id, slotProps.data.id)" class="dgb-0">
               <div class="dgb-0-txt">
                 <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ slotProps.data.name }}</a>
                 <a class='descr' style="float:left;">{{ convertDate(slotProps.data.updated_at) }}</a>
@@ -36,7 +37,7 @@
       <div class="select-mix">
         <DataView class='dg-0' :value="mixesBelong" :layout="list" >
           <template #list="slotProps">
-            <div @click="ApiStore().remMixCont(modelValue.id, slotProps.data.id)" class="dgb-0">
+            <div @click="useMixtapeStore().remMixCont(modelValue.id, slotProps.data.id)" class="dgb-0">
               <div class='dgb-0-txt'>
                 <a style='float:left; width:calc(100%); margin-bottom:2px;'>{{ slotProps.data.name }}</a>
                 <a class='descr' style="float:left;">{{ convertDate(slotProps.data.updated_at) }}</a>
@@ -55,9 +56,12 @@ import type { kernalType } from '@/types/ApiTypes'
 import { ref, computed, defineComponent, type PropType } from 'vue'
 import DataView from 'primevue/dataview'
 import { storeToRefs } from 'pinia'
-import { ApiStore } from '@/store/ApiStore'
+import { useMixtapeStore } from '@/store/api/MixtapeStore'
+import { useKernalStore } from '@/store/api/KernalStore'
 
-const { mixtapes, kernals } = storeToRefs(ApiStore())
+
+const { mixtapes } = storeToRefs(useMixtapeStore())
+const { kernals } = storeToRefs(useKernalStore())
 
 const props = withDefaults(defineProps<{
   modelValue: kernalType,
@@ -75,7 +79,7 @@ const blockCnt = (kArr) => {
   return ret
 }
 const deleteBlock = () => {
-  ApiStore().deleteKernal(props.modelValue.id)
+  useKernalStore().deleteKernal(props.modelValue.id)
 }
 </script>
 

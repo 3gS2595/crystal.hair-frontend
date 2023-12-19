@@ -1,5 +1,5 @@
 <template>
-  <div class='contentMain' id="contentMain" >
+  <div class='contentMain' id="contentMain" @drop.prevent="dragInFile" @dragenter.prevent @dragover.prevent>
     <ProgressBar v-if="store.uploadView" :value="store.uploadPercent"></ProgressBar>
     <LightBox v-if='store.lightBoxView' :viewerData="kernals"/>
     <AddContentBox v-if='store.uploadBoxView'/>
@@ -23,8 +23,12 @@
         <div class="mixtape-pane">
           <div class="tabs">
             <div class="tabs-l">
-              <a class="tab" :class="{'tab-active': currentTab === 1}" @click='currentTab = 1; changeTab()'>※&#xFE0E;</a>
-              <a class="tab" :class="{'tab-active': currentTab === 2}" @click='currentTab = 2; changeTab()'>&#x1F4A2;&#xFE0E;</a>
+              <div class="tab" :class="{'tab-active': currentTab === 1}" @click='currentTab = 1; changeTab()'>
+                <img class="tab-icon" src="icon-web.png"/>
+              </div>
+              <div class="tab" :class="{'tab-active': currentTab === 2}" @click='currentTab = 2; changeTab()'>
+                <img class="tab-icon" src="icon-spider.png"/>
+              </div>
             </div>
             <div class="tabs-r" v-if="currentTab == 1">
               <a class="tab tab-active tab-add" @click='toggleAddMixtapeBox()'>+</a>
@@ -42,12 +46,12 @@
         </div>
 
         <div  class="forceGraph" >
-          <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes"/>
+          <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes" :propMixtape="mixtape"/>
         </div>
       </pane>
 
   <!-- CONTENT PANE -->
-      <pane id="main-r" :size="100 - (paneSize + paneSizeOffSet)">
+      <pane id="main-r" @paste.prevent="pasteInFile()" :size="100 - (paneSize + paneSizeOffSet)">
         <div class="tabs tabs-content">
           <div class="tabs-l">
             <a class="tab tab-active" @click='viewSettings = !viewSettings'>⛓&#xFE0E;</a>
@@ -81,6 +85,7 @@ import { Splitpanes, Pane } from 'splitpanes'
 import { directive } from 'vue3-click-away'
 
 import { darkToggle, darkSet } from '@/lib/DarkMode'
+import { dragInFile, pasteInFile } from '@/lib/UploadKernal'
 import DropDown from '@/components/menuDropDown/DropDown.vue'
 import ForceGraph from '@/components/forceGraph/ForceGraph.vue'
 import ContentModule from '@/components/dataGrids/ContentModule.vue'
@@ -94,6 +99,9 @@ import AddSrcUrlSubset from '@/components/uploaders/AddSrcUrlSubset.vue'
 import { storeToRefs } from 'pinia'
 import { ApiStore } from '@/store/ApiStore'
 import { GlobalStore } from '@/store/GlobalStore'
+import { useMixtapeStore } from '@/store/api/MixtapeStore'
+import { useForceGraphStore } from '@/store/api/ForceGraphStore'
+import { useSrcUrlSubsetStore } from '@/store/api/SrcUrlSubsetStore'
 
 export default defineComponent({
   components: {
@@ -138,7 +146,9 @@ export default defineComponent({
 
 // Page Lifecycle hooks
   setup () {
-    const { mixtapes, forceGraph, srcUrlSubsets } = storeToRefs(ApiStore())
+    const { mixtapes } = storeToRefs(useMixtapeStore())
+    const { srcUrlSubsets } = storeToRefs(useSrcUrlSubsetStore())
+    const {forceGraph } = storeToRefs(useForceGraphStore())
     const { mixtape, srcUrlSubset } = storeToRefs(GlobalStore());
     return { mixtapes, mixtape, srcUrlSubsets, srcUrlSubset, forceGraph }
   },
@@ -146,6 +156,7 @@ export default defineComponent({
     window.addEventListener('visibilitychange', this.resizeContentFit)
     window.addEventListener('orientationchange', this.resizeContentFit)
     window.addEventListener('resize', this.resizeContentFit)
+    window.addEventListener('paste', this.pasteInFile)
     this.resizeContentFit()
     ApiStore().initialize()
   },
@@ -160,6 +171,8 @@ export default defineComponent({
   methods: {
     darkToggle,
     darkSet,
+    dragInFile,
+    pasteInFile,
     closeHeader () {
       this.store.setMixtape("")
       if(this.currentTab === 2){
@@ -169,6 +182,8 @@ export default defineComponent({
       }
     },
     changeTab () {
+      this.store.setSrcUrlSubset("")
+      this.store.setMixtape("")
       if (this.store.mixtape == "" && (this.store.srcUrlSubset == "-1" || this.store.srcUrlSubset == "")) {
         if (this.currentTab === 1){
           this.store.setSrcUrlSubset("")
@@ -214,7 +229,7 @@ export default defineComponent({
       if ( el != null) {
         if (this.paneSize === 30 ){
           const max_cont_width = el.offsetWidth - 202 - scroll_width - (cgb_margin)
-          const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 18
+          const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 15
           const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
           const content_width_percent = (max_cont_width) / el.offsetWidth
           const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100

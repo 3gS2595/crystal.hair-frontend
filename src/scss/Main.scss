@@ -13,6 +13,7 @@ html, body{
   height:100%;
 
   #main-l{
+    position: relative;
     display: flex;
     flex-flow: column;
     height: calc(100% - 4px);
@@ -43,6 +44,18 @@ html, body{
 
 .text-content-0{
   color: var(--text-content-descr);
+}
+.overlay-blur{
+    background: var(--background-lightbox);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(1px);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+  .overlay-expand{
+
+  }
 }
 
 // Global Variables

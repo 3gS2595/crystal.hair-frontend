@@ -65,7 +65,7 @@ import axios, { type AxiosInstance, type CancelTokenStatic } from 'axios'
 
 import { GlobalStore } from '@/store/GlobalStore'
 import { SessionStore } from '@/store/SessionStore'
-import { ApiStore } from '@/store/ApiStore'
+import { useKernalStore } from '@/store/api/KernalStore'
 const sessionStore = SessionStore()
 const store = GlobalStore()
 
@@ -79,7 +79,7 @@ export default defineComponent({
     ViewInfo
   },
   setup () {
-    const { kernals } = storeToRefs(ApiStore())
+    const { kernals } = storeToRefs(useKernalStore())
     return { kernals }
   },
   data () {

@@ -10,7 +10,7 @@ import { defineComponent } from "vue";
 import type { kernalType } from '@/types/ApiTypes'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
-import { ApiStore } from '@/store/ApiStore'
+import { useKernalStore } from '@/store/api/KernalStore'
 export default defineComponent({
   components: {
     EditorContent,
@@ -33,7 +33,7 @@ export default defineComponent({
   },
   methods: {
     saveKernal() {
-      ApiStore().patchKernalDescr(this.modelValue.id, this.editor.view.dom.innerText)
+      useKernalStore().patchKernalDescr(this.modelValue.id, this.editor.view.dom.innerText)
     }
   },
   mounted() {

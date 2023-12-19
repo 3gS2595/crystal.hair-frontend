@@ -20,7 +20,7 @@ import { defineComponent, type PropType, ref } from 'vue'
 import { directive } from 'vue3-click-away'
 
 import { GlobalStore } from '@/store/GlobalStore'
-import { ApiStore } from '@/store/ApiStore'
+import { useMixtapeStore } from '@/store/api/MixtapeStore'
 
 const store = GlobalStore()
 export default defineComponent({
@@ -38,7 +38,7 @@ export default defineComponent({
       store.setAddMixtapeBoxView(false)
     },
     submitFile () {
-      ApiStore().addMixtape(this.title)
+      useMixtapeStore().addMixtape(this.title)
       store.setAddMixtapeBoxView(false)
     },
     close () {

@@ -1,0 +1,135 @@
+@import "../Theme";
+
+// Cog wheel settings menu
+.upload-box{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background: var(--background-lightbox);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-primary);
+  z-index: 20;
+  margin:4px;
+  width: calc(100% - 9px);
+  height: calc(100% - 8px);
+
+  .block {
+    height:100%;
+      .drag-container-1 {
+        width: 100%;
+        height: 30px;
+        text-align: center;
+        cursor: pointer;
+        z-index:10!important;
+        border-top:1px solid var(--border-primary);
+        display:flex;
+        a {
+          color: var(--link)
+        }
+        a:link {
+          color:  var(--link)
+        }
+        a:visited {
+          color:  var(--link)
+        }
+        .navItem{
+          color: var(--text-header);
+          text-align: center;
+          font-size:14pt;
+          flex-grow: 1;
+          padding-right:1px;
+          padding-left:1px;
+          border-right:1px solid var(--border-primary);
+        }
+        .navItem:last-child{
+          border-right:0;
+        }
+      }
+      .uploader{
+        position:relative;
+        min-height: calc(100% - 32px);
+        width:100%;
+        max-width:100%;
+        height: calc(100% - 32px);
+        white-space: pre-wrap;
+        overflow-y:auto;
+
+        #fileSelect{
+          position:absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+          .file-upload{
+            max-width: 163px;
+          }
+
+          input::file-selector-button {
+            text-rendering: initial;
+            font-family: "ＭＳ Ｐゴシック";
+            font-weight:400;
+            color: var(--text-primary);
+            text-decoration: none;
+            border:0;
+            background: none;
+          }
+        }
+
+        button{
+          border:0;
+          background:none;
+        }
+
+        #textEditor{
+          position:relative;
+          min-height:80%;
+
+          .tiptap{
+            position:relative;
+            height:100%;
+          }
+        }
+      }
+
+  }
+
+  .uploader{
+    width:100%;
+    .add-mixtape-title{
+      border-bottom: 1px solid var(--border-primary);
+      width:100%;
+    }
+  }
+  .add-mixtape-options{
+    color: var(--text-data-title);
+    width: 100%;
+    display: flex;
+
+    .option{
+      color: var(--text-data-title);
+      width:50%;
+      text-align: center;
+      font-size:13px;
+      padding:2px;
+    }
+    .option:last-child{
+      border-left: 1px solid var(--border-primary);
+    }
+  }
+}
+
+.txt{
+  height: calc(100% - 52px);
+  div{
+   height:100%;
+    .tiptap{
+      margin:25px;
+      height:100%;
+      overflow-y:auto;
+      p{
+        margin:0;
+      }
+    }
+  }
+}

@@ -29,11 +29,10 @@
 .tab {
   text-align: center;
   cursor: pointer;
-  height: 30px;
+  height: 32px;
   opacity: 0.71;
-  font-size:20px;
+  font-size:23px;
   z-index: 0;
-  padding: var(--box-margin);
   border: 1px solid var(--border-primary);
   color: var(--text-header);
 }
@@ -44,11 +43,12 @@
 }
 
 .tab-content-mixtape{
-  height: calc(100% - 27px);
+  height: calc(100% - 29px);
 }
 
 .tab-content-kernal{
-  height: calc(100% - 26px);
+   height: calc(100% - 25px);
+   padding-bottom: 4px;
 }
 
 
@@ -64,6 +64,12 @@
   overflow: hidden;
   white-space: nowrap;
   font-size:18px;
+}
+
+.tab-icon {
+  height: 100%;
+  width: 100%;
+
 }
 
 

@@ -1,7 +1,7 @@
 export interface kernalType {
   id: string,
-  source_url_id: string,
-  hypertext_id: string,
+  src_url_id: string,
+  src_url_subset_id: string,
   file_type: string,
   file_name: string,
   file_path: string,

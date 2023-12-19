@@ -16,12 +16,13 @@
 }
 
 .forceGraph{
+  padding:5px;
   flex: 0 1 125px;
   width:calc( 100% - var(--size-margin));
   margin: var(--box-margin);
   margin-left: calc(var(--box-margin));
   margin-bottom: 1px;
-  margin-top:1px;
+  margin-top:0px;
   border: $tableBorder;
 
   .fg{

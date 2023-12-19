@@ -21,11 +21,11 @@ import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
 
 import { storeToRefs } from 'pinia'
-import { ApiStore } from '@/store/ApiStore'
+import { useSrcUrlSubsetStore } from '@/store/api/SrcUrlSubsetStore'
 import { GlobalStore } from '@/store/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 
-const { srcUrlSubsets } = storeToRefs(ApiStore())
+const { srcUrlSubsets } = storeToRefs(useSrcUrlSubsetStore())
 
 const pageNumber = ref<number>(2)
 const store = GlobalStore()
@@ -81,7 +81,7 @@ const blockCnt = (datetime) => {
 
 // infinite scrollling intersectionObserver
 const fetchPage = async () => {
-  ApiStore().fetchSrcUrlSubsets(pageNumber.value)
+  useSrcUrlSubsetStore().fetchSrcUrlSubsets(pageNumber.value)
   pageNumber.value = pageNumber.value + 1
 }
 const intersecting = (event) => {

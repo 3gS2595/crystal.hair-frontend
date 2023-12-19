@@ -47,6 +47,7 @@ onMounted(() => {
   @import './scss/helpers/NavSearch.scss';
   @import './scss/helpers/Settings.scss';
   @import './scss/helpers/AddMixtape.scss';
+  @import './scss/helpers/UploadBox.scss';
 
   @import 'splitpanes/dist/splitpanes.css';
 </style>

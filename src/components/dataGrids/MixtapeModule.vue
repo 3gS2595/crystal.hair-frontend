@@ -21,11 +21,11 @@ import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
 
 import { storeToRefs } from 'pinia'
-import { ApiStore } from '@/store/ApiStore'
+import { useMixtapeStore } from '@/store/api/MixtapeStore'
 import { GlobalStore } from '@/store/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 
-const { mixtapes } = storeToRefs(ApiStore())
+const { mixtapes } = storeToRefs(useMixtapeStore())
 
 const pageNumber = ref<number>(2)
 const store = GlobalStore()

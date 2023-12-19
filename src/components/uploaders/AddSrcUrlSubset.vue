@@ -22,7 +22,7 @@ import { defineComponent, type PropType, ref } from 'vue'
 import { directive } from 'vue3-click-away'
 
 import { GlobalStore } from '@/store/GlobalStore'
-import { ApiStore } from '@/store/ApiStore'
+import { useSrcUrlSubsetStore } from '@/store/api/SrcUrlSubsetStore'
 
 const store = GlobalStore()
 export default defineComponent({
@@ -42,7 +42,7 @@ export default defineComponent({
       store.setAddSrcUrlSubset(false)
     },
     submitFile () {
-      ApiStore().addSrcUrlSubset(this.url, this.name, this.scrapeInterval)
+      useSrcUrlSubsetStore().addSrcUrlSubset(this.url, this.name, this.scrapeInterval)
       store.setAddSrcUrlSubset(false)
     },
     close () {
