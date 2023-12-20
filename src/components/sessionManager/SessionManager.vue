@@ -19,7 +19,7 @@
   </div>
   <div v-else id='login'>
     <form @submit.prevent='onLogin' class='login-form'>
-      <a>Development Server At the Momenet! Apologies!</a>
+      <a>How did you find this? Development Server At the Momenet! Apologies!</a>
       <br />
       <a>Usr:  </a>
       <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
