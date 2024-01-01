@@ -228,7 +228,7 @@ export default defineComponent({
       }
       if ( el != null) {
         if (this.paneSize === 30 ){
-          const max_cont_width = el.offsetWidth - 202 - scroll_width - (cgb_margin)
+          const max_cont_width = el.offsetWidth - 203 - scroll_width - (cgb_margin)
           const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 15
           const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
           const content_width_percent = (max_cont_width) / el.offsetWidth

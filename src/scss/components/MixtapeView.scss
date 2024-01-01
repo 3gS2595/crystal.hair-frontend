@@ -51,15 +51,17 @@
 
   .descr{
     opacity: 0.50;
-    font-size: 13px;
+    font-size: 14px;
+    letter-spacing: -0.33px;
   }
   .title{
     float: left;
     width: 78%;
-    font-size: 16px;
+    font-size: 18px;
     text-overflow: clip;
     overflow: hidden;
     white-space: nowrap;
+    letter-spacing: -0.33px;
   }
 }
 .dgb-0:last-child{

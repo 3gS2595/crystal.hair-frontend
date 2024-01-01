@@ -17,7 +17,6 @@ export const useSrcUrlSubsetStore = defineStore({
       let params = '?page=' + pageNumber + '&q=' + GlobalStore().filter
       const config = {
         headers: { Authorization:  SessionStore().auth_token },
-        signal: ApiStore().controller.signal
       }
       try {
         const newSrcUrlSubset = await axios.get(SessionStore().getUrlRails + 'src_url_subsets'+ params, config)

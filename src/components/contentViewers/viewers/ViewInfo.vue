@@ -15,6 +15,7 @@
       <div class="infoBox">file_type: {{modelValue.file_type}}</div>
       <div class="infoBox">file_path: {{modelValue.file_path}}</div>
       <div class="infoBox"></div>
+      <div class="infoBox">id: {{modelValue.id}}</div>
       <div class="infoBox">src_url: {{modelValue.src_url}}</div>
       <div class="infoBox">src_url_subset: {{modelValue.src_url_subset_id}}</div>
 

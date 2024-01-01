@@ -14,11 +14,11 @@ export const ApiStore = defineStore({
 
   actions: {
     async initialize () {
-      useKernalStore().pageNumber = 1
-      useKernalStore().fetchKernals()
       useMixtapeStore().fetchMixtapes(1)
       useSrcUrlSubsetStore().fetchSrcUrlSubsets(1)
       useForceGraphStore().fetchForceGraph()
+      useKernalStore().pageNumber = 1
+      useKernalStore().fetchKernals()
     },
 
     async update () {

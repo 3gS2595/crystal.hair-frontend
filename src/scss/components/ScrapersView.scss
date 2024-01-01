@@ -52,6 +52,7 @@
   .descr{
     opacity: 0.50;
     font-size: 13px;
+    letter-spacing: -0.33px;
   }
   .title{
     float: left;
@@ -60,6 +61,7 @@
     text-overflow: clip;
     overflow: hidden;
     white-space: nowrap;
+    letter-spacing: -0.33px;
   }
 }
 .dgb-0:last-child{
