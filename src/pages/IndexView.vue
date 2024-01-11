@@ -67,7 +67,7 @@
             <a class="set-btn" id="set-btn-1" @click="darkToggle()">dark mode</a>
             <a class="set-btn" id="set-btn-2" @click="cgbPlus()">+</a>
             <a class="set-btn" id="set-btn-3" @click="cgbMinus()">-</a>
-            <a class="set-btn" id="set-btn-4" v-if="store.mixtape!=''" @click="apiStore.deleteMixtape(store.mixtape);viewSettings=!viewSettings">delete mixtape</a>
+            <a class="set-btn" id="set-btn-4" v-if="store.mixtape!='' || store.srcUrlSubset.length > 2" @click="deleteMixSrc()">delete mixtape</a>
           </div>
         </div>
 
@@ -126,6 +126,8 @@ export default defineComponent({
       paneSizeOffSet: 0.0,
       store: GlobalStore(),
       apiStore: ApiStore(),
+      mixStore: useMixtapeStore(),
+      srcStore: useSrcUrlSubsetStore(),
       viewSettings: false,
       currentTab: 1,
       searchValue: '',
@@ -195,6 +197,16 @@ export default defineComponent({
     logout () {
       localStorage.removeItem('auth_token')
       location.reload()
+    },
+    deleteMixSrc () {
+      if (this.store.srcUrlSubset != '-1' && this.store.srcUrlSubset != '' ) {
+        this.srcStore.deleteSrcUrlSubset(this.store.srcUrlSubset);
+        console.log('deleteing srcUrlSubset ' + this.store.srcUrlSubset)
+      } else if (this.store.mixtape != '') {
+        this.mixStore.deleteMixtape(this.store.mixtape);
+        console.log('deleteing mix ' + this.store.mixtape)
+      }
+      this.viewSettings=!this.viewSettings
     },
     cgbPlus () {
       this.stepContentFit(1)

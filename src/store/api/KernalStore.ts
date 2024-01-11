@@ -105,9 +105,7 @@ export const useKernalStore = defineStore({
       try {
         axios.delete( sessionStore.getUrlRails + 'kernals/' + uuid, config)
         this.kernals = this.kernals.filter(item => item.id !== uuid)
-        if(store.mixtape !== '') {
-          useMixtapeStore().remMixCont(uuid, store.mixtape)
-        }
+        useMixtapeStore().remMixContAll(uuid)
       } catch (e) {
         console.error(e);
       }

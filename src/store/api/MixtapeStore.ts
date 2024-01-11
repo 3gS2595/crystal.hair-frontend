@@ -51,6 +51,7 @@ export const useMixtapeStore = defineStore({
       }
       let formData = new FormData();
       formData.append('name', title)
+      formData.append('include_in_feed', '1')
       if(title !== ''){
         try {
           const [ mix ] = await Promise.all([
@@ -100,6 +101,15 @@ export const useMixtapeStore = defineStore({
           axios.patch( sessionStore.getUrlRails + 'mixtapes/' + mId + '?remKernal=' + kId, {}, config)
         ])
         this.mixtapes = this.mixtapes.filter(item => item.id !== mix.data.id)
+        this.mixtapes.unshift(mix.data)
+        if(store.mixtape === mix.data.id){
+          useKernalStore().kernals = useKernalStore().kernals.filter(item => item.id !== kId)
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async remMixContLocal(kId: string) {
         this.mixtapes.unshift(mix.data)
         if(store.mixtape === mix.data.id){
           useKernalStore().kernals = useKernalStore().kernals.filter(item => item.id !== kId)

@@ -59,7 +59,7 @@ import DataView from 'primevue/dataview'
 import { storeToRefs } from 'pinia'
 import { useMixtapeStore } from '@/store/api/MixtapeStore'
 import { useKernalStore } from '@/store/api/KernalStore'
-
+import { GlobalStore } from '@/store/GlobalStore'
 
 const { mixtapes } = storeToRefs(useMixtapeStore())
 const { kernals } = storeToRefs(useKernalStore())
@@ -80,6 +80,16 @@ const blockCnt = (kArr) => {
   return ret
 }
 const deleteBlock = () => {
+  let id = props.modelValue.id
+  console.log(GlobalStore().lightBoxIndex)
+  console.log(kernals.value.length - 1)
+  if(GlobalStore().lightBoxIndex === kernals.value.length - 1 && kernals.value.length - 1 > 0) {
+    GlobalStore().setLightBoxIndex(GlobalStore().lightBoxIndex - 1)
+  }
+  if (kernals.value.length - 1 === 0) {
+    GlobalStore().setLightBoxView(false)
+    GlobalStore().setLightBoxIndex(-1)
+  }
   useKernalStore().deleteKernal(props.modelValue.id)
 }
 </script>

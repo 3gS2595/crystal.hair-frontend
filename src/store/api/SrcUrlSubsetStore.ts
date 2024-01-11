@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
-import { ApiStore } from '@/store/ApiStore'
 import { GlobalStore } from '@/store/GlobalStore'
 import { SessionStore } from '@/store/SessionStore'
 import axios from 'axios'
 
 import type { srcUrlSubsetType } from '@/types/ApiTypes'
 
+const store = GlobalStore()
 export const useSrcUrlSubsetStore = defineStore({
   id: 'useSrcUrlSubsetStore',
   state: () => ({
@@ -45,6 +45,19 @@ export const useSrcUrlSubsetStore = defineStore({
           console.error(e);
         }
       }
-    }
+    },
+
+    async deleteSrcUrlSubset (uuid: string) {
+      const config = {
+        headers: { Authorization:  SessionStore().auth_token },
+      }
+      try {
+        axios.delete(  SessionStore().getUrlRails + 'src_url_subsets/' + uuid, config)
+        this.srcUrlSubsets = this.srcUrlSubsets.filter(item => item.id !== uuid)
+        store.setSrcUrlSubset('')
+      } catch (e) {
+        console.error(e);
+      }
+    },
   }
 })
