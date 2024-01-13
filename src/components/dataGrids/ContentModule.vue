@@ -29,14 +29,14 @@
 </template>
 
 <script setup lang="ts">
-  import type { kernalType } from '@/types/ApiTypes'
+  import type { kernalType } from '@/assets/types/ApiTypes'
 
   import { ref, watch, onMounted } from 'vue'
   import DataView from 'primevue/dataview'
 
   import { storeToRefs } from 'pinia'
-  import { useKernalStore } from '@/store/api/KernalStore'
-  import { GlobalStore } from '@/store/GlobalStore'
+  import { useKernalStore } from '@/services/api/KernalStore'
+  import { GlobalStore } from '@/services/GlobalStore'
   import VueLoadImage from 'vue-load-image'
 
   const { kernals, pageNumber } = storeToRefs(useKernalStore())
@@ -62,6 +62,7 @@
     }
   )
 
+// LIGHTBOX TOGGLE
   const toggleLightBox = (ind: number) => {
     if (store.lightBoxIndex === -1) {
       store.setLightBoxView(!store.lightBoxView)
@@ -69,6 +70,7 @@
     store.setLightBoxIndex(ind)
   }
 
+// GENERATE CGB DESCRIPTION TEXT
   const setInfo = (k: kernalType) => {
     if (k.description != null) {
       if (k.description.length > 0) {
@@ -77,12 +79,11 @@
     }
     if (k.url != null) {
       if (k.url.length > 0) {
-        return '🔗' + k.url.replace('https://', '')
+        return k.url.replace('www.', '')
       }
     }
     return ''
   }
-
 
 // SRCSET IMAGE SELECTION ACCORDING TO CARD SIZE
   const setSize = (k) => {

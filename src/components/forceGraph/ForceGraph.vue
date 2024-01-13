@@ -20,7 +20,7 @@ import { ref, watch, onMounted } from 'vue'
 import { VueForceGraph3D } from 'vue-force-graph';
 
 import { storeToRefs } from 'pinia'
-import { GlobalStore } from '@/store/GlobalStore'
+import { GlobalStore } from '@/services/GlobalStore'
 
 const store = GlobalStore()
 

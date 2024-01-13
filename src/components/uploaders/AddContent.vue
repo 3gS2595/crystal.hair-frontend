@@ -20,9 +20,9 @@
 </template>
 
 <script lang='ts'>
-import type { kernalType } from '@/types/ApiTypes'
-import type { InputFileEvent } from '@/types/index'
-import type { UploadBoxState } from '@/types/index'
+import type { kernalType } from '@/assets/types/ApiTypes'
+import type { InputFileEvent } from '@/assets/types/index'
+import type { UploadBoxState } from '@/assets/types/index'
 
 import { defineComponent, type PropType, ref } from 'vue'
 import axios from 'axios'
@@ -30,8 +30,8 @@ import axios from 'axios'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 
-import { GlobalStore } from '@/store/GlobalStore'
-import { useKernalStore } from '@/store/api/KernalStore'
+import { GlobalStore } from '@/services/GlobalStore'
+import { useKernalStore } from '@/services/api/KernalStore'
 
 const store = GlobalStore()
 export default defineComponent({

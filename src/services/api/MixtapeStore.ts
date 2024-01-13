@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
-import { ApiStore } from '@/store/ApiStore'
-import { useKernalStore } from '@/store/api/KernalStore'
-import { GlobalStore } from '@/store/GlobalStore'
-import { SessionStore } from '@/store/SessionStore'
+import { ApiStore } from '@/services/ApiStore'
+import { useKernalStore } from '@/services/api/KernalStore'
+import { GlobalStore } from '@/services/GlobalStore'
+import { SessionStore } from '@/services/SessionStore'
 import axios from 'axios'
 
-import type { mixtapeType } from '@/types/ApiTypes'
+import type { mixtapeType } from '@/assets/types/ApiTypes'
 
 const store = GlobalStore()
 const sessionStore = SessionStore()
@@ -101,15 +101,6 @@ export const useMixtapeStore = defineStore({
           axios.patch( sessionStore.getUrlRails + 'mixtapes/' + mId + '?remKernal=' + kId, {}, config)
         ])
         this.mixtapes = this.mixtapes.filter(item => item.id !== mix.data.id)
-        this.mixtapes.unshift(mix.data)
-        if(store.mixtape === mix.data.id){
-          useKernalStore().kernals = useKernalStore().kernals.filter(item => item.id !== kId)
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    },
-    async remMixContLocal(kId: string) {
         this.mixtapes.unshift(mix.data)
         if(store.mixtape === mix.data.id){
           useKernalStore().kernals = useKernalStore().kernals.filter(item => item.id !== kId)

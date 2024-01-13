@@ -3,7 +3,7 @@ import { createApp } from 'vue'
 import router from './router'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
-import { SessionStore } from "@/store/SessionStore";
+import { SessionStore } from "@/services/SessionStore";
 
 const app = createApp(App)
   .use(createPinia())

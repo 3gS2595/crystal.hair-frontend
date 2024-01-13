@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import { GlobalStore } from '@/store/GlobalStore'
-import { SessionStore } from '@/store/SessionStore'
+import { GlobalStore } from '@/services/GlobalStore'
+import { SessionStore } from '@/services/SessionStore'
 import axios from 'axios'
 
-import type { srcUrlSubsetType } from '@/types/ApiTypes'
+import type { srcUrlSubsetType } from '@/assets/types/ApiTypes'
 
 const store = GlobalStore()
 export const useSrcUrlSubsetStore = defineStore({

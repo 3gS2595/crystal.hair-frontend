@@ -4,9 +4,9 @@
       <template #list="slotProps">
         <div @click="search(slotProps.data.id)" class="dgb-mixtape">
           <div class="dgb-0-txt">
-            <a class='title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
-            <a class='descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:21%; padding-right:2px;">{{blockCnt(slotProps.data.content)}}</a>
-            <a class='descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">&#128198;&#xFE0E; {{convertDate(slotProps.data.updated_at)}}</a>
+            <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
+            <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:21%; padding-right:2px;">+ {{blockCnt(slotProps.data.content)}}</a>
+            <a class='descr font-s-descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">-{{convertDate(slotProps.data.updated_at)}}</a>
           </div>
         </div>
       </template>
@@ -16,14 +16,14 @@
 
     letter-spacing: -0.3px;
 <script setup lang="ts">
-import type { mixtapeType } from '@/types/ApiTypes'
+import type { mixtapeType } from '@/assets/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
 
 import { storeToRefs } from 'pinia'
-import { useMixtapeStore } from '@/store/api/MixtapeStore'
-import { GlobalStore } from '@/store/GlobalStore'
+import { useMixtapeStore } from '@/services/api/MixtapeStore'
+import { GlobalStore } from '@/services/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 
 const { mixtapes } = storeToRefs(useMixtapeStore())
@@ -66,9 +66,9 @@ const convertDate = (datetime) => {
   const d = Math.trunc((new Date() - new Date(datetime))/1000/60/60/24)
   const h = Math.trunc((new Date() - new Date(datetime))/1000/60/60) - (d * 24)
   const m = Math.trunc((new Date() - new Date(datetime) )/1000/60) - (h * 60) - (d * 24 * 60)
-  if (h == 0 && d == 0) {return (m + ' mins ')}
-  if (d == 0) {return (h + ' hrs ')}
-  return (d + ' days ')
+  if (h == 0 && d == 0) {return (m + ' m')}
+  if (d == 0) {return (h + ' h')}
+  return (d + ' d')
 }
 
 const blockCnt = (datetime) => {

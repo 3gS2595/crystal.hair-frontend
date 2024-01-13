@@ -43,10 +43,13 @@
   margin-right:45px;
 }
 
-img {
-  width: 100%;
-  height: auto;
-  vertical-align: middle;
+#login{
+
+  img {
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+  }
 }
 
 .splash {
@@ -73,3 +76,29 @@ img {
   max-width:20dvw;
 }
 
+.login-overlay{
+  position:absolute;
+  background-image: url("https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/login-back.png");
+  filter: blur(26px);
+  -webkit-filter: blur(26px);
+  height:100vh;
+  width:100vw;
+  top:0;
+  left:0;
+    z-index: 10;
+
+
+}
+  .login-ui{
+    position: absolute;
+    background: var(--background-lightbox);
+    border: 1px solid var(--border-primary);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    height: 40%;
+    width: 70%;
+    max-width:541px;
+
+  }

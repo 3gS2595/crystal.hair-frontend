@@ -1,0 +1,48 @@
+@import "../Theme";
+
+// Cog wheel settings menu
+.settings-overlay{
+  position:fixed;
+  width:100vw;
+  height:100vh;
+  z-index: 15;
+  background: var(--lightbox-back);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  top:0;
+  left:0;
+
+
+  .settings{
+    position: absolute;
+     background: var(--background-lightbox);
+    border: 1px solid var(--border-primary);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    height: 40%;
+    width: 70%;
+    max-width:541px;
+
+    .options {
+      background: var(--background-lightbox);
+      width: 80%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: relative;
+      border: 1px solid var(--border-primary);
+
+      .set-btn{
+        background: var(--background-lightbox);
+        padding: var(--box-margin);
+        border: $tableBorder;
+        color: var(--text-data-title);
+        display: block;
+      }
+
+    }
+  }
+}
+

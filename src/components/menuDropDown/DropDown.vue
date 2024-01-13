@@ -13,7 +13,7 @@
 
 <script setup lang='ts'>
 import { ref, onMounted,watch } from 'vue'
-import { GlobalStore } from '@/store/GlobalStore'
+import { GlobalStore } from '@/services/GlobalStore'
 
 const selectedOrder = ref('desc')
 const sortOrder = ['asc', 'desc']

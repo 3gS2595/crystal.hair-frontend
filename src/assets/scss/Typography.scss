@@ -14,3 +14,32 @@
   text-decoration: none;
   box-sizing: border-box;
 }
+
+.font-s-title {
+  font-size:18px
+}
+.font-s-descr {
+  font-size:14px
+}
+.input-standard{
+  font-size:16px;
+}
+.cgb-0, .cgb-0-info {
+  font-size:13px;
+
+}
+
+@media (max-width : 400px) {
+  .font-s-title {
+    font-size:15px
+  }
+  .font-s-descr {
+    font-size:11px
+  }
+  .input-standard{
+    font-size:13px;
+  }
+  .cgb-0, .cgb-0-info {
+    font-size:10px;
+  }
+}

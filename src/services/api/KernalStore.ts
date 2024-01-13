@@ -1,11 +1,11 @@
-import type { kernalType } from '@/types/ApiTypes'
+import type { kernalType } from '@/assets/types/ApiTypes'
 
 import { defineStore } from 'pinia'
-import { ApiStore } from '@/store/ApiStore'
-import { useMixtapeStore } from '@/store/api/MixtapeStore'
-import { useForceGraphStore } from '@/store/api/ForceGraphStore'
-import { GlobalStore } from '@/store/GlobalStore'
-import { SessionStore } from '@/store/SessionStore'
+import { ApiStore } from '@/services/ApiStore'
+import { useMixtapeStore } from '@/services/api/MixtapeStore'
+import { useForceGraphStore } from '@/services/api/ForceGraphStore'
+import { GlobalStore } from '@/services/GlobalStore'
+import { SessionStore } from '@/services/SessionStore'
 import axios from 'axios'
 
 const store = GlobalStore()

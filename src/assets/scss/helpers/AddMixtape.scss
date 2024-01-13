@@ -1,0 +1,61 @@
+@import "../Theme";
+
+// Cog wheel settings menu
+.add-overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  z-index: 15;
+  background: var(--lightbox-back);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+
+  .add-mixtape{
+    position: absolute;
+    background: var(--background-lightbox);
+    border: 1px solid var(--border-primary);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    height: 40%;
+    width: 70%;
+    max-width:541px;
+
+    .uploader{
+      background: var(--background-lightbox);
+      width: 80%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: relative;
+      border: 1px solid var(--border-primary);
+
+      .add-mixtape-title{
+        background: var(--background-lightbox);
+        border-bottom: 1px solid var(--border-primary);
+        width:100%;
+      }
+    }
+    .add-mixtape-options{
+      background: var(--background-lightbox);
+      color: var(--text-data-title);
+      width: 100%;
+      display: flex;
+
+      .option{
+        background: var(--background-lightbox);
+        color: var(--text-data-title);
+        width:50%;
+        text-align: center;
+        font-size:13px;
+        padding:2px;
+      }
+      .option:last-child{
+        background: var(--background-lightbox);
+        border-left: 1px solid var(--border-primary);
+      }
+    }
+  }
+}
+

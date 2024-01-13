@@ -15,12 +15,12 @@
 </template>
 
 <script setup lang="ts">
-import type { mixtapeType } from '@/types/ApiTypes'
+import type { mixtapeType } from '@/assets/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
-import { GlobalStore } from '@/store/GlobalStore'
-import { ApiStore } from '@/store/ApiStore'
+import { GlobalStore } from '@/services/GlobalStore'
+import { ApiStore } from '@/services/ApiStore'
 
 const store = GlobalStore()
 const pageNumber = ref<number>(2)

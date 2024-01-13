@@ -17,32 +17,35 @@
       </tbody>
     </table>
   </div>
+
   <div v-else id='login'>
-    <form @submit.prevent='onLogin' class='login-form'>
-      <a>How did you find this? Development Server At the Momenet! Apologies!</a>
-      <br />
-      <a>Usr:  </a>
-      <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
-      <br />
-      <a>Pwd: </a>
-      <input class='login-form-password' type='password' v-model='loginPassword' placeholder='password' />
-      <br />
-      <input type='submit' value='Login' class='login-form-submit' />
-    </form>
-    <div class="splash">
-      <div class="img5">
-        <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/mobile-screen-shot.png">
-      </div>
-      <div class="img4">
-        <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/sitedemo.gif">
-      </div>
+    <img class='login-overlay' src='https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/login-background.png'>
+    <div class='login-ui'>
+
+
+
+      <form @submit.prevent='onLogin' class='login-form'>
+        <a>(1-12-24)</a>
+        <br />
+        <a>mIgrating to https</a>
+        <br />
+        <a>expect 404s</a>
+        <br />
+        <br />
+        <br />
+        <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
+        <br />
+        <input class='login-form-password' type='password' v-model='loginPassword' placeholder='password' />
+        <br />
+        <input type='submit' value='Login' class='login-form-submit' />
+      </form>
 
     </div>
   </div>
 </template>
 
 <script setup lang='ts'>
-import { SessionStore } from '@/store/SessionStore'
+import { SessionStore } from '@/services/SessionStore'
 import { ref } from 'vue'
 
 const sessionStore = SessionStore();

@@ -1,5 +1,5 @@
-import { useKernalStore } from '@/store/api/KernalStore'
-import { GlobalStore } from '@/store/GlobalStore'
+import { useKernalStore } from '@/services/api/KernalStore'
+import { GlobalStore } from '@/services/GlobalStore'
 const store = GlobalStore()
 
 function dragInFile (ev: DragEvent) {

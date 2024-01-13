@@ -12,7 +12,7 @@ import { defineComponent, onMounted, watch } from 'vue'
 import { darkSet } from '@/lib/DarkMode'
 
 import SessionManager from '@/components/sessionManager/SessionManager.vue'
-import { SessionStore } from "@/store/SessionStore"
+import { SessionStore } from "@/services/SessionStore"
 
 const sessionStore = SessionStore()
 
@@ -30,24 +30,24 @@ onMounted(() => {
 </script>
 
 <style lang='scss'>
-  @import './scss/Main.scss';
-  @import './scss/Typography.scss';
-  @import './scss/WebKit.scss';
+  @import './assets/scss/Main.scss';
+  @import './assets/scss/Typography.scss';
+  @import './assets/scss/WebKit.scss';
 
-  @import './scss/components/Canvas.scss';
-  @import './scss/components/SessionManager.scss';
-  @import './scss/components/ContentView.scss';
-  @import './scss/components/MixtapeView.scss';
-  @import './scss/components/ScrapersView.scss';
-  @import './scss/components/LightBox.scss';
-  @import './scss/components/Tabs.scss';
+  @import './assets/scss/components/Canvas.scss';
+  @import './assets/scss/components/SessionManager.scss';
+  @import './assets/scss/components/ContentView.scss';
+  @import './assets/scss/components/MixtapeView.scss';
+  @import './assets/scss/components/ScrapersView.scss';
+  @import './assets/scss/components/LightBox.scss';
+  @import './assets/scss/components/Tabs.scss';
 
-  @import './scss/helpers/SplitterPanel.scss';
-  @import './scss/helpers/ProgressBar.scss';
-  @import './scss/helpers/NavSearch.scss';
-  @import './scss/helpers/Settings.scss';
-  @import './scss/helpers/AddMixtape.scss';
-  @import './scss/helpers/UploadBox.scss';
+  @import './assets/scss/helpers/SplitterPanel.scss';
+  @import './assets/scss/helpers/ProgressBar.scss';
+  @import './assets/scss/helpers/NavSearch.scss';
+  @import './assets/scss/helpers/Settings.scss';
+  @import './assets/scss/helpers/AddMixtape.scss';
+  @import './assets/scss/helpers/UploadBox.scss';
 
   @import 'splitpanes/dist/splitpanes.css';
 </style>

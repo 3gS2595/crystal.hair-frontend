@@ -29,7 +29,7 @@
 .tab {
   text-align: center;
   cursor: pointer;
-  height: 32px;
+  height: 27px;
   opacity: 0.71;
   font-size:23px;
   z-index: 0;
@@ -52,12 +52,6 @@
    padding-bottom: 4px;
 }
 
-
-// Add button specific
-.tab-add{
-  min-width: 25px;
-}
-
 // Current Search and Mixtape info/close
 .current-dir{
   max-width: calc(100% - 35px);
@@ -70,9 +64,14 @@
 }
 
 .tab-icon {
-  height: 100%;
+  height: calc(100% - 4px);
   width: 100%;
 
+}
+
+.tab-width-standard {
+  width: 25px;
+  padding-top:2px;
 }
 
 

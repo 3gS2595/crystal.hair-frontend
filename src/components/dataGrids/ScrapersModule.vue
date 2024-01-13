@@ -14,14 +14,14 @@
 </template>
 
 <script setup lang="ts">
-import type { srcUrlSubsets } from '@/types/ApiTypes'
+import type { srcUrlSubsets } from '@/assets/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
 
 import { storeToRefs } from 'pinia'
-import { useSrcUrlSubsetStore } from '@/store/api/SrcUrlSubsetStore'
-import { GlobalStore } from '@/store/GlobalStore'
+import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
+import { GlobalStore } from '@/services/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 
 const { srcUrlSubsets } = storeToRefs(useSrcUrlSubsetStore())

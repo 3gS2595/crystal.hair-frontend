@@ -1,0 +1,101 @@
+@import "../Theme";
+
+.login-form{
+  text-align: center;
+  width:100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: relative;
+
+  input[type="submit" i]{
+    padding-top:1px;
+    padding-bottom:1px;
+    padding-left: 6px;
+    padding-right:6px;
+    outline:0;
+    color:white;
+  }
+  input{
+    margin:3px;
+    border: 0;
+    background: #00000000;
+    outline: 1px solid  var(--border-primary);
+    font-size:20px;
+    font-weight:1;
+    border-radius: 0;
+    width:202px;
+  }
+  a{
+    font-size:20px;
+    font-weight:1;
+    color:white;
+  }
+}
+
+.logout-button{
+  background:none;
+  border:none;
+  padding:0;
+}
+
+.img4 {
+  flex: 1.944;
+}
+.img5 {
+  flex: 0.75;
+  margin-right:45px;
+}
+
+
+
+.splash {
+  display: flex;
+  margin-top:40px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, -0);
+  max-width:900px;
+}
+
+.splash-image{
+  margin-top:40px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, -0);
+  max-width:80dvw;
+}
+.splash-image-mobile{
+  margin-top:40px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, -0);
+  max-width:20dvw;
+}
+
+.login-overlay{
+  position:absolute;
+  -webkit-filter: brightness(50%) blur(3px);
+  height:900px;
+  width:auto;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-53%, -50%);
+
+
+}
+  .login-ui{
+    position: absolute;
+    background: var(--background-lightbox);
+    border: 1px solid var(--border-primary);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    height: 40%;
+    width: 25%;
+height: 239px;
+    width: 210px;
+
+  }

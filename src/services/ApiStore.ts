@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { watch } from 'vue'
-import { GlobalStore } from '@/store/GlobalStore'
-import { useForceGraphStore } from '@/store/api/ForceGraphStore'
-import { useKernalStore } from '@/store/api/KernalStore'
-import { useMixtapeStore } from '@/store/api/MixtapeStore'
-import { useSrcUrlSubsetStore } from '@/store/api/SrcUrlSubsetStore'
+import { GlobalStore } from '@/services/GlobalStore'
+import { useForceGraphStore } from '@/services/api/ForceGraphStore'
+import { useKernalStore } from '@/services/api/KernalStore'
+import { useMixtapeStore } from '@/services/api/MixtapeStore'
+import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
 
 export const ApiStore = defineStore({
   id: 'apiStore',

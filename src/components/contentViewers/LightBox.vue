@@ -51,7 +51,7 @@
 </template>
 
 <script lang='ts'>
-import type { kernalType } from '@/types/ApiTypes'
+import type { kernalType } from '@/assets/types/ApiTypes'
 
 import { ref, defineComponent, type PropType } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -63,9 +63,9 @@ import ViewImg from './viewers/ViewImg.vue'
 import ViewInfo from './viewers/ViewInfo.vue'
 import axios, { type AxiosInstance, type CancelTokenStatic } from 'axios'
 
-import { GlobalStore } from '@/store/GlobalStore'
-import { SessionStore } from '@/store/SessionStore'
-import { useKernalStore } from '@/store/api/KernalStore'
+import { GlobalStore } from '@/services/GlobalStore'
+import { SessionStore } from '@/services/SessionStore'
+import { useKernalStore } from '@/services/api/KernalStore'
 const sessionStore = SessionStore()
 const store = GlobalStore()
 
@@ -84,12 +84,12 @@ export default defineComponent({
   },
   data () {
     return {
-      left: 4,
-      top: 4,
-      height: window.innerHeight - 8,
-      width: window.innerWidth - 9,
-      maxW: window.innerWidth - 9,
-      maxH: window.innerHeight - 8,
+      left: 5,
+      top: 5,
+      height: window.innerHeight - 10,
+      width: window.innerWidth - 11,
+      maxW: window.innerWidth - 10,
+      maxH: window.innerHeight - 10,
       event: '',
       dragSelector: '.drag-container-1',
       store: GlobalStore(),
@@ -147,15 +147,15 @@ export default defineComponent({
       const orientation = window.orientation
       if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
         if (orientation === 0) {
-          this.width = window.innerWidth - 9
-          this.height = window.innerHeight - 8
+          this.width = window.innerWidth - 11
+          this.height = window.innerHeight - 10
         } else if (orientation === 90 || orientation === -90) {
-          this.width = window.innerWidth -9
-          this.height = window.innerHeight - 8
+          this.width = window.innerWidth - 11
+          this.height = window.innerHeight - 10
         }
       } else {
-        this.width = window.innerWidth - 9
-        this.height = window.innerHeight - 8
+        this.width = window.innerWidth - 11
+        this.height = window.innerHeight - 10
       }
     },
   }

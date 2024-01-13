@@ -53,13 +53,13 @@
 </template>
 
 <script setup lang='ts'>
-import type { kernalType } from '@/types/ApiTypes'
+import type { kernalType } from '@/assets/types/ApiTypes'
 import { ref, computed, defineComponent, type PropType } from 'vue'
 import DataView from 'primevue/dataview'
 import { storeToRefs } from 'pinia'
-import { useMixtapeStore } from '@/store/api/MixtapeStore'
-import { useKernalStore } from '@/store/api/KernalStore'
-import { GlobalStore } from '@/store/GlobalStore'
+import { useMixtapeStore } from '@/services/api/MixtapeStore'
+import { useKernalStore } from '@/services/api/KernalStore'
+import { GlobalStore } from '@/services/GlobalStore'
 
 const { mixtapes } = storeToRefs(useMixtapeStore())
 const { kernals } = storeToRefs(useKernalStore())
