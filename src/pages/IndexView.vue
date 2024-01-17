@@ -172,7 +172,7 @@ export default defineComponent({
     window.addEventListener('orientationchange', this.resizeContentFit)
     window.addEventListener('resize', this.resizeContentFit)
     window.addEventListener('paste', this.pasteInFile)
-    ApiStore().initialize().then(console.log('p'))
+    ApiStore().initialize()
     this.resizeContentFit()
   },
   unmounted () {

@@ -27,9 +27,9 @@
           <template #list="slotProps">
             <div @click="useMixtapeStore().addMixCont(modelValue.id, slotProps.data.id)" class="dgb-0">
               <div class="dgb-0-txt">
-                <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ slotProps.data.name }}</a>
-                <a class='descr' style="float:left;">{{ convertDate(slotProps.data.updated_at) }}</a>
-                <a class='descr' style="float:right;">{{ blockCnt(slotProps.data.content) }} kernals</a>
+                <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(slotProps.data.id) }}</a>
+                <a class='descr' style="float:left;">{{ convertDate(slotProps.data.id) }}</a>
+                <a class='descr' style="float:right;">{{ blockCnt(slotProps.data.id) }} kernals</a>
               </div>
             </div>
           </template>
@@ -40,9 +40,9 @@
           <template #list="slotProps">
             <div @click="useMixtapeStore().remMixCont(modelValue.id, slotProps.data.id)" class="dgb-0">
               <div class='dgb-0-txt'>
-                <a style='float:left; width:calc(100%); margin-bottom:2px;'>{{ slotProps.data.name }}</a>
-                <a class='descr' style="float:left;">{{ convertDate(slotProps.data.updated_at) }}</a>
-                <a class='descr' style="float:right;">{{ blockCnt(slotProps.data.content) }} kernals</a>
+                <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(slotProps.data.id) }}</a>
+                <a class='descr' style="float:left;">{{ convertDate(slotProps.data.id) }}</a>
+                <a class='descr' style="float:right;">{{ blockCnt(slotProps.data.id) }} kernals</a>
               </div>
             </div>
           </template>
@@ -58,9 +58,11 @@ import { ref, computed, defineComponent, type PropType } from 'vue'
 import DataView from 'primevue/dataview'
 import { storeToRefs } from 'pinia'
 import { useMixtapeStore } from '@/services/api/MixtapeStore'
+import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { useKernalStore } from '@/services/api/KernalStore'
 import { GlobalStore } from '@/services/GlobalStore'
 
+const { connections_mix } = storeToRefs(useConnectionsStore())
 const { mixtapes } = storeToRefs(useMixtapeStore())
 const { kernals } = storeToRefs(useKernalStore())
 
@@ -68,16 +70,28 @@ const props = withDefaults(defineProps<{
   modelValue: kernalType,
 }> (), {})
 
-const mixes = computed(() => mixtapes.value.filter(mix => !mix.content.includes(props.modelValue.id)))
-const mixesBelong = computed(() => mixtapes.value.filter(mix => mix.content.includes(props.modelValue.id)))
+const mixes = computed(() => connections_mix.value.filter(connections => !connections.contains.includes(props.modelValue.id)))
+const mixesBelong = computed(() => connections_mix.value.filter(connections => connections.contains.includes(props.modelValue.id)))
 
-const convertDate = (d) => {
-  const ret = (d === null) ? null:((new Date() - new Date(d))/1000/60/60/24).toFixed(0)
-  return ret + ' days ago'
+const getName = (content_id) => {
+  let contents = mixtapes.value.find(i => i.contents === content_id)
+  if(contents != null) {return contents.name}
+  return null
 }
-const blockCnt = (kArr) => {
-  const ret = (kArr === null) ? null:kArr.length
-  return ret
+const convertDate = (content_id) => {
+  let contents = mixtapes.value.find(i => i.contents === content_id)
+  if(contents != null) {
+    let date = contents.updated_at
+    console.log(date)
+    const ret = (date === null) ? null:((new Date() - new Date(date))/1000/60/60/24).toFixed(0)
+    return ret + ' days ago'
+  }
+  return null
+}
+const blockCnt = (content_id) => {
+  let contents = connections_mix.value.find(i => i.id === content_id)
+  if(contents != null) {return contents.contains.length}
+  return null
 }
 const deleteBlock = () => {
   let id = props.modelValue.id

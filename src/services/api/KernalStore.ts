@@ -91,9 +91,9 @@ export const useKernalStore = defineStore({
           this.kernals.unshift(ker.data)
           useForceGraphStore().forceGraph.unshift(ker.data)
           console.log(ker.data)
-          if(store.mixtape !== '') {
-            useMixtapeStore().mixtapes.find(mix => mix.id === store.mixtape)!.content.unshift(ker.data.id)
-          }
+          //if(store.mixtape !== '') {
+            //useMixtapeStore().mixtapes.find(mix => mix.id === store.mixtape)!.contents.unshift(ker.data.id)
+          //}
         } catch (e) {
           console.error(e);
         }
@@ -105,7 +105,7 @@ export const useKernalStore = defineStore({
       try {
         axios.delete( sessionStore.getUrlRails + 'kernals/' + uuid, config)
         this.kernals = this.kernals.filter(item => item.id !== uuid)
-        useMixtapeStore().remMixContAll(uuid)
+        //useMixtapeStore().remMixContAll(uuid)
       } catch (e) {
         console.error(e);
       }

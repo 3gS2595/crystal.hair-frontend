@@ -34,7 +34,7 @@ export interface srcUrlType {
 export interface mixtapeType {
   id: string,
   name: string,
-  content: string[]
+  contents: string,
   permissions: string[],
   created_at: Date,
   updated_at: Date
@@ -42,11 +42,26 @@ export interface mixtapeType {
 export interface srcUrlSubsetType {
   id: string,
   src_url_id: string,
+  contents: string,
   url: string,
   name: string,
   scrape_interval: number,
   time_last_scraped: Date,
   permissions: string[]
+  created_at: Date,
+  updated_at: Date
+}
+export interface connectionsMixType {
+  id: string,
+  contains: string[],
+  created_at: Date,
+  updated_at: Date
+}
+export interface connectionsSrcType {
+  id: string,
+  name: string,
+  contents: string[],
+  permissions: string[],
   created_at: Date,
   updated_at: Date
 }

@@ -5,7 +5,7 @@
         <div @click="search(slotProps.data.id)" class="dgb-mixtape">
           <div class="dgb-0-txt">
             <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
-            <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:21%; padding-right:2px;">+ {{blockCnt(slotProps.data.content)}}</a>
+            <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:21%; padding-right:2px;">+ {{blockCnt(slotProps.data.contents)}}</a>
             <a class='descr font-s-descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">-{{convertDate(slotProps.data.updated_at)}}</a>
           </div>
         </div>
@@ -23,6 +23,7 @@ import DataView from 'primevue/dataview'
 
 import { storeToRefs } from 'pinia'
 import { useMixtapeStore } from '@/services/api/MixtapeStore'
+import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 
@@ -71,8 +72,9 @@ const convertDate = (datetime) => {
   return (d + ' d')
 }
 
-const blockCnt = (datetime) => {
-  if(datetime != null) {return datetime.length}
+const blockCnt = (content_id) => {
+  let contents = useConnectionsStore().connections_mix.find(i => i.id === content_id)
+  if(contents != null) {return contents.contains.length}
   return null
 }
 

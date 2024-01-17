@@ -4,7 +4,7 @@
   margin-top: -4px;
   border: $tableBorder;
   width: calc(100% - var(--box-margin) - 1px);
-  height: calc(100% - var(--size-margin));
+  height: calc(100% - 3px);
 
   .p-dataview-content{
     z-index: 10;

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ApiStore } from '@/services/ApiStore'
 import { useKernalStore } from '@/services/api/KernalStore'
+import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import { SessionStore } from '@/services/SessionStore'
 import axios from 'axios'
@@ -8,6 +9,7 @@ import axios from 'axios'
 import type { mixtapeType } from '@/assets/types/ApiTypes'
 
 const store = GlobalStore()
+const connectionsStore = useConnectionsStore()
 const sessionStore = SessionStore()
 const base = sessionStore.getUrlRails
 
@@ -20,10 +22,11 @@ export const useMixtapeStore = defineStore({
   actions: {
 
     async fetchMixtapes (pageNumber: number) {
+      console.log('MIXTAPE FETCH')
       this.mixtapes.push({
         id: "page-" + pageNumber,
         name: "...",
-        content: [],
+        contents: '',
         permissions: [],
         created_at: new Date(),
         updated_at: new Date()

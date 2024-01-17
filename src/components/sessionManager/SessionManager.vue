@@ -31,6 +31,10 @@
         <br />
         <a>expect 404s</a>
         <br />
+        <a>(1-15-24)</a>
+        <br />
+        <a>screenshots at github.com/3gS2595</a>
+        <br />
         <br />
         <br />
         <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
