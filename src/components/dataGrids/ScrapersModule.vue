@@ -1,15 +1,17 @@
 <template>
   <div class="src-url-subset-view">
-    <DataView class='dg-0' :value="srcUrlSubsets" :layout="list" >
-      <template #list="slotProps">
-        <div @click="search(slotProps.data.id)" class="dgb-src-url-subset">
-          <div class="dgb-0-txt">
-            <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
-            <a class='descr font-s-descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">-{{convertDate(slotProps.data.time_last_entry)}}</a>
+    <OverlayScrollbarsComponent defer>
+      <DataView class='dg-0' :value="srcUrlSubsets" :layout="list" >
+        <template #list="slotProps">
+          <div @click="search(slotProps.data.id)" class="dgb-src-url-subset">
+            <div class="dgb-0-txt">
+              <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">-{{convertDate(slotProps.data.time_last_entry)}}</a>
+            </div>
           </div>
-        </div>
-      </template>
-    </DataView>
+        </template>
+      </DataView>
+    </OverlayScrollbarsComponent>
   </div>
 </template>
 
@@ -23,6 +25,7 @@ import { storeToRefs } from 'pinia'
 import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import VueLoadImage from 'vue-load-image'
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 
 const { srcUrlSubsets } = storeToRefs(useSrcUrlSubsetStore())
 

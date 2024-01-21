@@ -50,7 +50,7 @@
         </div>
         <nav class='nav'>
           <img class='navItem' src="logout.png" @click="logout"/>
-          <input class='search input-standard text-main-0' v-model="searchValue" placeholder="&#x1F50E;&#xFE0E;" @keyup.enter="search(searchValue)" />
+          <input class='search input-standard text-main-0' v-model="searchValue" placeholder="&#9765;&#xFE0E;" @keyup.enter="search(searchValue)" />
         </nav>
       </pane>
 

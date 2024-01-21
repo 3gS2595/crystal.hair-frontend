@@ -4,6 +4,7 @@ import router from './router'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import { SessionStore } from "@/services/SessionStore";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 
 const app = createApp(App)
   .use(createPinia())

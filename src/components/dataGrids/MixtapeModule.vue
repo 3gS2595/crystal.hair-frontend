@@ -1,18 +1,18 @@
 <template>
   <div class="mixtapeView">
-<OverlayScrollbarsComponent defer>
-    <DataView class='dg-0' :value="mixtapes" :layout="list" >
-      <template #list="slotProps">
-        <div @click="search(slotProps.data.id)" class="dgb-mixtape">
-          <div class="dgb-0-txt">
-            <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
-            <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:21%; padding-right:2px;">+ {{blockCnt(slotProps.data.contents)}}</a>
-            <a class='descr font-s-descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">-{{convertDate(slotProps.data.contents)}}</a>
+    <OverlayScrollbarsComponent defer>
+      <DataView class='dg-0' :value="mixtapes" :layout="list" >
+        <template #list="slotProps">
+          <div @click="search(slotProps.data.id)" class="dgb-mixtape">
+            <div class="dgb-0-txt">
+              <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:36px; padding-right:2px;">+ {{blockCnt(slotProps.data.contents)}}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">-{{convertDate(slotProps.data.contents)}}</a>
+            </div>
           </div>
-        </div>
-      </template>
-    </DataView>
-</OverlayScrollbarsComponent>
+        </template>
+      </DataView>
+    </OverlayScrollbarsComponent>
   </div>
 </template>
 
@@ -59,9 +59,6 @@ const search = (e) => {
 const convertTitle = (title) => {
   if (title !== undefined){
     title = title.replace(/^\s+|\s+$/gm,'')
-    if(title.length > 20){
-      return title.substring(0, 20).replace(/^\s+|\s+$/gm,'') + "_"
-    }
     return title
   }
 }

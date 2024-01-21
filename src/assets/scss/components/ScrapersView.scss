@@ -3,13 +3,21 @@
 .mixtape-pane{
   margin: var(--box-margin);
   flex: 1 1 auto;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .src-url-subset-view{
   height: calc(100% + 1px);
   margin-top: -4px;
   border: $tableBorder;
+  [data-overlayscrollbars~=host], [data-overlayscrollbars~=viewport] {
+    height:100%;
+  }
+  .os-scrollbar-vertical {
+    left: 0;
+    border-right: $tableBorder!important;
+    border-top: $tableBorder!important;
+  }
 
   .p-dataview-content{
     padding-top: 5px;
@@ -29,7 +37,6 @@
       position: relative;
       z-index: 5;
       max-height: calc(100% );
-      overflow-y: auto;
       display: flex;
       flex-wrap: wrap;
     }
@@ -44,20 +51,18 @@
   padding-bottom: 1px;
   padding-left: 1px;
   border: 1px solid var(--border-primary);
-  width: 100%;
-  min-width: 90px;
+  width: calc(100% - 8px);
   margin: 2px;
   margin-top: 0;
+  margin-left: 6px;
 
   .descr{
     opacity: 0.50;
-    font-size: 14px;
     letter-spacing: -0.33px;
   }
   .title{
     float: left;
     width: 78%;
-    font-size: 18px;
     text-overflow: clip;
     overflow: hidden;
     white-space: nowrap;

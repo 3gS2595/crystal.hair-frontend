@@ -74,7 +74,7 @@
 // GENERATE CGB DESCRIPTION TEXT
   const setInfo = (k: kernalType) => {
     if (k.description != null) {
-      if (k.description.length > 0) {
+      if (k.description.length > 1) {
         return k.description
       }
     }
