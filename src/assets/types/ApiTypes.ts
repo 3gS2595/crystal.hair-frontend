@@ -54,6 +54,7 @@ export interface srcUrlSubsetType {
 export interface connectionsMixType {
   id: string,
   contains: string[],
+  permissions:[],
   created_at: Date,
   updated_at: Date
 }

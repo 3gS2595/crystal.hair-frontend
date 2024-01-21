@@ -19,13 +19,13 @@
       <div class="infoBox">src_url: {{modelValue.src_url}}</div>
       <div class="infoBox">src_url_subset: {{modelValue.src_url_subset_id}}</div>
 
-      <a class='delete' style="margin-top:-.5px;" @click='deleteBlock'>Destroy Kernal</a>
+    <a class='delete' style="margin-top:-.5px;" @click='deleteBlock(modelValue.id)'>Destroy Kernal</a>
     </div>
     <div class="mixCol">
       <div class="select-mix">
         <DataView class='dg-0' :value="mixes" :layout="list" >
           <template #list="slotProps">
-            <div @click="useMixtapeStore().addMixCont(modelValue.id, slotProps.data.id)" class="dgb-0">
+            <div @click="useConnectionsStore().patchMixAddKernal(slotProps.data.id, modelValue.id)" class="dgb-0">
               <div class="dgb-0-txt">
                 <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(slotProps.data.id) }}</a>
                 <a class='descr' style="float:left;">{{ convertDate(slotProps.data.id) }}</a>
@@ -38,7 +38,7 @@
       <div class="select-mix">
         <DataView class='dg-0' :value="mixesBelong" :layout="list" >
           <template #list="slotProps">
-            <div @click="useMixtapeStore().remMixCont(modelValue.id, slotProps.data.id)" class="dgb-0">
+            <div @click="useConnectionsStore().patchMixRemKernal(slotProps.data.id, modelValue.id)" class="dgb-0">
               <div class='dgb-0-txt'>
                 <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(slotProps.data.id) }}</a>
                 <a class='descr' style="float:left;">{{ convertDate(slotProps.data.id) }}</a>

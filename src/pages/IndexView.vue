@@ -4,6 +4,7 @@
     <LightBox v-if='store.lightBoxView' :viewerData="kernals"/>
     <AddContentBox v-if='store.uploadBoxView'/>
     <AddMixtapeBox v-if='store.addMixtapeBoxView'/>
+    <EditMixtapeBox v-if='store.editMixtapeBoxView'/>
     <AddSrcUrlSubset v-if='store.addSrcUrlSubset'/>
 
     <splitpanes class="default-theme"
@@ -15,10 +16,7 @@
 
   <!-- NAVIGATION PANE-->
       <pane id="main-l" :size="paneSize + paneSizeOffSet">
-        <nav class='nav'>
-          <img class='navItem' src="logout.png" @click="logout"/>
-          <input class='search input-standard text-main-0' v-model="searchValue" placeholder="search" @keyup.enter="search(searchValue)" />
-        </nav>
+
 
         <div class="mixtape-pane">
           <div class="tabs">
@@ -48,8 +46,12 @@
         </div>
 
         <div  class="forceGraph" >
-          <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes" :propMixtape="mixtape"/>
+          <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes" :propMixtape="mixtape" :propConnections="connections_mix"/>
         </div>
+        <nav class='nav'>
+          <img class='navItem' src="logout.png" @click="logout"/>
+          <input class='search input-standard text-main-0' v-model="searchValue" placeholder="&#x1F50E;&#xFE0E;" @keyup.enter="search(searchValue)" />
+        </nav>
       </pane>
 
   <!-- CONTENT PANE -->
@@ -61,6 +63,7 @@
             </div>
             <a class="tab tab-active current-dir" v-if="store.filter!=''" @click='store.setFilter("")'>{{store.filter}}</a>
             <a class="tab tab-active current-dir" v-if="mixtapeHeader!=''" @click='closeHeader()'>{{mixtapeHeader}}</a>
+            <a class="tab tab-active current-dir" v-if="mixtapeHeader!='' && mixtape != ''" @click='(toggleEditMixtapeBox())'>edit</a>
           </div>
 
           <div class="tabs-r">
@@ -105,6 +108,7 @@ import LightBox from '@/components/contentViewers/LightBox.vue'
 import AddContentBox from '@/components/uploaders/AddContent.vue'
 import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
 import AddSrcUrlSubset from '@/components/uploaders/AddSrcUrlSubset.vue'
+import EditMixtapeBox from '@/components/editViewers/EditBox.vue'
 
 import { storeToRefs } from 'pinia'
 import { ApiStore } from '@/services/ApiStore'
@@ -112,6 +116,7 @@ import { GlobalStore } from '@/services/GlobalStore'
 import { useMixtapeStore } from '@/services/api/MixtapeStore'
 import { useForceGraphStore } from '@/services/api/ForceGraphStore'
 import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
+import { useConnectionsStore } from '@/services/api/connectionsStore'
 
 export default defineComponent({
   components: {
@@ -124,6 +129,7 @@ export default defineComponent({
     LightBox,
     AddContentBox,
     AddMixtapeBox,
+    EditMixtapeBox,
     AddSrcUrlSubset
   },
 
@@ -157,6 +163,7 @@ export default defineComponent({
 
 // Page Lifecycle hooks
   setup () {
+    const { connections_mix } = storeToRefs(useConnectionsStore())
     const { mixtapes } = storeToRefs(useMixtapeStore())
     const { srcUrlSubsets } = storeToRefs(useSrcUrlSubsetStore())
     const {forceGraph } = storeToRefs(useForceGraphStore())
@@ -165,7 +172,7 @@ export default defineComponent({
       GlobalStore().setCgbWidth(86)
       GlobalStore().setCgbWidthSized(60)
     }
-    return { mixtapes, mixtape, srcUrlSubsets, srcUrlSubset, forceGraph }
+    return { mixtapes, mixtape, connections_mix, srcUrlSubsets, srcUrlSubset, forceGraph }
   },
   mounted () {
     window.addEventListener('visibilitychange', this.resizeContentFit)
@@ -214,10 +221,8 @@ export default defineComponent({
     deleteMixSrc () {
       if (this.store.srcUrlSubset != '-1' && this.store.srcUrlSubset != '' ) {
         this.srcStore.deleteSrcUrlSubset(this.store.srcUrlSubset);
-        console.log('deleteing srcUrlSubset ' + this.store.srcUrlSubset)
       } else if (this.store.mixtape != '') {
         this.mixStore.deleteMixtape(this.store.mixtape);
-        console.log('deleteing mix ' + this.store.mixtape)
       }
       this.viewSettings=!this.viewSettings
     },
@@ -229,6 +234,9 @@ export default defineComponent({
     },
     toggleUploadBox() {
       this.store.setUploadBoxView(!this.store.uploadBoxView)
+    },
+    toggleEditMixtapeBox() {
+      this.store.setEditMixtapeBoxView(!this.store.editMixtapeBoxView)
     },
     toggleAddMixtapeBox() {
       this.store.setAddMixtapeBoxView(!this.store.addMixtapeBoxView)
@@ -244,23 +252,24 @@ export default defineComponent({
       const el = document.getElementById('app')
       const cgb_width = this.store.cgbWidth
       const cgb = document.querySelector('.cgb-0')
-      let cgb_margin = 5
-      let scroll_width = 0
+      let cgb_margin = 4
+      let scroll_width = 3
       let min_pane_left = 203
-      if(window.innerWidth < 400){
-        cgb_margin = 5
-        scroll_width = 10
-        min_pane_left = 146
+      if(window.innerHeight < 400 || window.innerWidth < 400){
+        cgb_margin = 3
+        scroll_width = 3
+        min_pane_left = 140
       }
       if (cgb != null) {
-        const width  = window.getComputedStyle(cgb).marginLeft
+        const width  = window.getComputedStyle(cgb).marginRight
+        console.log(width)
         cgb_margin = Number(width.substring(0, width.length - 2))
-        scroll_width = cgb_margin * 2
+        scroll_width = 3
       }
       if ( el != null) {
         if (this.paneSize === 30 ){
           const max_cont_width = el.offsetWidth - min_pane_left - scroll_width - (cgb_margin)
-          const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 15
+          const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 14
           const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
           const content_width_percent = (max_cont_width) / el.offsetWidth
           const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
@@ -274,8 +283,8 @@ export default defineComponent({
           this.store.setCgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
         }
       }
-
     },
+
     stepContentFit: function (step: number) {
       const el = document.getElementById('app')
       const cgb_width = this.store.cgbWidth

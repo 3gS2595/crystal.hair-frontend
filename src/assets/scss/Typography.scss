@@ -28,8 +28,12 @@
   font-size:13px;
 
 }
+.current-dir{
+  font-size:18px;
+}
 
-@media (max-width : 400px) {
+  @media screen and (max-width: 400px),
+       screen and (max-height: 400px) {
   .font-s-title {
     font-size:15px
   }
@@ -41,5 +45,8 @@
   }
   .cgb-0, .cgb-0-info {
     font-size:10px;
+  }
+  .current-dir{
+    font-size:15px;
   }
 }

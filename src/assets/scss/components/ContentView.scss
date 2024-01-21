@@ -1,28 +1,25 @@
 @import "../Theme";
 
 .contentView{
-  margin-top: -4px;
-  border: $tableBorder;
   width: calc(100% - var(--box-margin) - 1px);
-  height: calc(100% - 3px);
+  min-height: 100%;
 
   .p-dataview-content{
     z-index: 10;
     position: sticky;
     background: var(--background-primary);
-    height: 100%;
     width: 100%;
 
     .grid{
       display: flex;
       flex-wrap: wrap;
       margin-bottom: var(--box-margin);
-      height: 100%;
-      overflow-y: scroll;
       align-content: flex-start;
       background: var(--background-primary);
       z-index: 10!important;
       position: relative;
+      justify-content: flex-end;
+      align-items: flex-end;
     }
   }
 }
@@ -30,7 +27,7 @@
 // Content card
 .cgb-0{
   margin-top: var(--box-margin);
-  margin-left:calc(var(--box-margin) + 1px);
+  margin-right:calc(var(--box-margin));
   border: $cardBorder;
   height: fit-content;
 
@@ -64,5 +61,58 @@
     white-space: nowrap;
     opacity: 0.8;
   }
+}
+
+
+
+
+.tab-content-kernal{
+  [data-overlayscrollbars=host], [data-overlayscrollbars=viewport] {
+    height:calc(100% - 2px)!important;
+    border: $tableBorder!important;
+    margin-top: -4px;
+  }
+.os-scrollbar-vertical {
+    border-left: $tableBorder!important;
+}
+}
+
+[data-overlayscrollbars~=host], [data-overlayscrollbars~=viewport] {
+  position: relative;
+  overflow: scroll;
+}
+
+[data-overlayscrollbars-viewport]{
+    position: relative;
+    overflow: scroll;
+    height: 100%!important;
+    z-index:10;
+}
+.os-theme-dark {
+  --os-handle-bg: #9eff2299!important;
+}
+.os-scrollbar .os-scrollbar-handle {
+    border-radius: 0!important;
+}
+.os-scrollbar-vertical .os-scrollbar-handle {
+    width: 2px!important;
+    transition: none!important;
+    right: 2px;
+}
+
+.os-scrollbar-vertical .os-scrollbar-handle {
+    transition: none!important;
+}
+.os-scrollbar-vertical {
+    width: 4px!important;
+    height: 100%;
+        z-index: 10;
+}
+.os-scrollbar-track {
+    padding: 0 !important;
+    width: 4px!important;
+}
+.os-scrollbar-vertical {
+    padding: 0 !important;
 }
 

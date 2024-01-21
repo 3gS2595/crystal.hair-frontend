@@ -15,8 +15,7 @@ export const useConnectionsStore = defineStore({
   }),
 
   actions: {
-    async fetchMixtapes () {
-      console.log('CONNECTION  FETCH')
+    async fetchConnections () {
       let params = '?mix=true'
       const config = {
         headers: { Authorization:  SessionStore().auth_token },
@@ -27,8 +26,28 @@ export const useConnectionsStore = defineStore({
       } catch (e) {
         console.error(e);
       }
-
-      console.log('CONNECTION  RETREIVED')
+    },
+    async patchMixAddKernal(cid: string, kid: string) {
+      const config = {headers: { authorization: sessionStore.auth_token }}
+      try {
+        const [ connections ] = await Promise.all([
+          axios.patch( sessionStore.getUrlRails + 'contents/' + cid + '?kid=' + kid + '&add=true', {}, config)
+        ])
+        this.connections_mix = connections.data
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async patchMixRemKernal(cid: string, kid: string) {
+      const config = {headers: { authorization: sessionStore.auth_token }}
+      try {
+        const [ connections ] = await Promise.all([
+          axios.patch( sessionStore.getUrlRails + 'contents/' + cid + '?kid=' + kid + '&remove=true', {}, config)
+        ])
+        this.connections_mix = connections.data
+      } catch (e) {
+        console.error(e);
+      }
     }
   }
 })

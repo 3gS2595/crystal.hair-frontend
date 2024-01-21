@@ -4,8 +4,8 @@
       <template #list="slotProps">
         <div @click="search(slotProps.data.id)" class="dgb-src-url-subset">
           <div class="dgb-0-txt">
-            <a class='title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
-            <a class='descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">&#128198;&#xFE0E; {{convertDate(slotProps.data.time_last_entry)}}</a>
+            <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
+            <a class='descr font-s-descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">-{{convertDate(slotProps.data.time_last_entry)}}</a>
           </div>
         </div>
       </template>

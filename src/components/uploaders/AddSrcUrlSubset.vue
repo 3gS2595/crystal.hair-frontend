@@ -5,7 +5,6 @@
         <div class="add-mixtape-title">
           <input class="input-standard text-main-0" placeholder="enter url" v-model="url">
           <input class="input-standard text-main-0" placeholder="enter name" v-model="name">
-          <input class="input-standard text-main-0" placeholder="enter scrape interval" v-model="scrapeInterval">
         </div>
         <div class='add-mixtape-options'>
          <a class='option text-main-0' @click='close'>exit</a>
@@ -31,8 +30,7 @@ export default defineComponent({
     return {
       store: GlobalStore(),
       url: ref(""),
-      name: ref(""),
-      scrapeInterval: ref("")
+      name: ref("")
     }
   },
   directives: {
@@ -43,7 +41,7 @@ export default defineComponent({
       store.setAddSrcUrlSubset(false)
     },
     submitFile () {
-      useSrcUrlSubsetStore().addSrcUrlSubset(this.url, this.name, this.scrapeInterval)
+      useSrcUrlSubsetStore().addSrcUrlSubset(this.url, this.name)
       store.setAddSrcUrlSubset(false)
     },
     close () {

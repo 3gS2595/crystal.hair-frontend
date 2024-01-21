@@ -2,7 +2,7 @@ import type { kernalType } from '@/assets/types/ApiTypes'
 
 import { defineStore } from 'pinia'
 import { ApiStore } from '@/services/ApiStore'
-import { useMixtapeStore } from '@/services/api/MixtapeStore'
+import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { useForceGraphStore } from '@/services/api/ForceGraphStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import { SessionStore } from '@/services/SessionStore'
@@ -91,9 +91,7 @@ export const useKernalStore = defineStore({
           this.kernals.unshift(ker.data)
           useForceGraphStore().forceGraph.unshift(ker.data)
           console.log(ker.data)
-          //if(store.mixtape !== '') {
-            //useMixtapeStore().mixtapes.find(mix => mix.id === store.mixtape)!.contents.unshift(ker.data.id)
-          //}
+          useConnectionsStore().fetchConnections()
         } catch (e) {
           console.error(e);
         }
@@ -103,26 +101,27 @@ export const useKernalStore = defineStore({
     async deleteKernal (uuid: string) {
       const config = {headers: { Authorization: sessionStore.auth_token }}
       try {
-        axios.delete( sessionStore.getUrlRails + 'kernals/' + uuid, config)
+        const [ ker ] = await Promise.all([
+          axios.delete( sessionStore.getUrlRails + 'kernals/' + uuid, config)
+        ])
         this.kernals = this.kernals.filter(item => item.id !== uuid)
-        //useMixtapeStore().remMixContAll(uuid)
+        useConnectionsStore().fetchConnections()
       } catch (e) {
         console.error(e);
       }
     },
 
-    async patchKernalDescr(kId: string, text: string) {
-      const config = {headers: { Authorization: sessionStore.auth_token }}
+    async patchKernalDescr(kid: string, text: string) {
+      const config = {headers: { authorization: sessionStore.auth_token }}
       try {
         const [ kernal ] = await Promise.all([
-          axios.patch( sessionStore.getUrlRails + 'kernals/' + kId + '?description=' + text, {}, config)
+          axios.patch( sessionStore.getUrlRails + 'kernals/' + kid + '?description=' + text, {}, config)
         ])
-        console.log(Array.prototype.findIndex.call(this.kernals, (x) => x.id = kId))
+        console.log(Array.prototype.findIndex.call(this.kernals, (x) => x.id = kid))
         this.kernals[store.lightBoxIndex] = kernal.data
       } catch (e) {
         console.error(e);
       }
-    },
-
+    }
   }
 })

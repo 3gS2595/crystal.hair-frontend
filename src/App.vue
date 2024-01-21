@@ -48,6 +48,8 @@ onMounted(() => {
   @import './assets/scss/helpers/Settings.scss';
   @import './assets/scss/helpers/AddMixtape.scss';
   @import './assets/scss/helpers/UploadBox.scss';
+  @import './assets/scss/helpers/EditView.scss';
 
+  @import 'overlayscrollbars/overlayscrollbars.css';
   @import 'splitpanes/dist/splitpanes.css';
 </style>

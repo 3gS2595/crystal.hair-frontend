@@ -15,7 +15,7 @@ export const ApiStore = defineStore({
 
   actions: {
     async initialize () {
-      await useConnectionsStore().fetchMixtapes()
+      await useConnectionsStore().fetchConnections()
       useMixtapeStore().fetchMixtapes(1)
       useSrcUrlSubsetStore().fetchSrcUrlSubsets(1)
       useForceGraphStore().fetchForceGraph()

@@ -22,7 +22,6 @@ export const useMixtapeStore = defineStore({
   actions: {
 
     async fetchMixtapes (pageNumber: number) {
-      console.log('MIXTAPE FETCH')
       this.mixtapes.push({
         id: "page-" + pageNumber,
         name: "...",
@@ -80,34 +79,14 @@ export const useMixtapeStore = defineStore({
         console.error(e);
       }
     },
-
-    async addMixCont(kId: string, mId: string) {
-      const config = {
-        headers: { Authorization: sessionStore.auth_token }
-      }
+    async patchMixtape (uuid: string, title: string) {
+      const config = {headers: { authorization: sessionStore.auth_token }}
       try {
         const [ mix ] = await Promise.all([
-          axios.patch( sessionStore.getUrlRails + 'mixtapes/' + mId + '?addKernal=' + kId, {}, config)
+          axios.patch( sessionStore.getUrlRails + 'mixtapes/' + uuid + '?name=' + title, {}, config)
         ])
-        this.mixtapes = this.mixtapes.filter(item => item.id !== mix.data.id)
-        this.mixtapes.unshift(mix.data)
-      } catch (e) {
-        console.error(e);
-      }
-    },
-    async remMixCont(kId: string, mId: string) {
-      const config = {
-        headers: { Authorization: sessionStore.auth_token }
-      }
-      try {
-        const [ mix ] = await Promise.all([
-          axios.patch( sessionStore.getUrlRails + 'mixtapes/' + mId + '?remKernal=' + kId, {}, config)
-        ])
-        this.mixtapes = this.mixtapes.filter(item => item.id !== mix.data.id)
-        this.mixtapes.unshift(mix.data)
-        if(store.mixtape === mix.data.id){
-          useKernalStore().kernals = useKernalStore().kernals.filter(item => item.id !== kId)
-        }
+        const index = Array.prototype.findIndex.call(this.mixtapes, (x) => x.id = uuid)
+        this.mixtapes[index] = mix.data
       } catch (e) {
         console.error(e);
       }

@@ -1,5 +1,5 @@
 <template>
-
+<OverlayScrollbarsComponent defer>
   <DataView class="contentView" :value="kernals" layout="grid" >
     <template #grid="slotProps">
       <div class="cgb-0" v-on:click="toggleLightBox(slotProps.index)">
@@ -25,14 +25,15 @@
       </div>
     </template>
   </DataView>
+</OverlayScrollbarsComponent>
 
 </template>
 
 <script setup lang="ts">
   import type { kernalType } from '@/assets/types/ApiTypes'
-
   import { ref, watch, onMounted } from 'vue'
   import DataView from 'primevue/dataview'
+  import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 
   import { storeToRefs } from 'pinia'
   import { useKernalStore } from '@/services/api/KernalStore'

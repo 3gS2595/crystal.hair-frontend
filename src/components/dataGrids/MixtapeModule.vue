@@ -1,20 +1,21 @@
 <template>
   <div class="mixtapeView">
+<OverlayScrollbarsComponent defer>
     <DataView class='dg-0' :value="mixtapes" :layout="list" >
       <template #list="slotProps">
         <div @click="search(slotProps.data.id)" class="dgb-mixtape">
           <div class="dgb-0-txt">
             <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
             <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:21%; padding-right:2px;">+ {{blockCnt(slotProps.data.contents)}}</a>
-            <a class='descr font-s-descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">-{{convertDate(slotProps.data.updated_at)}}</a>
+            <a class='descr font-s-descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">-{{convertDate(slotProps.data.contents)}}</a>
           </div>
         </div>
       </template>
     </DataView>
+</OverlayScrollbarsComponent>
   </div>
 </template>
 
-    letter-spacing: -0.3px;
 <script setup lang="ts">
 import type { mixtapeType } from '@/assets/types/ApiTypes'
 
@@ -26,6 +27,7 @@ import { useMixtapeStore } from '@/services/api/MixtapeStore'
 import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import VueLoadImage from 'vue-load-image'
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 
 const { mixtapes } = storeToRefs(useMixtapeStore())
 
@@ -63,13 +65,17 @@ const convertTitle = (title) => {
     return title
   }
 }
-const convertDate = (datetime) => {
-  const d = Math.trunc((new Date() - new Date(datetime))/1000/60/60/24)
-  const h = Math.trunc((new Date() - new Date(datetime))/1000/60/60) - (d * 24)
-  const m = Math.trunc((new Date() - new Date(datetime) )/1000/60) - (h * 60) - (d * 24 * 60)
-  if (h == 0 && d == 0) {return (m + ' m')}
-  if (d == 0) {return (h + ' h')}
-  return (d + ' d')
+const convertDate = (contents_id) => {
+  if (useConnectionsStore().connections_mix.find(i => i.id === contents_id) != undefined){
+    let datetime = useConnectionsStore().connections_mix.find(i => i.id === contents_id).updated_at
+    const d = Math.trunc((new Date() - new Date(datetime))/1000/60/60/24)
+    const h = Math.trunc((new Date() - new Date(datetime))/1000/60/60) - (d * 24)
+    const m = Math.trunc((new Date() - new Date(datetime) )/1000/60) - (h * 60) - (d * 24 * 60)
+    if (h == 0 && d == 0) {return (m + ' mins')}
+    if (d == 0) {return (h + ' hrs')}
+    return (d + ' days')
+  }
+  return null
 }
 
 const blockCnt = (content_id) => {

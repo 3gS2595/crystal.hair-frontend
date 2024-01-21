@@ -14,7 +14,7 @@
   .tabs-r{
     display: flex;
     justify-content: flex-end;
-    margin-right: 2px;
+    margin-right: 4px;
 
     .tab {
       margin-right: var(--box-margin);
@@ -31,7 +31,6 @@
   cursor: pointer;
   height: 27px;
   opacity: 0.71;
-  font-size:23px;
   z-index: 0;
   border: 1px solid var(--border-primary);
   color: var(--text-header);
@@ -50,6 +49,7 @@
 .tab-content-kernal{
    height: calc(100% - 25px);
    padding-bottom: 4px;
+   margin-right: 4px;
 }
 
 // Current Search and Mixtape info/close
@@ -58,10 +58,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  font-size:18px;
     padding: 1px;
     padding-bottom: 0;
 }
+
 
 .tab-icon {
   height: calc(100% - 4px);

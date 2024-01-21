@@ -7,6 +7,7 @@ export const GlobalStore = defineStore('counter', () => {
   const darkMode = ref<boolean>(true)
 
   // viewer box display toggles/ index/ block sizes
+  const editMixtapeBoxView = ref<boolean>(false)
   const addMixtapeBoxView = ref<boolean>(false)
   const addSrcUrlSubset = ref<boolean>(false)
   const uploadBoxView = ref<boolean>(false)
@@ -24,7 +25,7 @@ export const GlobalStore = defineStore('counter', () => {
   const sortBy = ref<string>('time_posted desc')
   const sortByValue = ref<string[]>(['time_posted', 'time_scraped' ])
   const sortByOrder = ref<string>('desc')
-  const pageSize = ref<number>(50)
+  const pageSize = ref<number>(100)
   const uploadPercent = ref<number>(0)
   const uploadView = ref<boolean>(false)
 
@@ -42,6 +43,9 @@ export const GlobalStore = defineStore('counter', () => {
   }
   function setUploadBoxView (newUploadBoxView: boolean) {
     uploadBoxView.value = newUploadBoxView
+  }
+  function setEditMixtapeBoxView (newEditMixtapeBoxView: boolean) {
+    editMixtapeBoxView.value = newEditMixtapeBoxView
   }
   function setAddMixtapeBoxView (newAddMixtapeBoxView: boolean) {
     addMixtapeBoxView.value = newAddMixtapeBoxView
@@ -112,6 +116,7 @@ export const GlobalStore = defineStore('counter', () => {
     uploadPercent, setUploadPercent,
 
     lightBoxView, setLightBoxView,
+    editMixtapeBoxView, setEditMixtapeBoxView,
     addMixtapeBoxView, setAddMixtapeBoxView,
     lightBoxIndex, setLightBoxIndex,
     uploadBoxView, setUploadBoxView,

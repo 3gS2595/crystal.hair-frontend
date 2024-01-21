@@ -10,7 +10,6 @@
 
   canvas {
     width: 450px!important;
-    max-height: 35px;
     height:80px!important;
   }
 }
@@ -21,7 +20,7 @@
   width:calc( 100% - var(--size-margin));
   margin: var(--box-margin);
   margin-left: calc(var(--box-margin));
-  margin-bottom: 1px;
+  margin-bottom: 0px;
   margin-top:0px;
   border: $tableBorder;
 

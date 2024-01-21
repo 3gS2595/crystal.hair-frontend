@@ -26,15 +26,14 @@ export const useSrcUrlSubsetStore = defineStore({
       }
     },
 
-    async addSrcUrlSubset(url: string, name:string, scrapeInterval:string) {
+    async addSrcUrlSubset(url: string, name:string) {
       const config = {
         headers: { 'Content-Type': 'multipart/form-data', Authorization: SessionStore().auth_token }
       }
       let formData = new FormData();
       formData.append('url', url)
       formData.append('name', name)
-      formData.append('scrapeInterval', scrapeInterval)
-      if(url !== '' && name !== '' && !isNaN(Number(scrapeInterval))) {
+      if(url !== '' && name !== '') {
         try {
           const [ src ] = await Promise.all([
             axios.post( SessionStore().getUrlRails + 'src_url_subsets', formData, config)
