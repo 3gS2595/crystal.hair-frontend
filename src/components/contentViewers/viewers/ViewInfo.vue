@@ -74,12 +74,12 @@ const mixes = computed(() => connections_mix.value.filter(connections => !connec
 const mixesBelong = computed(() => connections_mix.value.filter(connections => connections.contains.includes(props.modelValue.id)))
 
 const getName = (content_id) => {
-  let contents = mixtapes.value.find(i => i.contents === content_id)
+  let contents = mixtapes.value.find(i => i.content_id === content_id)
   if(contents != null) {return contents.name}
   return null
 }
 const convertDate = (content_id) => {
-  let contents = mixtapes.value.find(i => i.contents === content_id)
+  let contents = mixtapes.value.find(i => i.content_id === content_id)
   if(contents != null) {
     let date = contents.updated_at
     console.log(date)

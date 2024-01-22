@@ -6,8 +6,9 @@
           <div @click="search(slotProps.data.id)" class="dgb-mixtape">
             <div class="dgb-0-txt">
               <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
-              <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:36px; padding-right:2px;">+ {{blockCnt(slotProps.data.contents)}}</a>
-              <a class='descr font-s-descr text text-main-0' style="float:left; width: 100%; padding-left:1px;">-{{convertDate(slotProps.data.contents)}}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:36px; padding-right:2px;">+ {{blockCnt(slotProps.data.content_id)}}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:left; width: 49%; padding-left:1px;">-{{convertDate(slotProps.data.content_id)}}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:right; width: 49%; text-align: end; padding-right:2px;">{{feedCheck(slotProps.data.id)}}</a>
             </div>
           </div>
         </template>
@@ -25,6 +26,7 @@ import DataView from 'primevue/dataview'
 import { storeToRefs } from 'pinia'
 import { useMixtapeStore } from '@/services/api/MixtapeStore'
 import { useConnectionsStore } from '@/services/api/connectionsStore'
+import { useUserFeedStore } from '@/services/api/UserFeedStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
@@ -71,6 +73,12 @@ const convertDate = (contents_id) => {
     if (h == 0 && d == 0) {return (m + ' mins')}
     if (d == 0) {return (h + ' hrs')}
     return (d + ' days')
+  }
+  return null
+}
+const feedCheck = (mix_id) => {
+  if (useUserFeedStore().user_feed.feed_mixtape.includes(mix_id)) {
+    return '(in feed)'
   }
   return null
 }

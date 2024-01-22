@@ -105,7 +105,7 @@ const setData = (propKernals) => {
 
     if (props.propMixtape !== '') {
       const mix = props.propMixtapes.find(mix => mix.id === props.propMixtape)
-      const curK = props.propConnections.find(i => i.id === mix.contents).contains
+      const curK = props.propConnections.find(i => i.id === mix.content_id).contains
       for (let i of props.propKernals) {
         if (curK.includes(i.id)) kId.push(i.id)
       }
@@ -117,7 +117,7 @@ const setData = (propKernals) => {
 
     linkData = "], \"links\": [ "
     for (let i of props.propMixtapes) {
-      for (let n of props.propConnections.find(mix => mix.id === i.contents).contains) {
+      for (let n of props.propConnections.find(mix => mix.id === i.content_id).contains) {
         if (kId.includes(n)){
           ids.push(n)
           if (!mId.includes(i.id)){

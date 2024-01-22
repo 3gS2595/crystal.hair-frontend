@@ -16,8 +16,6 @@
 
   <!-- NAVIGATION PANE-->
       <pane id="main-l" :size="paneSize + paneSizeOffSet">
-
-
         <div class="mixtape-pane">
           <div class="tabs">
             <div class="tabs-l">
@@ -48,6 +46,7 @@
         <div  class="forceGraph" >
           <ForceGraph :propKernals="forceGraph" :propMixtapes="mixtapes" :propMixtape="mixtape" :propConnections="connections_mix"/>
         </div>
+
         <nav class='nav'>
           <img class='navItem' src="logout.png" @click="logout"/>
           <input class='search input-standard text-main-0' v-model="searchValue" placeholder="&#9765;&#xFE0E;" @keyup.enter="search(searchValue)" />
@@ -75,6 +74,8 @@
           <div class="settings-overlay" v-if="viewSettings" >
             <div class='settings' v-click-away='onClickAway'>
               <div class='options'>
+                <a class="set-btn" id="set-btn-4" v-if="store.mixtape!='' && !(store.srcUrlSubset.length > 2 || store.srcUrlSubset == '=1')" @click="userFeedStore.patchFeedToggleMix(store.mixtape)">add to feed</a>
+                <a class="set-btn" id="set-btn-4" v-if="store.srcUrlSubset.length > 2 && store.srcUrlSubset != '=1'" @click="userFeedStore.patchFeedToggleSrc(store.srcUrlSubset)">add to feed</a>
                 <a class="set-btn" id="set-btn-1" @click="darkToggle()">dark mode</a>
                 <a class="set-btn" id="set-btn-2" @click="cgbPlus()">+</a>
                 <a class="set-btn" id="set-btn-3" @click="cgbMinus()">-</a>
@@ -117,6 +118,7 @@ import { useMixtapeStore } from '@/services/api/MixtapeStore'
 import { useForceGraphStore } from '@/services/api/ForceGraphStore'
 import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
 import { useConnectionsStore } from '@/services/api/connectionsStore'
+import { useUserFeedStore } from '@/services/api/UserFeedStore'
 
 export default defineComponent({
   components: {
@@ -140,6 +142,7 @@ export default defineComponent({
       paneSize: 30.0,
       paneSizeOffSet: 0.0,
       store: GlobalStore(),
+      userFeedStore: useUserFeedStore(),
       apiStore: ApiStore(),
       mixStore: useMixtapeStore(),
       srcStore: useSrcUrlSubsetStore(),

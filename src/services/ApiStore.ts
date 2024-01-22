@@ -6,6 +6,7 @@ import { useKernalStore } from '@/services/api/KernalStore'
 import { useMixtapeStore } from '@/services/api/MixtapeStore'
 import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
 import { useConnectionsStore } from '@/services/api/connectionsStore'
+import { useUserFeedStore } from '@/services/api/UserFeedStore'
 
 export const ApiStore = defineStore({
   id: 'apiStore',
@@ -16,6 +17,7 @@ export const ApiStore = defineStore({
   actions: {
     async initialize () {
       await useConnectionsStore().fetchConnections()
+      await useUserFeedStore().fetchUserFeed()
       useMixtapeStore().fetchMixtapes(1)
       useSrcUrlSubsetStore().fetchSrcUrlSubsets(1)
       useForceGraphStore().fetchForceGraph()

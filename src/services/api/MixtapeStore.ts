@@ -61,6 +61,7 @@ export const useMixtapeStore = defineStore({
           ])
           this.mixtapes.unshift(mix.data)
           store.setMixtape(mix.data.id)
+          connectionsStore.fetchConnections()
         } catch (e) {
           console.error(e);
         }
@@ -85,8 +86,8 @@ export const useMixtapeStore = defineStore({
         const [ mix ] = await Promise.all([
           axios.patch( sessionStore.getUrlRails + 'mixtapes/' + uuid + '?name=' + title, {}, config)
         ])
-        const index = Array.prototype.findIndex.call(this.mixtapes, (x) => x.id = uuid)
-        this.mixtapes[index] = mix.data
+        this.mixtapes = mix.data
+        connectionsStore.fetchConnections()
       } catch (e) {
         console.error(e);
       }
