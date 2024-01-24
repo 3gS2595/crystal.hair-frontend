@@ -117,7 +117,6 @@ export const useKernalStore = defineStore({
         const [ kernal ] = await Promise.all([
           axios.patch( sessionStore.getUrlRails + 'kernals/' + kid + '?description=' + text, {}, config)
         ])
-        console.log(Array.prototype.findIndex.call(this.kernals, (x) => x.id = kid))
         this.kernals[store.lightBoxIndex] = kernal.data
       } catch (e) {
         console.error(e);

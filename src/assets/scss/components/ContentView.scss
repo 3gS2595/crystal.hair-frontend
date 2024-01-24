@@ -9,6 +9,7 @@
     position: sticky;
     background: var(--background-primary);
     width: 100%;
+    min-height: 10px; // this causes tabs to overlap correctly, strange that 100% does not work
 
     .grid{
       display: flex;

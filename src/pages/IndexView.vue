@@ -36,7 +36,12 @@
             </div>
           </div>
           <div class="tab-content-mixtape" v-if='currentTab === 1'>
-            <MixtapeModule :id="0"/>
+            <MixtapeModule class='mixtapes' :id="1"/>
+            <!-- <div class="data-grid-splitter">
+              <a></a>
+            </div>
+            <FolderModule class='folders' :id="0"/>
+-->
           </div>
           <div class="tab-content-mixtape" v-if='currentTab === 2'>
             <ScrapersModule :id="0"/>
@@ -104,6 +109,7 @@ import DropDown from '@/components/menuDropDown/DropDown.vue'
 import ForceGraph from '@/components/forceGraph/ForceGraph.vue'
 import ContentModule from '@/components/dataGrids/ContentModule.vue'
 import MixtapeModule from '@/components/dataGrids/MixtapeModule.vue'
+import FolderModule from '@/components/dataGrids/FoldersModule.vue'
 import ScrapersModule from '@/components/dataGrids/ScrapersModule.vue'
 import LightBox from '@/components/contentViewers/LightBox.vue'
 import AddContentBox from '@/components/uploaders/AddContent.vue'
@@ -126,6 +132,7 @@ export default defineComponent({
     Pane,
     ContentModule,
     MixtapeModule,
+    FolderModule,
     ScrapersModule,
     ForceGraph,
     LightBox,

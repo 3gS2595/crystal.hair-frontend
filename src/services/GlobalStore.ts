@@ -25,7 +25,7 @@ export const GlobalStore = defineStore('counter', () => {
   const sortBy = ref<string>('time_posted desc')
   const sortByValue = ref<string[]>(['time_posted', 'time_scraped' ])
   const sortByOrder = ref<string>('desc')
-  const pageSize = ref<number>(100)
+  const pageSize = ref<number>(50)
   const uploadPercent = ref<number>(0)
   const uploadView = ref<boolean>(false)
 

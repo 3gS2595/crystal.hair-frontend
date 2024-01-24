@@ -34,7 +34,7 @@ export interface srcUrlType {
 export interface mixtapeType {
   id: string,
   name: string,
-  contents: string,
+  content_id: string,
   permissions: string[],
   created_at: Date,
   updated_at: Date
@@ -60,9 +60,23 @@ export interface connectionsMixType {
 }
 export interface connectionsSrcType {
   id: string,
-  name: string,
-  contents: string[],
+  contains: string[],
   permissions: string[],
+  created_at: Date,
+  updated_at: Date
+}
+export interface userFeedType {
+  id: string,
+  folders: string[],
+  feed_mixtape: string[],
+  feed_sources: string[],
+  created_at: Date,
+  updated_at: Date
+}
+export interface folderType {
+  id: string,
+  name: string,
+  contains: string[],
   created_at: Date,
   updated_at: Date
 }

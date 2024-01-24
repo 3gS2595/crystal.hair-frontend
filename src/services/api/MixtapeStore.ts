@@ -20,31 +20,27 @@ export const useMixtapeStore = defineStore({
   }),
 
   actions: {
-
-    async fetchMixtapes (pageNumber: number) {
+    async fetchMixtapes () {
       this.mixtapes.push({
-        id: "page-" + pageNumber,
-        name: "...",
-        contents: '',
+        id: "page-0",
+        name: "loading...",
+        content_id: '',
         permissions: [],
         created_at: new Date(),
         updated_at: new Date()
        })
-      let params = '?page=' + pageNumber + '&sort=' + store.sortBy + '&q=' + store.filter
+      let params = '&sort=' + store.sortBy + '&q=' + store.filter
       const config = {
         headers: { Authorization:  sessionStore.auth_token },
         signal: ApiStore().controller.signal
       }
       try {
         const mixtapes = await axios.get(base + 'mixtapes'+ params, config)
-        this.mixtapes = this.mixtapes.concat(mixtapes.data)
-
-      this.mixtapes = this.mixtapes.filter(item => item.id !== 'page-' + pageNumber)
-        return mixtapes.data
+        this.mixtapes = mixtapes.data
       } catch (e) {
         console.error(e);
       }
-      this.mixtapes = this.mixtapes.filter(item => item.id !== 'page-' + pageNumber)
+      this.mixtapes = this.mixtapes.filter(item => item.id !== 'page-0')
     },
 
     async addMixtape(title: string) {
@@ -75,6 +71,7 @@ export const useMixtapeStore = defineStore({
       try {
         axios.delete( sessionStore.getUrlRails + 'mixtapes/' + uuid, config)
         this.mixtapes = this.mixtapes.filter(item => item.id !== uuid)
+        connectionsStore.fetchConnections()
         store.setMixtape('')
       } catch (e) {
         console.error(e);

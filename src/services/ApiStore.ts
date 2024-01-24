@@ -7,6 +7,7 @@ import { useMixtapeStore } from '@/services/api/MixtapeStore'
 import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
 import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { useUserFeedStore } from '@/services/api/UserFeedStore'
+import { useFolderStore } from '@/services/api/FolderStore'
 
 export const ApiStore = defineStore({
   id: 'apiStore',
@@ -16,12 +17,12 @@ export const ApiStore = defineStore({
 
   actions: {
     async initialize () {
-      await useConnectionsStore().fetchConnections()
-      await useUserFeedStore().fetchUserFeed()
-      useMixtapeStore().fetchMixtapes(1)
-      useSrcUrlSubsetStore().fetchSrcUrlSubsets(1)
+      useConnectionsStore().fetchConnections()
+      useUserFeedStore().fetchUserFeed()
+      useMixtapeStore().fetchMixtapes()
+      useSrcUrlSubsetStore().fetchSrcUrlSubsets()
       useForceGraphStore().fetchForceGraph()
-      useKernalStore().pageNumber = 1
+      useFolderStore().fetchFolders()
       useKernalStore().fetchKernals()
     },
 

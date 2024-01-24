@@ -1,3 +1,5 @@
+import type { userFeedType } from '@/assets/types/ApiTypes'
+
 import { defineStore } from 'pinia'
 import { SessionStore } from '@/services/SessionStore'
 import axios from 'axios'
@@ -9,7 +11,14 @@ const base = sessionStore.getUrlRails
 export const useUserFeedStore = defineStore({
   id: 'useUserFeedStore',
   state: () => ({
-    user_feed: [],
+    user_feed: {
+      id: '',
+      folders: [],
+      feed_mixtape: [],
+      feed_sources:[],
+      created_at: new Date(),
+      updated_at: new Date()
+    } as userFeedType,
   }),
 
   actions: {
@@ -22,7 +31,6 @@ export const useUserFeedStore = defineStore({
           axios.get(base + 'user_feeds', config)
         ])
         this.user_feed = user_feed.data
-        console.log(this.user_feed)
       } catch (e) {
         console.error(e);
       }

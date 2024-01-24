@@ -18,6 +18,11 @@
     border-right: $tableBorder!important;
     border-top: $tableBorder!important;
   }
+.os-scrollbar-vertical .os-scrollbar-handle {
+    width: 2px!important;
+    transition: none!important;
+    left: 1px;
+}
 
   .p-dataview-content{
     padding-top: 5px;
@@ -62,8 +67,8 @@
   }
   .title{
     float: left;
-    width: 78%;
-    text-overflow: clip;
+    width: 100%;
+    text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     letter-spacing: -0.33px;

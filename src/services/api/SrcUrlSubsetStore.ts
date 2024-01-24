@@ -9,21 +9,33 @@ const store = GlobalStore()
 export const useSrcUrlSubsetStore = defineStore({
   id: 'useSrcUrlSubsetStore',
   state: () => ({
-    srcUrlSubsets: <srcUrlSubsetType[]>[],
+    srcUrlSubsets: <srcUrlSubsetType[]>[]
   }),
 
   actions: {
-    async fetchSrcUrlSubsets (pageNumber: number) {
-      let params = '?page=' + pageNumber + '&q=' + GlobalStore().filter
+    async fetchSrcUrlSubsets () {
+      this.srcUrlSubsets.push({
+        id: '',
+        src_url_id: '',
+        contents: '',
+        url: '',
+        name: 'loading...',
+        scrape_interval: 0,
+        time_last_scraped: new Date(),
+        permissions: [],
+        created_at: new Date(),
+        updated_at: new Date()
+       })
       const config = {
         headers: { Authorization:  SessionStore().auth_token },
       }
       try {
-        const newSrcUrlSubset = await axios.get(SessionStore().getUrlRails + 'src_url_subsets'+ params, config)
-        this.srcUrlSubsets = this.srcUrlSubsets.concat(newSrcUrlSubset.data)
+        const srcUrlSubsets = await axios.get(SessionStore().getUrlRails + 'src_url_subsets', config)
+        this.srcUrlSubsets = srcUrlSubsets.data
       } catch (e) {
         console.error(e);
       }
+      this.srcUrlSubsets = this.srcUrlSubsets.filter(item => item.name !== 'loading...')
     },
 
     async addSrcUrlSubset(url: string, name:string) {

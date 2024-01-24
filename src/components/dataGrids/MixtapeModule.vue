@@ -4,11 +4,13 @@
       <DataView class='dg-0' :value="mixtapes" :layout="list" >
         <template #list="slotProps">
           <div @click="search(slotProps.data.id)" class="dgb-mixtape">
+            <div class="dgb-0-txt" style="display: flex;" >
+              <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important; margin-right: 4px;" >{{ convertTitle(slotProps.data.name) }}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; max-width: 100%; min-width: fit-content; text-align: end; padding-top: 2px;  padding-right:2px;">{{feedCheck(slotProps.data.id)}}</a>
+            </div>
             <div class="dgb-0-txt">
-              <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important;" >{{ convertTitle(slotProps.data.name) }}</a>
-              <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; text-align: end; width:36px; padding-right:2px;">+ {{blockCnt(slotProps.data.content_id)}}</a>
-              <a class='descr font-s-descr text text-main-0' style="float:left; width: 49%; padding-left:1px;">-{{convertDate(slotProps.data.content_id)}}</a>
-              <a class='descr font-s-descr text text-main-0' style="float:right; width: 49%; text-align: end; padding-right:2px;">{{feedCheck(slotProps.data.id)}}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:left; width: 50%; padding-left:1px;">-{{convertDate(slotProps.data.content_id)}}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:right; text-align: end; width:50%; padding-right:2px;">+ {{blockCnt(slotProps.data.content_id)}}</a>
             </div>
           </div>
         </template>
@@ -31,30 +33,19 @@ import { GlobalStore } from '@/services/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 
-const { mixtapes } = storeToRefs(useMixtapeStore())
+const { mixtapes} = storeToRefs(useMixtapeStore())
 
-const pageNumber = ref<number>(2)
 const store = GlobalStore()
 const props = withDefaults(defineProps<{
   id: number
 }> (), {
   id:-1
 })
-watch(
-  () => mixtapes,
-  () => {
-    if(mixtapes.value.length < store.pageSize -1 ){
-      pageNumber.value = 2
-    }
-  }
-)
 
 const search = (e) => {
   if(JSON.stringify(store.mixtape) === JSON.stringify(e)) {
-    store.setSrcUrlSubset('')
     store.setMixtape('')
   }else {
-    store.setSrcUrlSubset('')
     store.setMixtape(e)
   }
 }
@@ -74,50 +65,13 @@ const convertDate = (contents_id) => {
     if (d == 0) {return (h + ' hrs')}
     return (d + ' days')
   }
-  return null
 }
 const feedCheck = (mix_id) => {
-  if (useUserFeedStore().user_feed.feed_mixtape.includes(mix_id)) {
-    return '(in feed)'
-  }
-  return null
+  return (useUserFeedStore().user_feed.feed_mixtape.includes(mix_id)) ? '(feed)' : null
 }
-
 const blockCnt = (content_id) => {
   let contents = useConnectionsStore().connections_mix.find(i => i.id === content_id)
   if(contents != null) {return contents.contains.length}
   return null
 }
-
-// infinite scrollling intersectionObserver
-const fetchPage = async () => {
-  ApiStore().fetchMixtapes(pageNumber.value)
-  pageNumber.value = pageNumber.value + 1
-}
-const intersecting = (event) => {
-  for (const e of event){
-    if (e.isIntersecting) {
-      observer.disconnect()
-      fetchPage()
-    }
-  }
-}
-const watchIntersect = () =>{
-  observer.disconnect()
-  for (let i = 1; i <= 2; i++) {
-    const el = document.getElementsByClassName("dgb-mixtape")[(pageNumber.value-1)*store.pageSize-(5*i)]
-    if (el){
-      observer.observe(el)
-    }
-  }
-}
-
-const config = { root: document.getElementsByClassName("p-grid")[props.id], threshold: 0.5 }
-const observer = new IntersectionObserver(intersecting, config)
-onMounted(() => {
-  const targetNode = document.getElementsByClassName("p-grid")[props.id]
-  if (typeof(targetNode) == "object"){
-    new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
-  }
-})
 </script>
