@@ -29,13 +29,12 @@ export const useMixtapeStore = defineStore({
         created_at: new Date(),
         updated_at: new Date()
        })
-      let params = '&sort=' + store.sortBy + '&q=' + store.filter
       const config = {
         headers: { Authorization:  sessionStore.auth_token },
         signal: ApiStore().controller.signal
       }
       try {
-        const mixtapes = await axios.get(base + 'mixtapes'+ params, config)
+        const mixtapes = await axios.get(base + 'mixtapes', config)
         this.mixtapes = mixtapes.data
       } catch (e) {
         console.error(e);

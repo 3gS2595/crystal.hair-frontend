@@ -5,7 +5,7 @@
       <img class="lightBox-viewer" :src="modelValue.signed_url_m" :onLoad="srcSetResize()"/>
     </template>
     <template v-slot:preloader>
-      <img src="image-loader.gif" rel='preload'/>
+      <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/image-loader%20(1).gif" rel='preload'/>
     </template>
     <template v-slot:error>
       <a>{{ viewerData[store.lightBoxIndex].description }}</a>

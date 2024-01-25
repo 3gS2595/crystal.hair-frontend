@@ -101,11 +101,9 @@
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
-import { directive } from 'vue3-click-away'
 
 import { darkToggle, darkSet } from '@/lib/DarkMode'
 import { dragInFile, pasteInFile } from '@/lib/UploadKernal'
-import DropDown from '@/components/menuDropDown/DropDown.vue'
 import ForceGraph from '@/components/forceGraph/ForceGraph.vue'
 import ContentModule from '@/components/dataGrids/ContentModule.vue'
 import MixtapeModule from '@/components/dataGrids/MixtapeModule.vue'
@@ -343,9 +341,6 @@ export default defineComponent({
     onClickAway () {
       this.viewSettings = false
     },
-  },
-  directives: {
-    ClickAway: directive
   }
 })
 </script>
