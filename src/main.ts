@@ -4,13 +4,13 @@ import router from './router'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import { SessionStore } from "@/services/SessionStore";
-import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 
 const app = createApp(App)
   .use(createPinia())
   .use(router)
   .use(PrimeVue)
-  .mount('#app')
+
+app.mount('#app')
 
 // Load JWT from Local Storage on Refresh
 const storeSessions = SessionStore()

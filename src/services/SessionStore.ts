@@ -38,6 +38,8 @@ export const SessionStore = defineStore("session", {
       return state.user?.id
     },
     isLoggedIn: (state) => {
+
+      state.auth_token = localStorage.getItem("auth_token")
       const loggedOut =
         state.auth_token == null || state.auth_token == JSON.stringify(null)
       return !loggedOut

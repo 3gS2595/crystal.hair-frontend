@@ -29,17 +29,8 @@ export const useMixtapeStore = defineStore({
         created_at: new Date(),
         updated_at: new Date()
        })
-      const config = {
-        headers: { Authorization:  sessionStore.auth_token },
-        signal: ApiStore().controller.signal
-      }
-      try {
-        const mixtapes = await axios.get(base + 'mixtapes', config)
-        this.mixtapes = mixtapes.data
-      } catch (e) {
-        console.error(e);
-      }
-      this.mixtapes = this.mixtapes.filter(item => item.id !== 'page-0')
+      try { this.mixtapes = (await axios.get(base + 'mixtapes', {headers: { Authorization: sessionStore.auth_token }})).data }
+      catch (e) { console.error(e) }
     },
 
     async addMixtape(title: string) {

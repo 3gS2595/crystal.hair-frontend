@@ -1,7 +1,8 @@
 @import "../Theme";
 
 .contentView{
-  width: calc(100% - var(--box-margin) - 1px);
+  width: 100%;
+  margin-right:var(--edge-margin);
   min-height: 100%;
 
   .p-dataview-content{
@@ -21,6 +22,8 @@
       position: relative;
       justify-content: flex-end;
       align-items: flex-end;
+      margin-right: 5px;
+
     }
   }
 }

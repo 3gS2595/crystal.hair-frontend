@@ -19,21 +19,11 @@
   </div>
 
   <div v-else id='login'>
-    <img class='login-overlay' src='https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/login-background.png'>
+    <!-- <img class='login-overlay' src='https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/login-background.png'> -->
     <div class='login-ui'>
 
-
-
       <form @submit.prevent='onLogin' class='login-form'>
-        <a>(1-12-24)</a>
-        <br />
-        <a>mIgrating to https</a>
-        <br />
-        <a>expect 404s</a>
-        <br />
-        <a>(1-15-24)</a>
-        <br />
-        <a>screenshots at github.com/3gS2595</a>
+        <a>github.com/3gS2595</a>
         <br />
         <br />
         <br />

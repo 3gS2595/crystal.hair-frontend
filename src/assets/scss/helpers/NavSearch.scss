@@ -5,7 +5,8 @@
   display:flex;
   border: $tableBorder;
   margin: var(--box-margin);
-  margin-bottom:0px;
+  margin-left:var(--edge-margin);
+  margin-bottom: var(--edge-margin);
   height:29px;
 
     background: var(--background-primary);

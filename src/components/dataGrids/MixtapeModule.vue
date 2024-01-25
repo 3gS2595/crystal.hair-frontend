@@ -3,7 +3,20 @@
     <OverlayScrollbarsComponent defer>
       <DataView class='dg-0' :value="mixtapes" :layout="list" >
         <template #list="slotProps">
-          <div @click="search(slotProps.data.id)" class="dgb-mixtape">
+
+          <vue-load-image v-if="slotProps.data.id === 'page-0'">
+            <template v-slot:image>
+              <img style="    height: 100px;" class="thumbnail" src="page-loader.gif"/>
+            </template>
+            <template v-slot:preloader>
+              <div class="loading"/>
+            </template>
+            <template v-slot:error>
+              <div>*Image load error</div>
+            </template>
+          </vue-load-image>
+
+          <div @click="search(slotProps.data.id)" class="dgb-mixtape" v-else>
             <div class="dgb-0-txt" style="display: flex;" >
               <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important; margin-right: 4px;" >{{ convertTitle(slotProps.data.name) }}</a>
               <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; max-width: 100%; min-width: fit-content; text-align: end; padding-top: 2px;  padding-right:2px;">{{feedCheck(slotProps.data.id)}}</a>

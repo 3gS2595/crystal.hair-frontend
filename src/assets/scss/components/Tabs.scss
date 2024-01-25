@@ -23,7 +23,7 @@
   }
 }
 .tabs-content{
-  margin-top:4px;
+  margin-top: var(--edge-margin);
   width:calc(100% - 4px)!important;
 }
 .tab {
@@ -49,9 +49,9 @@
 }
 
 .tab-content-kernal{
-   height: calc(100% - 25px);
-   padding-bottom: 4px;
-   margin-right:  var(--box-margin);
+   height: calc(100% - 19px - (2 * var(--edge-margin)));
+   padding-bottom: var(--edge-margin);
+   margin-right:  var(--edge-margin);
 }
 
 // Current Search and Mixtape info/close

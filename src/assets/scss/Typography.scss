@@ -48,4 +48,13 @@
   .current-dir{
     font-size:15px;
   }
+.contentMain {
+    border-top:0.00001px solid #363638;
+  }
+}
+
+@media screen and (height: 762px) {
+  .contentMain {
+    height: calc(100% - 17px)
+  }
 }

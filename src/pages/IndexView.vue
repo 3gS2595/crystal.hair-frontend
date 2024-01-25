@@ -53,7 +53,7 @@
         </div>
 
         <nav class='nav'>
-          <img class='navItem' src="logout.png" @click="logout"/>
+          <img class='navItem' src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/logout.png" @click="logout"/>
           <input class='search input-standard text-main-0' v-model="searchValue" placeholder="&#9765;&#xFE0E;" @keyup.enter="search(searchValue)" />
         </nav>
       </pane>
@@ -101,6 +101,7 @@
 <script lang="ts">
 import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
+import { directive } from 'vue3-click-away'
 
 import { darkToggle, darkSet } from '@/lib/DarkMode'
 import { dragInFile, pasteInFile } from '@/lib/UploadKernal'
@@ -341,6 +342,9 @@ export default defineComponent({
     onClickAway () {
       this.viewSettings = false
     },
+  },
+  directives: {
+    ClickAway: directive
   }
 })
 </script>

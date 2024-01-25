@@ -54,24 +54,22 @@ export interface srcUrlSubsetType {
 export interface connectionsMixType {
   id: string,
   contains: string[],
-  permissions:[],
-  created_at: Date,
-  updated_at: Date
+  created_at?: Date,
+  updated_at?: Date
 }
 export interface connectionsSrcType {
   id: string,
   contains: string[],
-  permissions: string[],
-  created_at: Date,
-  updated_at: Date
+  created_at?: Date,
+  updated_at?: Date
 }
 export interface userFeedType {
-  id: string,
+  id?: string,
   folders: string[],
   feed_mixtape: string[],
   feed_sources: string[],
-  created_at: Date,
-  updated_at: Date
+  created_at?: Date,
+  updated_at?: Date
 }
 export interface folderType {
   id: string,
