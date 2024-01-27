@@ -56,6 +56,9 @@ html, body{
 
   }
 }
+.os-scrollbar-horizontal{
+  display:none;
+}
 
 // Global Variables
 $tableBorder: 1px solid var(--border-primary);

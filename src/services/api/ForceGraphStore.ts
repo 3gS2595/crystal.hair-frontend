@@ -4,12 +4,12 @@ import { SessionStore } from '@/services/SessionStore'
 import axios from 'axios'
 
 import type { kernalType } from '@/assets/types/ApiTypes'
-
+const defaultState = {
+    forceGraph: <kernalType[]>[],
+}
 export const useForceGraphStore = defineStore({
   id: 'useForceGraphStore',
-  state: () => ({
-    forceGraph: <kernalType[]>[],
-  }),
+  state: () => ({ ...structuredClone(defaultState)}),
 
   actions: {
     async fetchForceGraph () {
@@ -24,6 +24,9 @@ export const useForceGraphStore = defineStore({
       } catch (e) {
         console.error(e);
       }
+    },
+    reset() {
+      Object.assign(this, structuredClone(defaultState));
     }
   }
 })

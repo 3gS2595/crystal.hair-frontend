@@ -33,7 +33,6 @@ import { Editor, EditorContent } from '@tiptap/vue-3'
 import { GlobalStore } from '@/services/GlobalStore'
 import { useKernalStore } from '@/services/api/KernalStore'
 
-const store = GlobalStore()
 export default defineComponent({
   name: 'App',
   components: {
@@ -47,7 +46,6 @@ export default defineComponent({
   },
   data(): UploadBoxState {
     return {
-      store: GlobalStore(),
       file: null,
       editor: null,
       enteredText: ref(''),
@@ -76,8 +74,8 @@ export default defineComponent({
           formData.append('image', this.file)
         }
       }
-      if(store.mixtape !== ''){
-        formData.append('mixtape', store.mixtape)
+      if(GlobalStore().mixtape !== ''){
+        formData.append('mixtape', GlobalStore().mixtape)
       }
       if(this.editor.getHTML() !== "<p></p>"){
         if(this.editor.view.dom.innerText.match(/([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm) && !this.editor.view.dom.innerText.includes(' ')){
@@ -90,7 +88,7 @@ export default defineComponent({
         }
       }
       if(formData.has("file_type")){
-        store.setUploadBoxView(false)
+        GlobalStore().uploadBoxView = false
         useKernalStore().addKernal(formData)
       }
     },
@@ -100,7 +98,7 @@ export default defineComponent({
       }
     },
     close () {
-      store.setUploadBoxView(false)
+      GlobalStore().uploadBoxView = false
       window.removeEventListener('keyup', this.esc, true)
     }
   },

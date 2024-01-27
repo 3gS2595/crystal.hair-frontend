@@ -1,6 +1,6 @@
 <template>
   <div class='overlay' >
-    <div class='edit-mixtape' v-click-away='onClickAway' >
+    <div class='edit-mixtape' v-click-away='close' >
       <div class="editor">
         <div class="add-mixtape-title">
           <input class="input-standard text-main-0" placeholder="enter title" v-model="title">
@@ -35,20 +35,17 @@ export default defineComponent({
     const title = useMixtapeStore().mixtapes[index].name
     return { title }
   },
+  methods: {
+    submitFile () {
+      useMixtapeStore().patchMixtape(GlobalStore().mixtape, this.title)
+      store.editMixtapeBoxView = false
+    },
+    close () {
+      store.editMixtapeBoxView = false
+    }
+  },
   directives: {
     ClickAway: directive
   },
-  methods: {
-    onClickAway () {
-      store.setEditMixtapeBoxView(false)
-    },
-    submitFile () {
-      useMixtapeStore().patchMixtape(GlobalStore().mixtape, this.title)
-      store.setEditMixtapeBoxView(false)
-    },
-    close () {
-      store.setEditMixtapeBoxView(false)
-    }
-  }
 })
 </script>

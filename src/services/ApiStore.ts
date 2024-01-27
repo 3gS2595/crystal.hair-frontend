@@ -9,33 +9,39 @@ import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { useUserFeedStore } from '@/services/api/UserFeedStore'
 import { useFolderStore } from '@/services/api/FolderStore'
 
+const defaultState = {
+  controller: new AbortController()
+}
+
 export const ApiStore = defineStore({
   id: 'apiStore',
-  state: () => ({
-    controller: new AbortController()
-  }),
+  state: () => ({ ...defaultState }),
 
   actions: {
-    async initialize () {
+    initialize () {
       useConnectionsStore().fetchConnections()
       useUserFeedStore().fetchUserFeed()
       useMixtapeStore().fetchMixtapes()
       useSrcUrlSubsetStore().fetchSrcUrlSubsets()
-      useForceGraphStore().fetchForceGraph()
       useFolderStore().fetchFolders()
+      useForceGraphStore().fetchForceGraph()
       useKernalStore().fetchKernals()
     },
-
+    async delete () {
+      Object.assign(this, defaultState);
+      useConnectionsStore().$reset()
+      useUserFeedStore().$reset()
+      useMixtapeStore().$reset()
+      useSrcUrlSubsetStore().$reset()
+      useForceGraphStore().$reset()
+      useFolderStore().$reset()
+      useKernalStore().$reset()
+    },
     async update () {
       this.controller.abort()
       this.controller = new AbortController();
-      useKernalStore().pageNumber = 1
-      useKernalStore().kernals = []
-      try {
-        useKernalStore().fetchKernals()
-      } catch (e) {
-        console.error(e);
-      }
+      useKernalStore().$reset()
+      useKernalStore().fetchKernals()
     }
   }
 })

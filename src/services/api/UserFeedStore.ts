@@ -1,39 +1,48 @@
-import type { userFeedType } from '@/assets/types/ApiTypes'
-
 import { defineStore } from 'pinia'
-import { SessionStore } from '@/services/SessionStore'
+import { computed } from 'vue'
 import axios from 'axios'
 
-  const sessionStore = SessionStore()
-const auth = { headers: {"Authorization" : `${sessionStore.auth_token}`} }
+import { SessionStore } from '@/services/SessionStore'
 const url = SessionStore().getUrlRails + 'user_feeds'
+const auth = computed({
+  get(){ return { headers: {"Authorization" : SessionStore().auth_token}} },
+  set(){}
+})
+
+import type { userFeedStoreType } from '@/assets/types/index'
+import type { userFeedType } from '@/assets/types/ApiTypes'
+const defaultState: userFeedStoreType = {
+  user_feed: {
+    folders: [],
+    feed_mixtape: [],
+    feed_sources:[],
+  } as userFeedType,
+}
 
 export const useUserFeedStore = defineStore({
   id: 'useUserFeedStore',
-  state: () => ({
-    user_feed: {
-      folders: [],
-      feed_mixtape: [],
-      feed_sources:[],
-    } as userFeedType,
+  state: (): userFeedStoreType => ({
+    ...structuredClone(defaultState)
   }),
-
   actions: {
     async fetchUserFeed () {
-      try { this.user_feed = (await axios.get(`${url}`, auth)).data
+      try { this.user_feed = (await axios.get(`${url}`, auth.value)).data
       } catch (e) { console.error(e) }
     },
     async patchFeedToggleMix(mid: string) {
       try {
         const option = (this.user_feed.feed_mixtape.includes(mid)) ? 'remove' : 'add'
-        this.user_feed = (await axios.post(`${url}?mid=${mid}&${option}=true`, {}, auth)).data
+        this.user_feed = (await axios.post(`${url}?mid=${mid}&${option}=true`, {}, auth.value)).data
       } catch (e) { console.error(e) }
     },
     async patchFeedToggleSrc(sid: string) {
       try {
         const option = (this.user_feed.feed_sources.includes(sid)) ? 'remove' : 'add'
-        this.user_feed = (await axios.post(`${url}?sid=$sid}&${option}=true`, {}, auth)).data
+        this.user_feed = (await axios.post(`${url}?sid=${sid}&${option}=true`, {}, auth.value)).data
       } catch (e) { console.error(e) }
+    },
+    reset() {
+      Object.assign(this, structuredClone(defaultState));
     }
   }
 })

@@ -1,4 +1,6 @@
 <template>
+  <AddMixtapeBox v-if='store.addMixtapeBoxView'/>
+  <EditMixtapeBox v-if='store.editMixtapeBoxView'/>
   <div class="mixtapeView">
     <OverlayScrollbarsComponent defer>
       <DataView class='dg-0' :value="mixtapes" :layout="list" >
@@ -6,7 +8,7 @@
 
           <vue-load-image v-if="slotProps.data.id === 'page-0'">
             <template v-slot:image>
-              <img style="    height: 100px;" class="thumbnail" src="page-loader.gif"/>
+              <img style=" height: 100px;" class="thumbnail" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif"/>
             </template>
             <template v-slot:preloader>
               <div class="loading"/>
@@ -19,7 +21,7 @@
           <div @click="search(slotProps.data.id)" class="dgb-mixtape" v-else>
             <div class="dgb-0-txt" style="display: flex;" >
               <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important; margin-right: 4px;" >{{ convertTitle(slotProps.data.name) }}</a>
-              <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; max-width: 100%; min-width: fit-content; text-align: end; padding-top: 2px;  padding-right:2px;">{{feedCheck(slotProps.data.id)}}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; max-width: 100%; min-width: fit-content; text-align: end; padding-right:2px;">{{feedCheck(slotProps.data.id)}}</a>
             </div>
             <div class="dgb-0-txt">
               <a class='descr font-s-descr text text-main-0' style="float:left; width: 50%; padding-left:1px;">-{{convertDate(slotProps.data.content_id)}}</a>
@@ -45,6 +47,8 @@ import { useUserFeedStore } from '@/services/api/UserFeedStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
+import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
+import EditMixtapeBox from '@/components/editViewers/EditBox.vue'
 
 const { mixtapes} = storeToRefs(useMixtapeStore())
 
@@ -57,13 +61,13 @@ const props = withDefaults(defineProps<{
 
 const search = (e) => {
   if(JSON.stringify(store.mixtape) === JSON.stringify(e)) {
-    store.setMixtape('')
+    store.mixtape = ''
   }else {
-    store.setMixtape(e)
+    store.mixtape = e
   }
 }
 const convertTitle = (title) => {
-  if (title !== undefined){
+  if (title !== null){
     title = title.replace(/^\s+|\s+$/gm,'')
     return title
   }

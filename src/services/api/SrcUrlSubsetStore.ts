@@ -4,13 +4,14 @@ import { SessionStore } from '@/services/SessionStore'
 import axios from 'axios'
 
 import type { srcUrlSubsetType } from '@/assets/types/ApiTypes'
+const defaultState = {
+  srcUrlSubsets: <srcUrlSubsetType[]>[]
+}
 
 const store = GlobalStore()
 export const useSrcUrlSubsetStore = defineStore({
   id: 'useSrcUrlSubsetStore',
-  state: () => ({
-    srcUrlSubsets: <srcUrlSubsetType[]>[]
-  }),
+  state: () => ({ ...structuredClone(defaultState)}),
 
   actions: {
     async fetchSrcUrlSubsets () {
@@ -51,7 +52,7 @@ export const useSrcUrlSubsetStore = defineStore({
             axios.post( SessionStore().getUrlRails + 'src_url_subsets', formData, config)
           ])
           this.srcUrlSubsets.unshift(src.data)
-          GlobalStore().setSrcUrlSubset(src.data.id)
+          GlobalStore().srcUrlSubset = src.data.id
         } catch (e) {
           console.error(e);
         }
@@ -65,10 +66,13 @@ export const useSrcUrlSubsetStore = defineStore({
       try {
         axios.delete(  SessionStore().getUrlRails + 'src_url_subsets/' + uuid, config)
         this.srcUrlSubsets = this.srcUrlSubsets.filter(item => item.id !== uuid)
-        store.setSrcUrlSubset('')
+        store.srcUrlSubset = ''
       } catch (e) {
         console.error(e);
       }
     },
+    reset() {
+      Object.assign(this, structuredClone(defaultState));
+    }
   }
 })

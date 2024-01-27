@@ -56,16 +56,7 @@ const onLogin = () => {
   sessionStore.loginUser(data);
   resetData();
 }
-const onDemo = () => {
-  let data = {
-    user: {
-      email: 'public',
-      password: 'public',
-    },
-  };
-  sessionStore.loginUser(data);
-  resetData();
-}
+
 const resetData = () => {
   loginEmail.value = ''
   loginPassword.value = ''

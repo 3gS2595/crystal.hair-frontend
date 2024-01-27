@@ -1,7 +1,7 @@
 @mixin font($font-family, $font-file) {
   @font-face {
     font-family: $font-family;
-    src: url("https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/msgothic.woff2") format("woff2");
+    src: url("https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/MS-Gothic-OG.woff2") format("woff2");
   }
 }
 @include font('ＭＳ Ｐゴシック', 'MSGOTHIC');
@@ -13,6 +13,11 @@
   color: var(--text-content);
   text-decoration: none;
   box-sizing: border-box;
+  -webkit-font-smoothing: subpixel-antialiased;
+  word-break: break-all;
+  -webkit-print-color-adjust: exact;
+
+    font-smooth: never;
 }
 
 .font-s-title {
@@ -34,10 +39,11 @@
 
 @media screen and (max-width: 400px), screen and (max-height: 400px) {
   .font-s-title {
-    font-size:15px
+    font-size:15px;
+    line-height:15px;
   }
   .font-s-descr {
-    font-size:11px
+    font-size:11px;
   }
   .input-standard{
     font-size:13px;

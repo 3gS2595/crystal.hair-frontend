@@ -1,126 +1,96 @@
-import type { kernalType } from '@/assets/types/ApiTypes'
-
 import { defineStore } from 'pinia'
-import { ApiStore } from '@/services/ApiStore'
 import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { useForceGraphStore } from '@/services/api/ForceGraphStore'
-import { GlobalStore } from '@/services/GlobalStore'
-import { SessionStore } from '@/services/SessionStore'
 import axios from 'axios'
 
+import { ApiStore } from '@/services/ApiStore'
+import { useMixtapeStore } from '@/services/api/MixtapeStore'
+import { SessionStore } from '@/services/SessionStore'
+import { GlobalStore } from '@/services/GlobalStore'
+
+import type { kernalStoreType } from '@/assets/types/index'
+import type { kernalType } from '@/assets/types/ApiTypes'
+import type { mixtapeType } from '@/assets/types/ApiTypes'
+
+const url = SessionStore().getUrlRails + 'kernals'
 const store = GlobalStore()
-const sessionStore = SessionStore()
-const base = sessionStore.getUrlRails
+const loading_icon = "https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif"
+const defaultState = <kernalStoreType>{
+  pageNumber: 1,
+  kernals: [{
+    id: "page-0",
+    signed_url_s: loading_icon,
+    signed_url_m: loading_icon,
+    signed_url_l: loading_icon,
+  }] as kernalType[]
+}
 
 export const useKernalStore = defineStore({
   id: 'useKernalStore',
-  state: () => ({
-    pageNumber: 1,
-    kernals: <kernalType[]>[]
+  state: (): kernalStoreType => ({
+    ...structuredClone(defaultState)
   }),
 
   actions: {
     async fetchKernals () {
-      const pn = this.pageNumber
-      this.kernals.push({
-         id: "page-" + pn,
-         src_url_id: "acb5e51f-789e-41a2-bd64-6e95076d1a22",
-         src_url_subset_id: "bd10bff3-a7cf-4992-bd0f-6251be7385bc",
-         file_type: ".gif",
-         file_name: "",
-         file_path: "",
-         url: "",
-         size: 0,
-         author: "",
-         time_posted: new Date(),
-         time_scraped: "",
-         description: "",
-         key_words: "",
-         hashtags: "",
-         likes: "",
-         reposts: "",
-         signed_url: "page-loader.gif",
-         signed_url_s: "page-loader.gif",
-         signed_url_m: "page-loader.gif",
-         signed_url_l: "page-loader.gif",
-         permissions: ["01f7aea6-dea7-4956-ad51-6dae41e705ca"],
-         created_at: new Date(),
-         updated_at: new Date()
-      })
-      this.pageNumber++
-      let params = '?q=' + store.filter + '&page=' + pn + '&sort=' + store.sortBy
-      if (store.mixtape != '') { params = params + '&mixtape=' + store.mixtape }
-      if (store.srcUrlSubset != '') { params = params + '&src_url_subset_id=' + store.srcUrlSubset }
+      if (this.kernals.filter(item => item.id === 'page-0').length == 0) {
+        this.kernals.push({
+          id: "page-" + this.pageNumber,
+          signed_url_s: loading_icon,
+          signed_url_m: loading_icon,
+          signed_url_l: loading_icon,
+        })
+      }
+      let params = `?q=${store.filter}&page=${this.pageNumber}&sort=${store.sortBy}`
+      if (store.mixtape != '') { params = `${params}&mixtape=${store.mixtape}` }
+      if (store.srcUrlSubset != '') { params = `${params}&src_url_subset_id=${store.srcUrlSubset}` }
       const config = {
-        headers: { Authorization:  sessionStore.auth_token },
+        headers: { Authorization:  SessionStore().auth_token },
         signal: ApiStore().controller.signal
       }
       try {
-        const kernals = await axios.get(base + 'kernals'+ params, config)
-        if(this.kernals.length < ((pn-1) * store.pageSize)){
-          this.kernals = this.kernals.concat(kernals.data)
-        } else {
-          this.kernals.splice(((pn - 1) * store.pageSize), 0, ...kernals.data)
-        }
-        this.kernals = this.kernals.filter(item => item.id !== 'page-' + pn)
-        return
-      } catch (e) {
-        console.error(e);
-      }
-      this.kernals = this.kernals.filter(item => item.id !== 'page-' + pn)
+        const kernals = await axios.get(url + params, config)
+        this.kernals = this.kernals.concat(kernals.data)
+      } catch (e) { console.error(e) }
+      this.kernals = this.kernals.filter(item => item.signed_url_s !== loading_icon)
+      this.pageNumber++
     },
 
     async addKernal(formData: FormData) {
-      store.setUploadView(true)
-      const config = {
-        headers: { 'Content-Type': 'multipart/form-data', Authorization: sessionStore.auth_token },
-        onUploadProgress: function(progressEvent: any) {
-          let uploadPercent = Math.round( (progressEvent.loaded * 100) / progressEvent.total )
-          store.setUploadPercent(uploadPercent)
-          if(uploadPercent === 100) {
-            store.setUploadView(false)
-            store.setUploadPercent(0)
-          }
-        }
-      }
+      store.uploadView = true
+      const config = { headers: { 'Content-Type': 'multipart/form-data', Authorization: SessionStore().auth_token }}
       if(formData.has("file_type")){
         try {
-          const [ ker ] = await Promise.all([
-            axios.post( sessionStore.getUrlRails + 'kernals', formData, config)
-          ])
+          const ker = await axios.post(url, formData, config)
           this.kernals.unshift(ker.data)
           useForceGraphStore().forceGraph.unshift(ker.data)
-          console.log(ker.data)
-          useConnectionsStore().fetchConnections()
-        } catch (e) {
-          console.error(e);
-        }
+          if (store.mixtape != '') {
+            const mix = <mixtapeType> useMixtapeStore().mixtapes.find((i: mixtapeType) => i.content_id === store.mixtape)
+            useMixtapeStore().mixtapes = useMixtapeStore().mixtapes.filter((item: mixtapeType) => item.id !== store.mixtape)
+            useMixtapeStore().mixtapes.unshift(mix)
+            useConnectionsStore().fetchConnections()
+          }
+        } catch (e) { console.error(e) }
       }
     },
 
     async deleteKernal (uuid: string) {
-      const config = {headers: { Authorization: sessionStore.auth_token }}
+      const config = {headers: { Authorization: SessionStore().auth_token }}
       try {
-        const [ ker ] = await Promise.all([
-          axios.delete( sessionStore.getUrlRails + 'kernals/' + uuid, config)
-        ])
+        await axios.delete( `${url}/${uuid}`, config)
         this.kernals = this.kernals.filter(item => item.id !== uuid)
         useConnectionsStore().fetchConnections()
-      } catch (e) {
-        console.error(e);
-      }
+      } catch (e) { console.error(e) }
     },
 
     async patchKernalDescr(kid: string, text: string) {
-      const config = {headers: { authorization: sessionStore.auth_token }}
-      try {
-        const [ kernal ] = await Promise.all([
-          axios.patch( sessionStore.getUrlRails + 'kernals/' + kid + '?description=' + text, {}, config)
-        ])
-        this.kernals[store.lightBoxIndex] = kernal.data
-      } catch (e) {
-        console.error(e);
-      }
+      const config = {headers: { authorization: SessionStore().auth_token }}
+      try {this.kernals[store.lightBoxIndex] = (await axios.patch(`${url}/${kid}?description=${text}`, {}, config)).data
+      } catch (e) { console.error(e) }
+    },
+
+     reset() {
+      Object.assign(this, structuredClone(structuredClone(defaultState)));
     }
   }
 })

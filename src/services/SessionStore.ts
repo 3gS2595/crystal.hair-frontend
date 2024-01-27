@@ -1,6 +1,5 @@
 import { defineStore } from "pinia"
 import axios from "axios"
-
 export const SessionStore = defineStore("session", {
   state: () => ({
     urlVue: 'http://3.130.240.169/',
@@ -38,8 +37,9 @@ export const SessionStore = defineStore("session", {
       return state.user?.id
     },
     isLoggedIn: (state) => {
-
-      state.auth_token = localStorage.getItem("auth_token")
+      if (localStorage.getItem("auth_token") != null) {
+        state.auth_token = localStorage.getItem("auth_token")
+      }
       const loggedOut =
         state.auth_token == null || state.auth_token == JSON.stringify(null)
       return !loggedOut
@@ -74,8 +74,6 @@ export const SessionStore = defineStore("session", {
       })
     },
     logoutUser() {
-      console.log("logoutUser()")
-      console.log(this.auth_token)
       const config = {
         headers: {
           Authorization: this.auth_token
@@ -117,8 +115,7 @@ export const SessionStore = defineStore("session", {
     setUserInfo(data: any) {
       this.user = data.data.user;
       this.auth_token = data.headers.authorization;
-      axios.defaults.headers.common["Authorization"] =
-        data.headers.authorization
+      axios.defaults.headers.common["Authorization"] = data.headers.authorization
       localStorage.setItem("auth_token", data.headers.authorization)
     },
     setUserInfoFromToken(data: any) {

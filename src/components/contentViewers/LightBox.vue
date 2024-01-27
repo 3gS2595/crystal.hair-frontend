@@ -64,10 +64,7 @@ import ViewInfo from './viewers/ViewInfo.vue'
 import axios, { type AxiosInstance, type CancelTokenStatic } from 'axios'
 
 import { GlobalStore } from '@/services/GlobalStore'
-import { SessionStore } from '@/services/SessionStore'
 import { useKernalStore } from '@/services/api/KernalStore'
-const sessionStore = SessionStore()
-const store = GlobalStore()
 
 export default defineComponent({
   name: 'App',
@@ -92,9 +89,8 @@ export default defineComponent({
       maxH: window.innerHeight - 10,
       event: '',
       dragSelector: '.drag-container-1',
-      store: GlobalStore(),
-      sessionStore: SessionStore(),
-      viewInfo:false
+      viewInfo:false,
+      store: GlobalStore()
     }
   },
   methods: {
@@ -118,19 +114,18 @@ export default defineComponent({
       }
     },
     close () {
-      store.setLightBoxView(false)
-      store.setLightBoxIndex(-1)
+      GlobalStore().closeViewer()
       this.viewInfo = false
       window.removeEventListener('keyup', this.esc, true)
     },
     next () {
-      if ((store.lightBoxIndex + 1) <= (this.kernals.length -1)) {
-        store.setLightBoxIndex(store.lightBoxIndex + 1)
+      if ((GlobalStore().lightBoxIndex + 1) <= (this.kernals.length -1)) {
+        GlobalStore().lightBoxIndex = GlobalStore().lightBoxIndex + 1
       }
     },
     prev () {
-      if ((store.lightBoxIndex - 1) >= 0) {
-        store.setLightBoxIndex(store.lightBoxIndex - 1)
+      if ((GlobalStore().lightBoxIndex - 1) >= 0) {
+        GlobalStore().lightBoxIndex = GlobalStore().lightBoxIndex - 1
       }
     },
     eHandler () {

@@ -1,4 +1,5 @@
 <template>
+  <AddSrcUrlSubset v-if='store.addSrcUrlSubset'/>
   <div class="src-url-subset-view">
     <OverlayScrollbarsComponent defer>
       <DataView class='dg-0' :value="srcUrlSubsets" :layout="list" >
@@ -6,7 +7,7 @@
           <div @click="search(slotProps.data.id)" class="dgb-src-url-subset">
             <div class="dgb-0-txt" style="display: flex;" >
               <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important; margin-right: 4px;" >{{ slotProps.data.name}}</a>
-              <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; max-width: 36px; text-align: end; padding-top: 2px;  padding-right:2px;">{{feedCheck(slotProps.data.id)}}</a>
+              <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; max-width: 100%; min-width: fit-content; text-align: end; padding-right:2px;">{{feedCheck(slotProps.data.id)}}</a>
             </div>
             <div class="dgb-0-txt">
               <a class='descr font-s-descr text text-main-0' style="float:left; width: 50%; padding-left:1px;">-{{convertDate(slotProps.data.time_last_entry)}}</a>
@@ -32,6 +33,7 @@ import { useUserFeedStore } from '@/services/api/UserFeedStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import VueLoadImage from 'vue-load-image'
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
+import AddSrcUrlSubset from '@/components/uploaders/AddSrcUrlSubset.vue'
 
 const { srcUrlSubsets } = storeToRefs(useSrcUrlSubsetStore())
 

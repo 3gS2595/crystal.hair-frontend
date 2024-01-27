@@ -18,10 +18,8 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import { VueForceGraph3D } from 'vue-force-graph';
-
 import { storeToRefs } from 'pinia'
 import { GlobalStore } from '@/services/GlobalStore'
-
 const store = GlobalStore()
 
 const color = ref("green")
@@ -42,18 +40,7 @@ const props = withDefaults(defineProps<{
   propConnections: [],
   propMixtape: ''
 })
-watch(
-  () => props.propKernals,
-  () => {
-    setData(props.propKernals)
-  }
-)
-watch(
-  () => props.propMixtape,
-  () => {
-    setData(props.propKernals)
-  }
-)
+
 
 const bgSet = () => {
   if(store.darkMode === false){
@@ -69,12 +56,21 @@ const bgSet = () => {
   }
 }
 const bgColor = ref(bgSet())
+
 watch(
   () => store.darkMode,
   () => {
     bgColor.value = bgSet()
     setData(props.propKernals)
   }
+)
+watch(
+  () => props.propKernals,
+  () => { setData(props.propKernals) }
+)
+watch(
+  () => props.propMixtape,
+  () => { setData(props.propKernals) }
 )
 
 let nodeData = ""
@@ -162,7 +158,9 @@ const setData = (propKernals) => {
     } else {
       dec.value = 0.0228
       setTimeout (() => {
-        fgRef.value.zoomToFit(200, 0)
+        if (fgRef.value != null) {
+          fgRef.value.zoomToFit(200, 0)
+        }
       }, 300)
     }
   } catch (e) {

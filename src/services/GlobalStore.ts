@@ -1,126 +1,69 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 
-export const GlobalStore = defineStore('counter', () => {
-
+const defaultState = {
   // dark mode
-  const darkMode = ref<boolean>(true)
+  darkMode : true,
 
   // viewer box display toggles/ index/ block sizes
-  const editMixtapeBoxView = ref<boolean>(false)
-  const addMixtapeBoxView = ref<boolean>(false)
-  const addSrcUrlSubset = ref<boolean>(false)
-  const uploadBoxView = ref<boolean>(false)
+  editMixtapeBoxView : false,
+  addMixtapeBoxView : false,
+  addSrcUrlSubset : false,
 
-  const lightBoxView = ref<boolean>(false)
-  const lightBoxIndex = ref(-1)
+  lightBoxView : false,
+  lightBoxIndex : -1,
 
-  const cgbWidth = ref<number>(120)
-  const cgbWidthSized = ref<number>(120)
+  uploadBoxView : false,
+  uploadView : false,
+  uploadPercent : 0,
+
+  pageSize : 50,
+  cgbWidth : 240,
+  cgbWidthSized :240,
 
   // result filters
-  const filter = ref<string>('')
-  const mixtape = ref<string>('')
-  const srcUrlSubset = ref<string>('')
-  const sortBy = ref<string>('time_posted desc')
-  const sortByValue = ref<string[]>(['time_posted', 'time_scraped' ])
-  const sortByOrder = ref<string>('desc')
-  const pageSize = ref<number>(50)
-  const uploadPercent = ref<number>(0)
-  const uploadView = ref<boolean>(false)
+  filter : '',
+  mixtape : '',
+  srcUrlSubset : '',
+  sortBy : 'time_posted desc',
+  sortByValue : ['time_posted', 'time_scraped' ],
+  sortByOrder : 'desc'
+}
 
-  function setFilter (newFilter: string) {
-    filter.value = newFilter
-  }
-  function setSortByValue (newSortByValue: string[]) {
-    sortByValue.value = newSortByValue
-  }
-  function setSortByOrder (newSortByOrder: string) {
-    sortByOrder.value = newSortByOrder
-  }
-  function setSortBy (newSortBy: string) {
-    sortBy.value = newSortBy
-  }
-  function setUploadBoxView (newUploadBoxView: boolean) {
-    uploadBoxView.value = newUploadBoxView
-  }
-  function setEditMixtapeBoxView (newEditMixtapeBoxView: boolean) {
-    editMixtapeBoxView.value = newEditMixtapeBoxView
-  }
-  function setAddMixtapeBoxView (newAddMixtapeBoxView: boolean) {
-    addMixtapeBoxView.value = newAddMixtapeBoxView
-  }
-  function setAddSrcUrlSubset (newAddSrcUrlSubset: boolean) {
-    addSrcUrlSubset.value = newAddSrcUrlSubset
-  }
-  function setLightBoxView (newLightBoxView: boolean) {
-    lightBoxView.value = newLightBoxView
-  }
-  function setLightBoxIndex (newLightBoxIndex: number) {
-    lightBoxIndex.value = newLightBoxIndex
-  }
-  function setUploadPercent (newUploadPercent: number) {
-    uploadPercent.value = newUploadPercent
-  }
-  function setUploadView (newUploadView: boolean) {
-    uploadView.value = newUploadView
-  }
-  function setMixtape (newMixtape: string) {
-    mixtape.value = newMixtape
-  }
-  function setSrcUrlSubset (newSrcUrlSubset: string) {
-    srcUrlSubset.value = newSrcUrlSubset
-  }
-  function setDarkMode (newDarkMode: boolean) {
-    darkMode.value = newDarkMode
-  }
-  function setCgbWidth (newCgbWidth: number) {
-    cgbWidth.value = newCgbWidth
-  }
-  function setCgbWidthSized (newCgbWidthSized: number) {
-    cgbWidthSized.value = newCgbWidthSized
-    const cgbHeightRatio = 1.2896666
-    const style = document.createElement('style')
-    style.innerText = ''
-      + '.cgb-0{'
-      + 'max-height:' + newCgbWidthSized *cgbHeightRatio + 'px!important;'
-      + 'max-width:' + newCgbWidthSized + 'px!important;'
-      + 'min-width:' + newCgbWidthSized + 'px!important;'
-      + '}'
-      + '.cgb-0 .vue-load-image{'
-      + 'max-height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
-      + '}'
-      + '.cgb-0 .vue-load-image .loading{'
-      + 'height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
-      + '}'
-      + '.cgb-0-txt{'
-      + 'max-height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
-      + '}'
-      + '.cgb-0-info{'
-      + 'height:' +  12 + 'px!important;'
-      + '}'
-    document.head.appendChild(style)
-  }
+export const GlobalStore = defineStore({
+  id: 'GlobalStore',
+  state: () => ({ ...structuredClone(defaultState) }),
 
-  return {
-    pageSize,
-    filter, setFilter,
-    sortBy, setSortBy,
-    sortByValue, setSortByValue,
-    sortByOrder, setSortByOrder,
-    mixtape, setMixtape,
-    srcUrlSubset, setSrcUrlSubset,
-    cgbWidth, setCgbWidth,
-    cgbWidthSized, setCgbWidthSized,
-    darkMode, setDarkMode,
-    uploadPercent, setUploadPercent,
-
-    lightBoxView, setLightBoxView,
-    editMixtapeBoxView, setEditMixtapeBoxView,
-    addMixtapeBoxView, setAddMixtapeBoxView,
-    lightBoxIndex, setLightBoxIndex,
-    uploadBoxView, setUploadBoxView,
-    uploadView, setUploadView,
-    addSrcUrlSubset, setAddSrcUrlSubset
+  actions: {
+    closeViewer () {
+      this.lightBoxView = false
+      this.lightBoxIndex = -1
+    },
+    setCgbWidthSized (newCgbWidthSized: number) {
+      this.cgbWidthSized = newCgbWidthSized
+      const cgbHeightRatio = 1.2896666
+      const style = document.createElement('style')
+      style.innerText = ''
+        + '.cgb-0{'
+        + 'max-height:' + newCgbWidthSized *cgbHeightRatio + 'px!important;'
+        + 'max-width:' + newCgbWidthSized + 'px!important;'
+        + 'min-width:' + newCgbWidthSized + 'px!important;'
+        + '}'
+        + '.cgb-0 .vue-load-image{'
+        + 'max-height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
+        + '}'
+        + '.cgb-0 .vue-load-image .loading{'
+        + 'height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
+        + '}'
+        + '.cgb-0-txt{'
+        + 'max-height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
+        + '}'
+        + '.cgb-0-info{'
+        + 'height:' +  12 + 'px!important;'
+        + '}'
+      document.head.appendChild(style)
+    },
+    reset() {
+      Object.assign(this, structuredClone(defaultState));
+    }
   }
 })

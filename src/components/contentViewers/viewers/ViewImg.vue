@@ -8,7 +8,7 @@
       <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/image-loader%20(1).gif" rel='preload'/>
     </template>
     <template v-slot:error>
-      <a>{{ viewerData[store.lightBoxIndex].description }}</a>
+      <a>{{ viewerData[GlobalStore().lightBoxIndex].description }}</a>
     </template>
   </vue-load-image>
  </div>
@@ -17,6 +17,7 @@
 <script lang='ts'>
 import { ref, defineComponent, type PropType } from 'vue'
 import VueLoadImage from 'vue-load-image'
+import { GlobalStore } from '@/services/GlobalStore'
 
 export default defineComponent({
   name: 'App',

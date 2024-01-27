@@ -1,23 +1,23 @@
 import { defineStore } from 'pinia'
-import { ApiStore } from '@/services/ApiStore'
-import { useKernalStore } from '@/services/api/KernalStore'
+import { computed } from 'vue'
+import axios from 'axios'
+
 import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import { SessionStore } from '@/services/SessionStore'
-import axios from 'axios'
+const base = SessionStore().getUrlRails + 'mixtapes'
+const auth = computed({
+  get() {return { headers: {"Authorization" : SessionStore().auth_token}}},
+  set(){}
+})
 
 import type { mixtapeType } from '@/assets/types/ApiTypes'
-
-const store = GlobalStore()
-const connectionsStore = useConnectionsStore()
-const sessionStore = SessionStore()
-const base = sessionStore.getUrlRails
-
+const defaultState = {
+  mixtapes: <mixtapeType[]>[],
+}
 export const useMixtapeStore = defineStore({
   id: 'useMixtapeStore',
-  state: () => ({
-    mixtapes: <mixtapeType[]>[],
-  }),
+  state: () => ({ ...structuredClone(defaultState)}),
 
   actions: {
     async fetchMixtapes () {
@@ -25,59 +25,37 @@ export const useMixtapeStore = defineStore({
         id: "page-0",
         name: "loading...",
         content_id: '',
-        permissions: [],
         created_at: new Date(),
         updated_at: new Date()
        })
-      try { this.mixtapes = (await axios.get(base + 'mixtapes', {headers: { Authorization: sessionStore.auth_token }})).data }
+      try { this.mixtapes = (await axios.get(base, auth.value)).data }
       catch (e) { console.error(e) }
     },
-
     async addMixtape(title: string) {
-      const config = {
-        headers: { 'Content-Type': 'multipart/form-data', Authorization: sessionStore.auth_token }
-      }
-      let formData = new FormData();
-      formData.append('name', title)
-      formData.append('include_in_feed', '1')
-      if(title !== ''){
-        try {
-          const [ mix ] = await Promise.all([
-            axios.post( sessionStore.getUrlRails + 'mixtapes', formData, config)
-          ])
-          this.mixtapes.unshift(mix.data)
-          store.setMixtape(mix.data.id)
-          connectionsStore.fetchConnections()
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    },
-
-    async deleteMixtape (uuid: string) {
-      const config = {
-        headers: { Authorization: sessionStore.auth_token },
-      }
       try {
-        axios.delete( sessionStore.getUrlRails + 'mixtapes/' + uuid, config)
+        const mix = (await axios.post(`${base}?name=${title}`, {}, auth.value)).data
+        await useConnectionsStore().fetchConnections()
+        this.mixtapes.unshift(mix)
+        GlobalStore().mixtape = mix.id
+      } catch (e) { console.error(e) }
+    },
+    async deleteMixtape (uuid: string) {
+      try {
+        await axios.delete( `${base}/` + uuid, auth.value)
+        await useConnectionsStore().fetchConnections()
         this.mixtapes = this.mixtapes.filter(item => item.id !== uuid)
-        connectionsStore.fetchConnections()
-        store.setMixtape('')
-      } catch (e) {
-        console.error(e);
-      }
+        GlobalStore().mixtape = ''
+      } catch (e) { console.error(e) }
     },
     async patchMixtape (uuid: string, title: string) {
-      const config = {headers: { authorization: sessionStore.auth_token }}
       try {
-        const [ mix ] = await Promise.all([
-          axios.patch( sessionStore.getUrlRails + 'mixtapes/' + uuid + '?name=' + title, {}, config)
-        ])
-        this.mixtapes = mix.data
-        connectionsStore.fetchConnections()
-      } catch (e) {
-        console.error(e);
-      }
+        const mix = (await axios.patch( `${base}/` + uuid + '?name=' + title, {}, auth.value)).data
+        this.mixtapes = this.mixtapes.filter(item => item.id !== uuid)
+        this.mixtapes.unshift(mix)
+      } catch (e) { console.error(e) }
+    },
+    reset() {
+      Object.assign(this, structuredClone(defaultState));
     }
   }
 })

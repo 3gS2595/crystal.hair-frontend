@@ -1,6 +1,5 @@
 import { useKernalStore } from '@/services/api/KernalStore'
 import { GlobalStore } from '@/services/GlobalStore'
-const store = GlobalStore()
 
 function dragInFile (ev: DragEvent) {
   ev.preventDefault();
@@ -8,7 +7,7 @@ function dragInFile (ev: DragEvent) {
     if (ev.dataTransfer.items) {
       [...ev.dataTransfer.items].forEach((item) => {
         if (item.kind === "file") {
-          store.setUploadBoxView(false)
+          GlobalStore().uploadBoxView = false
           uploadFile(item.getAsFile())
         }
       });
@@ -26,7 +25,7 @@ function pasteInFile (ev: ClipboardEvent) {
       if (ev.clipboardData.items) {
         [...ev.clipboardData.items].forEach((item) => {
           if (item.kind === "file") {
-            store.setUploadBoxView(false)
+            GlobalStore().uploadBoxView = false
             uploadFile(item.getAsFile())
           }
         });
@@ -50,8 +49,8 @@ async function uploadFile(file: File | null){
       formData.append('image', file)
     }
   }
-  if(store.mixtape !== ''){
-    formData.append('mixtape', store.mixtape)
+  if(GlobalStore().mixtape !== ''){
+    formData.append('mixtape', GlobalStore().mixtape)
   }
   if(formData.has("file_type")){
     useKernalStore().addKernal(formData)

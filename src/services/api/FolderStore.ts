@@ -1,5 +1,3 @@
-import type { folderType } from '@/assets/types/ApiTypes'
-
 import { defineStore } from 'pinia'
 import { SessionStore } from '@/services/SessionStore'
 import axios from 'axios'
@@ -7,18 +5,20 @@ import axios from 'axios'
 const sessionStore = SessionStore()
 const base = sessionStore.getUrlRails
 
+import type { folderType } from '@/assets/types/ApiTypes'
+const defaultState = {
+  folders: [{
+    id: '',
+    name: '',
+    contains: [],
+    created_at: new Date(),
+    updated_at: new Date()
+  }] as folderType[]
+}
+
 export const useFolderStore = defineStore({
   id: 'useFolderStore',
-  state: () => ({
-    folders: [{
-      id: '',
-      name: '',
-      contains: [],
-      created_at: new Date(),
-      updated_at: new Date()
-    }] as folderType[]
-  }),
-
+  state: () => ({ ...structuredClone(defaultState)}),
   actions: {
     async fetchFolders () {
       const config = {
@@ -29,7 +29,6 @@ export const useFolderStore = defineStore({
           axios.get(base + 'folders', config)
         ])
         this.folders = folders.data
-        console.log(this.folders)
       } catch (e) {
         console.error(e);
       }
@@ -46,6 +45,9 @@ export const useFolderStore = defineStore({
       } catch (e) {
         console.error(e);
       }
+    },
+    reset() {
+      Object.assign(this, structuredClone(defaultState));
     }
   }
 })

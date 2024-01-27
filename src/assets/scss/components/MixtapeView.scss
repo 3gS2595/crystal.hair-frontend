@@ -25,7 +25,7 @@
 }
 
 .mixtapeView{
-  height: 40%;
+  height: calc(100% + 4px);
   margin-top: -4px;
   border: $tableBorder;
   [data-overlayscrollbars~=host], [data-overlayscrollbars~=viewport] {
@@ -80,7 +80,7 @@
 
   .descr{
     opacity: 0.50;
-    letter-spacing: -0.33px;
+    letter-spacing: -.33px;
   }
   .title{
     float: left;

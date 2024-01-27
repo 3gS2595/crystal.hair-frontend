@@ -2,10 +2,7 @@
   <div class='contentMain' id="contentMain" @drop.prevent="dragInFile" @dragenter.prevent @dragover.prevent>
     <ProgressBar v-if="store.uploadView" :value="store.uploadPercent"></ProgressBar>
     <LightBox v-if='store.lightBoxView' :viewerData="kernals"/>
-    <AddContentBox v-if='store.uploadBoxView'/>
-    <AddMixtapeBox v-if='store.addMixtapeBoxView'/>
-    <EditMixtapeBox v-if='store.editMixtapeBoxView'/>
-    <AddSrcUrlSubset v-if='store.addSrcUrlSubset'/>
+
 
     <splitpanes class="default-theme"
       style="width=100%"
@@ -27,17 +24,18 @@
               </div>
             </div>
             <div class="tabs-r">
-              <div class="tab tab-active tab-width-standard" v-if="currentTab == 1" @click='toggleAddMixtapeBox()'>
+              <div class="tab tab-active tab-width-standard" v-if="currentTab == 1" @click='store.addMixtapeBoxView = !this.store.addMixtapeBoxView'>
                 <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"/>
               </div>
-              <div class="tab tab-active tab-width-standard" v-if="currentTab == 2" @click='toggleAddSrcUrlSubset()'>
+              <div class="tab tab-active tab-width-standard" v-if="currentTab == 2" @click='store.addSrcUrlSubset = !this.store.addSrcUrlSubset'>
                 <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"/>
               </div>
             </div>
           </div>
           <div class="tab-content-mixtape" v-if='currentTab === 1'>
             <MixtapeModule class='mixtapes' :id="1"/>
-            <!-- <div class="data-grid-splitter">
+<!--
+            <div class="data-grid-splitter">
               <a></a>
             </div>
             <FolderModule class='folders' :id="0"/>
@@ -65,13 +63,12 @@
             <div class="tab tab-active tab-width-standard" @click='viewSettings = !viewSettings'>
               <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-settings.png"/>
             </div>
-            <a class="tab tab-active current-dir" v-if="store.filter!=''" @click='store.setFilter("")'>{{store.filter}}</a>
+            <a class="tab tab-active current-dir" v-if="store.filter!=''" @click='store.filter = ""'>{{store.filter}}</a>
             <a class="tab tab-active current-dir" v-if="mixtapeHeader!=''" @click='closeHeader()'>{{mixtapeHeader}}</a>
-            <a class="tab tab-active current-dir" v-if="mixtapeHeader!='' && mixtape != ''" @click='(toggleEditMixtapeBox())'>edit</a>
+            <a class="tab tab-active current-dir" v-if="mixtapeHeader!='' && mixtape != ''" @click='store.editMixtapeBoxView = !this.store.editMixtapeBoxView'>edit</a>
           </div>
-
           <div class="tabs-r">
-            <div class="tab tab-active tab-width-standard" @click='toggleUploadBox()'>
+            <div class="tab tab-active tab-width-standard" @click='store.setUploadBoxView(!this.store.uploadBoxView)'>
               <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"/>
             </div>
           </div>
@@ -82,8 +79,8 @@
                 <a class="set-btn" id="set-btn-4" v-if="store.mixtape!='' && !(store.srcUrlSubset.length > 2 || store.srcUrlSubset == '=1')" @click="userFeedStore.patchFeedToggleMix(store.mixtape)">add to feed</a>
                 <a class="set-btn" id="set-btn-4" v-if="store.srcUrlSubset.length > 2 && store.srcUrlSubset != '=1'" @click="userFeedStore.patchFeedToggleSrc(store.srcUrlSubset)">add to feed</a>
                 <a class="set-btn" id="set-btn-1" @click="darkToggle()">dark mode</a>
-                <a class="set-btn" id="set-btn-2" @click="cgbPlus()">+</a>
-                <a class="set-btn" id="set-btn-3" @click="cgbMinus()">-</a>
+                <a class="set-btn" id="set-btn-2" @click="stepContentFit(1)">+</a>
+                <a class="set-btn" id="set-btn-3" @click="stepContentFit(-1)">-</a>
                 <a class="set-btn" id="set-btn-4" v-if="store.mixtape!='' || store.srcUrlSubset.length > 2" @click="deleteMixSrc()">delete mixtape</a>
               </div>
             </div>
@@ -111,13 +108,11 @@ import MixtapeModule from '@/components/dataGrids/MixtapeModule.vue'
 import FolderModule from '@/components/dataGrids/FoldersModule.vue'
 import ScrapersModule from '@/components/dataGrids/ScrapersModule.vue'
 import LightBox from '@/components/contentViewers/LightBox.vue'
-import AddContentBox from '@/components/uploaders/AddContent.vue'
-import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
-import AddSrcUrlSubset from '@/components/uploaders/AddSrcUrlSubset.vue'
-import EditMixtapeBox from '@/components/editViewers/EditBox.vue'
+
 
 import { storeToRefs } from 'pinia'
 import { ApiStore } from '@/services/ApiStore'
+import { SessionStore } from '@/services/SessionStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import { useMixtapeStore } from '@/services/api/MixtapeStore'
 import { useForceGraphStore } from '@/services/api/ForceGraphStore'
@@ -135,10 +130,6 @@ export default defineComponent({
     ScrapersModule,
     ForceGraph,
     LightBox,
-    AddContentBox,
-    AddMixtapeBox,
-    EditMixtapeBox,
-    AddSrcUrlSubset
   },
 
 // Page Variables
@@ -163,6 +154,10 @@ export default defineComponent({
       const result = this.mixtapes.find(m => m.id === this.store.mixtape)
       this.mixtapeHeader = (result !== undefined) ? result.name : ''
     },
+    mixtapes() {
+      const result = this.mixtapes.find(m => m.id === this.store.mixtape)
+      this.mixtapeHeader = (result !== undefined) ? result.name : ''
+    },
     srcUrlSubset() {
       const result = this.srcUrlSubsets.find(s => s.id === this.store.srcUrlSubset)
       this.mixtapeHeader = (result !== undefined) ? result.name : ''
@@ -172,14 +167,15 @@ export default defineComponent({
 
 // Page Lifecycle hooks
   setup () {
+    console.log(GlobalStore().lightBoxIndex)
     const { connections_mix } = storeToRefs(useConnectionsStore())
     const { mixtapes } = storeToRefs(useMixtapeStore())
     const { srcUrlSubsets } = storeToRefs(useSrcUrlSubsetStore())
     const {forceGraph } = storeToRefs(useForceGraphStore())
     const { mixtape, srcUrlSubset } = storeToRefs(GlobalStore());
     if(window.innerWidth < 400){
-      GlobalStore().setCgbWidth(86)
-      GlobalStore().setCgbWidthSized(60)
+      GlobalStore().cgbWidth = 86
+      GlobalStore().cgbWidthSized = 60
     }
     return { mixtapes, mixtape, connections_mix, srcUrlSubsets, srcUrlSubset, forceGraph }
   },
@@ -205,27 +201,27 @@ export default defineComponent({
     dragInFile,
     pasteInFile,
     closeHeader () {
-      this.store.setMixtape("")
+      this.store.mixtape = ""
       if(this.currentTab === 2){
-        this.store.setSrcUrlSubset("-1")
+        this.store.srcUrlSubset = "-1"
       } else {
-        this.store.setSrcUrlSubset("")
+        this.store.srcUrlSubset = ""
       }
     },
     changeTab () {
-      this.store.setSrcUrlSubset("")
-      this.store.setMixtape("")
+      this.store.srcUrlSubset = ""
+      this.store.mixtape = ""
       if (this.store.mixtape == "" && (this.store.srcUrlSubset == "-1" || this.store.srcUrlSubset == "")) {
         if (this.currentTab === 1){
-          this.store.setSrcUrlSubset("")
+          this.store.srcUrlSubset = ""
         } else if (this.currentTab === 2){
-          this.store.setSrcUrlSubset("-1")
+          this.store.srcUrlSubset = "-1"
         }
       }
     },
     logout () {
-      localStorage.removeItem('auth_token')
-      location.reload()
+      SessionStore().logoutUser()
+      ApiStore().delete()
     },
     deleteMixSrc () {
       if (this.store.srcUrlSubset != '-1' && this.store.srcUrlSubset != '' ) {
@@ -235,45 +231,20 @@ export default defineComponent({
       }
       this.viewSettings=!this.viewSettings
     },
-    cgbPlus () {
-      this.stepContentFit(1)
-    },
-    cgbMinus () {
-      this.stepContentFit(-1)
-    },
-    toggleUploadBox() {
-      this.store.setUploadBoxView(!this.store.uploadBoxView)
-    },
-    toggleEditMixtapeBox() {
-      this.store.setEditMixtapeBoxView(!this.store.editMixtapeBoxView)
-    },
-    toggleAddMixtapeBox() {
-      this.store.setAddMixtapeBoxView(!this.store.addMixtapeBoxView)
-    },
-    toggleAddSrcUrlSubset() {
-      this.store.setAddSrcUrlSubset(!this.store.addSrcUrlSubset)
-    },
     search: function (e: string) {
-      this.store.setFilter(e)
+      this.store.filter = e
       this.searchValue = ''
     },
     resizeContentFit: function () {
       const el = document.getElementById('app')
       const cgb_width = this.store.cgbWidth
       const cgb = document.querySelector('.cgb-0')
-      let cgb_margin = 4
-      let scroll_width = 3
-      let min_pane_left = 203
-      if(window.innerHeight < 400 || window.innerWidth < 400){
-        cgb_margin = 3
-        scroll_width = 3
-        min_pane_left = 140
-      }
+      let cgb_margin = 5
+      let scroll_width = 5
+      let min_pane_left =(window.innerWidth < 400) ? 146 : 203
       if (cgb != null) {
         const width  = window.getComputedStyle(cgb).marginRight
-        console.log(width)
         cgb_margin = Number(width.substring(0, width.length - 2))
-        scroll_width = 3
       }
       if ( el != null) {
         if (this.paneSize === 30 ){
@@ -289,43 +260,26 @@ export default defineComponent({
           const max_cont_width = el.offsetWidth - scroll_width - (cgb_margin + 7)
           const extra_width = max_cont_width % (cgb_width + (cgb_margin))
           const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
-          this.store.setCgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
+          this.store.setCcgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
         }
       }
     },
-
     stepContentFit: function (step: number) {
       const el = document.getElementById('app')
       const cgb_width = this.store.cgbWidth
       const cgb = document.querySelector('.cgb-0')
-      let cgb_margin = 5
-      let scroll_width = 8
-      let min_pane_left = 203
-      if(window.innerWidth < 400){
-        cgb_margin = 5
-        scroll_width = 10
-        min_pane_left = 146
-      }
-      console.log(cgb)
-      if (cgb != null) {
-        const width  = window.getComputedStyle(cgb).marginLeft
-        cgb_margin = Number(width.substring(0, width.length - 2))
-        scroll_width = cgb_margin * 2
-      }
+      let cgb_margin =  5
+      let scroll_width = 5
+      let min_pane_left =(window.innerWidth < 400) ? 146 : 203
       if ( el != null) {
-        if (this.paneSize === 30 ){
-          const max_cont_width = el.offsetWidth - min_pane_left - scroll_width - (cgb_margin) - 20
-          const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 18
-          const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
-          if(step + Math.trunc(tt) >= 1){
-            console.log('nummm ' + step + Math.trunc(tt))
-            const fitWidth = (max_cont_width - (step + Math.trunc(tt)) * cgb_margin) / (step + Math.trunc(tt))
-            this.store.setCgbWidth(fitWidth - (this.store.cgbWidthSized - this.store.cgbWidth))
-            console.log(this.store.cgbWidth)
-            console.log(this.store.cgbWidthSized)
-            this.store.setCgbWidthSized(fitWidth)
-            this.resizeContentFit()
-          }
+        const max_cont_width = el.offsetWidth - min_pane_left - scroll_width - (cgb_margin) - 20
+        const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 18
+        const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
+        if(step + Math.trunc(tt) >= 1){
+          const fitWidth = (max_cont_width - (step + Math.trunc(tt)) * cgb_margin) / (step + Math.trunc(tt))
+          this.store.cgbWidth = fitWidth - (this.store.cgbWidthSized - this.store.cgbWidth)
+          this.store.cgbWidthSized = fitWidth
+          this.resizeContentFit()
         }
       }
     },
