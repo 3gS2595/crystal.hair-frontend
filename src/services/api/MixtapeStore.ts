@@ -43,14 +43,18 @@ export const useMixtapeStore = defineStore({
       try {
         await axios.delete( `${base}/` + uuid, auth.value)
         await useConnectionsStore().fetchConnections()
-        this.mixtapes = this.mixtapes.filter(item => item.id !== uuid)
+        this.mixtapes.splice(this.mixtapes.findIndex(function(i){
+            return i.id === uuid
+        }), 1)
         GlobalStore().mixtape = ''
       } catch (e) { console.error(e) }
     },
     async patchMixtape (uuid: string, title: string) {
       try {
         const mix = (await axios.patch( `${base}/` + uuid + '?name=' + title, {}, auth.value)).data
-        this.mixtapes = this.mixtapes.filter(item => item.id !== uuid)
+        this.mixtapes.splice(this.mixtapes.findIndex(function(i){
+            return i.id === uuid
+        }), 1)
         this.mixtapes.unshift(mix)
       } catch (e) { console.error(e) }
     },

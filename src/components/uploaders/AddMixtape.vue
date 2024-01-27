@@ -1,6 +1,6 @@
 <template>
   <div class='add-overlay' >
-    <div class='add-mixtape' v-click-away='onClickAway' >
+    <div class='add-mixtape' v-click-away='close' >
       <div class="uploader">
         <div class="add-mixtape-title">
           <input class="input-standard text-main-0" placeholder="enter title" v-model="title">
@@ -35,15 +35,12 @@ export default defineComponent({
     ClickAway: directive
   },
   methods: {
-    onClickAway () {
-      store.setAddMixtapeBoxView(false)
-    },
     submitFile () {
       useMixtapeStore().addMixtape(this.title)
-      store.setAddMixtapeBoxView(false)
+      close()
     },
     close () {
-      store.setAddMixtapeBoxView(false)
+      store.addMixtapeBoxView = false
     }
   }
 })

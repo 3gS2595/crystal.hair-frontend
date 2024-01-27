@@ -1,6 +1,6 @@
 <template>
  <div class='add-overlay' >
-    <div class='add-mixtape' v-click-away='onClickAway' >
+    <div class='add-mixtape' v-click-away='close' >
       <div class="uploader">
         <div class="add-mixtape-title">
           <input class="input-standard text-main-0" placeholder="enter url" v-model="url">
@@ -37,15 +37,12 @@ export default defineComponent({
     ClickAway: directive
   },
   methods: {
-    onClickAway () {
-      store.setAddSrcUrlSubset(false)
-    },
     submitFile () {
       useSrcUrlSubsetStore().addSrcUrlSubset(this.url, this.name)
-      store.setAddSrcUrlSubset(false)
+      close()
     },
     close () {
-      store.setAddSrcUrlSubset(false)
+      store.addSrcUrlSubset = false
     }
   }
 })

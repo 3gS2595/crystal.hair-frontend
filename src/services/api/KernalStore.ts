@@ -66,7 +66,9 @@ export const useKernalStore = defineStore({
           useForceGraphStore().forceGraph.unshift(ker.data)
           if (store.mixtape != '') {
             const mix = <mixtapeType> useMixtapeStore().mixtapes.find((i: mixtapeType) => i.content_id === store.mixtape)
-            useMixtapeStore().mixtapes = useMixtapeStore().mixtapes.filter((item: mixtapeType) => item.id !== store.mixtape)
+            useMixtapeStore().mixtapes.splice(useMixtapeStore().mixtapes.findIndex(function(i){
+                return i.id === store.mixtape
+            }), 1);
             useMixtapeStore().mixtapes.unshift(mix)
             useConnectionsStore().fetchConnections()
           }

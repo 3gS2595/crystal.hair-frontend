@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { watch } from 'vue'
+import { SessionStore } from '@/services/SessionStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import { useForceGraphStore } from '@/services/api/ForceGraphStore'
 import { useKernalStore } from '@/services/api/KernalStore'
@@ -27,7 +28,7 @@ export const ApiStore = defineStore({
       useForceGraphStore().fetchForceGraph()
       useKernalStore().fetchKernals()
     },
-    async delete () {
+    async reset () {
       Object.assign(this, defaultState);
       useConnectionsStore().$reset()
       useUserFeedStore().$reset()
@@ -36,12 +37,17 @@ export const ApiStore = defineStore({
       useForceGraphStore().$reset()
       useFolderStore().$reset()
       useKernalStore().$reset()
+      GlobalStore().$reset()
     },
     async update () {
       this.controller.abort()
       this.controller = new AbortController();
       useKernalStore().$reset()
       useKernalStore().fetchKernals()
+    },
+    async logoutUser () {
+      await SessionStore().logoutUser()
+      this.reset()
     }
   }
 })

@@ -98,11 +98,10 @@ const deleteBlock = () => {
   console.log(GlobalStore().lightBoxIndex)
   console.log(kernals.value.length - 1)
   if(GlobalStore().lightBoxIndex === kernals.value.length - 1 && kernals.value.length - 1 > 0) {
-    GlobalStore().setLightBoxIndex(GlobalStore().lightBoxIndex - 1)
+    GlobalStore().lightBoxIndex = GlobalStore().lightBoxIndex - 1
   }
   if (kernals.value.length - 1 === 0) {
-    GlobalStore().setLightBoxView(false)
-    GlobalStore().setLightBoxIndex(-1)
+    GlobalStore().closeViewer()
   }
   useKernalStore().deleteKernal(props.modelValue.id)
 }

@@ -1,5 +1,6 @@
 import { defineStore } from "pinia"
 import axios from "axios"
+
 export const SessionStore = defineStore("session", {
   state: () => ({
     urlVue: 'http://3.130.240.169/',
@@ -73,12 +74,14 @@ export const SessionStore = defineStore("session", {
           })
       })
     },
-    logoutUser() {
+    async logoutUser() {
       const config = {
         headers: {
           Authorization: this.auth_token
         }
       }
+      this.auth_token = null
+      localStorage.removeItem("auth_token")
       new Promise<void>((resolve, reject) => {
         axios
           .delete(`${this.urlRails}users/sign_out`, config)

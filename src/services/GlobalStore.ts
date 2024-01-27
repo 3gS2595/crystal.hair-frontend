@@ -1,24 +1,21 @@
 import { defineStore } from 'pinia'
 
-const defaultState = {
+import type { GlobalStoreType } from '@/assets/types/index'
+const defaultState = <GlobalStoreType>{
   // dark mode
   darkMode : true,
 
   // viewer box display toggles/ index/ block sizes
+  uploadBoxView : false,
+  lightBoxView : false,
+  addSrcUrlSubset : false,
   editMixtapeBoxView : false,
   addMixtapeBoxView : false,
-  addSrcUrlSubset : false,
-
-  lightBoxView : false,
-  lightBoxIndex : -1,
-
-  uploadBoxView : false,
-  uploadView : false,
-  uploadPercent : 0,
 
   pageSize : 50,
   cgbWidth : 240,
   cgbWidthSized :240,
+  lightBoxIndex : -1,
 
   // result filters
   filter : '',
@@ -31,7 +28,7 @@ const defaultState = {
 
 export const GlobalStore = defineStore({
   id: 'GlobalStore',
-  state: () => ({ ...structuredClone(defaultState) }),
+  state: (): GlobalStoreType => ({ ...structuredClone(defaultState)}),
 
   actions: {
     closeViewer () {
@@ -63,7 +60,7 @@ export const GlobalStore = defineStore({
       document.head.appendChild(style)
     },
     reset() {
-      Object.assign(this, structuredClone(defaultState));
+      Object.assign(this, <GlobalStoreType> structuredClone(defaultState));
     }
   }
 })

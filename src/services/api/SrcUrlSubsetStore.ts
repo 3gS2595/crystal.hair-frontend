@@ -28,15 +28,13 @@ export const useSrcUrlSubsetStore = defineStore({
         updated_at: new Date()
        })
       const config = {
-        headers: { Authorization:  SessionStore().auth_token },
+        headers: { Authorization:  SessionStore().auth_token }
       }
-      try {
-        const srcUrlSubsets = await axios.get(SessionStore().getUrlRails + 'src_url_subsets', config)
-        this.srcUrlSubsets = srcUrlSubsets.data
-      } catch (e) {
-        console.error(e);
-      }
-      this.srcUrlSubsets = this.srcUrlSubsets.filter(item => item.name !== 'loading...')
+      console.log(this.srcUrlSubsets)
+      try { this.srcUrlSubsets  = (await axios.get(SessionStore().getUrlRails + 'src_url_subsets', config)).data }
+      catch (e) {console.error(e)}
+      console.log(this.srcUrlSubsets)
+      console.log(this.srcUrlSubsets)
     },
 
     async addSrcUrlSubset(url: string, name:string) {
@@ -65,7 +63,9 @@ export const useSrcUrlSubsetStore = defineStore({
       }
       try {
         axios.delete(  SessionStore().getUrlRails + 'src_url_subsets/' + uuid, config)
-        this.srcUrlSubsets = this.srcUrlSubsets.filter(item => item.id !== uuid)
+        this.srcUrlSubsets.splice(this.srcUrlSubsets.findIndex(function(i){
+            return i.id === uuid
+        }), 1)
         store.srcUrlSubset = ''
       } catch (e) {
         console.error(e);

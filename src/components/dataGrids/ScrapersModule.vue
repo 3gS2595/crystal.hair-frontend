@@ -46,9 +46,9 @@ const props = withDefaults(defineProps<{
 
 const search = (e) => {
   if(JSON.stringify(store.srcUrlSubset) === JSON.stringify(e)) {
-    store.setSrcUrlSubset('-1')
+    store.srcUrlSubset = '-1'
   }else {
-    store.setSrcUrlSubset(e)
+    store.srcUrlSubset = e
     console.log(e)
   }
 }

@@ -51,7 +51,7 @@
         </div>
 
         <nav class='nav'>
-          <img class='navItem' src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/logout.png" @click="logout"/>
+          <img class='navItem' src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/logout.png" @click="apiStore.logoutUser()"/>
           <input class='search input-standard text-main-0' v-model="searchValue" placeholder="&#9765;&#xFE0E;" @keyup.enter="search(searchValue)" />
         </nav>
       </pane>
@@ -67,8 +67,8 @@
             <a class="tab tab-active current-dir" v-if="mixtapeHeader!=''" @click='closeHeader()'>{{mixtapeHeader}}</a>
             <a class="tab tab-active current-dir" v-if="mixtapeHeader!='' && mixtape != ''" @click='store.editMixtapeBoxView = !this.store.editMixtapeBoxView'>edit</a>
           </div>
-          <div class="tabs-r">
-            <div class="tab tab-active tab-width-standard" @click='store.setUploadBoxView(!this.store.uploadBoxView)'>
+          <div v-if="store.mixtape!=''" class="tabs-r">
+            <div class="tab tab-active tab-width-standard" @click='store.uploadBoxView = !this.store.uploadBoxView'>
               <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"/>
             </div>
           </div>
@@ -139,6 +139,7 @@ export default defineComponent({
       paneSize: 30.0,
       paneSizeOffSet: 0.0,
       store: GlobalStore(),
+      sessionStore: SessionStore(),
       userFeedStore: useUserFeedStore(),
       apiStore: ApiStore(),
       mixStore: useMixtapeStore(),
@@ -146,7 +147,7 @@ export default defineComponent({
       viewSettings: false,
       currentTab: 1,
       searchValue: '',
-      mixtapeHeader: '',
+      mixtapeHeader: ''
     }
   },
   watch: {
@@ -155,6 +156,7 @@ export default defineComponent({
       this.mixtapeHeader = (result !== undefined) ? result.name : ''
     },
     mixtapes() {
+      console.log(this.mixtapes)
       const result = this.mixtapes.find(m => m.id === this.store.mixtape)
       this.mixtapeHeader = (result !== undefined) ? result.name : ''
     },
@@ -219,10 +221,6 @@ export default defineComponent({
         }
       }
     },
-    logout () {
-      SessionStore().logoutUser()
-      ApiStore().delete()
-    },
     deleteMixSrc () {
       if (this.store.srcUrlSubset != '-1' && this.store.srcUrlSubset != '' ) {
         this.srcStore.deleteSrcUrlSubset(this.store.srcUrlSubset);
@@ -260,7 +258,7 @@ export default defineComponent({
           const max_cont_width = el.offsetWidth - scroll_width - (cgb_margin + 7)
           const extra_width = max_cont_width % (cgb_width + (cgb_margin))
           const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
-          this.store.setCcgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
+          this.store.setCgbWidthSized(this.store.cgbWidth + (extra_width / Math.trunc(tt)))
         }
       }
     },

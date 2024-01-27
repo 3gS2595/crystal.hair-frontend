@@ -22,7 +22,7 @@
 <script lang='ts'>
 import type { kernalType } from '@/assets/types/ApiTypes'
 import type { InputFileEvent } from '@/assets/types/index'
-import type { UploadBoxState } from '@/assets/types/index'
+import type { UploadKernalState } from '@/assets/types/index'
 
 import { defineComponent, type PropType, ref } from 'vue'
 import axios from 'axios'
@@ -44,7 +44,7 @@ export default defineComponent({
       required: true
     }
   },
-  data(): UploadBoxState {
+  data(): UploadKernalState {
     return {
       file: null,
       editor: null,
