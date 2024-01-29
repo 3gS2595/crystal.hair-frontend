@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang='ts'>
-import type { kernalType } from '@/assets/types/ApiTypes'
+import type { kernalType } from '@/types/ApiTypes'
 import { ref, computed, defineComponent, type PropType } from 'vue'
 import DataView from 'primevue/dataview'
 import { storeToRefs } from 'pinia'

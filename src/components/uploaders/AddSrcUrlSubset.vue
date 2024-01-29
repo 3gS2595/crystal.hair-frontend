@@ -16,7 +16,7 @@
 </template>
 
 <script lang='ts'>
-import type { AddSrcUrlSubset } from '@/assets/types/index'
+import type { AddSrcUrlSubset } from '@/types/index'
 
 import { defineComponent, type PropType, ref } from 'vue'
 import { directive } from 'vue3-click-away'

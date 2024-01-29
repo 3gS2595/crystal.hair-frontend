@@ -6,7 +6,7 @@
           <editor-content :editor="editor" id="textEditor" />
         </div>
         <label id="fileSelect">
-          <input v-show="editorEmpty" type="file" class="file-upload input-standard text-main-0" @change="handleFileUpload( $event )"/>
+          <input v-show="editorEmpty" type="file" class="customFileInput file-upload input-standard text-main-0" @change="handleFileUpload( $event )"/>
         </label>
       </div>
 
@@ -20,9 +20,9 @@
 </template>
 
 <script lang='ts'>
-import type { kernalType } from '@/assets/types/ApiTypes'
-import type { InputFileEvent } from '@/assets/types/index'
-import type { UploadKernalState } from '@/assets/types/index'
+import type { kernalType } from '@/types/ApiTypes'
+import type { InputFileEvent } from '@/types/index'
+import type { UploadKernalState } from '@/types/index'
 
 import { defineComponent, type PropType, ref } from 'vue'
 import axios from 'axios'

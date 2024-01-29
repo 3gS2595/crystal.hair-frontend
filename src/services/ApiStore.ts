@@ -10,7 +10,7 @@ import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
 import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { useUserFeedStore } from '@/services/api/UserFeedStore'
 
-import type { apiStoreType } from '@/assets/types/index'
+import type { apiStoreType } from '@/types/index'
 export const ApiStore = defineStore({
   id: 'apiStore',
   state: (): apiStoreType => ({

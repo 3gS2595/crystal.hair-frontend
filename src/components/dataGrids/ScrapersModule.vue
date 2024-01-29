@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import type { srcUrlSubsetType } from '@/assets/types/ApiTypes'
+import type { srcUrlSubsetType } from '@/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'

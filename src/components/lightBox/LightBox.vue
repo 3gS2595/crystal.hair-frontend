@@ -51,7 +51,7 @@
 </template>
 
 <script lang='ts'>
-import type { kernalType } from '@/assets/types/ApiTypes'
+import type { kernalType } from '@/types/ApiTypes'
 
 import { ref, defineComponent, type PropType } from 'vue'
 import { storeToRefs } from 'pinia'

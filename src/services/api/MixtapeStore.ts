@@ -11,7 +11,7 @@ const auth = computed({
   set(){}
 })
 
-import type { mixtapeType } from '@/assets/types/ApiTypes'
+import type { mixtapeType } from '@/types/ApiTypes'
 const defaultState = {
   mixtapes: <mixtapeType[]>[],
 }

@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import type { mixtapeType } from '@/assets/types/ApiTypes'
+import type { mixtapeType } from '@/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'

@@ -3,7 +3,7 @@ import { GlobalStore } from '@/services/GlobalStore'
 import { SessionStore } from '@/services/SessionStore'
 import axios from 'axios'
 
-import type { srcUrlSubsetType } from '@/assets/types/ApiTypes'
+import type { srcUrlSubsetType } from '@/types/ApiTypes'
 const defaultState = {
   srcUrlSubsets: <srcUrlSubsetType[]>[]
 }
@@ -30,11 +30,8 @@ export const useSrcUrlSubsetStore = defineStore({
       const config = {
         headers: { Authorization:  SessionStore().auth_token }
       }
-      console.log(this.srcUrlSubsets)
       try { this.srcUrlSubsets  = (await axios.get(SessionStore().getUrlRails + 'src_url_subsets', config)).data }
       catch (e) {console.error(e)}
-      console.log(this.srcUrlSubsets)
-      console.log(this.srcUrlSubsets)
     },
 
     async addSrcUrlSubset(url: string, name:string) {
@@ -51,9 +48,7 @@ export const useSrcUrlSubsetStore = defineStore({
           ])
           this.srcUrlSubsets.unshift(src.data)
           GlobalStore().srcUrlSubset = src.data.id
-        } catch (e) {
-          console.error(e);
-        }
+        } catch (e) {console.error(e)}
       }
     },
 
@@ -67,9 +62,7 @@ export const useSrcUrlSubsetStore = defineStore({
             return i.id === uuid
         }), 1)
         store.srcUrlSubset = ''
-      } catch (e) {
-        console.error(e);
-      }
+      } catch (e) {console.error(e)}
     },
     reset() {
       Object.assign(this, structuredClone(defaultState));

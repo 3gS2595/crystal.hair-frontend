@@ -30,18 +30,18 @@ export interface InputFileEvent extends Event {
     target: HTMLInputElement;
 }
 
-import type { userFeedType } from '@/assets/types/ApiTypes'
+import type { userFeedType } from '@/types/ApiTypes'
 export interface  userFeedStoreType {
   user_feed: userFeedType
 }
 
-import type { kernalType } from '@/assets/types/ApiTypes'
+import type { kernalType } from '@/types/ApiTypes'
 export interface kernalStoreType {
   pageNumber: number,
   kernals: kernalType[]
 }
 
-import type { contentType } from '@/assets/types/ApiTypes'
+import type { contentType } from '@/types/ApiTypes'
 export interface connectionsStoreType {
   connections_mix: contentType[],
   connections_src: contentType[]

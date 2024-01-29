@@ -8,9 +8,9 @@ import { useMixtapeStore } from '@/services/api/MixtapeStore'
 import { SessionStore } from '@/services/SessionStore'
 import { GlobalStore } from '@/services/GlobalStore'
 
-import type { kernalStoreType } from '@/assets/types/index'
-import type { kernalType } from '@/assets/types/ApiTypes'
-import type { mixtapeType } from '@/assets/types/ApiTypes'
+import type { kernalStoreType } from '@/types/index'
+import type { kernalType } from '@/types/ApiTypes'
+import type { mixtapeType } from '@/types/ApiTypes'
 
 const url = SessionStore().getUrlRails + 'kernals'
 const store = GlobalStore()

@@ -9,8 +9,8 @@ const auth = computed({
   set(){}
 })
 
-import type { userFeedStoreType } from '@/assets/types/index'
-import type { userFeedType } from '@/assets/types/ApiTypes'
+import type { userFeedStoreType } from '@/types/index'
+import type { userFeedType } from '@/types/ApiTypes'
 const defaultState: userFeedStoreType = {
   user_feed: {
     folders: [],

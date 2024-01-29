@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-import type { GlobalStoreType } from '@/assets/types/index'
+import type { GlobalStoreType } from '@/types/index'
 const defaultState = <GlobalStoreType>{
   // dark mode
   darkMode : true,
