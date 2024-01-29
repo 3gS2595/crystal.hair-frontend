@@ -12,14 +12,20 @@
     nodeLabel="name"
     :linkWidth=lineWidth
     :d3AlphaDecay= dec
-  ></VueForceGraph3D>
+  />
 </template>
 
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import { VueForceGraph3D } from 'vue-force-graph';
 import { storeToRefs } from 'pinia'
+import { ApiStore } from '@/services/ApiStore'
+import { SessionStore } from '@/services/SessionStore'
 import { GlobalStore } from '@/services/GlobalStore'
+import { useMixtapeStore } from '@/services/api/MixtapeStore'
+import { useForceGraphStore } from '@/services/api/ForceGraphStore'
+import { useConnectionsStore } from '@/services/api/connectionsStore'
+
 const store = GlobalStore()
 
 const color = ref("green")
@@ -29,18 +35,18 @@ const lineOpacity = ref(0.7)
 const nodeOpacity = ref(0.9)
 const fgRef = ref();
 const dec = ref(0.0228)
-const props = withDefaults(defineProps<{
-  propKernals: any[],
-  propMixtapes: any[],
-  propConnections: any[],
-  propMixtape: String
-}> (), {
-  propKernals: [],
-  propMixtapes: [],
-  propConnections: [],
-  propMixtape: ''
-})
 
+const props = withDefaults(defineProps<{
+  forceGraph: any[],
+  mixtapes: any[],
+  connections_mix: any[],
+  mixtape: String
+}> (), {
+  forceGraph: [],
+  mixtapes: [],
+  connections_mix: [],
+  mixtape: ''
+})
 
 const bgSet = () => {
   if(store.darkMode === false){
@@ -58,27 +64,38 @@ const bgSet = () => {
 const bgColor = ref(bgSet())
 
 watch(
-  () => store.darkMode,
-  () => {
-    bgColor.value = bgSet()
-    setData(props.propKernals)
-  }
+  () => props.forceGraph,
+  () => { setData() }
 )
 watch(
-  () => props.propKernals,
-  () => { setData(props.propKernals) }
-)
-watch(
-  () => props.propMixtape,
-  () => { setData(props.propKernals) }
+  () => props.mixtape,
+  () => { setData() }
 )
 
 let nodeData = ""
 let linkData = ""
-let JsonData = ref()
-let loaded = ref(false)
-const setData = (propKernals) => {
-  JsonData = ref()
+let JsonData = ref({
+  nodes: [],
+  links: [],
+});
+const newLink = (id: string, target: string, color:string) => {
+  const link = {
+    source: id,
+    target: target,
+    color: color
+  }
+  return link
+}
+const newNode = (id:string, name:string, val:string, color:string) => {
+  const node = {
+    id: id,
+    name: name,
+    val: val,
+    color: color
+  }
+  return node
+}
+const setData = () => {
   try {
     let linkC = "#a3ad99"
     let mixtapeC = "#3459b1"
@@ -99,60 +116,57 @@ const setData = (propKernals) => {
     const kId = []
     const mId = []
 
-    if (props.propMixtape !== '') {
-      const mix = props.propMixtapes.find(mix => mix.id === props.propMixtape)
-      const curK = props.propConnections.find(i => i.id === mix.content_id).contains
-      for (let i of props.propKernals) {
+    if (props.mixtape !== '') {
+      const mix = props.mixtapes.find(mix => mix.id === props.mixtape)
+      const curK = props.connections_mix.find(i => i.id === mix.content_id).contains
+      for (let i of props.forceGraph) {
         if (curK.includes(i.id)) kId.push(i.id)
       }
     } else {
-      for (let i of props.propKernals) {
+      for (let i of props.forceGraph) {
         kId.push(i.id)
       }
     }
 
-    linkData = "], \"links\": [ "
-    for (let i of props.propMixtapes) {
-      for (let n of props.propConnections.find(mix => mix.id === i.content_id).contains) {
+    linkData = []
+    for (let i of props.mixtapes) {
+      for (let n of props.connections_mix.find(mix => mix.id === i.content_id).contains) {
         if (kId.includes(n)){
           ids.push(n)
           if (!mId.includes(i.id)){
             mId.push(i.id)
           }
-          linkData = linkData + "{ \"source\": \"" + i.id + "\", \"target\": \"" + n + "\", \"color\":\"" + linkC + "\"}, "
+          linkData.push(newLink(i.id, n, linkC))
         }
       }
     }
-    linkData = linkData.substring(0, linkData.length - 2)
-    linkData = linkData + "]}"
 
-    nodeData = "{ \"nodes\": ["
-    for (let i of props.propMixtapes) {
+    nodeData = []
+    for (let i of props.mixtapes) {
       if(mId.includes(i.id)){
-        nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.name + "\", \"val\": 8, \"color\":\"" + mixtapeC + "\"}, "
+        nodeData.push(newNode(i.id, i.name, '8', mixtapeC))
       }
     }
-    for (let i of props.propKernals) {
+    for (let i of props.forceGraph) {
       if (ids.includes(i.id)) {
         if(i.file_type === ".avif"){
-          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 2, \"color\":\"" + imgC + "\"}, "
+          nodeData.push(newNode(i.id, i.id, '2', imgC))
         } else if(i.file_type === "link"){
-          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 2, \"color\":\"" + siteC + "\"}, "
+          nodeData.push(newNode(i.id, i.id, '2', siteC))
         } else if(i.file_type === ".pdf"){
-          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 2, \"color\":\"" + pdfC + "\"}, "
+          nodeData.push(newNode(i.id, i.id, '2', pdfC))
         } else {
-          nodeData = nodeData + "{ \"id\": \"" + i.id + "\", \"name\": \"" + i.id + "\", \"val\": 2, \"color\":\"" + nodeC + "\"}, "
+          nodeData.push(newNode(i.id, i.id, '2', nodeC))
         }
       }
     }
-    nodeData = nodeData.substring(0, nodeData.length - 2)
-    if (nodeData + linkData !== "{ \"nodes\":], \"links\": ]}") {
-      JsonData = JSON.parse(nodeData + linkData)
+
+    const combinedJson = {
+      nodes: nodeData,
+      links: linkData
     }
-    if (JsonData != null) {
-      loaded = true
-    }
-    if(props.propMixtape === '' && store.filter === '' && linkData.length > 6000){
+    JsonData = combinedJson
+    if(props.mixtape === '' && store.filter === '' && linkData.length > 100){
       dec.value = .1096
       fgRef.value.cameraPosition({ z:930, y:80, x:500},{ x:0, y:-50, z:0 }, 200)
     } else {
@@ -167,9 +181,7 @@ const setData = (propKernals) => {
     console.error(e)
   }
 }
-
 onMounted(() => {
-   setData(props.propKernals)
+   setData(props.forceGraph)
 })
-
 </script>

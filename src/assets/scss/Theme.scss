@@ -29,6 +29,11 @@
 }
 
 .theme-light {
+  .tab-icon {
+    height: calc(100% - 4px);
+    width: 100%;
+    filter: saturate(1.5) hue-rotate(327deg);
+  }
 
   --edge-margin: 2px;
   --color-scheme: light;
@@ -49,7 +54,6 @@
   --scrollbar: #53535375;
   --size-margin: 8px;
   --box-margin: 4px;
-
 }
 
 .text-main-0{

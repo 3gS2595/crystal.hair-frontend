@@ -1,14 +1,14 @@
 <template>
-  <AddMixtapeBox v-if='store.addMixtapeBoxView'/>
-  <EditMixtapeBox v-if='store.editMixtapeBoxView'/>
+  <AddMixtapeBox v-if='globalStore.addMixtapeBoxView'/>
+  <EditMixtapeBox v-if='globalStore.editMixtapeBoxView'/>
   <div class="mixtapeView">
     <OverlayScrollbarsComponent defer>
-      <DataView class='dg-0' :value="mixtapes" :layout="list" >
+      <DataView class='dg-0' :value="mixtapeStore.mixtapes" :layout="list" >
         <template #list="slotProps">
 
           <vue-load-image v-if="slotProps.data.id === 'page-0'">
             <template v-slot:image>
-              <img style=" height: 100px;" class="thumbnail" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif"/>
+              <img style=" height: 100px;" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif"/>
             </template>
             <template v-slot:preloader>
               <div class="loading"/>
@@ -20,7 +20,7 @@
 
           <div @click="search(slotProps.data.id)" class="dgb-mixtape" v-else>
             <div class="dgb-0-txt" style="display: flex;" >
-              <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important; margin-right: 4px;" >{{ convertTitle(slotProps.data.name) }}</a>
+              <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important; margin-right: 4px;" >{{ slotProps.data.name }}</a>
               <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; max-width: 100%; min-width: fit-content; text-align: end; padding-right:2px;">{{feedCheck(slotProps.data.id)}}</a>
             </div>
             <div class="dgb-0-txt">
@@ -40,7 +40,6 @@ import type { mixtapeType } from '@/assets/types/ApiTypes'
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
 
-import { storeToRefs } from 'pinia'
 import { useMixtapeStore } from '@/services/api/MixtapeStore'
 import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { useUserFeedStore } from '@/services/api/UserFeedStore'
@@ -50,27 +49,15 @@ import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
 import EditMixtapeBox from '@/components/editViewers/EditBox.vue'
 
-const { mixtapes} = storeToRefs(useMixtapeStore())
-
-const store = GlobalStore()
-const props = withDefaults(defineProps<{
+const mixtapeStore = useMixtapeStore()
+const globalStore = GlobalStore()
+const props = defineProps<{
   id: number
-}> (), {
-  id:-1
-})
+}>()
 
 const search = (e) => {
-  if(JSON.stringify(store.mixtape) === JSON.stringify(e)) {
-    store.mixtape = ''
-  }else {
-    store.mixtape = e
-  }
-}
-const convertTitle = (title) => {
-  if (title !== null){
-    title = title.replace(/^\s+|\s+$/gm,'')
-    return title
-  }
+  if(JSON.stringify(globalStore.mixtape) === JSON.stringify(e)) { globalStore.mixtape = '' }
+  else { globalStore.mixtape = e }
 }
 const convertDate = (contents_id) => {
   if (useConnectionsStore().connections_mix.find(i => i.id === contents_id) != undefined){

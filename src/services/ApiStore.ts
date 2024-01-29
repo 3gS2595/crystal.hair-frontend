@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { watch } from 'vue'
+
 import { SessionStore } from '@/services/SessionStore'
 import { GlobalStore } from '@/services/GlobalStore'
 import { useForceGraphStore } from '@/services/api/ForceGraphStore'
@@ -8,15 +9,13 @@ import { useMixtapeStore } from '@/services/api/MixtapeStore'
 import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
 import { useConnectionsStore } from '@/services/api/connectionsStore'
 import { useUserFeedStore } from '@/services/api/UserFeedStore'
-import { useFolderStore } from '@/services/api/FolderStore'
 
-const defaultState = {
-  controller: new AbortController()
-}
-
+import type { apiStoreType } from '@/assets/types/index'
 export const ApiStore = defineStore({
   id: 'apiStore',
-  state: () => ({ ...defaultState }),
+  state: (): apiStoreType => ({
+    controller: new AbortController()
+  }),
 
   actions: {
     initialize () {
@@ -24,49 +23,50 @@ export const ApiStore = defineStore({
       useUserFeedStore().fetchUserFeed()
       useMixtapeStore().fetchMixtapes()
       useSrcUrlSubsetStore().fetchSrcUrlSubsets()
-      useFolderStore().fetchFolders()
       useForceGraphStore().fetchForceGraph()
       useKernalStore().fetchKernals()
     },
+    async update () {
+      this.abortRequests ()
+      useKernalStore().$reset()
+      useKernalStore().fetchKernals()
+    },
+    async logoutUser () {
+      this.abortRequests()
+      await SessionStore().logoutUser()
+      this.reset()
+    },
     async reset () {
-      Object.assign(this, defaultState);
+      this.abortRequests()
+      GlobalStore().$reset()
       useConnectionsStore().$reset()
       useUserFeedStore().$reset()
       useMixtapeStore().$reset()
       useSrcUrlSubsetStore().$reset()
       useForceGraphStore().$reset()
-      useFolderStore().$reset()
       useKernalStore().$reset()
-      GlobalStore().$reset()
     },
-    async update () {
+    async abortRequests () {
       this.controller.abort()
       this.controller = new AbortController();
-      useKernalStore().$reset()
-      useKernalStore().fetchKernals()
-    },
-    async logoutUser () {
-      await SessionStore().logoutUser()
-      this.reset()
     }
   }
 })
 
-const store = GlobalStore()
 watch(
-  () => store.filter,
-  () => { ApiStore().update() }
+  () => GlobalStore().filter,
+  () => { if (SessionStore().auth_token != null) ApiStore().update() }
 )
 watch(
-  () => store.sortBy,
-  () => { ApiStore().update() }
+  () => GlobalStore().sortBy,
+  () => { if (SessionStore().auth_token != null) ApiStore().update() }
 )
 watch(
-  () => store.mixtape,
-  () => { ApiStore().update() }
+  () => GlobalStore().mixtape,
+  () => { if (SessionStore().auth_token != null) ApiStore().update() }
 )
 watch(
-  () => store.srcUrlSubset,
-  () => { ApiStore().update() }
+  () => GlobalStore().srcUrlSubset,
+  () => { if (SessionStore().auth_token != null) ApiStore().update() }
 )
 

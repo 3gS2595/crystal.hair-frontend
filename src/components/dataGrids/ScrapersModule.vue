@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import type { srcUrlSubsets } from '@/assets/types/ApiTypes'
+import type { srcUrlSubsetType } from '@/assets/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
 import DataView from 'primevue/dataview'
@@ -38,11 +38,9 @@ import AddSrcUrlSubset from '@/components/uploaders/AddSrcUrlSubset.vue'
 const { srcUrlSubsets } = storeToRefs(useSrcUrlSubsetStore())
 
 const store = GlobalStore()
-const props = withDefaults(defineProps<{
-    id: number
-  }> (), {
-    id:-1
-})
+const props = defineProps<{
+  id: number
+}>()
 
 const search = (e) => {
   if(JSON.stringify(store.srcUrlSubset) === JSON.stringify(e)) {

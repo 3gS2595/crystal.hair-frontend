@@ -46,6 +46,9 @@ export interface connectionsStoreType {
   connections_mix: contentType[],
   connections_src: contentType[]
 }
+export interface apiStoreType {
+  controller: AbortController
+}
 
 export interface GlobalStoreType {
   // dark mode
@@ -66,7 +69,11 @@ export interface GlobalStoreType {
   srcUrlSubset : string,
   sortBy : string,
   sortByValue : string[],
-  sortByOrder : string
+  sortByOrder : string,
+  currentTab: number
+  paneSizeTemp: number,
+  paneSize: number,
+  paneSizeOffSet: number,
 }
 
 

@@ -19,6 +19,7 @@ const defaultState = <kernalStoreType>{
   pageNumber: 1,
   kernals: [{
     id: "page-0",
+    signed_url: loading_icon,
     signed_url_s: loading_icon,
     signed_url_m: loading_icon,
     signed_url_l: loading_icon,
@@ -36,6 +37,7 @@ export const useKernalStore = defineStore({
       if (this.kernals.filter(item => item.id === 'page-0').length == 0) {
         this.kernals.push({
           id: "page-" + this.pageNumber,
+          signed_url: loading_icon,
           signed_url_s: loading_icon,
           signed_url_m: loading_icon,
           signed_url_l: loading_icon,
@@ -65,7 +67,7 @@ export const useKernalStore = defineStore({
           this.kernals.unshift(ker.data)
           useForceGraphStore().forceGraph.unshift(ker.data)
           if (store.mixtape != '') {
-            const mix = <mixtapeType> useMixtapeStore().mixtapes.find((i: mixtapeType) => i.content_id === store.mixtape)
+            const mix = <mixtapeType> useMixtapeStore().mixtapes.find((i: mixtapeType) => i.id === store.mixtape)
             useMixtapeStore().mixtapes.splice(useMixtapeStore().mixtapes.findIndex(function(i){
                 return i.id === store.mixtape
             }), 1);

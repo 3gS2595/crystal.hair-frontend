@@ -5,16 +5,17 @@ const defaultState = <GlobalStoreType>{
   // dark mode
   darkMode : true,
 
-  // viewer box display toggles/ index/ block sizes
+  // display toggles
   uploadBoxView : false,
   lightBoxView : false,
   addSrcUrlSubset : false,
   editMixtapeBoxView : false,
   addMixtapeBoxView : false,
 
+  // content grid & lightbox
   pageSize : 50,
-  cgbWidth : 240,
-  cgbWidthSized :240,
+  cgbWidth : 205,
+  cgbWidthSized :205,
   lightBoxIndex : -1,
 
   // result filters
@@ -22,13 +23,20 @@ const defaultState = <GlobalStoreType>{
   mixtape : '',
   srcUrlSubset : '',
   sortBy : 'time_posted desc',
-  sortByValue : ['time_posted', 'time_scraped' ],
-  sortByOrder : 'desc'
+  sortByValue : ['time_posted', 'time_scraped'],
+  sortByOrder : 'desc',
+
+  currentTab: 1,
+  paneSizeTemp: 0,
+  paneSize: 30.0,
+  paneSizeOffSet: 0.0,
 }
 
 export const GlobalStore = defineStore({
   id: 'GlobalStore',
-  state: (): GlobalStoreType => ({ ...structuredClone(defaultState)}),
+  state: (): GlobalStoreType => ({
+    ...structuredClone(defaultState)
+  }),
 
   actions: {
     closeViewer () {
