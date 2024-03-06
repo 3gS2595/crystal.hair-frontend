@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
-import { useConnectionsStore } from '@/services/api/connectionsStore'
-import { useForceGraphStore } from '@/services/api/ForceGraphStore'
+import { useConnectionsStore } from '@/stores/api/connectionsStore'
+import { useForceGraphStore } from '@/stores/api/ForceGraphStore'
 import axios from 'axios'
 
-import { ApiStore } from '@/services/ApiStore'
-import { useMixtapeStore } from '@/services/api/MixtapeStore'
-import { SessionStore } from '@/services/SessionStore'
-import { GlobalStore } from '@/services/GlobalStore'
+import { ApiStore } from '@/stores/ApiStore'
+import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+import { SessionStore } from '@/stores/SessionStore'
+import { GlobalStore } from '@/stores/GlobalStore'
 
 import type { kernalStoreType } from '@/types/index'
 import type { kernalType } from '@/types/ApiTypes'

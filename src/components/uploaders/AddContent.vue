@@ -30,8 +30,8 @@ import axios from 'axios'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 
-import { GlobalStore } from '@/services/GlobalStore'
-import { useKernalStore } from '@/services/api/KernalStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useKernalStore } from '@/stores/api/KernalStore'
 
 export default defineComponent({
   name: 'App',

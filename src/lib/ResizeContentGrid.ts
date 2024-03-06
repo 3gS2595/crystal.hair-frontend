@@ -1,19 +1,19 @@
 import { storeToRefs } from 'pinia'
 
-import { GlobalStore } from '@/services/GlobalStore'
-import { useKernalStore } from '@/services/api/KernalStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useKernalStore } from '@/stores/api/KernalStore'
 
 import type { kernalType } from '@/types/ApiTypes'
 
 function resizeContentFit () {
   const min_pane_left =(window.innerWidth < 400) ? 146 : 203
   const cgb_width = GlobalStore().cgbWidth
-  const scroll_width = 5
-  let cgb_margin = 5
+  const scroll_width = 0
+  let cgb_margin = 6
   const cgb = document.querySelector('.cgb-0')
   if (cgb != null) {
     const width  = window.getComputedStyle(cgb).marginRight
-    cgb_margin = Number(width.substring(0, width.length - 2))
+    cgb_margin = Number(width.substring(0, width.length - 2)) * 2
   }
     if (GlobalStore().paneSize === 0 ){
       const max_cont_width = window.innerWidth - scroll_width - (cgb_margin + 7)
@@ -23,11 +23,11 @@ function resizeContentFit () {
     }
     else {
       const max_cont_width = window.innerWidth - min_pane_left - scroll_width - (cgb_margin)
-      const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 13
+      const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 9
       const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
       const content_width_percent = (max_cont_width) / window.innerWidth
       const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
-      GlobalStore().paneSizeOffSet =(offset_size)
+      GlobalStore().paneSizeOffSet = (offset_size)
       GlobalStore().setCgbWidthSized(GlobalStore().cgbWidth + (extra_width / Math.trunc(tt)))
     }
 }
@@ -96,4 +96,27 @@ function resizeSrc() {
     }
   }
 }
-export { resize, setSize, stepContentFit, resizeContentFit }
+function toggleExpand() {
+  if ( GlobalStore().paneSize == 30.0) {
+    GlobalStore().paneSize = 0.0
+    GlobalStore().paneSizeTemp = GlobalStore().paneSizeOffSet
+    GlobalStore().paneSizeOffSet = 0.0
+  } else {
+    GlobalStore().paneSize = 30.0
+    GlobalStore().paneSizeOffSet = GlobalStore().paneSizeTemp
+  }
+  resizeContentFit()
+}
+function openExpand() {
+  GlobalStore().paneSize = 30.0
+  GlobalStore().paneSizeOffSet = GlobalStore().paneSizeTemp
+  resizeContentFit()
+}
+function closeExpand() {
+  GlobalStore().paneSize = 0.0
+  GlobalStore().paneSizeTemp = GlobalStore().paneSizeOffSet
+  GlobalStore().paneSizeOffSet = 0.0
+  resizeContentFit()
+}
+export { resize, setSize, stepContentFit, resizeContentFit, toggleExpand, closeExpand, openExpand }
+

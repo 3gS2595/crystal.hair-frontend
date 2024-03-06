@@ -44,8 +44,8 @@ import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 import VueLoadImage from 'vue-load-image'
 import DataView from 'primevue/dataview'
 
-import { GlobalStore } from '@/services/GlobalStore'
-import { useKernalStore } from '@/services/api/KernalStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useKernalStore } from '@/stores/api/KernalStore'
 
 import AddContentBox from '@/components/uploaders/AddContent.vue'
 import { setSize, resize, resizeContentFit } from '@/lib/ResizeContentGrid'

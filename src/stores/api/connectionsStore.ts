@@ -2,10 +2,10 @@ import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import axios from 'axios'
 
-import { SessionStore } from '@/services/SessionStore'
-import { GlobalStore } from '@/services/GlobalStore'
-import { useMixtapeStore } from '@/services/api/MixtapeStore'
-import { useKernalStore } from '@/services/api/KernalStore'
+import { SessionStore } from '@/stores/SessionStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+import { useKernalStore } from '@/stores/api/KernalStore'
 const url = SessionStore().getUrlRails + 'contents'
 const auth = computed({
   get() {return { headers: {"Authorization" : SessionStore().auth_token}}},

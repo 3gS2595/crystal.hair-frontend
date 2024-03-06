@@ -21,8 +21,8 @@ import { defineComponent, type PropType, ref } from 'vue'
 import { directive } from 'vue3-click-away'
 
 import { storeToRefs } from 'pinia'
-import { GlobalStore } from '@/services/GlobalStore'
-import { useMixtapeStore } from '@/services/api/MixtapeStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useMixtapeStore } from '@/stores/api/MixtapeStore'
 const store = GlobalStore()
 export default defineComponent({
   data(): EditMixtapeBoxState {

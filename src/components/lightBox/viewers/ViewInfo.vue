@@ -57,10 +57,10 @@ import type { kernalType } from '@/types/ApiTypes'
 import { ref, computed, defineComponent, type PropType } from 'vue'
 import DataView from 'primevue/dataview'
 import { storeToRefs } from 'pinia'
-import { useMixtapeStore } from '@/services/api/MixtapeStore'
-import { useConnectionsStore } from '@/services/api/connectionsStore'
-import { useKernalStore } from '@/services/api/KernalStore'
-import { GlobalStore } from '@/services/GlobalStore'
+import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+import { useConnectionsStore } from '@/stores/api/connectionsStore'
+import { useKernalStore } from '@/stores/api/KernalStore'
+import { GlobalStore } from '@/stores/GlobalStore'
 
 const { connections_mix } = storeToRefs(useConnectionsStore())
 const { mixtapes } = storeToRefs(useMixtapeStore())

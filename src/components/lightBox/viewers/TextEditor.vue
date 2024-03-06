@@ -10,7 +10,7 @@ import { defineComponent } from "vue";
 import type { kernalType } from '@/types/ApiTypes'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
-import { useKernalStore } from '@/services/api/KernalStore'
+import { useKernalStore } from '@/stores/api/KernalStore'
 
 export default defineComponent({
   components: {

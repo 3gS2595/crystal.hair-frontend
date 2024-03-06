@@ -3,25 +3,15 @@
 
   <OverlayScrollbarsComponent defer>
     <AddMixtapeBox v-if='globalStore.addMixtapeBoxView'/>
-    <DataView class='dg-0' :value="mixtapeStore.mixtapes" :layout="list" >
-      <template #list="slotProps">
-
-        <div class='nav-loader' v-if="slotProps.data.id === 'page-0'">
-          <img class='nav-loader-icon' src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif"/>
-        </div>
-
-        <div @click="search(slotProps.data.id)" class="dgb-nav" v-else>
-          <div class="dgb-0-txt" style="display: flex;" >
-            <a class='title font-s-title text text-main-0' style="padding:1px; padding-right:0!important; margin-right: 4px;" >{{ slotProps.data.name }}</a>
-            <a class='descr font-s-descr text text-main-0' style="float:right; padding-top: 2px; max-width: 100%; min-width: fit-content; text-align: end; padding-right:2px;">{{feedCheck(slotProps.data.id)}}</a>
-          </div>
-          <div class="dgb-0-txt">
-            <a class='descr font-s-descr text text-main-0' style="float:left; width: 50%; padding-left:1px;">-{{convertDate(slotProps.data.content_id)}}</a>
-            <a class='descr font-s-descr text text-main-0' style="float:right; text-align: end; width:50%; padding-right:2px;">+ {{blockCnt(slotProps.data.content_id)}}</a>
-          </div>
-        </div>
-      </template>
-    </DataView>
+    <vue3-tree-vue :items="items"
+      :isCheckable="false"  //Set to true if you want to get checkable items
+      :hideGuideLines="false"
+      @onCheck="onItemChecked"
+      @dropValidator="onBeforeItemDropped"
+      @onSelect="onItemSelected"
+      @onExpanded="lazyLoadNode"
+      >
+    </vue3-tree-vue>
   </OverlayScrollbarsComponent>
 </template>
 
@@ -29,7 +19,7 @@
 import type { mixtapeType } from '@/types/ApiTypes'
 
 import { ref, watch, onMounted } from 'vue'
-import DataView from 'primevue/dataview'
+import 'vue3-tree-vue/dist/style.css'
 
 import { useMixtapeStore } from '@/stores/api/MixtapeStore'
 import { useConnectionsStore } from '@/stores/api/connectionsStore'
@@ -42,11 +32,20 @@ import EditMixtapeBox from '@/components/editViewers/EditBox.vue'
 
 const mixtapeStore = useMixtapeStore()
 const globalStore = GlobalStore()
-const props = defineProps<{
-  id: number
-}>()
 
-const search = (e) => {
+interface TreeViewItem {
+  name: string;
+  id?: string | number;
+  children?: TreeViewItem[];
+  checked?: boolean;
+  selected?: boolean;
+  expanded?: boolean;
+  disabled?: boolean;// When disabled, an item can neither be selected or checked
+  meta?: any;// provides meta-data of any type per node.
+}
+const items = ref<TreeViewItem[]>([])
+
+const onItemSelected = (e) => {
   if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) { closeExpand() }
   if(JSON.stringify(globalStore.mixtape) === JSON.stringify(e)) { globalStore.mixtape = '' }
   else { globalStore.mixtape = e }

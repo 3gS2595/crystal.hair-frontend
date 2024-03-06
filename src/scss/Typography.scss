@@ -14,14 +14,14 @@
   text-decoration: none;
   box-sizing: border-box;
   -webkit-font-smoothing: subpixel-antialiased;
-  word-break: break-all;
   -webkit-print-color-adjust: exact;
 
     font-smooth: never;
 }
 
 .font-s-title {
-  font-size:18px
+  font-size:18px;
+  line-height:18px;
 }
 .font-s-descr {
   font-size:14px
@@ -35,6 +35,7 @@
 }
 .current-dir{
   font-size:18px;
+  line-height:18px;
 }
 
 @media screen and (max-width: 400px), screen and (max-height: 400px) {
@@ -53,6 +54,7 @@
   }
   .current-dir{
     font-size:15px;
+  line-height:15px;
   }
 .contentMain {
     border-top:0.00001px solid #363638;

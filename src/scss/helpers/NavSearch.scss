@@ -4,12 +4,10 @@
   flex: 0 1 auto;
   display:flex;
   border: $tableBorder;
-  margin: var(--box-margin);
-  margin-left:var(--edge-margin);
-  margin-bottom: var(--edge-margin);
+  margin-top: var(--box-margin);
+  margin: var(--edge-margin);
   height:29px;
-
-    background: var(--background-primary);
+  background: var(--background-primary);
 
   .navItem{
     font-size: 16px;

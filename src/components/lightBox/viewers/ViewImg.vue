@@ -17,7 +17,7 @@
 <script lang='ts'>
 import { ref, defineComponent, type PropType } from 'vue'
 import VueLoadImage from 'vue-load-image'
-import { GlobalStore } from '@/services/GlobalStore'
+import { GlobalStore } from '@/stores/GlobalStore'
 
 export default defineComponent({
   name: 'App',

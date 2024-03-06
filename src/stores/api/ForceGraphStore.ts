@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { GlobalStore } from '@/services/GlobalStore'
-import { SessionStore } from '@/services/SessionStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { SessionStore } from '@/stores/SessionStore'
 import axios from 'axios'
 
 import type { kernalType } from '@/types/ApiTypes'

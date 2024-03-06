@@ -1,5 +1,5 @@
-import { useKernalStore } from '@/services/api/KernalStore'
-import { GlobalStore } from '@/services/GlobalStore'
+import { useKernalStore } from '@/stores/api/KernalStore'
+import { GlobalStore } from '@/stores/GlobalStore'
 
 function dragInFile (ev: DragEvent) {
   ev.preventDefault();

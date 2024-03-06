@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs">
+  <div class="tabs tabs-content">
     <div class="tabs-l">
       <div class="tab tab-width-standard" :class="{'tab-active': currentTab === 1}" @click='currentTab = 1; changeTab()'>
         <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-mix.png"/>
@@ -22,8 +22,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { storeToRefs } from 'pinia'
-import { ApiStore } from '@/services/ApiStore'
-import { GlobalStore } from '@/services/GlobalStore'
+import { ApiStore } from '@/stores/ApiStore'
+import { GlobalStore } from '@/stores/GlobalStore'
 
 export default defineComponent({
 // Page Variables

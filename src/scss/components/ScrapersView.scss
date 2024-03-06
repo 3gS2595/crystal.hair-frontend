@@ -3,7 +3,7 @@
 
 
 .src-url-subset-view{
-  height: calc(100% + 1px);
+  height: calc(100% + 4px);
   margin-top: -4px;
   border: $tableBorder;
   [data-overlayscrollbars~=host], [data-overlayscrollbars~=viewport] {

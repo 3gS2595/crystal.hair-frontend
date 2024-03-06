@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia'
 import { watch } from 'vue'
 
-import { SessionStore } from '@/services/SessionStore'
-import { GlobalStore } from '@/services/GlobalStore'
-import { useForceGraphStore } from '@/services/api/ForceGraphStore'
-import { useKernalStore } from '@/services/api/KernalStore'
-import { useMixtapeStore } from '@/services/api/MixtapeStore'
-import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
-import { useConnectionsStore } from '@/services/api/connectionsStore'
-import { useUserFeedStore } from '@/services/api/UserFeedStore'
+import { SessionStore } from '@/stores/SessionStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useForceGraphStore } from '@/stores/api/ForceGraphStore'
+import { useKernalStore } from '@/stores/api/KernalStore'
+import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
+import { useConnectionsStore } from '@/stores/api/connectionsStore'
+import { useUserFeedStore } from '@/stores/api/UserFeedStore'
 
 import type { apiStoreType } from '@/types/index'
 export const ApiStore = defineStore({

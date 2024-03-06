@@ -16,7 +16,7 @@ import ContentModule from '@/components/dataGrids/ContentModule.vue'
 import LightBox from '@/components/lightBox/LightBox.vue'
 import MediaPaneTabs from '@/components/tabs/MediaPaneTabs.vue'
 
-import { GlobalStore } from '@/services/GlobalStore'
+import { GlobalStore } from '@/stores/GlobalStore'
 
 export default defineComponent({
   components: {

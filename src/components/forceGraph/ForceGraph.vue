@@ -6,7 +6,7 @@
     :backgroundColor=bgColor
     height=220
     width=201
-    :showNavInfo=bool
+    :showNavInfo=false
     :linkOpacity= lineOpacity
     :nodeOpacity= nodeOpacity
     nodeLabel="name"
@@ -20,16 +20,14 @@ import { ref, watch, onMounted } from 'vue'
 import { VueForceGraph3D } from 'vue-force-graph';
 import { storeToRefs } from 'pinia'
 import { ApiStore } from '@/services/ApiStore'
-import { SessionStore } from '@/services/SessionStore'
-import { GlobalStore } from '@/services/GlobalStore'
-import { useMixtapeStore } from '@/services/api/MixtapeStore'
-import { useForceGraphStore } from '@/services/api/ForceGraphStore'
-import { useConnectionsStore } from '@/services/api/connectionsStore'
+import { SessionStore } from '@/stores/SessionStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+import { useForceGraphStore } from '@/stores/api/ForceGraphStore'
+import { useConnectionsStore } from '@/stores/api/connectionsStore'
 
 const store = GlobalStore()
 
-const color = ref("green")
-const bool = false
 const lineWidth = ref(1)
 const lineOpacity = ref(0.7)
 const nodeOpacity = ref(0.9)
@@ -62,7 +60,13 @@ const bgSet = () => {
   }
 }
 const bgColor = ref(bgSet())
-
+watch(
+  () => store.darkMode,
+  () => {
+    bgColor.value = bgSet()
+    setData()
+  }
+)
 watch(
   () => props.forceGraph,
   () => { setData() }
@@ -74,44 +78,30 @@ watch(
 
 let nodeData = ""
 let linkData = ""
-let JsonData = ref({
-  nodes: [],
-  links: [],
-});
+let JsonData = ref({ nodes: [], links: [] });
 const newLink = (id: string, target: string, color:string) => {
-  const link = {
+  return {
     source: id,
     target: target,
     color: color
   }
-  return link
 }
 const newNode = (id:string, name:string, val:string, color:string) => {
-  const node = {
+  return {
     id: id,
     name: name,
     val: val,
     color: color
   }
-  return node
 }
 const setData = () => {
   try {
-    let linkC = "#a3ad99"
-    let mixtapeC = "#3459b1"
-    let imgC = "#9ed9d3"
-    let pdfC = "#8888b8"
-    let siteC = "pink"
-    let nodeC = "#aae574"
-
-    if (store.darkMode === false) {
-      linkC = "#5c5266"
-      mixtapeC = "#cba64e"
-      imgC = "#61262c"
-      pdfC = "#777747"
-      siteC = "#ffffff"
-      nodeC = "#ffffff"
-    }
+    let linkC = store.darkMode    ? "#a3ad99" : "#5c5266"
+    let mixtapeC = store.darkMode ? "#3459b1" : "#cba64e"
+    let imgC = store.darkMode     ? "#9ed9d3" : "#61262c"
+    let pdfC = store.darkMode     ? "#8888b8" : "#777747"
+    let siteC = store.darkMode    ? "#ffc0cb" : "#ffffff"
+    let nodeC = store.darkMode    ? "#aae574" : "#ffffff"
     const ids = []
     const kId = []
     const mId = []
@@ -132,10 +122,8 @@ const setData = () => {
     for (let i of props.mixtapes) {
       for (let n of props.connections_mix.find(mix => mix.id === i.content_id).contains) {
         if (kId.includes(n)){
+          if (!mId.includes(i.id)) mId.push(i.id)
           ids.push(n)
-          if (!mId.includes(i.id)){
-            mId.push(i.id)
-          }
           linkData.push(newLink(i.id, n, linkC))
         }
       }
@@ -161,20 +149,14 @@ const setData = () => {
       }
     }
 
-    const combinedJson = {
-      nodes: nodeData,
-      links: linkData
-    }
-    JsonData = combinedJson
+    JsonData = { nodes: nodeData, links: linkData}
     if(props.mixtape === '' && store.filter === '' && linkData.length > 100){
       dec.value = .1096
       fgRef.value.cameraPosition({ z:930, y:80, x:500},{ x:0, y:-50, z:0 }, 200)
     } else {
       dec.value = 0.0228
       setTimeout (() => {
-        if (fgRef.value != null) {
-          fgRef.value.zoomToFit(200, 0)
-        }
+        fgRef.value.zoomToFit(200, 0)
       }, 300)
     }
   } catch (e) {

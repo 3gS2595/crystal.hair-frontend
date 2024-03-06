@@ -63,8 +63,8 @@ import ViewImg from './viewers/ViewImg.vue'
 import ViewInfo from './viewers/ViewInfo.vue'
 import axios, { type AxiosInstance, type CancelTokenStatic } from 'axios'
 
-import { GlobalStore } from '@/services/GlobalStore'
-import { useKernalStore } from '@/services/api/KernalStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useKernalStore } from '@/stores/api/KernalStore'
 
 export default defineComponent({
   name: 'App',

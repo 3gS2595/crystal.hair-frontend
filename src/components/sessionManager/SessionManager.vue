@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang='ts'>
-import { SessionStore } from '@/services/SessionStore'
+import { SessionStore } from '@/stores/SessionStore'
 import { ref } from 'vue'
 
 const sessionStore = SessionStore();

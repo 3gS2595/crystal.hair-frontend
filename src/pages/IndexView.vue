@@ -2,7 +2,6 @@
   <div class='contentMain' id="contentMain">
     <splitpanes class="default-theme"
       @resize="paneSize = $event[0].size; "
-      @resized="resizeContentFit()"
     >
       <pane id="main-l" :size="paneSize + paneSizeOffSet">
         <navPane/>
@@ -19,8 +18,8 @@ import { defineComponent, defineAsyncComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 
 import { storeToRefs } from 'pinia'
-import { ApiStore } from '@/services/ApiStore'
-import { GlobalStore } from '@/services/GlobalStore'
+import { ApiStore } from '@/stores/ApiStore'
+import { GlobalStore } from '@/stores/GlobalStore'
 
 import { resizeContentFit } from '@/lib/ResizeContentGrid'
 import mediaPane from '@/components/MediaPane.vue'
@@ -32,9 +31,6 @@ export default defineComponent({
     navPane,
     Splitpanes,
     Pane
-  },
-  methods: {
-    resizeContentFit
   },
   setup () {
     const { paneSize, paneSizeOffSet } = storeToRefs(GlobalStore());

@@ -12,7 +12,7 @@ import { defineComponent, onMounted, watch } from 'vue'
 import { darkSet } from '@/lib/DarkMode'
 
 import SessionManager from '@/components/sessionManager/SessionManager.vue'
-import { SessionStore } from "@/services/SessionStore"
+import { SessionStore } from "@/stores/SessionStore"
 
 const sessionStore = SessionStore()
 

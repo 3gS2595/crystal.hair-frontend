@@ -74,6 +74,19 @@ export interface GlobalStoreType {
   paneSizeTemp: number,
   paneSize: number,
   paneSizeOffSet: number,
+  viewSettings: boolean,
+  curOptionsTab: number
+}
+
+export interface TreeViewItem {
+  name: string;
+  id?: string | number;
+  children?: TreeViewItem[];
+  checked?: boolean;
+  selected?: boolean;
+  expanded?: boolean;
+  disabled?: boolean;// When disabled, an item can neither be selected or checked
+  meta?: any;// provides meta-data of any type per node.
 }
 
 

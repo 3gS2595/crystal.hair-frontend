@@ -1,41 +1,27 @@
 @import "../Theme";
 
 // Cog wheel settings menu
-.add-overlay{
-  position:fixed;
-  top:0;
-  width:100%;
-  height:100%;
-  z-index: 15;
-  background: var(--lightbox-back);
-  //-webkit-backdrop-filter: blur(14px);
-  //backdrop-filter: blur(14px);
-
   .add-mixtape{
-    position: absolute;
-    background: var(--background-lightbox);
-    border: 1px solid var(--border-primary);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    background: var(--background-primary);
     z-index: 20;
-    height: 90px;
-    width: 300px;
+    height: -moz-fit-content;
+    height: fit-content;
+    width: 100%;
+    position: relative;
+    padding-top: 1px;
 
     .uploader{
       background: var(--background-lightbox);
-      /* width: 100%; */
-      /* height: 100%; */
-      /* top: 50%; */
-      /* left: 50%; */
-      /* transform: translate(-50%, -50%); */
       position: relative;
       border: 1px solid var(--border-primary);
-      margin: 4px;
+      display: flex;
+      padding-top: 1px;
+      margin: 2px;
+      margin-left: 6px;
+      margin-bottom: -2px;
 
       .add-mixtape-title{
         background: var(--background-lightbox);
-        border-bottom: 1px solid var(--border-primary);
         width:100%;
       }
     }
@@ -44,6 +30,7 @@
       color: var(--text-data-title);
       width: 100%;
       display: flex;
+      width: fit-content;
 
       .option{
         background: var(--background-lightbox);
@@ -59,5 +46,4 @@
       }
     }
   }
-}
 

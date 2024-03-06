@@ -1,4 +1,4 @@
-import { GlobalStore } from '@/services/GlobalStore'
+import { GlobalStore } from '@/stores/GlobalStore'
 
 function darkSet () {
   const app = document.getElementById("app")

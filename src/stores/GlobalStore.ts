@@ -11,6 +11,8 @@ const defaultState = <GlobalStoreType>{
   addSrcUrlSubset : false,
   editMixtapeBoxView : false,
   addMixtapeBoxView : false,
+  viewSettings: false,
+  curOptionsTab: 0,
 
   // content grid & lightbox
   pageSize : 50,
@@ -60,7 +62,7 @@ export const GlobalStore = defineStore({
         + 'height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
         + '}'
         + '.cgb-0-txt{'
-        + 'max-height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
+        + 'height:' + (newCgbWidthSized * cgbHeightRatio - 25) + 'px!important;'
         + '}'
         + '.cgb-0-info{'
         + 'height:' +  12 + 'px!important;'

@@ -21,8 +21,8 @@ import type { AddSrcUrlSubset } from '@/types/index'
 import { defineComponent, type PropType, ref } from 'vue'
 import { directive } from 'vue3-click-away'
 
-import { GlobalStore } from '@/services/GlobalStore'
-import { useSrcUrlSubsetStore } from '@/services/api/SrcUrlSubsetStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 
 const store = GlobalStore()
 export default defineComponent({

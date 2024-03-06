@@ -1,55 +1,28 @@
 @import "../Theme";
 
 // Cog wheel settings menu
-.settings-overlay{
-  position:fixed;
-  width:100vw;
-  height:100vh;
-  z-index: 15;
-  background: var(--lightbox-back);
-  top:0;
-  left:0;
-
 
   .settings{
-    position: absolute;
-    background: var(--background-lightbox);
-    border: 1px solid var(--border-primary);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 20;
-    height: 40%;
-    width: 70%;
-    max-width: 541px;
-    backdrop-filter: blur(14px);
-    border-radius: 5px;
-    box-shadow: 0 0px 106px 127px rgb(0, 0, 0);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 20px;
-    /* text-align: center; */
-    box-sizing: border-box;
-    display: flex;
-    transition: box-shadow .3s ease;
+    display:flex;
+    height: fit-content;
+    width: 100%;
 
     .options {
-      background: var(--background-lightbox);
-      width: 80%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      width: 100%;
       position: relative;
+      width: 100%;
+      position: relative;
+      margin: 2px;
+      /* margin-left: var(--edge-margin); */
       border: 1px solid var(--border-primary);
+      border-bottom: 0;
 
       .set-btn{
-        background: var(--background-lightbox);
         padding: var(--box-margin);
-        border: $tableBorder;
         color: var(--text-data-title);
         display: block;
+      border-bottom: 1px solid var(--border-primary);
       }
-
     }
   }
-}
 

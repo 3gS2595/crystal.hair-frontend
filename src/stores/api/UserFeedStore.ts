@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import axios from 'axios'
 
-import { SessionStore } from '@/services/SessionStore'
+import { SessionStore } from '@/stores/SessionStore'
 const url = SessionStore().getUrlRails + 'user_feeds'
 const auth = computed({
   get(){ return { headers: {"Authorization" : SessionStore().auth_token}} },
