@@ -84,7 +84,6 @@ const intersecting = (event) => {
     if (e.isIntersecting && kernals.value[kernals.value.length - 1].signed_url_s != "https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif") {
       observer.disconnect()
       if(kernals.value.length >= GlobalStore().pageSize) {
-        console.log('page number')
         useKernalStore().fetchKernals(pageNumber.value)
       }
     }

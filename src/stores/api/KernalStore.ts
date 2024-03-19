@@ -1,47 +1,39 @@
 import { defineStore } from 'pinia'
-import { useConnectionsStore } from '@/stores/api/connectionsStore'
-import { useForceGraphStore } from '@/stores/api/ForceGraphStore'
 import axios from 'axios'
-
-import { ApiStore } from '@/stores/ApiStore'
-import { useMixtapeStore } from '@/stores/api/MixtapeStore'
-import { SessionStore } from '@/stores/SessionStore'
-import { GlobalStore } from '@/stores/GlobalStore'
 
 import type { kernalStoreType } from '@/types/index'
 import type { kernalType } from '@/types/ApiTypes'
 import type { mixtapeType } from '@/types/ApiTypes'
 
+import { ApiStore } from '@/stores/ApiStore'
+import { SessionStore } from '@/stores/SessionStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+import { useConnectionsStore } from '@/stores/api/connectionsStore'
+import { useForceGraphStore } from '@/stores/api/ForceGraphStore'
 const url = SessionStore().getUrlRails + 'kernals'
 const store = GlobalStore()
+
 const loading_icon = "https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif"
+const icon = {
+  id: "page-load",
+  signed_url: loading_icon,
+  signed_url_s: loading_icon,
+  signed_url_m: loading_icon,
+  signed_url_l: loading_icon,
+}
 const defaultState = <kernalStoreType>{
   pageNumber: 1,
-  kernals: [{
-    id: "page-0",
-    signed_url: loading_icon,
-    signed_url_s: loading_icon,
-    signed_url_m: loading_icon,
-    signed_url_l: loading_icon,
-  }] as kernalType[]
+  kernals: [icon] as kernalType[]
 }
 
 export const useKernalStore = defineStore({
   id: 'useKernalStore',
-  state: (): kernalStoreType => ({
-    ...structuredClone(defaultState)
-  }),
-
+  state: (): kernalStoreType => ({ ...structuredClone(defaultState) }),
   actions: {
     async fetchKernals () {
-      if (this.kernals.filter(item => item.id === 'page-0').length == 0) {
-        this.kernals.push({
-          id: "page-" + this.pageNumber,
-          signed_url: loading_icon,
-          signed_url_s: loading_icon,
-          signed_url_m: loading_icon,
-          signed_url_l: loading_icon,
-        })
+      if (this.kernals.length != 1) {
+        this.kernals.push(icon)
       }
       let params = `?q=${store.filter}&page=${this.pageNumber}&sort=${store.sortBy}`
       if (store.mixtape != '') { params = `${params}&mixtape=${store.mixtape}` }

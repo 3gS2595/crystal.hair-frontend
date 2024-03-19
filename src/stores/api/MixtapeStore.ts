@@ -1,36 +1,38 @@
-import { defineStore } from 'pinia'
-import { computed } from 'vue'
-import axios from 'axios'
+import type { mixtapeType } from '@/types/ApiTypes'
 
-import { useConnectionsStore } from '@/stores/api/connectionsStore'
+import axios from 'axios'
+import { computed } from 'vue'
+import { defineStore } from 'pinia'
+
 import { GlobalStore } from '@/stores/GlobalStore'
 import { SessionStore } from '@/stores/SessionStore'
+import { useConnectionsStore } from '@/stores/api/connectionsStore'
+
 const base = SessionStore().getUrlRails + 'mixtapes'
+const defaultState = {
+  mixtapes: [{
+    id: "page-0",
+    name: "loading...",
+    content_id: '',
+    created_at: new Date(),
+    updated_at: new Date()
+  }] as mixtapeType[]
+}
 const auth = computed({
   get() {return { headers: {"Authorization" : SessionStore().auth_token}}},
-  set(){}
+  set() {}
 })
 
-import type { mixtapeType } from '@/types/ApiTypes'
-const defaultState = {
-  mixtapes: <mixtapeType[]>[],
-}
 export const useMixtapeStore = defineStore({
   id: 'useMixtapeStore',
   state: () => ({ ...structuredClone(defaultState)}),
-
   actions: {
     async fetchMixtapes () {
-      this.mixtapes.push({
-        id: "page-0",
-        name: "loading...",
-        content_id: '',
-        created_at: new Date(),
-        updated_at: new Date()
-       })
-      try { this.mixtapes = (await axios.get(base, auth.value)).data }
-      catch (e) { console.error(e) }
+      try {
+        this.mixtapes = (await axios.get(base, auth.value)).data
+      } catch (e) { console.error(e) }
     },
+
     async addMixtape(title: string) {
       try {
         const mix = (await axios.post(`${base}?name=${title}`, {}, auth.value)).data
@@ -39,6 +41,7 @@ export const useMixtapeStore = defineStore({
         GlobalStore().mixtape = mix.id
       } catch (e) { console.error(e) }
     },
+
     async deleteMixtape (uuid: string) {
       try {
         await axios.delete( `${base}/` + uuid, auth.value)
@@ -49,6 +52,7 @@ export const useMixtapeStore = defineStore({
         GlobalStore().mixtape = ''
       } catch (e) { console.error(e) }
     },
+
     async patchMixtape (uuid: string, title: string) {
       try {
         const mix = (await axios.patch( `${base}/` + uuid + '?name=' + title, {}, auth.value)).data
@@ -58,6 +62,7 @@ export const useMixtapeStore = defineStore({
         this.mixtapes.unshift(mix)
       } catch (e) { console.error(e) }
     },
+
     reset() {
       Object.assign(this, structuredClone(defaultState));
     }

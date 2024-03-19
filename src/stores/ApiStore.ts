@@ -13,10 +13,7 @@ import { useUserFeedStore } from '@/stores/api/UserFeedStore'
 import type { apiStoreType } from '@/types/index'
 export const ApiStore = defineStore({
   id: 'apiStore',
-  state: (): apiStoreType => ({
-    controller: new AbortController()
-  }),
-
+  state: (): apiStoreType => ({ controller: new AbortController() }),
   actions: {
     initialize () {
       useConnectionsStore().fetchConnections()
@@ -26,16 +23,19 @@ export const ApiStore = defineStore({
       useForceGraphStore().fetchForceGraph()
       useKernalStore().fetchKernals()
     },
+
     async update () {
       this.abortRequests ()
       useKernalStore().$reset()
       useKernalStore().fetchKernals()
     },
+
     async logoutUser () {
       this.abortRequests()
       await SessionStore().logoutUser()
       this.reset()
     },
+
     async reset () {
       this.abortRequests()
       GlobalStore().$reset()
@@ -46,6 +46,7 @@ export const ApiStore = defineStore({
       useForceGraphStore().$reset()
       useKernalStore().$reset()
     },
+
     async abortRequests () {
       this.controller.abort()
       this.controller = new AbortController();
@@ -54,19 +55,15 @@ export const ApiStore = defineStore({
 })
 
 watch(
-  () => GlobalStore().filter,
-  () => { if (SessionStore().auth_token != null) ApiStore().update() }
+  () => [
+          GlobalStore().filter,
+          GlobalStore().sortBy,
+          GlobalStore().mixtape,
+          GlobalStore().srcUrlSubset
+        ],
+  () => {
+    if (SessionStore().auth_token != null) ApiStore().update()
+  }
 )
-watch(
-  () => GlobalStore().sortBy,
-  () => { if (SessionStore().auth_token != null) ApiStore().update() }
-)
-watch(
-  () => GlobalStore().mixtape,
-  () => { if (SessionStore().auth_token != null) ApiStore().update() }
-)
-watch(
-  () => GlobalStore().srcUrlSubset,
-  () => { if (SessionStore().auth_token != null) ApiStore().update() }
-)
+
 

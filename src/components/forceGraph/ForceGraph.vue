@@ -56,7 +56,7 @@ const bgSet = () => {
     nodeOpacity.value = 0.9
     lineOpacity.value = 0.7
     lineWidth.value = 4
-    return "#101010"
+    return "#242424"
   }
 }
 const bgColor = ref(bgSet())
