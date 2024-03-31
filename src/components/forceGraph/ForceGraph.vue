@@ -103,7 +103,7 @@ const setData = () => {
     let siteC = store.darkMode    ? "#ffc0cb" : "#ffffff"
     let nodeC = store.darkMode    ? "#aae574" : "#ffffff"
     const ids = []
-    const kId = []
+    let kId = []
     const mId = []
 
     if (props.mixtape !== '') {

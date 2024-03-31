@@ -49,7 +49,7 @@ export const ApiStore = defineStore({
 
     async abortRequests () {
       this.controller.abort()
-      this.controller = new AbortController();
+      this.controller = new AbortController()
     }
   }
 })

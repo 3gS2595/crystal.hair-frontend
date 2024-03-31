@@ -8,9 +8,7 @@
   </div>
 
   <div  class="forceGraph" >
-    <div class="btn-expand" @click='`${toggleExpand()}`'>
-        <img class="btn-expand-icon" :class="{'btn-expanded-icon': paneSize === 0}" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/btn-expand.png"/>
-    </div>
+
     <ForceGraph :forceGraph="forceGraph" :mixtapes="mixtapes" :mixtape="mixtape" :connections_mix="connections_mix"/>
   </div>
 

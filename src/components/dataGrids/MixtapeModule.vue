@@ -38,7 +38,7 @@ import { closeExpand } from '@/lib/ResizeContentGrid'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
-import EditMixtapeBox from '@/components/editViewers/EditBox.vue'
+import EditMixtapeBox from '@/components/dataEditors/EditBox.vue'
 
 const mixtapeStore = useMixtapeStore()
 const globalStore = GlobalStore()

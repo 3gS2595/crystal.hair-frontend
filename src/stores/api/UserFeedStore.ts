@@ -24,7 +24,7 @@ export const useUserFeedStore = defineStore({
   state: (): userFeedStoreType => ({ ...structuredClone(defaultState) }),
   actions: {
     reset() {
-      Object.assign(this, structuredClone(defaultState));
+      Object.assign(this, structuredClone(defaultState))
     },
 
     async fetchUserFeed () {

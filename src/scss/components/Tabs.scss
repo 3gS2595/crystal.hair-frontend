@@ -41,10 +41,15 @@
   color: var(--text-header);
   letter-spacing: -0.33px;
 }
+
 .tab-active{
   opacity: 1!important;
   z-index: 5!important;
   background: var(--background-primary);
+}
+
+.media-active{
+  filter: hue-rotate(320deg) brightness(1.35);
 }
 
 .tab-content-nav{
@@ -67,8 +72,8 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-    padding: 1px;
-    padding-bottom: 0;
+  padding: 1px;
+  padding-bottom: 0;
 }
 
 

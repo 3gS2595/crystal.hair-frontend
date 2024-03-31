@@ -3,12 +3,21 @@
   <!-- CONTENT PANE -->
   <div class="tabs tabs-content">
     <div class="tabs-l">
+      <div class="tab tab-width-standard" v-if="currentTab === 1" :class="{'tab-active media-active': currentTab === 1}">
+        <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-mix.png"/>
+      </div>
+      <div class="tab tab-width-standard" v-if="currentTab === 2" :class="{'tab-active media-active': currentTab === 2}">
+        <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-src.png"/>
+      </div>
       <a class="tab tab-active current-dir" v-if="store.filter!=''" @click='store.filter = ""'>{{store.filter}}</a>
       <a class="tab tab-active current-dir" v-if="mixtapeHeader!=''" @click='closeHeader()'>{{mixtapeHeader}}</a>
       <a class="tab tab-active current-dir" v-if="mixtapeHeader!='' && mixtape != ''" @click='store.editMixtapeBoxView = !this.store.editMixtapeBoxView'>edit</a>
     </div>
-    <div v-if="store.mixtape!=''" class="tabs-r">
-      <div class="tab tab-active tab-width-standard" @click='store.uploadBoxView = !this.store.uploadBoxView'>
+    <div class="tabs-r">
+      <div v-if="store.mixtape!=''" class="tab tab-active tab-width-standard media-active" @click='store.uploadBoxView = !this.store.uploadBoxView'>
+        <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"/>
+      </div>
+      <div class="tab tab-active tab-width-standard media-active" @click='`${toggleExpand()}`'>
         <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"/>
       </div>
     </div>
@@ -24,9 +33,8 @@ import { GlobalStore } from '@/stores/GlobalStore'
 import { useMixtapeStore } from '@/stores/api/MixtapeStore'
 import { useUserFeedStore } from '@/stores/api/UserFeedStore'
 import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
-import { openExpand } from '@/lib/ResizeContentGrid'
+import { openExpand, toggleExpand } from '@/lib/ResizeContentGrid'
 
-import { darkToggle, darkSet } from '@/lib/DarkMode'
 
 import type { mixtapeType } from '@/types/ApiTypes'
 import type { srcUrlSubsetType } from '@/types/ApiTypes'
@@ -67,9 +75,8 @@ export default defineComponent({
 
 // Page Methods
   methods: {
-    darkToggle,
-    darkSet,
     openExpand,
+    toggleExpand,
     closeHeader () {
       if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) { openExpand() }
       this.store.mixtape = ""
