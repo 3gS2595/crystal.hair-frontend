@@ -47,7 +47,7 @@ const props = defineProps<{
 }>()
 
 const search = (e) => {
-  if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) { closeExpand() }
+  // if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) { closeExpand() }
   if(JSON.stringify(globalStore.mixtape) === JSON.stringify(e)) { globalStore.mixtape = '' }
   else { globalStore.mixtape = e }
 }

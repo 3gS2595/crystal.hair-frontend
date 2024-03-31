@@ -25,8 +25,8 @@ export const ApiStore = defineStore({
     },
 
     async update () {
-      this.abortRequests ()
       useKernalStore().$reset()
+      this.abortRequests ()
       useKernalStore().fetchKernals()
     },
 

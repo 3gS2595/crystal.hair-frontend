@@ -56,7 +56,7 @@ const bgSet = () => {
     nodeOpacity.value = 0.9
     lineOpacity.value = 0.7
     lineWidth.value = 4
-    return "#242424"
+    return "#101010"
   }
 }
 const bgColor = ref(bgSet())
@@ -102,10 +102,11 @@ const setData = () => {
     let pdfC = store.darkMode     ? "#8888b8" : "#777747"
     let siteC = store.darkMode    ? "#ffc0cb" : "#ffffff"
     let nodeC = store.darkMode    ? "#aae574" : "#ffffff"
-    const ids = []
+    let ids = []
     let kId = []
     const mId = []
 
+    // checks if currently viewing single mixtape else add all kernals to kID
     if (props.mixtape !== '') {
       const mix = props.mixtapes.find(mix => mix.id === props.mixtape)
       const curK = props.connections_mix.find(i => i.id === mix.content_id).contains
@@ -118,6 +119,7 @@ const setData = () => {
       }
     }
 
+    // iterates mixtapes and their contents, if kernal has already been found creates a link to mix
     linkData = []
     for (let i of props.mixtapes) {
       for (let n of props.connections_mix.find(mix => mix.id === i.content_id).contains) {
@@ -127,6 +129,19 @@ const setData = () => {
           linkData.push(newLink(i.id, n, linkC))
         }
       }
+    }
+
+    if (kId.length > 1000){
+      console.log(linkData.length)
+      let rem = linkData.filter(item => linkData.filter(x => x.target === item.target).length <= 1)
+      linkData = linkData.filter(item => linkData.filter(x => x.target === item.target).length > 1)
+
+      console.log(rem.length)
+      console.log(linkData.length)
+      ids = ids.filter( function( el ) {
+        return !rem.some(e => e.target === el)
+      } )
+      console.log(ids.length)
     }
 
     nodeData = []
