@@ -3,9 +3,9 @@ import { GlobalStore } from '@/stores/GlobalStore'
 import { SessionStore } from '@/stores/SessionStore'
 import axios from 'axios'
 
-import type { kernalType } from '@/types/ApiTypes'
+import type { forceGraph } from '@/types/ApiTypes'
 const defaultState = {
-    forceGraph: <kernalType[]>[],
+    forceGraph: <forceGraph[]>[],
 }
 export const useForceGraphStore = defineStore({
   id: 'useForceGraphStore',

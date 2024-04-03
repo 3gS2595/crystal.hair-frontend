@@ -86,6 +86,7 @@ export const useKernalStore = defineStore({
     },
 
      reset() {
+      this.kernals = []
       Object.assign(this, structuredClone(structuredClone(defaultState)));
     }
   }

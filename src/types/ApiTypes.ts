@@ -73,3 +73,7 @@ export interface folderType {
   created_at: Date,
   updated_at: Date
 }
+export interface forceGraph {
+  nodes: any,
+  links: any,
+}

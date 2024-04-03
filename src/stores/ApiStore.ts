@@ -10,24 +10,32 @@ import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 import { useConnectionsStore } from '@/stores/api/connectionsStore'
 import { useUserFeedStore } from '@/stores/api/UserFeedStore'
 
+
 import type { apiStoreType } from '@/types/index'
+const globalStore = GlobalStore()
 export const ApiStore = defineStore({
   id: 'apiStore',
   state: (): apiStoreType => ({ controller: new AbortController() }),
   actions: {
-    initialize () {
+    async initialize () {
+      await Promise.all([
+        useUserFeedStore().fetchUserFeed(),
+        useMixtapeStore().fetchMixtapes(),
+        useSrcUrlSubsetStore().fetchSrcUrlSubsets(),
+        useForceGraphStore().fetchForceGraph()
+      ])
+      await Promise.all([
+        useKernalStore().fetchKernals()
+      ])
       useConnectionsStore().fetchConnections()
-      useUserFeedStore().fetchUserFeed()
-      useMixtapeStore().fetchMixtapes()
-      useSrcUrlSubsetStore().fetchSrcUrlSubsets()
-      useForceGraphStore().fetchForceGraph()
-      useKernalStore().fetchKernals()
+
     },
 
     async update () {
-      useKernalStore().$reset()
       this.abortRequests ()
+      useKernalStore().reset()
       useKernalStore().fetchKernals()
+      useForceGraphStore().fetchForceGraph()
     },
 
     async logoutUser () {
@@ -56,10 +64,10 @@ export const ApiStore = defineStore({
 
 watch(
   () => [
-          GlobalStore().filter,
-          GlobalStore().sortBy,
-          GlobalStore().mixtape,
-          GlobalStore().srcUrlSubset
+          globalStore.filter,
+          globalStore.sortBy,
+          globalStore.mixtape,
+          globalStore.srcUrlSubset
         ],
   () => {
     if (SessionStore().auth_token != null) ApiStore().update()

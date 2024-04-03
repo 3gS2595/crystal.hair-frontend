@@ -55,7 +55,6 @@ export default defineComponent({
       this.mixtapeHeader = (result !== undefined) ? result.name : ''
     },
     mixtapes() {
-      console.log(this.mixtapes)
       const result = this.mixtapes.find((m: mixtapeType) => m.id === this.store.mixtape)
       this.mixtapeHeader = (result !== undefined) ? result.name : ''
     },
@@ -78,7 +77,7 @@ export default defineComponent({
     openExpand,
     toggleExpand,
     closeHeader () {
-      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) { openExpand() }
+      // if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) { openExpand() }
       this.store.mixtape = ""
       if(this.currentTab === 2){
         this.store.srcUrlSubset = "-1"

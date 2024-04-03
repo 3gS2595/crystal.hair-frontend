@@ -9,7 +9,7 @@
 
   <div  class="forceGraph" >
 
-    <ForceGraph :forceGraph="forceGraph" :mixtapes="mixtapes" :mixtape="mixtape" :connections_mix="connections_mix"/>
+    <ForceGraph :forceGraph="forceGraph" :mixtapes="mixtapes" :connections_mix="connections_mix"/>
   </div>
 
   <div class="advanced-pane">
@@ -66,8 +66,8 @@ export default defineComponent({
     const { connections_mix } = storeToRefs(useConnectionsStore())
     const { forceGraph } = storeToRefs(useForceGraphStore())
     const { mixtapes } = storeToRefs(useMixtapeStore())
-    const { mixtape, currentTab, paneSize } = storeToRefs(GlobalStore());
-    return { currentTab, connections_mix, forceGraph, mixtapes, mixtape, paneSize}
+    const { currentTab, paneSize } = storeToRefs(GlobalStore());
+    return { currentTab, connections_mix, forceGraph, mixtapes, paneSize}
   }
 })
 </script>

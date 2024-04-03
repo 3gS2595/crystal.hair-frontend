@@ -23,10 +23,6 @@
     <div class='login-ui'>
 
       <form @submit.prevent='onLogin' class='login-form'>
-        <a>github.com/3gS2595</a>
-        <br />
-        <br />
-        <br />
         <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
         <br />
         <input class='login-form-password' type='password' v-model='loginPassword' placeholder='password' />
