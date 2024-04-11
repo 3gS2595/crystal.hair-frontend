@@ -22,7 +22,6 @@ export const ApiStore = defineStore({
         useUserFeedStore().fetchUserFeed(),
         useMixtapeStore().fetchMixtapes(),
         useSrcUrlSubsetStore().fetchSrcUrlSubsets(),
-        useForceGraphStore().fetchForceGraph()
       ])
       await Promise.all([
         useKernalStore().fetchKernals()
@@ -35,7 +34,6 @@ export const ApiStore = defineStore({
       this.abortRequests ()
       useKernalStore().reset()
       useKernalStore().fetchKernals()
-      useForceGraphStore().fetchForceGraph()
     },
 
     async logoutUser () {
@@ -51,7 +49,6 @@ export const ApiStore = defineStore({
       useUserFeedStore().$reset()
       useMixtapeStore().$reset()
       useSrcUrlSubsetStore().$reset()
-      useForceGraphStore().$reset()
       useKernalStore().$reset()
     },
 
@@ -61,14 +58,24 @@ export const ApiStore = defineStore({
     }
   }
 })
-
 watch(
   () => [
-          globalStore.filter,
-          globalStore.sortBy,
-          globalStore.mixtape,
-          globalStore.srcUrlSubset
-        ],
+    globalStore.mixtape
+  ],
+  () => {
+    if (SessionStore().auth_token != null) {
+      ApiStore().update()
+    }
+  }
+)
+watch(
+  () => [
+    globalStore.filter,
+    globalStore.tags,
+    globalStore.feed,
+    globalStore.sortBy,
+    globalStore.srcUrlSubset
+  ],
   () => {
     if (SessionStore().auth_token != null) ApiStore().update()
   }

@@ -3,15 +3,23 @@
   <!-- CONTENT PANE -->
   <div class="tabs tabs-content">
     <div class="tabs-l">
-      <div class="tab tab-width-standard" v-if="currentTab === 1" :class="{'tab-active media-active': currentTab === 1}">
-        <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-mix.png"/>
+      <div class="tab tab-width-standard" v-if="currentTab === 1 && mixtapeHeader == ''" :class="{'tab-active media-active': (currentTab === 1 && store.feed === true)}" @click='store.feed = true'>
+        <img class="tab-icon tab-icon-media" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-mix.png"/>
       </div>
-      <div class="tab tab-width-standard" v-if="currentTab === 2" :class="{'tab-active media-active': currentTab === 2}">
-        <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-src.png"/>
+      <div class="tab tab-width-standard" v-if="currentTab === 1 && mixtapeHeader == ''" :class="{'tab-active media-active': (currentTab === 1 && store.feed === false)}" @click='store.feed = false'>
+        <img class="tab-icon tab-icon-media" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-settings.png"/>
       </div>
-      <a class="tab tab-active current-dir" v-if="store.filter!=''" @click='store.filter = ""'>{{store.filter}}</a>
+      <div class="tab tab-width-standard" v-if="currentTab === 2 && mixtapeHeader == ''" :class="{'tab-active media-active': (currentTab === 2 && store.feed === true)}" @click='store.feed = true'>
+        <img class="tab-icon tab-icon-media" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-src.png"/>
+      </div>
+      <div class="tab tab-width-standard" v-if="currentTab === 2 && mixtapeHeader == ''" :class="{'tab-active media-active': (currentTab === 2 && store.feed === false)}" @click='store.feed = false'>
+        <img class="tab-icon tab-icon-media" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-settings.png"/>
+      </div>
+
       <a class="tab tab-active current-dir" v-if="mixtapeHeader!=''" @click='closeHeader()'>{{mixtapeHeader}}</a>
-      <a class="tab tab-active current-dir" v-if="mixtapeHeader!='' && mixtape != ''" @click='store.editMixtapeBoxView = !this.store.editMixtapeBoxView'>edit</a>
+      <dropdown v-if="store.srcUrlSubset != '' && store.srcUrlSubset != '-1'"/>
+      <a class="tab tab-active current-dir" v-if="store.tags!=''" @click='store.tags = ""'>{{store.tags}}</a>
+      <a class="tab tab-active current-dir" v-if="store.filter!=''" @click='store.filter = ""'>{{store.filter}}</a>
     </div>
     <div class="tabs-r">
       <div v-if="store.mixtape!=''" class="tab tab-active tab-width-standard media-active" @click='store.uploadBoxView = !this.store.uploadBoxView'>
@@ -34,13 +42,16 @@ import { useMixtapeStore } from '@/stores/api/MixtapeStore'
 import { useUserFeedStore } from '@/stores/api/UserFeedStore'
 import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 import { openExpand, toggleExpand } from '@/lib/ResizeContentGrid'
-
+import dropdown from '@/components/menus/dropdown/Dropdown.vue'
 
 import type { mixtapeType } from '@/types/ApiTypes'
 import type { srcUrlSubsetType } from '@/types/ApiTypes'
 
 export default defineComponent({
 // Page Variables
+  components: {
+    dropdown
+  },
   data () {
     return {
       store: GlobalStore(),

@@ -17,13 +17,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 20;
-    height: 40%;
-    width: 70%;
-    max-width:541px;
+    height: 50px;
+    width: 500px;
 
     .editor{
       background: var(--background-lightbox);
-      width: 80%;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -51,8 +49,10 @@
         padding:2px;
       }
       .option:last-child{
-        background: var(--background-lightbox);
         border-left: 1px solid var(--border-primary);
+      }
+      .option:first-child{
+        border-right: 1px solid var(--border-primary);
       }
     }
   }

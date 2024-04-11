@@ -17,16 +17,23 @@
   .tabs-r{
     display: flex;
     justify-content: flex-end;
-    margin-right: 4px;
 
     .tab {
       margin-right: var(--box-margin);
       right: 0;
+
+      .set-btn{
+        padding: var(--box-margin);
+        color: var(--tab-media-icon);
+        display: block;
+        font-size: 29px;
+        margin-top: -7px;
+      }
     }
   }
 }
 .tabs-content{
-  width:calc(100% - 4px)!important;
+  width:calc(100%)!important;
   flex: none;
   min-height: 4px;
   height: fit-content;
@@ -48,7 +55,8 @@
   background: var(--background-primary);
 }
 
-.media-active{
+
+.tab-icon-media {
   filter: hue-rotate(320deg) brightness(1.35);
 }
 
@@ -131,4 +139,5 @@
 .btn-expanded-icon{
   transform: rotate(179deg);
 }
+
 

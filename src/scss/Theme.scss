@@ -1,8 +1,8 @@
 .theme-dark {
   --edge-margin: 2px;
   --color-scheme: dark;
-  --background-primary: #101010;
-  --background-tilt: #101010;
+  --background-primary: #191919;
+  --background-tilt: #191919;
   --background-lightbox: rgba(0, 0, 0, 0.7);
 
   --text-header: #fe7761;
@@ -10,6 +10,10 @@
   --text-data-descr: #DAC181;
   --text-content: rgba(255, 255, 255, 0.86);
   --text-content-descr: rgba(255, 255, 255, 0.6);
+  --text-login:#8a8a8a;
+
+  --tab-nav-icon:#886c27;
+  --tab-media-icon:#bf603e;
 
   --border-primary: #3f3f3f;
   --border-card: #3f3f3fb5;
@@ -32,26 +36,32 @@
   .tab-icon {
     height: calc(100% - 4px);
     width: 100%;
+$navH:33px;
     filter: saturate(1.5) hue-rotate(327deg);
   }
 
   --edge-margin: 2px;
   --color-scheme: light;
-  --background-primary: #e6e6e6;
-  --background-tilt: #e6e6e6;
+  --background-primary: #f5f5f5;
+  --background-tilt: #f5f5f5;
   --background-lightbox: rgba(230, 230, 230, 0.7);
 
   --link: #000;
   --link-visited: #000;
+
   --text-header: #fe7761;
   --text-primary: #000;
   --text-descr: rgba(3, 3, 3, 0.7);
   --text-secondary: #516076;
+  --text-login:#757575;
+
   --border-primary: #535353;
   --border-secondary: #000;
   --border-card: #535353;
   --border-mix: #535353;
 
+  --tab-nav-icon:#886c27;
+  --tab-media-icon:#bf603e;
   --scrollbar: #53535375;
   --size-margin: 8px;
   --box-margin: 4px;
@@ -71,6 +81,8 @@ $navH:33px;
 $devH:100dvh;
 $devW:100dvw;
 
+
+$fg-height: 95px;
 $tableBorder: 1px solid var(--border-primary);
 $cardBorder: 1px solid var(--border-card);
 $dropDownBorder: 3px solid var(--border-primary);

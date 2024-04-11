@@ -6,13 +6,12 @@
 
 <script lang='ts'>
 import { ref, defineComponent, type PropType } from 'vue'
-import VuePdfApp from "vue3-pdf-app";
 import "vue3-pdf-app/dist/icons/main.css";
 
 export default defineComponent({
   name: 'App',
   components: {
-    VuePdfApp
+    VuePdfApp: () => import('vue3-pdf-app')
   },
   props: ['modelValue'],
   data () {

@@ -75,7 +75,9 @@ export interface GlobalStoreType {
   paneSize: number,
   paneSizeOffSet: number,
   viewSettings: boolean,
-  curOptionsTab: number
+  curOptionsTab: number,
+  feed: boolean,
+  tags: string
 }
 
 export interface TreeViewItem {

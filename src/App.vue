@@ -15,9 +15,9 @@ import SessionManager from '@/components/sessionManager/SessionManager.vue'
 import { SessionStore } from "@/stores/SessionStore"
 
 const sessionStore = SessionStore()
+darkSet()
 
 onMounted(() => {
-  darkSet()
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e: MediaQueryListEvent) {
     if (e.matches) {
       localStorage.setItem('darkModeBool', 'true')
@@ -49,6 +49,8 @@ onMounted(() => {
   @import './scss/helpers/AddMixtape.scss';
   @import './scss/helpers/UploadBox.scss';
   @import './scss/helpers/EditView.scss';
+  @import './scss/helpers/Search.scss';
+  @import './scss/helpers/Dropdown.scss';
 
   @import 'overlayscrollbars/overlayscrollbars.css';
   @import 'splitpanes/dist/splitpanes.css';

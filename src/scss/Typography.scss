@@ -1,11 +1,3 @@
-@mixin font($font-family, $font-file) {
-  @font-face {
-    font-family: $font-family;
-    src: url("https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/MS-Gothic-OG.woff2") format("woff2");
-  }
-}
-@include font('ＭＳ Ｐゴシック', 'MSGOTHIC');
-
 * {
   text-rendering: initial;
   font-family: "ＭＳ Ｐゴシック";
@@ -27,7 +19,7 @@
   font-size:14px
 }
 .input-standard{
-  font-size:16px;
+  font-size:14px;
 }
 .cgb-0, .cgb-0-info {
   font-size:13px;
@@ -56,7 +48,7 @@
     font-size:15px;
     line-height:15px;
   }
-.contentMain {
+  .contentMain {
     border-top:0.00001px solid #363638;
   }
 }

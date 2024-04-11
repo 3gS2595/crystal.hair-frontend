@@ -35,7 +35,9 @@ export const useKernalStore = defineStore({
       if (this.kernals.length != 1) {
         this.kernals.push(icon)
       }
-      let params = `?q=${store.filter}&page=${this.pageNumber}&sort=${store.sortBy}`
+      console.log(store.tags)
+      let params = `?q=${store.filter}&feed=${store.feed}&page=${this.pageNumber}&sort=${store.sortBy}`
+      if (store.tags != '') { params = `${params}&tags=${store.tags}` }
       if (store.mixtape != '') { params = `${params}&mixtape=${store.mixtape}` }
       if (store.srcUrlSubset != '') { params = `${params}&src_url_subset_id=${store.srcUrlSubset}` }
       const config = {

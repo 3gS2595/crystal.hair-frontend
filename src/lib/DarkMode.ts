@@ -4,8 +4,9 @@ function darkSet () {
   const app = document.getElementById("app")
   if (app) {
     app.classList.remove(...['theme-light', 'theme-dark'])
-    if (localStorage.getItem('darkModeBool') === 'false' ||
-      (localStorage.getItem('darkModeBool') === 'false' && window.matchMedia('(prefers-color-scheme: light)').matches)
+    if (localStorage.getItem('darkModeBool') === 'false'
+      || (localStorage.getItem('darkModeBool') === 'false' && window.matchMedia('(prefers-color-scheme: light)').matches)
+      || localStorage.getItem("darkModeBool") === null
       ) {
       app.classList.add('theme-light')
       GlobalStore().darkMode = false
@@ -13,7 +14,7 @@ function darkSet () {
     } else {
       app.classList.add('theme-dark')
       GlobalStore().darkMode = true
-      document.getElementsByTagName('html')[0].style.backgroundColor = '#101010'
+      document.getElementsByTagName('html')[0].style.backgroundColor = '#191919'
     }
   }
 }

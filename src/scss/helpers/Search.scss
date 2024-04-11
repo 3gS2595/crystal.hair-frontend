@@ -1,0 +1,17 @@
+.search{
+  border: 1px solid var(--border-primary);
+  margin: 2px;
+  margin-bottom: 0;
+  margin-top: 0;
+
+  .input-standard {
+    border:0;
+    outline:0;
+    background-color: rgba(0,0,0,0);
+    width:100%;
+  }
+
+  .input-standard::placeholder {
+    color: var(--tab-media-icon);
+  }
+}

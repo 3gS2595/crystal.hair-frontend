@@ -2,7 +2,7 @@
 
 .forceGraph{
   padding:var(--edge-margin);
-  flex: 0 1 125px;
+  flex: 0 1 95px;
   margin-right: var(--edge-margin);
   margin-left: var(--edge-margin);
   border: $tableBorder;
@@ -17,12 +17,12 @@
     .scene-container{
       max-width:100%!important;
       width:100%!important;
-      height:125px!important;
+      height:$fg-height!important;
 
       canvas{
         max-width:100%!important;
         width:100%!important;
-        height:125px!important;
+        height:$fg-height!important;
       }
     }
   }

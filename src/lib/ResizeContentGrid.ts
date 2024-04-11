@@ -6,42 +6,40 @@ import { useKernalStore } from '@/stores/api/KernalStore'
 import type { kernalType } from '@/types/ApiTypes'
 
 function resizeContentFit () {
-  const min_pane_left =(window.innerWidth < 400) ? 146 : 203
+  const min_pane_left =(window.innerWidth < 400) ? 116 : 203
   const cgb_width = GlobalStore().cgbWidth
-  const scroll_width = 0
-  let cgb_margin = 6
-  const cgb = document.querySelector('.cgb-0')
-  if (cgb != null) {
-    const width  = window.getComputedStyle(cgb).marginRight
-    cgb_margin = Number(width.substring(0, width.length - 2)) * 2
+  const scroll_width = 4
+  let cgb_margin = 4
+  if (GlobalStore().paneSize === 0 ){
+    const max_cont_width = window.innerWidth - scroll_width - (cgb_margin + 2)
+    const extra_width = max_cont_width % (cgb_width + (cgb_margin))
+    const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
+    GlobalStore().setCgbWidthSized(GlobalStore().cgbWidth + (extra_width / Math.trunc(tt)))
   }
-    if (GlobalStore().paneSize === 0 ){
-      const max_cont_width = window.innerWidth - scroll_width - (cgb_margin + 7)
-      const extra_width = max_cont_width % (cgb_width + (cgb_margin))
-      const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
-      GlobalStore().setCgbWidthSized(GlobalStore().cgbWidth + (extra_width / Math.trunc(tt)))
-    }
-    else {
-      const max_cont_width = window.innerWidth - min_pane_left - scroll_width - (cgb_margin)
-      const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 9
-      const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
-      const content_width_percent = (max_cont_width) / window.innerWidth
-      const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
-      GlobalStore().paneSizeOffSet = (offset_size)
-      GlobalStore().setCgbWidthSized(GlobalStore().cgbWidth + (extra_width / Math.trunc(tt)))
-    }
+  else {
+    const max_cont_width = window.innerWidth - min_pane_left - scroll_width - (cgb_margin)
+    const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 9
+    const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
+    const content_width_percent = (max_cont_width) / window.innerWidth
+    const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
+    GlobalStore().paneSizeOffSet = (offset_size)
+    GlobalStore().setCgbWidthSized(GlobalStore().cgbWidth + (extra_width / Math.trunc(tt)))
+  }
 }
 
 function stepContentFit (step: number) {
   const el = document.getElementById('app')
   const cgb_width = GlobalStore().cgbWidth
-  let cgb_margin =  5
-  let scroll_width = 5
+  let cgb_margin =  4
+  let scroll_width = 4
   let min_pane_left =(window.innerWidth < 400) ? 146 : 203
   if ( el != null) {
-    const max_cont_width = el.offsetWidth - min_pane_left - scroll_width - (cgb_margin) - 20
-    const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 18
+    const max_cont_width = el.offsetWidth - min_pane_left - scroll_width - (cgb_margin)
+    const extra_width = max_cont_width % (cgb_width + (cgb_margin))
     const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
+    console.log(extra_width)
+    console.log(max_cont_width)
+    console.log(tt)
     if(step + Math.trunc(tt) >= 1){
       const fitWidth = (max_cont_width - (step + Math.trunc(tt)) * cgb_margin) / (step + Math.trunc(tt))
       GlobalStore().cgbWidth = fitWidth - (GlobalStore().cgbWidthSized - GlobalStore().cgbWidth)

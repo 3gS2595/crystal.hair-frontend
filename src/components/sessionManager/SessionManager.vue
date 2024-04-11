@@ -23,11 +23,11 @@
     <div class='login-ui'>
 
       <form @submit.prevent='onLogin' class='login-form'>
-        <input class='login-form-email' type='text' v-model='loginEmail' placeholder='username' autocapitalize="off" />
+        <input class='login-form-email' type='text' v-model='loginEmail' placeholder='ID:' autocapitalize="off" />
         <br />
-        <input class='login-form-password' type='password' v-model='loginPassword' placeholder='password' />
+        <input class='login-form-password' type='password' v-model='loginPassword' placeholder='PW:' />
         <br />
-        <input type='submit' value='Login' class='login-form-submit' />
+        <input type='submit' value='NEXT' class='login-form-submit' />
       </form>
 
     </div>

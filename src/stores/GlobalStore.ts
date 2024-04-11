@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import type { GlobalStoreType } from '@/types/index'
 const defaultState = <GlobalStoreType>{
   // dark mode
-  darkMode : true,
+  darkMode : false,
 
   // display toggles
   uploadBoxView : false,
@@ -27,6 +27,8 @@ const defaultState = <GlobalStoreType>{
   sortBy : 'time_posted desc',
   sortByValue : ['time_posted', 'time_scraped'],
   sortByOrder : 'desc',
+  feed: true,
+  tags: '',
 
   currentTab: 1,
   paneSizeTemp: 0,

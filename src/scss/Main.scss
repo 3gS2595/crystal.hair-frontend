@@ -28,7 +28,7 @@ html, body{
 }
 
 .input-standard::placeholder {
-  color: var(--text-header);
+  color: var(--text-data-title);
   opacity: 0.51;
 }
 
@@ -59,6 +59,7 @@ html, body{
 .os-scrollbar-horizontal{
   display:none;
 }
+
 
 // Global Variables
 $tableBorder: 1px solid var(--border-primary);

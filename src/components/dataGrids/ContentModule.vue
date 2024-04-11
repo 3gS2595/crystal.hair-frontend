@@ -29,7 +29,6 @@
             </template>
           </vue-load-image>
 
-          <div v-if="setInfo(slotProps.data) != ''" class="cgb-0-info">{{setInfo(slotProps.data)}}</div>
 
         </div>
       </template>

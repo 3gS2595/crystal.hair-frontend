@@ -48,7 +48,7 @@ const props = defineProps<{
 }>()
 
 const search = (e) => {
-  if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) { closeExpand() }
+  //if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) { closeExpand() }
   if(JSON.stringify(store.srcUrlSubset) === JSON.stringify(e)) {
     store.srcUrlSubset = '-1'
   }else {

@@ -7,9 +7,8 @@
     </div>
   </div>
 
-  <div  class="forceGraph" >
-
-    <ForceGraph :forceGraph="forceGraph" :mixtapes="mixtapes" :connections_mix="connections_mix"/>
+  <div class="search">
+    <input class='input-standard text-main-0' v-model="q" placeholder="search" @keyup.enter="search(q)" />
   </div>
 
   <div class="advanced-pane">
@@ -17,7 +16,8 @@
       <Settings v-if="store.viewSettings"/>
     </div>
   </div>
-    <AdvancedTabs/>
+  <AdvancedTabs/>
+
 </template>
 
 <script lang="ts">
@@ -25,11 +25,10 @@ import { defineComponent } from 'vue'
 
 import { darkToggle, darkSet } from '@/lib/DarkMode'
 import { toggleExpand } from '@/lib/ResizeContentGrid'
-import ForceGraph from '@/components/forceGraph/ForceGraph.vue'
 import MixtapeModule from '@/components/dataGrids/MixtapeModule.vue'
 import ScrapersModule from '@/components/dataGrids/ScrapersModule.vue'
-import NavPaneTabs from '@/components/tabs/NavPaneTabs.vue'
-import AdvancedTabs from '@/components/tabs/AdvancedTabs.vue'
+import NavPaneTabs from '@/components/tabs/NavPaneTabsTop.vue'
+import AdvancedTabs from '@/components/tabs/NavPaneTabsBot.vue'
 import Settings from '@/components/menus/Settings.vue'
 
 import { storeToRefs } from 'pinia'
@@ -43,19 +42,23 @@ export default defineComponent({
   components: {
     MixtapeModule,
     ScrapersModule,
-    ForceGraph,
     NavPaneTabs,
     Settings,
     AdvancedTabs
   },
 
   methods: {
-    toggleExpand
+    toggleExpand,
+    search: function (e: string) {
+      this.store.filter = e
+      this.q = ''
+    }
   },
 
 // Page Variables
   data () {
     return {
+      q: '',
       store: GlobalStore(),
       apiStore: ApiStore(),
     }
