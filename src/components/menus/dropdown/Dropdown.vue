@@ -17,7 +17,6 @@ import DropdownButton from "@/components/menus/dropdown/DropDownButton.vue"
 import DropdownContent from "@/components/menus/dropdown/DropDownContent.vue"
 import DropdownItem from "@/components/menus/dropdown/DropDownItem.vue"
 
-// postprocessingo
 // iconography = 00a6701a-2459-4b35-a9aa-4a5465b91045
 // iconography_99 = 0e2899ff-8341-4b3a-8ca8-a2d39e5798a0
 // iconography_90 = cfd2eabe-6573-4c2a-ae07-5d5ba35bda93

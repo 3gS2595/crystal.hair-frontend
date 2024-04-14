@@ -27,7 +27,6 @@ export const ApiStore = defineStore({
         useKernalStore().fetchKernals()
       ])
       useConnectionsStore().fetchConnections()
-
     },
 
     async update () {
@@ -77,7 +76,9 @@ watch(
     globalStore.srcUrlSubset
   ],
   () => {
-    if (SessionStore().auth_token != null) ApiStore().update()
+    if (SessionStore().auth_token != null) {
+      ApiStore().update()
+    }
   }
 )
 

@@ -75,8 +75,8 @@ export const useKernalStore = defineStore({
     async deleteKernal (uuid: string) {
       const config = {headers: { Authorization: SessionStore().auth_token }}
       try {
-        await axios.delete( `${url}/${uuid}`, config)
         this.kernals = this.kernals.filter(item => item.id !== uuid)
+        await axios.delete( `${url}/${uuid}`, config)
         useConnectionsStore().fetchConnections()
       } catch (e) { console.error(e) }
     },

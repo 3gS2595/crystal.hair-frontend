@@ -9,7 +9,7 @@
   </transition>
 </template>
 
-<script lang='ts'>
+<script>
 export default {
   name: "AppDropdownContent",
   inject: ["sharedState"],
@@ -20,16 +20,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.dropdown-content-enter-active,
-.dropdown-content-leave-active {
-  transition: all 0.2s;
-}
-.dropdown-content-enter,
-.dropdown-content-leave-to {
-  opacity: 0;
-  transform: translateY(-5px);
-}
-</style>
-

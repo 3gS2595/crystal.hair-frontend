@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script>
 import { directive } from 'vue3-click-away'
 
 export default {

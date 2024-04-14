@@ -25,7 +25,6 @@ import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 import { storeToRefs } from 'pinia'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { useMixtapeStore } from '@/stores/api/MixtapeStore'
-const store = GlobalStore()
 export default defineComponent({
   data(): EditMixtapeBoxState {
     return {
@@ -44,14 +43,14 @@ export default defineComponent({
       } else if (this.store.mixtape != '') {
         useMixtapeStore().deleteMixtape(this.store.mixtape);
       }
-      this.store.viewSettings = !this.store.viewSettings
+      this.store.editMixtapeBoxView = false
     },
     submitFile () {
       useMixtapeStore().patchMixtape(GlobalStore().mixtape, this.title)
-      store.editMixtapeBoxView = false
+      this.store.editMixtapeBoxView = false
     },
     close () {
-      store.editMixtapeBoxView = false
+      this.store.editMixtapeBoxView = false
     }
   },
   directives: {

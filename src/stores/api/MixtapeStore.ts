@@ -35,8 +35,9 @@ export const useMixtapeStore = defineStore({
 
     async addMixtape(title: string) {
       try {
+        GlobalStore().addMixtapeBoxView = false
         const mix = (await axios.post(`${base}?name=${title}`, {}, auth.value)).data
-        await useConnectionsStore().fetchConnections()
+        useConnectionsStore().fetchConnections()
         this.mixtapes.unshift(mix)
         GlobalStore().mixtape = mix.id
       } catch (e) { console.error(e) }
@@ -44,21 +45,17 @@ export const useMixtapeStore = defineStore({
 
     async deleteMixtape (uuid: string) {
       try {
-        await axios.delete( `${base}/` + uuid, auth.value)
-        await useConnectionsStore().fetchConnections()
-        this.mixtapes.splice(this.mixtapes.findIndex(function(i){
-            return i.id === uuid
-        }), 1)
         GlobalStore().mixtape = ''
+        this.mixtapes = this.mixtapes.filter(i => i.id !== uuid);
+        axios.delete( `${base}/` + uuid, auth.value)
+        useConnectionsStore().fetchConnections()
       } catch (e) { console.error(e) }
     },
 
     async patchMixtape (uuid: string, title: string) {
       try {
         const mix = (await axios.patch( `${base}/` + uuid + '?name=' + title, {}, auth.value)).data
-        this.mixtapes.splice(this.mixtapes.findIndex(function(i){
-            return i.id === uuid
-        }), 1)
+        this.mixtapes = this.mixtapes.filter(i => i.id !== uuid);
         this.mixtapes.unshift(mix)
       } catch (e) { console.error(e) }
     },

@@ -57,7 +57,7 @@
 
 
 .tab-icon-media {
-  filter: hue-rotate(320deg) brightness(1.35);
+  filter: hue-rotate(320deg) brightness(1.35)!important;
 }
 
 .tab-content-nav{
@@ -88,6 +88,7 @@
 .tab-icon {
   height: calc(100% - 4px);
   width: 100%;
+  filter: hue-rotate(158deg) brightness(1.88);
 }
 
 .tab-width-standard {

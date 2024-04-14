@@ -97,15 +97,13 @@ const blockCnt = (content_id) => {
   return null
 }
 const deleteBlock = () => {
+  useKernalStore().deleteKernal(props.modelValue.id)
   let id = props.modelValue.id
-  console.log(GlobalStore().lightBoxIndex)
-  console.log(kernals.value.length - 1)
   if(GlobalStore().lightBoxIndex === kernals.value.length - 1 && kernals.value.length - 1 > 0) {
     GlobalStore().lightBoxIndex = GlobalStore().lightBoxIndex - 1
   }
   if (kernals.value.length - 1 === 0) {
     GlobalStore().closeViewer()
   }
-  useKernalStore().deleteKernal(props.modelValue.id)
 }
 </script>
