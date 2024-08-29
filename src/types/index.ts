@@ -23,7 +23,6 @@ export interface EditMixtapeBoxState {
 export interface AddSrcUrlSubset {
   store: any,
   url: any,
-  name: any
 }
 
 export interface InputFileEvent extends Event {

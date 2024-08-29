@@ -20,15 +20,15 @@ export default defineComponent({
     LightBox,
     MediaPaneTabs
   },
+  data () {
+    return {
+      store: GlobalStore()
+    }
+  },
   setup () {
     if(window.innerWidth < 400){
       GlobalStore().cgbWidth = 86
       GlobalStore().cgbWidthSized = 60
-    }
-  },
-  data () {
-    return {
-      store: GlobalStore()
     }
   }
 })

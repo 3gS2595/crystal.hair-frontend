@@ -17,6 +17,7 @@ const store = GlobalStore()
 const loading_icon = "https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif"
 const icon = {
   id: "page-load",
+  file_type: "img",
   signed_url: loading_icon,
   signed_url_s: loading_icon,
   signed_url_m: loading_icon,
@@ -35,7 +36,6 @@ export const useKernalStore = defineStore({
       if (this.kernals.length != 1) {
         this.kernals.push(icon)
       }
-      console.log(store.tags)
       let params = `?q=${store.filter}&feed=${store.feed}&page=${this.pageNumber}&sort=${store.sortBy}`
       if (store.tags != '') { params = `${params}&tags=${store.tags}` }
       if (store.mixtape != '') { params = `${params}&mixtape=${store.mixtape}` }
@@ -46,9 +46,9 @@ export const useKernalStore = defineStore({
       }
       try {
         const kernals = await axios.get(url + params, config)
+        this.kernals = this.kernals.filter(item => item.signed_url_s !== loading_icon)
         this.kernals = this.kernals.concat(kernals.data)
       } catch (e) { console.error(e) }
-      this.kernals = this.kernals.filter(item => item.signed_url_s !== loading_icon)
       this.pageNumber++
     },
 

@@ -1,12 +1,16 @@
+.default-theme{
+  background-color: var(--background-primary)!important;
+}
+
 .theme-dark {
   --edge-margin: 2px;
   --color-scheme: dark;
-  --background-primary: #191919;
-  --background-tilt: #191919;
+  --background-primary: #111111;
+  --background-tilt: #111111;
   --background-lightbox: rgba(0, 0, 0, 0.7);
 
   --text-header: #fe7761;
-  --text-data-title: #d66a3f;
+  --text-data-title: #ffa885;
   --text-data-descr: #DAC181;
   --text-content: rgba(255, 255, 255, 0.86);
   --text-content-descr: rgba(255, 255, 255, 0.6);
@@ -19,27 +23,26 @@
   --border-card: #3f3f3fb5;
   --border-mix: #57576088;
   --border-secondary: #696967;
+  --border-overlay: #9b8845;
 
   --scrollbar: #9eff2299;
   --size-margin: 8px;
   --box-margin: 4px;
+
+  .mix-feed-icon {
+    filter: saturate(1) hue-rotate(245deg);
+  }
   .cgb-0{
     .vue-load-image{
       .thumbnail{
         //filter: brightness(.85) contrast(1);
       }
     }
+
   }
 }
 
 .theme-light {
-  .tab-icon {
-    height: calc(100% - 4px);
-    width: 100%;
-$navH:33px;
-    filter: saturate(1.5) hue-rotate(327deg);
-  }
-
   --edge-margin: 2px;
   --color-scheme: light;
   --background-primary: #f5f5f5;
@@ -59,86 +62,33 @@ $navH:33px;
   --border-secondary: #000;
   --border-card: #535353;
   --border-mix: #535353;
+  --border-overlay: #9b8845;
 
   --tab-nav-icon:#886c27;
   --tab-media-icon:#bf603e;
-  --scrollbar: #53535375;
+
+  --scrollbar: #b100d3;
   --size-margin: 8px;
   --box-margin: 4px;
+
+  .tab-icon {
+    filter: saturate(1.5) hue-rotate(327deg);
+  }
+  .mix-feed-icon {
+    filter: saturate(1) hue-rotate(213deg);
+  }
 }
 
+
+// Text Colors
 .text-main-0{
   color: var(--text-data-title);
 }
 .text-main-1{
   color: var(--text-data-descr);
 }
-.default-theme{
-  background-color: var(--background-primary)!important;
+.text-content-0{
+  color: var(--text-content-descr);
 }
 
-$navH:33px;
-$devH:100dvh;
-$devW:100dvw;
-
-
-$fg-height: 95px;
-$tableBorder: 1px solid var(--border-primary);
-$cardBorder: 1px solid var(--border-card);
-$dropDownBorder: 3px solid var(--border-primary);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// CUSTOM IOS/SAFARI NOTCH SIZING
-$iosTop: env(safe-area-inset-top, 0px);
-:root {
-  --sat: env(safe-area-inset-top);
-  --sar: env(safe-area-inset-right);
-  --sab: env(safe-area-inset-bottom);
-  --sal: env(safe-area-inset-left);
-}
-.ios1{
-  margin-left:1px!important;
-  margin-left:39px!important;
-  width: calc(#{$devW} - 42px)!important;
-  border-bottom-left-radius: 0pt!important;
-  border-bottom-right-radius: 34pt!important;
-}
-.ios2{
-  margin-left:1px!important;
-  margin-right:39px!important;
-  width: calc(#{$devW} - 42px)!important;
-  border-bottom-left-radius: 34pt!important;
-  border-bottom-right-radius: 0pt!important;
-}
-.ios3{
-  margin-left:1px!important;
-  width: calc(#{$devW} - 4px)!important;
-  border-bottom-left-radius: 34pt!important;
-  border-bottom-right-radius: 34pt!important;
-}
-.ios4{
-  margin-left:1px!important;
-  margin-right:1px!important;
-  width: calc(#{$devW} - 4px)!important;
-  border-bottom-left-radius: 0pt!important;
-  border-bottom-right-radius: 0pt!important;
-}
 

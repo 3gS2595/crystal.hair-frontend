@@ -9,7 +9,7 @@ function resizeContentFit () {
   const min_pane_left =(window.innerWidth < 400) ? 116 : 203
   const cgb_width = GlobalStore().cgbWidth
   const scroll_width = 4
-  let cgb_margin = 4
+  let cgb_margin = 4.2
   if (GlobalStore().paneSize === 0 ){
     const max_cont_width = window.innerWidth - scroll_width - (cgb_margin + 2)
     const extra_width = max_cont_width % (cgb_width + (cgb_margin))
@@ -61,6 +61,7 @@ function resize (size: number) {
 
 // SRCSET IMAGE SELECTION ACCORDING TO CARD SIZE
 function setSize (k: kernalType) {
+  console.log(k.signed_url_m)
   const images = <HTMLCollectionOf<HTMLDivElement>> document.getElementsByClassName('cgb-0');
   if (images[0] !== undefined) {
     const width = images[0].offsetWidth
@@ -73,6 +74,8 @@ function setSize (k: kernalType) {
     } else {
       return k.signed_url_s;
     }
+  } else {
+    return k.signed_url_s
   }
 }
 function resizeSrc() {

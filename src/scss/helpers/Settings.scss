@@ -14,14 +14,17 @@
       position: relative;
       margin: 2px;
       /* margin-left: var(--edge-margin); */
-      border: 1px solid var(--border-primary);
       border-bottom: 0;
+      border: 1px solid var(--scrollbar);
 
       .set-btn{
         padding: var(--box-margin);
-        color: var(--text-data-title);
+        color: var(--scrollbar);
         display: block;
-      border-bottom: 1px solid var(--border-primary);
+        border-bottom: 1px solid var(--scrollbar);
+      }
+      .set-btn:last-child{
+        border-bottom: none;
       }
     }
   }

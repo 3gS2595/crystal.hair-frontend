@@ -34,14 +34,13 @@ export const useSrcUrlSubsetStore = defineStore({
       catch (e) {console.error(e)}
     },
 
-    async addSrcUrlSubset(url: string, name:string) {
+    async addSrcUrlSubset(url: string) {
       const config = {
         headers: { 'Content-Type': 'multipart/form-data', Authorization: SessionStore().auth_token }
       }
       let formData = new FormData();
       formData.append('url', url)
-      formData.append('name', name)
-      if(url !== '' && name !== '') {
+      if(url !== '') {
         try {
           const [ src ] = await Promise.all([
             axios.post( SessionStore().getUrlRails + 'src_url_subsets', formData, config)
@@ -61,7 +60,7 @@ export const useSrcUrlSubsetStore = defineStore({
         this.srcUrlSubsets.splice(this.srcUrlSubsets.findIndex(function(i){
             return i.id === uuid
         }), 1)
-        store.srcUrlSubset = ''
+        store.srcUrlSubset = '-1'
       } catch (e) {console.error(e)}
     },
     reset() {

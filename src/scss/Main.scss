@@ -61,10 +61,59 @@ html, body{
 }
 
 
+
 // Global Variables
 $tableBorder: 1px solid var(--border-primary);
 $cardBorder: 1px solid var(--border-card);
 $dropDownBorder: 3px solid var(--border-primary);
+
+$navH:33px;
+$devH:100dvh;
+$devW:100dvw;
+
+$fg-height: 95px;
+$tableBorder: 1px solid var(--border-primary);
+$cardBorder: 1px solid var(--border-card);
+$dropDownBorder: 3px solid var(--border-primary);
+
+
+
+// CUSTOM IOS/SAFARI NOTCH SIZING
+$iosTop: env(safe-area-inset-top, 0px);
+:root {
+  --sat: env(safe-area-inset-top);
+  --sar: env(safe-area-inset-right);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+}
+.ios1{
+  margin-left:1px!important;
+  margin-left:39px!important;
+  width: calc(#{$devW} - 42px)!important;
+  border-bottom-left-radius: 0pt!important;
+  border-bottom-right-radius: 34pt!important;
+}
+.ios2{
+  margin-left:1px!important;
+  margin-right:39px!important;
+  width: calc(#{$devW} - 42px)!important;
+  border-bottom-left-radius: 34pt!important;
+  border-bottom-right-radius: 0pt!important;
+}
+.ios3{
+  margin-left:1px!important;
+  width: calc(#{$devW} - 4px)!important;
+  border-bottom-left-radius: 34pt!important;
+  border-bottom-right-radius: 34pt!important;
+}
+.ios4{
+  margin-left:1px!important;
+  margin-right:1px!important;
+  width: calc(#{$devW} - 4px)!important;
+  border-bottom-left-radius: 0pt!important;
+  border-bottom-right-radius: 0pt!important;
+}
+
 
 
 

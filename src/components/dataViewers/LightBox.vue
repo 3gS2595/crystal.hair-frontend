@@ -1,5 +1,5 @@
 <template>
-  <div class ='lightbox'>
+  <div class='lightbox'>
     <vue-resizable
       class='resizable'
       ref='resizableComponent'
@@ -50,109 +50,101 @@
   </div>
 </template>
 
-<script lang='ts'>
-import type { kernalType } from '@/types/ApiTypes'
-
-import { ref, defineComponent, type PropType } from 'vue'
+<script setup lang='ts'>
+import { ref, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import VueResizable from 'vue-resizable'
-
 import ViewText from './viewers/TextEditor.vue'
 import ViewPdf from './viewers/ViewPdf.vue'
 import ViewImg from './viewers/ViewImg.vue'
 import ViewInfo from './viewers/ViewInfo.vue'
-import axios, { type AxiosInstance, type CancelTokenStatic } from 'axios'
-
 import { GlobalStore } from '@/stores/GlobalStore'
 import { useKernalStore } from '@/stores/api/KernalStore'
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    VueResizable,
-    ViewText,
-    ViewPdf,
-    ViewImg,
-    ViewInfo
-  },
-  setup () {
-    const { kernals } = storeToRefs(useKernalStore())
-    return { kernals }
-  },
-  data () {
-    return {
-      left: 5,
-      top: 5,
-      height: window.innerHeight - 10,
-      width: window.innerWidth - 11,
-      maxW: window.innerWidth - 10,
-      maxH: window.innerHeight - 10,
-      event: '',
-      dragSelector: '.drag-container-1',
-      viewInfo:false,
-      store: GlobalStore()
-    }
-  },
-  methods: {
-    esc (e: KeyboardEvent) {
-      if(document.getElementsByClassName('tiptap')[0] != document.activeElement) {
-        if (e.key === 'Escape') {
-          if(this.viewInfo == true){
-            this.viewInfo = false
-          } else {
-            this.close()
-          }
-        } else if (e.key === 'ArrowRight') {
-          this.next()
-        } else if (e.key === 'ArrowLeft') {
-          this.prev()
-        }
-      } else {
-        if (e.key === 'Escape') {
-          (document.getElementsByClassName('tiptap')[0] as HTMLElement).blur()
-        }
-      }
-    },
-    close () {
-      GlobalStore().closeViewer()
-      this.viewInfo = false
-      window.removeEventListener('keyup', this.esc, true)
-    },
-    next () {
-      if ((GlobalStore().lightBoxIndex + 1) <= (this.kernals.length -1)) {
-        GlobalStore().lightBoxIndex = GlobalStore().lightBoxIndex + 1
-      }
-    },
-    prev () {
-      if ((GlobalStore().lightBoxIndex - 1) >= 0) {
-        GlobalStore().lightBoxIndex = GlobalStore().lightBoxIndex - 1
-      }
-    },
-    eHandler () {
-      this.maxW = window.innerWidth
-      this.maxH = window.innerHeight
-    },
-    res () {
-      window.addEventListener('resize', this.orientationChange)
-      window.addEventListener('orientationchange', this.orientationChange)
-      window.addEventListener('keyup', this.esc, true)
-      this.orientationChange()
-    },
-    orientationChange () {
-      const orientation = window.orientation
-      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-        if (orientation === 0) {
-          this.width = window.innerWidth - 11
-          this.height = window.innerHeight - 10
-        } else if (orientation === 90 || orientation === -90) {
-          this.width = window.innerWidth - 11
-          this.height = window.innerHeight - 10
-        }
-      } else {
-        this.width = window.innerWidth - 11
-        this.height = window.innerHeight - 10
-      }
-    },
+const store = GlobalStore()
+const { kernals } = storeToRefs(useKernalStore())
+
+const left = ref(5)
+const top = ref(5)
+const height = ref(window.innerHeight - 10)
+const width = ref(window.innerWidth - 11)
+const maxW = ref(window.innerWidth - 10)
+const maxH = ref(window.innerHeight - 10)
+const dragSelector = '.drag-container-1'
+const viewInfo = ref(false)
+
+const close = () => {
+  store.closeViewer()
+  viewInfo.value = false
+  window.removeEventListener('keyup', keyIn, true)
+}
+
+const next = () => {
+  if ((GlobalStore().lightBoxIndex + 1) <= (kernals.value.length -1)) {
+    store.lightBoxIndex = store.lightBoxIndex + 1
   }
+}
+const prev = () => {
+  if ((store.lightBoxIndex - 1) >= 0) {
+    store.lightBoxIndex = store.lightBoxIndex - 1
+  }
+}
+
+const eHandler = () => {
+  maxW.value = window.innerWidth
+  maxH.value = window.innerHeight
+}
+
+const res = () => {
+  window.addEventListener('resize', orientationChange)
+  window.addEventListener('orientationchange', orientationChange)
+  window.addEventListener('keyup', keyIn, true)
+  orientationChange()
+}
+
+const orientationChange = () => {
+  const orientation = window.orientation
+  if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+    if (orientation === 0) {
+      width.value = window.innerWidth - 11
+      height.value = window.innerHeight - 10
+    } else if (orientation === 90 || orientation === -90) {
+      width.value = window.innerWidth - 11
+      height.value = window.innerHeight - 10
+    }
+  } else {
+    width.value = window.innerWidth - 11
+    height.value = window.innerHeight - 10
+  }
+}
+
+const keyIn = (e: KeyboardEvent) => {
+  if (document.getElementsByClassName('tiptap')[0] != document.activeElement) {
+    if (e.key === 'Escape') {
+      if (viewInfo.value == true) {
+        viewInfo.value = false
+      } else {
+        close()
+      }
+    } else if (e.key === 'ArrowRight') {
+      next()
+    } else if (e.key === 'ArrowLeft') {
+      prev()
+    }
+  } else {
+    if (e.key === 'Escape') {
+      (document.getElementsByClassName('tiptap')[0] as HTMLElement).blur()
+    }
+  }
+}
+
+onMounted(() => {
+  res()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', orientationChange)
+  window.removeEventListener('orientationchange', orientationChange)
+  window.removeEventListener('keyup', keyIn, true)
 })
 </script>

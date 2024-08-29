@@ -17,7 +17,7 @@
       </div>
 
       <a class="tab tab-active current-dir" v-if="mixtapeHeader!=''" @click='closeHeader()'>{{mixtapeHeader}}</a>
-      <dropdown v-if="store.srcUrlSubset != '' && store.srcUrlSubset != '-1'"/>
+      <dropdown />
       <a class="tab tab-active current-dir" v-if="store.tags!=''" @click='store.tags = ""'>{{store.tags}}</a>
       <a class="tab tab-active current-dir" v-if="store.filter!=''" @click='store.filter = ""'>{{store.filter}}</a>
     </div>

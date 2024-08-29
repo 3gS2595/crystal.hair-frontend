@@ -69,12 +69,17 @@
   }
 }
 
+.cont-load{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 
 
 
 .tab-content-kernal{
   [data-overlayscrollbars=host], [data-overlayscrollbars=viewport] {
-        height: calc(100% + 4px) !important;
+    height: calc(100% + 4px) !important;
     border: $tableBorder!important;
     margin-top: -4px;
   }
@@ -95,7 +100,7 @@
     z-index:10;
 }
 .os-theme-dark {
-  --os-handle-bg: #9eff2299!important;
+  --os-handle-bg: var(--scrollbar) !important;
 }
 .os-scrollbar .os-scrollbar-handle {
     border-radius: 0!important;

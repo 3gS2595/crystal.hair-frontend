@@ -2,17 +2,15 @@
   <div class ='upload-box'>
     <div class='block'>
       <div class="uploader">
-        <div class="txt">
-          <editor-content :editor="editor" id="textEditor" />
-        </div>
+        <editor-content :editor="editor" id="textEditor" />
         <label id="fileSelect">
           <input v-show="editorEmpty" type="file" class="customFileInput file-upload input-standard text-main-0" @change="handleFileUpload( $event )"/>
         </label>
       </div>
 
       <div class='drag-container-1'>
-       <a class='navItem' @click='close'>exit</a>
-       <a class='navItem' @click='submitFile()'>submit</a>
+       <a class='option text-main-0 edit-opt' @click='close'>exit</a>
+       <a class='option text-main-0 edit-opt' @click='submitFile()'>submit</a>
       </div>
 
     </div>

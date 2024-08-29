@@ -1,7 +1,7 @@
 * {
   text-rendering: initial;
-  font-family: "ＭＳ Ｐゴシック";
-  font-weight:100;
+  font-family: "ＭＳ Ｐゴシック" !important;
+  font-weight:10;
   color: var(--text-content);
   text-decoration: none;
   box-sizing: border-box;
@@ -19,7 +19,7 @@
   font-size:14px
 }
 .input-standard{
-  font-size:14px;
+  font-size:18px;
 }
 .cgb-0, .cgb-0-info {
   font-size:13px;

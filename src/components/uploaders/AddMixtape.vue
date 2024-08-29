@@ -1,13 +1,15 @@
 <template>
-    <div class='add-mixtape' v-click-away='close' >
-      <div class="uploader">
-        <div class="add-mixtape-title">
-          <input class="input-standard text-main-0" placeholder="enter title" v-model="title">
-        </div>
-        <div class='add-mixtape-options'>
-          <a class='option text-main-0' @click='submitFile()'>save</a>
-        </div>
+  <div class='overlay' >
+    <div class='edit-mixtape' v-click-away='close'>
+      <div class="add-mixtape-title">
+        <a class="input-name text-main-0 edit-opt">id:</a>
+        <input class="input-standard text-main-0 edit-opt" placeholder="null" v-model="title">
       </div>
+      <div class='add-mixtape-options'>
+        <a class="option text-main-0 edit-opt" @click='close'>exit</a>
+        <a class='option text-main-0 edit-opt' @click='submitFile()'>save</a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -36,9 +38,18 @@ export default defineComponent({
       useMixtapeStore().addMixtape(this.title)
       close()
     },
+    esc (e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        this.close()
+      }
+    },
     close () {
       store.addMixtapeBoxView = false
+      window.removeEventListener('keyup', this.esc, true)
     }
+  },
+  mounted() {
+    window.addEventListener('keyup', this.esc, true)
   }
 })
 </script>

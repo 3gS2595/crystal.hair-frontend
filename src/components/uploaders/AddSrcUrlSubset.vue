@@ -1,15 +1,13 @@
 <template>
- <div class='add-overlay' >
-    <div class='add-mixtape' v-click-away='close' >
-      <div class="uploader">
-        <div class="add-mixtape-title">
-          <input class="input-standard text-main-0" placeholder="enter url" v-model="url">
-          <input class="input-standard text-main-0" placeholder="enter name" v-model="name">
-        </div>
-        <div class='add-mixtape-options'>
-         <a class='option text-main-0' @click='close'>exit</a>
-         <a class='option text-main-0' @click='submitFile()'>save</a>
-        </div>
+  <div class='overlay' >
+    <div class='edit-mixtape' v-click-away='close'>
+      <div class="add-mixtape-title">
+        <a class="input-name text-main-0 edit-opt">url:</a>
+        <input class="input-standard text-main-0 edit-opt" placeholder="null" v-model="url">
+      </div>
+      <div class='add-mixtape-options'>
+        <a class="option text-main-0 edit-opt" @click='close'>exit</a>
+        <a class='option text-main-0 edit-opt' @click='submitFile()'>save</a>
       </div>
     </div>
   </div>
@@ -30,7 +28,6 @@ export default defineComponent({
     return {
       store: GlobalStore(),
       url: ref(""),
-      name: ref("")
     }
   },
   directives: {
@@ -38,12 +35,21 @@ export default defineComponent({
   },
   methods: {
     submitFile () {
-      useSrcUrlSubsetStore().addSrcUrlSubset(this.url, this.name)
+      useSrcUrlSubsetStore().addSrcUrlSubset(this.url)
       close()
+    },
+    esc (e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        this.close()
+      }
     },
     close () {
       store.addSrcUrlSubset = false
+      window.removeEventListener('keyup', this.esc, true)
     }
+  },
+  mounted() {
+    window.addEventListener('keyup', this.esc, true)
   }
 })
 </script>

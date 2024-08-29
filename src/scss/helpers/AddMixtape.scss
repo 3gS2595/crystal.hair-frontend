@@ -10,10 +10,11 @@
     position: relative;
     padding-top: 1px;
 
+
     .uploader{
       background: var(--background-lightbox);
       position: relative;
-      border: 1px solid var(--border-primary);
+      border: 1px solid var(--border-overlay);
       display: flex;
       padding-top: 1px;
       margin: 2px;
@@ -42,7 +43,6 @@
       }
       .option:last-child{
         background: var(--background-lightbox);
-        border-left: 1px solid var(--border-primary);
       }
     }
   }
