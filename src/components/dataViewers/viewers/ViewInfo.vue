@@ -14,11 +14,29 @@
       <div class="infoBox"><a class="info-title">file_name: </a>{{modelValue.file_name}}</div>
       <div class="infoBox"><a class="info-title">file_type: </a>{{modelValue.file_type}}</div>
       <div class="infoBox"><a class="info-title">file_path: </a>{{modelValue.file_path}}</div>
+      <a class="infoBox" :href="modelValue.signed_url" target="_blank"><a class="info-title">file_link: </a>{{modelValue.signed_url}}</a>
       <div class="infoBox"><a class="info-title">id: </a>{{modelValue.id}}</div>
       <div class="infoBox"><a class="info-title">src_url: </a>{{modelValue.src_url}}</div>
       <div class="infoBox"><a class="info-title">src_url_subset: </a>{{modelValue.src_url_subset_id}}</div>
       <div class="infoBox"></div>
       <div class="infoBox"></div>
+<!--
+      <div class="infoBox" v-if="modelValue.id !== null"><a class="info-title">id: </a>{{modelValue.id}}</div>
+      <a class="infoBox" v-if="modelValue.url !== null" :href="modelValue.url" target="_blank"><a class="info-title">url: </a>{{convertUrl(modelValue.url)}}</a>
+      <div class="infoBox" v-if="modelValue.description !== null"><a class="info-title">description: </a>{{modelValue.description}}</div>
+      <div class="infoBox" v-if="modelValue.author !== null"><a class="info-title">author: </a>{{modelValue.author}}</div>
+      <div class="infoBox" v-if="modelValue.key_words !== null"><a class="info-title">key_words: </a>{{modelValue.key_words}}</div>
+      <div class="infoBox" v-if="modelValue.hashtags.length > 0"><a class="info-title">hashtags: </a>{{modelValue.hashtags}}</div>
+      <div class="infoBox" v-if="modelValue.likes.length > 0"><a class="info-title">likes: </a> {{modelValue.likes}}</div>
+      <div class="infoBox" v-if="modelValue.reposts.length > 0"><a class="info-title">reposts: </a>{{modelValue.reposts}}</div>
+      <div class="infoBox" v-if="modelValue.file_name !== null"><a class="info-title">file_name: </a>{{modelValue.file_name}}</div>
+      <div class="infoBox" v-if="modelValue.file_type !== null"><a class="info-title">file_type: </a>{{modelValue.file_type}}</div>
+      <a class="infoBox" :href="modelValue.signed_url" target="_blank"><a class="info-title">file_link: </a>{{modelValue.signed_url}}</a>
+      <div class="infoBox" v-if="modelValue.time_posted !== null"><a class="info-title">time_posted: </a>{{modelValue.time_posted}}</div>
+      <div class="infoBox" v-if="modelValue.created_at !== null"><a class="info-title">created_at: </a>{{modelValue.created_at}}</div>
+      <div class="infoBox"></div>
+      <div class="infoBox"></div>
+-->
     <a class='delete' style="margin-top:-.5px;" @click='deleteBlock(modelValue.id)'>Destroy Kernal</a>
     </div>
     <div class="mixCol">

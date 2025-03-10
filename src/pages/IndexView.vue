@@ -1,8 +1,6 @@
 <template>
   <div class='contentMain' id="contentMain">
-    <splitpanes class="default-theme"
-      @resize="paneSize = $event[0].size; "
-    >
+    <splitpanes class="default-theme" @resize="paneSize = $event[0].size">
       <pane id="main-l" :size="paneSize + paneSizeOffSet">
         <navPane/>
       </pane>
@@ -14,14 +12,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, defineAsyncComponent } from 'vue'
+import { defineComponent } from 'vue'
 import { Splitpanes, Pane } from 'splitpanes'
 
 import { storeToRefs } from 'pinia'
 import { ApiStore } from '@/stores/ApiStore'
 import { GlobalStore } from '@/stores/GlobalStore'
 
-import { resizeContentFit } from '@/lib/ResizeContentGrid'
 import mediaPane from '@/components/MediaPane.vue'
 import navPane from '@/components/NavPane.vue'
 

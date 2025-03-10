@@ -11,6 +11,8 @@ const defaultState = <GlobalStoreType>{
   addSrcUrlSubset : false,
   editMixtapeBoxView : false,
   addMixtapeBoxView : false,
+  addFolderBoxView : false,
+  addMixToFolderView : false,
   viewSettings: false,
   curOptionsTab: 0,
 
@@ -29,11 +31,13 @@ const defaultState = <GlobalStoreType>{
   sortByOrder : 'desc',
   feed: true,
   tags: '',
+  folder: '',
 
   currentTab: 1,
   paneSizeTemp: 0,
-  paneSize: 30.0,
+  paneSize: 55.0,
   paneSizeOffSet: 0.0,
+  navWidth: 225
 }
 
 export const GlobalStore = defineStore({

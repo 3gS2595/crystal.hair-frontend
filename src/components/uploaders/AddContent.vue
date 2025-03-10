@@ -4,10 +4,10 @@
       <div class="uploader">
         <editor-content :editor="editor" id="textEditor" />
         <label id="fileSelect">
-          <input v-show="editorEmpty" type="file" class="customFileInput file-upload input-standard text-main-0" @change="handleFileUpload( $event )"/>
+            <button class="customFileInput file-upload input-standard text-main-0" onclick="document.getElementById('getFile').click()">upload</button>
+            <input type='file' id="getFile" style="display:none" @change="handleFileUpload( $event )">
         </label>
       </div>
-
       <div class='drag-container-1'>
        <a class='option text-main-0 edit-opt' @click='close'>exit</a>
        <a class='option text-main-0 edit-opt' @click='submitFile()'>submit</a>

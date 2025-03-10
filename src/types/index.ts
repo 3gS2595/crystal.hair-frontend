@@ -20,6 +20,10 @@ export interface EditMixtapeBoxState {
   store: any,
 }
 
+export interface AddFolderBoxState {
+  store: any,
+  title: any
+}
 export interface AddSrcUrlSubset {
   store: any,
   url: any,
@@ -54,7 +58,9 @@ export interface GlobalStoreType {
   darkMode : boolean,
   editMixtapeBoxView : boolean,
   addMixtapeBoxView : boolean,
+  addFolderBoxView : boolean,
   addSrcUrlSubset : boolean,
+  addMixToFolderView : boolean,
   lightBoxView : boolean,
   lightBoxIndex : number,
   uploadBoxView : boolean,
@@ -65,6 +71,7 @@ export interface GlobalStoreType {
   cgbWidthSized :number,
   filter : string,
   mixtape : string,
+  folder : string,
   srcUrlSubset : string,
   sortBy : string,
   sortByValue : string[],
@@ -76,7 +83,8 @@ export interface GlobalStoreType {
   viewSettings: boolean,
   curOptionsTab: number,
   feed: boolean,
-  tags: string
+  tags: string,
+  navWidth: number
 }
 
 export interface TreeViewItem {

@@ -18,6 +18,7 @@
 
       <a class="tab tab-active current-dir" v-if="mixtapeHeader!=''" @click='closeHeader()'>{{mixtapeHeader}}</a>
       <dropdown />
+      <appendFolderBox />
       <a class="tab tab-active current-dir" v-if="store.tags!=''" @click='store.tags = ""'>{{store.tags}}</a>
       <a class="tab tab-active current-dir" v-if="store.filter!=''" @click='store.filter = ""'>{{store.filter}}</a>
     </div>
@@ -43,6 +44,7 @@ import { useUserFeedStore } from '@/stores/api/UserFeedStore'
 import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 import { openExpand, toggleExpand } from '@/lib/ResizeContentGrid'
 import dropdown from '@/components/menus/dropdown/Dropdown.vue'
+import appendFolderBox from '@/components/menus/dropdown/AppendFolderBox.vue'
 
 import type { mixtapeType } from '@/types/ApiTypes'
 import type { srcUrlSubsetType } from '@/types/ApiTypes'
@@ -50,7 +52,8 @@ import type { srcUrlSubsetType } from '@/types/ApiTypes'
 export default defineComponent({
 // Page Variables
   components: {
-    dropdown
+    dropdown,
+    appendFolderBox
   },
   data () {
     return {

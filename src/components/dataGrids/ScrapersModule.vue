@@ -1,6 +1,5 @@
 <template>
   <AddSrcUrlSubset v-if='store.addSrcUrlSubset'/>
-  <EditMixtapeBox v-if="store.editMixtapeBoxView" />
 
   <OverlayScrollbarsComponent defer>
     <DataView class='dg-0' :value="srcUrlSubsets" :layout="list" >

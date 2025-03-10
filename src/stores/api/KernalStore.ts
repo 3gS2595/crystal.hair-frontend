@@ -38,6 +38,7 @@ export const useKernalStore = defineStore({
       }
       let params = `?q=${store.filter}&feed=${store.feed}&page=${this.pageNumber}&sort=${store.sortBy}`
       if (store.tags != '') { params = `${params}&tags=${store.tags}` }
+      if (store.folder != '') { params = `${params}&folder=${store.folder}` }
       if (store.mixtape != '') { params = `${params}&mixtape=${store.mixtape}` }
       if (store.srcUrlSubset != '') { params = `${params}&src_url_subset_id=${store.srcUrlSubset}` }
       const config = {

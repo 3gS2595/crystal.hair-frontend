@@ -127,7 +127,7 @@ onMounted(() => {
   window.addEventListener('resize', resizeContentFit)
   resizeContentFit()
 
-  const targetNode = document.getElementsByClassName('p-grid')[props.id]
+  const targetNode = document.getElementsByClassName('p-grid')[0]
   if (targetNode instanceof HTMLElement) {
     new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
   }

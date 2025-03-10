@@ -4,7 +4,6 @@
       class='resizable'
       ref='resizableComponent'
       :dragSelector='dragSelector'
-      :active='handlers'
       :fit-parent='true'
       :max-width='maxW'
       :max-height='maxH'

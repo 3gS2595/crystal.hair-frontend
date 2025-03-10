@@ -6,6 +6,7 @@ import { GlobalStore } from '@/stores/GlobalStore'
 import { useForceGraphStore } from '@/stores/api/ForceGraphStore'
 import { useKernalStore } from '@/stores/api/KernalStore'
 import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+import { useFolderStore } from '@/stores/api/FolderStore'
 import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 import { useConnectionsStore } from '@/stores/api/connectionsStore'
 import { useUserFeedStore } from '@/stores/api/UserFeedStore'
@@ -20,11 +21,12 @@ export const ApiStore = defineStore({
     async initialize () {
       await Promise.all([
         useUserFeedStore().fetchUserFeed(),
-        useMixtapeStore().fetchMixtapes(),
-        useSrcUrlSubsetStore().fetchSrcUrlSubsets(),
+        useFolderStore().fetchFolders(),
+        useSrcUrlSubsetStore().fetchSrcUrlSubsets()
       ])
       await Promise.all([
-        useKernalStore().fetchKernals()
+        useKernalStore().fetchKernals(),
+        useMixtapeStore().fetchMixtapes()
       ])
       useConnectionsStore().fetchConnections()
     },
@@ -43,10 +45,10 @@ export const ApiStore = defineStore({
 
     async reset () {
       this.abortRequests()
-      GlobalStore().$reset()
       useConnectionsStore().$reset()
       useUserFeedStore().$reset()
       useMixtapeStore().$reset()
+      useFolderStore().$reset()
       useSrcUrlSubsetStore().$reset()
       useKernalStore().$reset()
     },

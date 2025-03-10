@@ -1,5 +1,5 @@
 <template>
-  <LightBox v-if='store.lightBoxView' :viewerData="kernals"/>
+  <LightBox v-if='store.lightBoxView'/>
 
   <MediaPaneTabs/>
   <div class="tab-content-kernal">

@@ -6,7 +6,7 @@ import { useKernalStore } from '@/stores/api/KernalStore'
 import type { kernalType } from '@/types/ApiTypes'
 
 function resizeContentFit () {
-  const min_pane_left =(window.innerWidth < 400) ? 116 : 203
+  const min_pane_left =(window.innerWidth < 400) ? 116 : GlobalStore().navWidth
   const cgb_width = GlobalStore().cgbWidth
   const scroll_width = 4
   let cgb_margin = 4.2
@@ -21,7 +21,7 @@ function resizeContentFit () {
     const extra_width = max_cont_width % (cgb_width + (cgb_margin)) - 9
     const tt = (max_cont_width  - extra_width) / (cgb_width + (cgb_margin))
     const content_width_percent = (max_cont_width) / window.innerWidth
-    const offset_size = ((-1 * (content_width_percent - 1)) - .3) * 100
+    const offset_size = ((-1 * (content_width_percent - 1)) - .55) * 100
     GlobalStore().paneSizeOffSet = (offset_size)
     GlobalStore().setCgbWidthSized(GlobalStore().cgbWidth + (extra_width / Math.trunc(tt)))
   }
@@ -32,7 +32,7 @@ function stepContentFit (step: number) {
   const cgb_width = GlobalStore().cgbWidth
   let cgb_margin =  4
   let scroll_width = 4
-  let min_pane_left =(window.innerWidth < 400) ? 146 : 203
+  let min_pane_left =(window.innerWidth < 400) ? 146 : GlobalStore().navWidth
   if ( el != null) {
     const max_cont_width = el.offsetWidth - min_pane_left - scroll_width - (cgb_margin)
     const extra_width = max_cont_width % (cgb_width + (cgb_margin))
@@ -61,7 +61,6 @@ function resize (size: number) {
 
 // SRCSET IMAGE SELECTION ACCORDING TO CARD SIZE
 function setSize (k: kernalType) {
-  console.log(k.signed_url_m)
   const images = <HTMLCollectionOf<HTMLDivElement>> document.getElementsByClassName('cgb-0');
   if (images[0] !== undefined) {
     const width = images[0].offsetWidth
@@ -98,18 +97,18 @@ function resizeSrc() {
   }
 }
 function toggleExpand() {
-  if ( GlobalStore().paneSize == 30.0) {
+  if ( GlobalStore().paneSize == 35.0) {
     GlobalStore().paneSize = 0.0
     GlobalStore().paneSizeTemp = GlobalStore().paneSizeOffSet
     GlobalStore().paneSizeOffSet = 0.0
   } else {
-    GlobalStore().paneSize = 30.0
+    GlobalStore().paneSize = 35.0
     GlobalStore().paneSizeOffSet = GlobalStore().paneSizeTemp
   }
   resizeContentFit()
 }
 function openExpand() {
-  GlobalStore().paneSize = 30.0
+  GlobalStore().paneSize = 35.0
   GlobalStore().paneSizeOffSet = GlobalStore().paneSizeTemp
   resizeContentFit()
 }

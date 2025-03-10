@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="tabs-r">
-      <div class="tab tab-active tab-width-standard" v-if="currentTab == 1" @click='store.addMixtapeBoxView = !this.store.addMixtapeBoxView'>
+      <div class="tab tab-active tab-width-standard" v-if="currentTab == 1" @click='store.addFolderBoxView = !this.store.addFolderBoxView'>
         <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"/>
       </div>
       <div class="tab tab-active tab-width-standard" v-if="currentTab == 2" @click='store.addSrcUrlSubset = !this.store.addSrcUrlSubset'>

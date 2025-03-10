@@ -7,6 +7,7 @@ import { defineStore } from 'pinia'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { SessionStore } from '@/stores/SessionStore'
 import { useConnectionsStore } from '@/stores/api/connectionsStore'
+import { useFolderStore } from '@/stores/api/FolderStore'
 
 const base = SessionStore().getUrlRails + 'mixtapes'
 const defaultState = {
@@ -16,7 +17,13 @@ const defaultState = {
     content_id: '',
     created_at: new Date(),
     updated_at: new Date()
-  }] as mixtapeType[]
+  }] as mixtapeType[],
+  mixtapeTree: [
+    {
+      text: 'loading...',
+      children: [{}]
+    }
+  ]
 }
 const auth = computed({
   get() {return { headers: {"Authorization" : SessionStore().auth_token}}},
@@ -30,6 +37,24 @@ export const useMixtapeStore = defineStore({
     async fetchMixtapes () {
       try {
         this.mixtapes = (await axios.get(base, auth.value)).data
+        this.mixtapeTree = []
+        if (useFolderStore().folders != null){
+          for (const fold of useFolderStore().folders) {
+            this.mixtapeTree.push({text: fold.name, children: []})
+            for (const mix of fold.contains) {
+              if (this.mixtapes.findIndex(x => x.id === mix) != -1) {
+                let name = this.mixtapes[this.mixtapes.findIndex(x => x.id === mix)].name;
+                this.mixtapeTree[this.mixtapeTree.length - 1].children.push({text: name, indent: 30})
+              }
+            }
+          }
+        }
+        this.mixtapeTree.push({text: 'mixtapes', children: []})
+        if (this.mixtapes != null){
+          for (const mix of this.mixtapes) {
+            this.mixtapeTree[this.mixtapeTree.length - 1].children.push({text: mix.name})
+          }
+        }
       } catch (e) { console.error(e) }
     },
 

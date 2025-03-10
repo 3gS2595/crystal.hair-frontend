@@ -2,7 +2,7 @@
   <div class="pane-nav">
     <NavPaneTabs/>
     <div class="tab-content-nav">
-      <MixtapeModule v-if='currentTab === 1'/>
+      <MixtapeTreeModule :treeData='mixtapeStore.mixtapeTree' v-if='currentTab === 1'/>
       <ScrapersModule :id="0" v-if='currentTab === 2'/>
     </div>
   </div>
@@ -26,6 +26,7 @@ import { defineComponent } from 'vue'
 import { darkToggle, darkSet } from '@/lib/DarkMode'
 import { toggleExpand } from '@/lib/ResizeContentGrid'
 import MixtapeModule from '@/components/dataGrids/MixtapeModule.vue'
+import MixtapeTreeModule from '@/components/dataGrids/MixtapeTreeModule.vue'
 import ScrapersModule from '@/components/dataGrids/ScrapersModule.vue'
 import NavPaneTabs from '@/components/tabs/NavPaneTabsTop.vue'
 import AdvancedTabs from '@/components/tabs/NavPaneTabsBot.vue'
@@ -39,6 +40,7 @@ import { useMixtapeStore } from '@/stores/api/MixtapeStore'
 
 export default defineComponent({
   components: {
+    MixtapeTreeModule,
     MixtapeModule,
     ScrapersModule,
     NavPaneTabs,
@@ -51,6 +53,7 @@ export default defineComponent({
     return {
       q: '',
       store: GlobalStore(),
+      mixtapeStore: useMixtapeStore()
     }
   },
 

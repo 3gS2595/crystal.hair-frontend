@@ -1,13 +1,14 @@
 <template>
-  <AddMixtapeBox v-if='store.addMixtapeBoxView'/>
-  <EditMixtapeBox v-if="store.editMixtapeBoxView" />
+  <AddMixtapeBox v-if='store.addFolderBoxView'/>
+  <AddFolderBox v-if='store.addFolderBoxView'/>
+  <EditMixtapeBox v-if="store.editMixtapeBoxView"/>
 
   <OverlayScrollbarsComponent defer>
     <AddMixtapeBox v-if="store.addMixtapeBoxView" />
     <DataView class="dg-0" :value="mixtapeStore.mixtapes" layout="list">
       <template #list="slotProps">
         <div v-if="slotProps.data.id === 'page-0'" class="nav-loader">
-          <img class="nav-loader-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif" />
+          <img class="nav-loader-icon mix-loader" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif" />
         </div>
         <div v-else @click="search(slotProps.data.id)" class="dgb-nav">
           <div class="dgb-title">
@@ -40,6 +41,7 @@ import { useConnectionsStore } from '@/stores/api/connectionsStore'
 import { useUserFeedStore } from '@/stores/api/UserFeedStore'
 import { GlobalStore } from '@/stores/GlobalStore'
 import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
+import AddFolderBox from '@/components/uploaders/AddFolder.vue'
 import EditMixtapeBox from '@/components/dataEditors/EditBox.vue'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
 import DataView from 'primevue/dataview'

@@ -28,6 +28,7 @@
   --scrollbar: #9eff2299;
   --size-margin: 8px;
   --box-margin: 4px;
+  --tree-arrow: #ff668c;
 
   .mix-feed-icon {
     filter: saturate(1) hue-rotate(245deg);
@@ -70,6 +71,7 @@
   --scrollbar: #b100d3;
   --size-margin: 8px;
   --box-margin: 4px;
+  --tree-arrow: #b100d3;
 
   .tab-icon {
     filter: saturate(1.5) hue-rotate(327deg);
@@ -91,4 +93,13 @@
   color: var(--text-content-descr);
 }
 
+.mtl-ml{
+  color: var(--text-data-title);
+}
+svg{
+  fill: var(--tree-arrow);
+}
 
+.tree-line {
+    background-color: var(--tree-arrow) !important;
+}
