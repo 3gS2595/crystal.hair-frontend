@@ -19,8 +19,7 @@
 </template>
 
 <script lang='ts'>
-  import { ref, onMounted, onUnmounted } from 'vue'
-  import { BaseTree, Draggable, pro, OpenIcon } from '@he-tree/vue'
+  import { Draggable, OpenIcon } from '@he-tree/vue'
   import '@he-tree/vue/style/default.css'
   import '@he-tree/vue/style/material-design.css'
   import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
