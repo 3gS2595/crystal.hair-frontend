@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
 import { watch } from 'vue'
-
 import { SessionStore } from '@/stores/SessionStore'
 import { GlobalStore } from '@/stores/GlobalStore'
-import { useForceGraphStore } from '@/stores/api/ForceGraphStore'
+
 import { useKernalStore } from '@/stores/api/KernalStore'
 import { useMixtapeStore } from '@/stores/api/MixtapeStore'
 import { useFolderStore } from '@/stores/api/FolderStore'
@@ -64,6 +63,7 @@ watch(
     globalStore.mixtape
   ],
   () => {
+    useKernalStore().$reset()
     if (SessionStore().auth_token != null) {
       ApiStore().update()
     }

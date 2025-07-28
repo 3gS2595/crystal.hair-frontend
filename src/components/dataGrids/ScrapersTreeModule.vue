@@ -24,12 +24,12 @@
                 src="https://crystal-hair.nyc3.digitaloceanspaces.com/feed.png"
               />
             </div>
-            <div>
-              <a class="descr descr-r font-s-descr text-main-0" >
-                {{ convertDate(node.content_id) }}
+            <div v-if="!stat.children.length">
+             <a class="descr descr-r font-s-descr text-main-0" >
+                {{ convertDate(node.time_last_entry) }}
               </a>
               <a class="descr descr-l font-s-descr text text-main-0">
-                {{ convertCount(blockCnt(node.content_id)) }}
+                {{ blockCnt(node.contents) }}
               </a>
             </div>
           </div>
@@ -65,33 +65,24 @@ const feedCheck = (mixtapeId: string): boolean => {
   return userFeedStore.user_feed.feed_mixtape.includes(mixtapeId)
 }
 
-// Function to get the number of blocks in a mixtape
-const blockCnt = (contentId: string): number | null => {
-  const content = connectionsStore.connections_mix.find(i => i.id === contentId)
-  return content ? content.contains.length : null
-}
-
-// Convert count to a string in the format {count} or ' ' if null
-const convertCount = (count: number | null): string => {
-  return count != null ? `{${count}}` : ' '
+function blockCnt(content_id: string ): string {
+  const contents = connectionsStore.connections_src.find(i => i.id === content_id)
+  return contents ? `{${contents.contains[0]}}` : ''
 }
 
 // Convert date to a string in the format {DD: HH: MM}
 const convertDate = (contentId: string): string => {
-  const connection = connectionsStore.connections_mix.find(i => i.id === contentId)
-  if (connection?.updated_at) {
-    const datetime = new Date(connection.updated_at)
+    const datetime = new Date(contentId)
     const now = new Date()
     const days = Math.floor((now.getTime() - datetime.getTime()) / (1000 * 60 * 60 * 24))
     const hours = Math.floor((now.getTime() - datetime.getTime()) / (1000 * 60 * 60) - days * 24)
     const minutes = Math.floor((now.getTime() - datetime.getTime()) / (1000 * 60) - hours * 60 - days * 24 * 60)
     return `{${days.toString().padStart(2, '0')}: ${hours.toString().padStart(2, '0')}: ${minutes.toString().padStart(2, '0')}}`
-  }
-  return ''
 }
 
-// Function to search for a mixtape by its ID
-function search(id: string) {
-  store.mixtape = store.mixtape === id ? '' : id
+// Methods
+function search(e: string ): void {
+  store.srcUrlSubset = store.srcUrlSubset === e ? '-1' : e
+  console.log(e)
 }
 </script>

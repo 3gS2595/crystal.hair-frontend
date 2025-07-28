@@ -1,4 +1,4 @@
-@import "../Theme";
+@use "../Main" as Main;
 
 .pane-nav{
   margin: var(--box-margin);
@@ -26,8 +26,8 @@
 
   .os-scrollbar-vertical {
     left: 0;
-    border-right: $tableBorder!important;
-    border-top: $tableBorder!important;
+    border-right: Main.$tableBorder!important;
+    border-top: Main.$tableBorder!important;
   }
 
   .os-scrollbar-vertical .os-scrollbar-handle {
@@ -46,10 +46,8 @@
   .p-dataview, .p-dataview-content{
     height: 100%;
     z-index: 10;
-    position: sticky;
 
     .grid{
-      position: relative;
       z-index: 5;
       max-height: calc(100% );
       display: flex;
@@ -65,12 +63,15 @@
     cursor: pointer;
     padding-bottom: 1px;
     padding-left: 1px;
-    border: $cardBorder;
+    border: Main.$cardBorder;
     width: calc(100% - 8px);
     margin: 2px;
-    /* margin-top: 4px; */
     margin-left: 6px;
     margin-bottom: 0px;
+    display:flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    margin:0 !important;
 
     .dgb-title{
       display: flex;
@@ -135,19 +136,16 @@
   cursor: pointer;
   padding-bottom: 1px;
   padding-left: 1px;
-  border: $cardBorder;
+  border: Main.$cardBorder;
   width: calc(100% - 8px);
   margin: 2px;
   /* margin-top: 4px; */
   margin-left: 6px;
   margin-bottom: 0px;
   margin-top: 4px;
-
-  .nav-loader-icon{
-    height: 100%;
-    width: auto;
-
-  }
+}
+.nav-loader-icon{
+  width: 100%;
 }
 .mix-loader{
   left: 50%;
@@ -193,4 +191,25 @@
 .mtl-tree .tree-node {
   margin-left: calc(2 * var(--box-margin))!important;
 }
+.has-children:first-child{
+  margin-top:2px;
+}
+.has-children{
+  max-width: 100%;
+  border:1px solid var(--tree-arrow) !important;
 
+  display: flex !important;
+  .dgb-nav{
+    border: none !important;
+  }
+}
+.he-tree__open-icon{
+  border: none !important;
+}
+.he-tree__open-icon:not(.open){
+    margin-right: 1px;
+  svg{
+    margin-top: 4px;
+    margin-left: 3px;
+  }
+}

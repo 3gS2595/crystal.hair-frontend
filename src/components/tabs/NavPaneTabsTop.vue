@@ -1,63 +1,87 @@
 <template>
   <div class="tabs tabs-content">
     <div class="tabs-l">
-      <div class="tab tab-width-standard" :class="{'tab-active': currentTab === 1}" @click='currentTab = 1; changeTab()'>
-        <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-mix.png"/>
+      <div
+        class="tab tab-width-standard"
+        :class="{ 'tab-active': currentTab === 1 }"
+        @click="setTab(1)"
+      >
+        <img
+          class="tab-icon"
+          src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-mix.png"
+        />
       </div>
-      <div class="tab tab-width-standard" :class="{'tab-active': currentTab === 2}" @click='currentTab = 2; changeTab()'>
-        <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-src.png"/>
+      <div
+        class="tab tab-width-standard"
+        :class="{ 'tab-active': currentTab === 2 }"
+        @click="setTab(2)"
+      >
+        <img
+          class="tab-icon"
+          src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-src.png"
+        />
       </div>
     </div>
     <div class="tabs-r">
-      <div class="tab tab-active tab-width-standard" v-if="currentTab == 1" @click='store.addFolderBoxView = !this.store.addFolderBoxView'>
-        <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"/>
+      <div
+        class="tab tab-active tab-width-standard"
+        v-if="currentTab === 1"
+        @click="store.addMixtapeBoxView = !store.addFolderBoxView"
+      >
+        <img
+          class="tab-icon"
+          src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"
+        />
       </div>
-      <div class="tab tab-active tab-width-standard" v-if="currentTab == 2" @click='store.addSrcUrlSubset = !this.store.addSrcUrlSubset'>
-        <img class="tab-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"/>
+      <div
+        class="tab tab-active tab-width-standard"
+        v-if="currentTab === 2"
+        @click="store.addSrcUrlSubset = !store.addSrcUrlSubset"
+      >
+        <img
+          class="tab-icon"
+          src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"
+        />
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { ApiStore } from '@/stores/ApiStore'
 import { GlobalStore } from '@/stores/GlobalStore'
 
-export default defineComponent({
-// Page Variables
-  data () {
-    return {
-      store: GlobalStore(),
-      apiStore: ApiStore(),
-      searchValue: ''
-    }
-  },
+const store = GlobalStore()
+const apiStore = ApiStore()
+const searchValue = ref('')
 
-  // Page Lifecycle hooks
-  setup () {
-    const { currentTab } = storeToRefs(GlobalStore());
-    return { currentTab }
-  },
+const { currentTab } = storeToRefs(store)
 
-// Page Methods
-  methods: {
-    changeTab () {
-      this.store.srcUrlSubset = ""
-      this.store.mixtape = ""
-      if (this.store.mixtape == "" && (this.store.srcUrlSubset == "-1" || this.store.srcUrlSubset == "")) {
-        if (this.currentTab === 1){
-          this.store.srcUrlSubset = ""
-        } else if (this.currentTab === 2){
-          this.store.srcUrlSubset = "-1"
-        }
-      }
-    },
-    search: function (e: string) {
-      this.store.filter = e
-      this.searchValue = ''
+function changeTab() {
+  store.srcUrlSubset = ''
+  store.mixtape = ''
+  if (
+    store.mixtape === '' &&
+    (store.srcUrlSubset === '-1' || store.srcUrlSubset === '')
+  ) {
+    if (currentTab.value === 1) {
+      store.srcUrlSubset = ''
+    } else if (currentTab.value === 2) {
+      store.srcUrlSubset = '-1'
     }
   }
-})
+}
+
+function setTab(tab: number) {
+  currentTab.value = tab
+  changeTab()
+}
+
+function search(e: string) {
+  store.filter = e
+  searchValue.value = ''
+}
 </script>
+

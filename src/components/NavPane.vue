@@ -1,77 +1,49 @@
 <template>
   <div class="pane-nav">
-    <NavPaneTabs/>
+    <NavPaneTabs />
     <div class="tab-content-nav">
-      <MixtapeTreeModule :treeData='mixtapeStore.mixtapeTree' v-if='currentTab === 1'/>
-      <ScrapersModule :id="0" v-if='currentTab === 2'/>
+      <MixtapeTreeModule :treeData="mixtapeStore.mixtapeTree" v-if="currentTab === 1" />
+      <ScrapersTreeModule :treeData="srcUrlSubsetStore.srcUrlTree" v-if="currentTab === 2" />
     </div>
   </div>
 
-  <div class="search">
-    <input class='input-standard text-main-0' v-model="q" placeholder="search" @keyup.enter="search(q)" />
-  </div>
 
   <div class="advanced-pane">
-    <div class='advanced-pane-inner'>
+    <div class="advanced-pane-inner">
       <Settings />
     </div>
   </div>
-  <AdvancedTabs/>
-
+  <AdvancedTabs />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
-import { darkToggle, darkSet } from '@/lib/DarkMode'
-import { toggleExpand } from '@/lib/ResizeContentGrid'
-import MixtapeModule from '@/components/dataGrids/MixtapeModule.vue'
 import MixtapeTreeModule from '@/components/dataGrids/MixtapeTreeModule.vue'
-import ScrapersModule from '@/components/dataGrids/ScrapersModule.vue'
+import ScrapersTreeModule from '@/components/dataGrids/ScrapersTreeModule.vue'
 import NavPaneTabs from '@/components/tabs/NavPaneTabsTop.vue'
 import AdvancedTabs from '@/components/tabs/NavPaneTabsBot.vue'
 import Settings from '@/components/menus/Settings.vue'
 
-import { storeToRefs } from 'pinia'
 import { GlobalStore } from '@/stores/GlobalStore'
-import { useForceGraphStore } from '@/stores/api/ForceGraphStore'
-import { useConnectionsStore } from '@/stores/api/connectionsStore'
 import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 
-export default defineComponent({
-  components: {
-    MixtapeTreeModule,
-    MixtapeModule,
-    ScrapersModule,
-    NavPaneTabs,
-    Settings,
-    AdvancedTabs
-  },
+// Reactive search input
+const q = ref('')
 
-// Page Variables
-  data () {
-    return {
-      q: '',
-      store: GlobalStore(),
-      mixtapeStore: useMixtapeStore()
-    }
-  },
+// Access stores
+const store = GlobalStore()
+const mixtapeStore = useMixtapeStore()
+const srcUrlSubsetStore = useSrcUrlSubsetStore()
 
-// Page Lifecycle hooks
-  setup () {
-    const { connections_mix } = storeToRefs(useConnectionsStore())
-    const { forceGraph } = storeToRefs(useForceGraphStore())
-    const { mixtapes } = storeToRefs(useMixtapeStore())
-    const { currentTab, paneSize } = storeToRefs(GlobalStore());
-    return { currentTab, connections_mix, forceGraph, mixtapes, paneSize}
-  },
+const { currentTab } = storeToRefs(store)
 
-  methods: {
-    toggleExpand,
-    search: function (e: string) {
-      this.store.filter = e
-      this.q = ''
-    }
-  }
-})
+// Search method
+function search(e: string) {
+  store.filter = e
+  q.value = ''
+}
 </script>
+

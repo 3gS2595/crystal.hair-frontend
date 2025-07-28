@@ -1,20 +1,20 @@
-@import "./Theme";
+@use './Main' as Main;
 
 *{
   -webkit-text-size-adjust: 100%;
 }
 *::-webkit-scrollbar-track {
   max-width:var(--box-margin);
-  border-left: $tableBorder;
-  border-top: $tableBorder;
-  border-bottom: $tableBorder;
+  border-left: Main.$tableBorder;
+  border-top: Main.$tableBorder;
+  border-bottom: Main.$tableBorder;
 }
 *::-webkit-scrollbar-thumb {
-  border-top: $tableBorder;
-  border-bottom: $tableBorder;
+  border-top: Main.$tableBorder;
+  border-bottom: Main.$tableBorder;
   background-color: var(--scrollbar);
   background-clip: content-box;
-  border-left: $tableBorder;
+  border-left: Main.$tableBorder;
 
 }
 *::-webkit-scrollbar {

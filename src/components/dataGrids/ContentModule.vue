@@ -8,28 +8,31 @@
       @drop.prevent="dragInFile"
       @dragenter.prevent
       @dragover.prevent
-      @paste.prevent="pasteInFile()"
+      @paste.prevent="pasteInFile($event)"
     >
       <template #grid="slotProps">
-        <div v-if="slotProps.data.id === 'page-load'" class="nav-loader cont-load">
-          <img class="nav-loader-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif" />
-        </div>
-
-        <div v-else class="cgb-0" @click="toggleLightBox(slotProps.index)">
-          <div class="cgb-0-txt" v-if="slotProps.data.file_type === '.txt'">
-            <a class="text-content-0">{{ slotProps.data.description }}</a>
+        <div class="grid">
+          <div v-for="(item, index) in slotProps.items" :key="index" class="cgb-0" @click="toggleLightBox(index)">
+            <div v-if="item.id === 'page-load'" class="cont-load">
+              <img class="nav-loader-icon" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif" />
+            </div>
+            <div v-else>
+              <div class="cgb-0-txt" v-if="item.file_type === '.txt'">
+                <a class="text-content-0">{{ item.description }}</a>
+              </div>
+              <vue-load-image v-else>
+                <template v-slot:image>
+                  <img :id="item.id" class="thumbnail" :src="setSize(item)"/>
+                </template>
+                <template v-slot:preloader>
+                  <div class="loading"/>
+                </template>
+                <template v-slot:error>
+                  <div>*Image load error</div>
+                </template>
+              </vue-load-image>
+            </div>
           </div>
-          <vue-load-image v-else>
-            <template v-slot:image>
-              <img :id="`${slotProps.data.id}`" class="thumbnail" :src="setSize(slotProps.data)"/>
-            </template>
-            <template v-slot:preloader>
-              <div class="loading"/>
-            </template>
-            <template v-slot:error>
-              <div>*Image load error</div>
-            </template>
-          </vue-load-image>
         </div>
       </template>
     </DataView>
@@ -37,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
 import VueLoadImage from 'vue-load-image'
@@ -50,40 +53,21 @@ import AddContentBox from '@/components/uploaders/AddContent.vue'
 import { setSize, resizeContentFit } from '@/lib/ResizeContentGrid'
 import { dragInFile, pasteInFile } from '@/lib/UploadKernal'
 
-import type { kernalType } from '@/types/ApiTypes'
-
 // Props
 const props = defineProps<{ id: number }>()
 
-// Store references
+// Reactive references
 const store = GlobalStore()
+const kernalStore = useKernalStore()
 const { kernals, pageNumber } = storeToRefs(useKernalStore())
-const { cgbWidth, uploadBoxView } = storeToRefs(store)
+const { uploadBoxView } = storeToRefs(store)
 
-/**
- * Toggles the lightbox view.
- * @param {number} index - Index of the kernal.
- */
+// Reactive state for lightbox
 const toggleLightBox = (index: number) => {
   if (store.lightBoxIndex === -1) {
     store.lightBoxView = !store.lightBoxView
   }
   store.lightBoxIndex = index
-}
-
-/**
- * Sets the information text for the kernal.
- * @param {kernalType} kernal - Kernal object.
- * @returns {string} - The description or URL of the kernal.
- */
-const setInfo = (kernal: kernalType): string => {
-  if (kernal.description && kernal.description.length > 1) {
-    return kernal.description
-  }
-  if (kernal.url && kernal.url.length > 0) {
-    return kernal.url.replace('www.', '')
-  }
-  return ''
 }
 
 // Intersection Observer configuration
@@ -92,20 +76,19 @@ const config = {
   threshold: 0.5,
 }
 
+// Create an Intersection Observer to handle infinite scrolling
 const observer = new IntersectionObserver((entries) => {
   for (const entry of entries) {
     if (entry.isIntersecting && kernals.value[kernals.value.length - 1].signed_url_s !== 'https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif') {
       observer.disconnect()
       if (kernals.value.length >= store.pageSize) {
-        useKernalStore().fetchKernals(pageNumber.value)
+          kernalStore.fetchKernals()
       }
     }
   }
 }, config)
 
-/**
- * Watches for intersections to trigger infinite scroll.
- */
+// Watch for intersection changes to load more content
 const watchIntersect = () => {
   observer.disconnect()
   for (let i = 1; i < 5; i++) {
@@ -127,12 +110,13 @@ onMounted(() => {
   window.addEventListener('resize', resizeContentFit)
   resizeContentFit()
 
-  const targetNode = document.getElementsByClassName('p-grid')[0]
+  const targetNode = document.getElementsByClassName('grid')[0]
   if (targetNode instanceof HTMLElement) {
     new MutationObserver(watchIntersect).observe(targetNode, { childList: true })
   }
 })
 
+// manages reiszing of content grid
 onUnmounted(() => {
   window.removeEventListener('visibilitychange', resizeContentFit)
   window.removeEventListener('orientationchange', resizeContentFit)

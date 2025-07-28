@@ -3,10 +3,11 @@
   <AddFolderBox v-if='store.addFolderBoxView'/>
   <EditMixtapeBox v-if="store.editMixtapeBoxView"/>
 
-  <OverlayScrollbarsComponent defer>
+  <OverlayScrollbarsComponent style="z-index: 10;" defer>
     <AddMixtapeBox v-if="store.addMixtapeBoxView" />
-    <DataView class="dg-0" :value="mixtapeStore.mixtapes" layout="list">
-      <template #list="slotProps">
+@paste.prevent="pasteInFile($event)"
+    <DataView class="dg-0" style="margin-top:6px; " :value="mixtapeStore.mixtapes" layout="list">
+      <template #grid="slotProps">
         <div v-if="slotProps.data.id === 'page-0'" class="nav-loader">
           <img class="nav-loader-icon mix-loader" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif" />
         </div>
@@ -52,21 +53,17 @@ const mixtapeStore = useMixtapeStore()
 const connectionsStore = useConnectionsStore()
 const userFeedStore = useUserFeedStore()
 
-const search = (id: number) => {
-  if (JSON.stringify(store.mixtape) === JSON.stringify(id)) {
-    store.mixtape = ''
-  } else {
-    store.mixtape = id
-  }
+const search = (id: string) => {
+  store.mixtape = store.mixtape === id ? '' : id.toString()
 }
 
 const convertCount = (count: number | null): string => {
   return count != null ? `{${count}}` : ' '
 }
 
-const convertDate = (contentId: number): string => {
+const convertDate = (contentId: string): string => {
   const connection = connectionsStore.connections_mix.find(i => i.id === contentId)
-  if (connection) {
+  if (connection?.updated_at) {
     const datetime = new Date(connection.updated_at)
     const now = new Date()
     const days = Math.floor((now.getTime() - datetime.getTime()) / (1000 * 60 * 60 * 24))
@@ -74,14 +71,14 @@ const convertDate = (contentId: number): string => {
     const minutes = Math.floor((now.getTime() - datetime.getTime()) / (1000 * 60) - hours * 60 - days * 24 * 60)
     return `{${days.toString().padStart(2, '0')}: ${hours.toString().padStart(2, '0')}: ${minutes.toString().padStart(2, '0')}}`
   }
-  return '{'
+  return ''
 }
 
-const feedCheck = (mixtapeId: number): boolean => {
+const feedCheck = (mixtapeId: string): boolean => {
   return userFeedStore.user_feed.feed_mixtape.includes(mixtapeId)
 }
 
-const blockCnt = (contentId: number): number | null => {
+const blockCnt = (contentId: string): number | null => {
   const content = connectionsStore.connections_mix.find(i => i.id === contentId)
   return content ? content.contains.length : null
 }

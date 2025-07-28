@@ -1,18 +1,16 @@
-@import "../Theme";
-
-
+@use "../Main" as Main;
 
 .src-url-subset-view{
   height: calc(100% + 4px);
   margin-top: -4px;
-  border: $tableBorder;
+  border: Main.$tableBorder;
   [data-overlayscrollbars~=host], [data-overlayscrollbars~=viewport] {
     height:100%;
   }
   .os-scrollbar-vertical {
     left: 0;
-    border-right: $tableBorder!important;
-    border-top: $tableBorder!important;
+    border-right: Main.$tableBorder!important;
+    border-top: Main.$tableBorder!important;
   }
 .os-scrollbar-vertical .os-scrollbar-handle {
     width: 2px!important;
@@ -44,32 +42,6 @@
   }
 }
 
-// Mixtape card
-.dgb-src-url-subset{
-  background: var(--background-tilt);
-  backdrop-filter: blur(5px);
-  cursor: pointer;
-  padding-bottom: 1px;
-  padding-left: 1px;
-  border: 1px solid var(--border-primary);
-  width: calc(100% - 8px);
-  margin: 2px;
-  margin-top: 0;
-  margin-left: 6px;
-
-  .descr{
-    opacity: 0.50;
-    letter-spacing: -0.33px;
-  }
-  .title{
-    float: left;
-    width: 100%;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    letter-spacing: -0.33px;
-  }
-}
 .dgb-0:last-child{
   margin-bottom: 40px;
 }

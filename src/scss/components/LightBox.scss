@@ -1,11 +1,9 @@
-@import "../Theme";
-
 .lightbox{
   position:absolute!important;
-  width:100%;
   pointer-events: none;
   background: none !important;
-  height: 100%;
+  width:70svw;
+  height: 70svh;
   top: 0;
   left: 0;
 }
@@ -19,6 +17,8 @@
     backdrop-filter: blur(20px);
     font-weight: normal;
     z-index:20!important;
+    height: 100svh;
+    width: 100svw;
 
     .block {
       position:relative;
@@ -254,6 +254,11 @@
  .p-dataview{
     height:100%;
     width:100%;
+    position:relative;
+    z-index:5;
+    max-height:calc(100% );
+    overflow-y:auto;
+    overflow-x:hidden;
 
     .p-dataview-content{
       height:100%;
@@ -261,14 +266,6 @@
       padding-top:4px;
       z-index: 10;
       position: sticky;
-
-      .grid{
-        position:relative;
-        z-index:5;
-        width:100%;
-        max-height:calc(100% );
-        overflow-y:auto;
-        overflow-x:hidden;
 
         .dgb-0:last-child{
           margin-bottom:40px;
@@ -306,7 +303,6 @@
               white-space: nowrap;
             }
           }
-        }
       }
     }
   }

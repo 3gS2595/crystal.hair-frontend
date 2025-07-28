@@ -1,12 +1,10 @@
-@import "../Theme";
-
 .login-form{
   text-align: center;
   width:100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  position: relative;
+  position: absolute;
 
   input[type="submit" i]{
     padding-top:1px;
@@ -25,6 +23,8 @@
     font-weight:1;
     border-radius: 0;
     width:202px;
+        z-index: 20;
+            position: relative;
   }
   a{
     font-size:20px;
@@ -91,9 +91,17 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 20;
-    height: 40%;
     width: 25%;
-height: 239px;
     width: 210px;
 
   }
+.login-form-submit{
+  background: none;
+  border:none;
+  width:100%;
+  img{
+    width: 100%;
+    position: relative;
+    top: -59px;
+  }
+}

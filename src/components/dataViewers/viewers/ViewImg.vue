@@ -5,7 +5,7 @@
         <img class="lightBox-viewer" :src="modelValue.signed_url_m" @load="srcSetResize"/>
       </template>
       <template v-slot:preloader>
-        <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/image-loader%20(1).gif" rel='preload'/>
+        <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif" rel='preload'/>
       </template>
       <template v-slot:error>
         <a>{{ viewerData[store.lightBoxIndex].description }}</a>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import VueLoadImage from 'vue-load-image'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { debounce } from 'lodash-es'

@@ -10,6 +10,10 @@ import { useConnectionsStore } from '@/stores/api/connectionsStore'
 import { useFolderStore } from '@/stores/api/FolderStore'
 
 const base = SessionStore().getUrlRails + 'mixtapes'
+const auth = computed({
+  get() {return { headers: {"Authorization" : SessionStore().auth_token}}},
+  set() {}
+})
 const defaultState = {
   mixtapes: [{
     id: "page-0",
@@ -25,13 +29,8 @@ const defaultState = {
     }
   ]
 }
-const auth = computed({
-  get() {return { headers: {"Authorization" : SessionStore().auth_token}}},
-  set() {}
-})
 
-export const useMixtapeStore = defineStore({
-  id: 'useMixtapeStore',
+export const useMixtapeStore = defineStore('mixtapeStore', {
   state: () => ({ ...structuredClone(defaultState)}),
   actions: {
     async fetchMixtapes () {
@@ -43,8 +42,8 @@ export const useMixtapeStore = defineStore({
             this.mixtapeTree.push({text: fold.name, children: []})
             for (const mix of fold.contains) {
               if (this.mixtapes.findIndex(x => x.id === mix) != -1) {
-                let name = this.mixtapes[this.mixtapes.findIndex(x => x.id === mix)].name;
-                this.mixtapeTree[this.mixtapeTree.length - 1].children.push({text: name, indent: 30})
+                let cur_mix = this.mixtapes[this.mixtapes.findIndex(x => x.id === mix)];
+                this.mixtapeTree[this.mixtapeTree.length - 1].children.push({text:cur_mix.name, id:cur_mix.id, content_id: cur_mix.content_id})
               }
             }
           }
@@ -52,7 +51,7 @@ export const useMixtapeStore = defineStore({
         this.mixtapeTree.push({text: 'mixtapes', children: []})
         if (this.mixtapes != null){
           for (const mix of this.mixtapes) {
-            this.mixtapeTree[this.mixtapeTree.length - 1].children.push({text: mix.name})
+            this.mixtapeTree[this.mixtapeTree.length - 1].children.push({text: mix.name, id:mix.id, content_id: mix.content_id})
           }
         }
       } catch (e) { console.error(e) }

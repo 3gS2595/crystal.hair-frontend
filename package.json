@@ -3,25 +3,23 @@
   "version": "0.9.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --port 80",
-    "build": "vue-cli-service build"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.5.2",
-    "@fortawesome/free-regular-svg-icons": "^6.5.2",
-    "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@he-tree/vue": "^2.8.6",
+    "@primeuix/themes": "^1.2.1",
     "@tiptap/starter-kit": "^2.1.8",
     "@tiptap/vue-3": "^2.1.8",
     "axios": "^1.4.0",
-    "overlayscrollbars": "^2.4.6",
-    "overlayscrollbars-vue": "^0.5.6",
+    "lodash-es": "^4.17.21",
+    "overlayscrollbars": "latest",
+    "overlayscrollbars-vue": "latest",
     "pinia": "^2.1.4",
-    "primeflex": "^3.3.1",
-    "primevue": "^3.29.2",
-    "sass-loader": "^13.3.2",
+    "primeflex": "^4.0.0",
+    "primevue": "^3.53.1",
     "splitpanes": "^3.1.5",
-    "three": "^0.160.1",
     "vue": "^3.2.26",
     "vue-force-graph": "^0.1.2",
     "vue-load-image": "^1.1.0",
@@ -29,19 +27,19 @@
     "vue-router": "^4.0.3",
     "vue3-click-away": "^1.2.4",
     "vue3-pdf-app": "^1.0.3",
-    "vue3-tree-vue": "^2.0.9"
+    "vue3-resizable": "^1.0.0-alpha.3"
   },
   "devDependencies": {
-    "@types/splitpanes": "^2.2.1",
-    "@types/three": "^0.152.1",
-    "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-plugin-typescript": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue-jsx": "^5.0.1",
     "@vue/tsconfig": "^0.4.0",
+    "rollup-plugin-visualizer": "^6.0.3",
+    "sass": "^1.89.2",
+    "sass-loader": "^13.3.2",
     "terser-webpack-plugin": "^5.3.10",
-    "typescript": "^5.2.2",
-    "vue-tsc": "^1.8.8",
-    "webpack-bundle-analyzer": "^4.10.1"
+    "typescript": "^5.8.3",
+    "vite": "^7.0.5",
+    "vue-tsc": "^3.0.3"
   },
   "browserslist": [
     "> 1%",

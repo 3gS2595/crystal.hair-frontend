@@ -1,32 +1,14 @@
 <template>
-  <div class='lightbox'>
-    <vue-resizable
-      class='resizable'
-      ref='resizableComponent'
-      :dragSelector='dragSelector'
-      :fit-parent='true'
-      :max-width='maxW'
-      :max-height='maxH'
-      :width='width'
-      :height='height'
-      :left='left'
-      :top='top'
-      @mount='res'
-      @resize:move='eHandler'
-      @resize:start='eHandler'
-      @resize:end='eHandler'
-      @drag:move='eHandler'
-      @drag:start='eHandler'
-      @drag:end='eHandler'
-    >
+  <div v-if='!uploadBoxView' class='lightbox' >
+    <div class='resizable resizable-component'>
       <div class='block'>
         <ViewPdf
-          v-if="kernals[store.lightBoxIndex].file_type.includes('pdf')"
+          v-if="kernals[store.lightBoxIndex].file_type?.includes('pdf')"
           v-model="kernals[store.lightBoxIndex].signed_url"
         />
         <ViewImg
           @click='viewInfo = !viewInfo'
-          v-if="!kernals[store.lightBoxIndex].file_type.includes('pdf') && kernals[store.lightBoxIndex].file_type != '.txt'"
+          v-if="!kernals[store.lightBoxIndex].file_type?.includes('pdf') && kernals[store.lightBoxIndex].file_type != '.txt'"
           v-model="kernals[store.lightBoxIndex]"
         />
         <ViewText
@@ -45,14 +27,13 @@
           <a class='navItem' style="padding-top:3px;" @click='next' v-if="store.lightBoxIndex != kernals.length - 1">→</a>
         </div>
       </div>
-    </vue-resizable>
+    </div>
   </div>
 </template>
 
 <script setup lang='ts'>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
-import VueResizable from 'vue-resizable'
 import ViewText from './viewers/TextEditor.vue'
 import ViewPdf from './viewers/ViewPdf.vue'
 import ViewImg from './viewers/ViewImg.vue'
@@ -62,14 +43,12 @@ import { useKernalStore } from '@/stores/api/KernalStore'
 
 const store = GlobalStore()
 const { kernals } = storeToRefs(useKernalStore())
+const { uploadBoxView } = storeToRefs(store)
 
-const left = ref(5)
-const top = ref(5)
 const height = ref(window.innerHeight - 10)
 const width = ref(window.innerWidth - 11)
 const maxW = ref(window.innerWidth - 10)
 const maxH = ref(window.innerHeight - 10)
-const dragSelector = '.drag-container-1'
 const viewInfo = ref(false)
 
 const close = () => {

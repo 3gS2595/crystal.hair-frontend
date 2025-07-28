@@ -88,7 +88,6 @@
 .tab-icon {
   height: calc(100% - 4px);
   width: 100%;
-  filter: hue-rotate(158deg) brightness(1.88);
 }
 
 .tab-width-standard {
@@ -101,7 +100,7 @@
 }
 .advanced-pane{
     min-height: 6px;
-        margin-top: var(--edge-margin);
+    margin-top: var(--edge-margin);
     margin-bottom: -4px;
     border: 1px solid var(--border-primary);
     margin-right: var(--edge-margin);
@@ -141,4 +140,7 @@
   transform: rotate(179deg);
 }
 
+#main-r > div.tab-content-kernal > div > div:nth-child(1), #main-l > div.pane-nav > div.tab-content-nav > div > div:nth-child(1) {
+  z-index: 10;
+}
 

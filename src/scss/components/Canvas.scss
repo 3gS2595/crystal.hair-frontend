@@ -1,28 +1,28 @@
-@import "../Theme";
+@use "../Main" as Main;
 
 .forceGraph{
   padding:var(--edge-margin);
   flex: 0 1 95px;
   margin-right: var(--edge-margin);
   margin-left: var(--edge-margin);
-  border: $tableBorder;
+  border: Main.$tableBorder;
   position: relative;
 
   .fg{
     max-width:100%!important;
     max-height:100%!important;
     opacity:.8;
-    border: $tableBorder;
+    border: Main.$tableBorder;
 
     .scene-container{
       max-width:100%!important;
       width:100%!important;
-      height:$fg-height!important;
+      height:Main.$fg-height!important;
 
       canvas{
         max-width:100%!important;
         width:100%!important;
-        height:$fg-height!important;
+        height:Main.$fg-height!important;
       }
     }
   }

@@ -1,12 +1,14 @@
+
 <template>
   <a href="#" class="dropdown-item">
-    <slot/>
+    <slot />
   </a>
 </template>
 
-<script lang='ts'>
-export default {
-  name: "AppDropdownItem"
-}
+<script lang="ts" setup>
+defineOptions({
+  name: 'AppDropdownItem'
+})
 </script>
+
 

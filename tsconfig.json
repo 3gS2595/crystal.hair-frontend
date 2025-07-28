@@ -1,34 +1,26 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "verbatimModuleSyntax": false,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "baseUrl": ".",
-    "types": [
-      "webpack-env"
-    ],
-    "typeRoots": [
-      "./src/@types",
-      "./node_modules/@types"
-    ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "types": ["vite/client"],
+    "lib": ["ESNext", "DOM"]
   },
   "include": [
-    "./src/**/*.ts",
-    "./src/**/*.vue",
-    "./tests/**/*.ts",
-    "./src/declaration.d.ts"
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "src/**/*.d.ts",
+    "tests/**/*.ts"
   ],
-  "exclude": [
-    "./node_modules"
-  ]   
+  "exclude": ["node_modules"]
 }

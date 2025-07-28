@@ -21,13 +21,13 @@
   <div v-else id='login'>
     <!-- <img class='login-overlay' src='https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/login-background.png'> -->
     <div class='login-ui'>
-
       <form @submit.prevent='onLogin' class='login-form'>
-        <input class='login-form-email' type='text' v-model='loginEmail' placeholder='ID:' autocapitalize="off" />
+        <input class='login-form-email' type='text' v-model='loginEmail' placeholder='' autocapitalize="off" />
         <br />
-        <input class='login-form-password' type='password' v-model='loginPassword' placeholder='PW:' />
-        <br />
-        <input type='submit' value='NEXT' class='login-form-submit' />
+        <input class='login-form-password' type='password' v-model='loginPassword' placeholder='' />
+        <button type="submit" class="login-form-submit">
+          <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif" alt="Login" />
+        </button>
       </form>
 
     </div>

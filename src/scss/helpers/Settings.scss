@@ -1,4 +1,3 @@
-@import "../Theme";
 
 // Cog wheel settings menu
 
@@ -6,22 +5,28 @@
     display:flex;
     height: fit-content;
     width: 100%;
+    flex-direction: column;
+    padding: 2px;
+
+  .input-standard {
+    border: 1px solid var(--border-primary);
+    margin-bottom: 2px;
+    outline:0;
+    background-color: rgba(0,0,0,0);
+  }
+
+  .input-standard::placeholder {
+    color: var(--text-header);
+  }
 
     .options {
-      width: 100%;
-      position: relative;
-      width: 100%;
-      position: relative;
-      margin: 2px;
-      /* margin-left: var(--edge-margin); */
-      border-bottom: 0;
-      border: 1px solid var(--scrollbar);
+      border: 1px solid var(--text-header);
 
       .set-btn{
         padding: var(--box-margin);
-        color: var(--scrollbar);
+        color:var(--text-header);
         display: block;
-        border-bottom: 1px solid var(--scrollbar);
+        border-bottom: 1px solid var(--text-header);
       }
       .set-btn:last-child{
         border-bottom: none;

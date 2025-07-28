@@ -1,9 +1,9 @@
-@import "../Theme";
+@use '../Main' as Main;
 
 .nav{
   flex: 0 1 auto;
   display:flex;
-  border: $tableBorder;
+  border: Main.$tableBorder;
   margin-top: var(--box-margin);
   margin: var(--edge-margin);
   height:29px;

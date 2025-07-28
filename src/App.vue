@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang='ts'>
-import { defineComponent, onMounted, watch } from 'vue'
+import { onMounted } from 'vue'
 import { darkSet } from '@/lib/DarkMode'
 
 import SessionManager from '@/components/sessionManager/SessionManager.vue'
@@ -16,7 +16,10 @@ import { SessionStore } from "@/stores/SessionStore"
 
 const sessionStore = SessionStore()
 darkSet()
-
+function onError(e) {
+  error.value = e
+  console.error('Component error:', e)
+}
 onMounted(() => {
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e: MediaQueryListEvent) {
     if (e.matches) {
@@ -30,27 +33,27 @@ onMounted(() => {
 </script>
 
 <style lang='scss'>
-  @import './scss/Main.scss';
-  @import './scss/Typography.scss';
-  @import './scss/WebKit.scss';
+  @use '@/scss/Main';
+  @use '@/scss/Typography';
+  @use '@/scss/WebKit';
 
-  @import './scss/components/Canvas.scss';
-  @import './scss/components/SessionManager.scss';
-  @import './scss/components/ContentView.scss';
-  @import './scss/components/MixtapeView.scss';
-  @import './scss/components/ScrapersView.scss';
-  @import './scss/components/LightBox.scss';
-  @import './scss/components/Tabs.scss';
+  @use '@/scss/components/Canvas';
+  @use '@/scss/components/SessionManager';
+  @use '@/scss/components/ContentView';
+  @use '@/scss/components/MixtapeView';
+  @use '@/scss/components/ScrapersView';
+  @use '@/scss/components/LightBox';
+  @use '@/scss/components/Tabs';
 
-  @import './scss/helpers/SplitterPanel.scss';
-  @import './scss/helpers/ProgressBar.scss';
-  @import './scss/helpers/NavSearch.scss';
-  @import './scss/helpers/Settings.scss';
-  @import './scss/helpers/AddMixtape.scss';
-  @import './scss/helpers/UploadBox.scss';
-  @import './scss/helpers/EditView.scss';
-  @import './scss/helpers/Search.scss';
-  @import './scss/helpers/Dropdown.scss';
+  @use '@/scss/helpers/SplitterPanel';
+  @use '@/scss/helpers/ProgressBar';
+  @use '@/scss/helpers/NavSearch';
+  @use '@/scss/helpers/Settings';
+  @use '@/scss/helpers/AddMixtape';
+  @use '@/scss/helpers/UploadBox';
+  @use '@/scss/helpers/EditView';
+  @use '@/scss/helpers/Search';
+  @use '@/scss/helpers/Dropdown';
 
   @import 'overlayscrollbars/overlayscrollbars.css';
   @import 'splitpanes/dist/splitpanes.css';

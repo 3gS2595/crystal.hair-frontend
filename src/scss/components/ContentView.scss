@@ -1,4 +1,4 @@
-@import "../Theme";
+@use "../Main" as Main;
 
 .contentView{
   width: 100%;
@@ -30,7 +30,7 @@
 // Content card
 .cgb-0{
   margin-top: var(--box-margin);
-  border: $cardBorder;
+  border: Main.$cardBorder;
   height: fit-content;
   margin-right:2px;
   margin-left: 2px;
@@ -50,7 +50,6 @@
       width: 100%;
       max-height: inherit;
       object-fit: contain;
-      object-position: right;
     }
     .loading{
       max-height: 100%!important;
@@ -58,7 +57,7 @@
   }
 
   .cgb-0-info{
-    border-top: $cardBorder;
+    border-top: Main.$cardBorder;
     color: var(--text-content-descr);
     max-width: 100%;
     overflow: hidden;
@@ -80,11 +79,11 @@
 .tab-content-kernal{
   [data-overlayscrollbars=host], [data-overlayscrollbars=viewport] {
     height: calc(100% + 4px) !important;
-    border: $tableBorder!important;
+    border: Main.$tableBorder!important;
     margin-top: -4px;
   }
 .os-scrollbar-vertical {
-    border-left: $tableBorder!important;
+    border-left: Main.$tableBorder!important;
 }
 }
 

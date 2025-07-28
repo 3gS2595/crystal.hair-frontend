@@ -1,38 +1,33 @@
 <template>
-  <div @click="toggle" v-click-away='onClickAway' >
-    <a>Σ</a>
-    <slot/>
-  </div>
+  <DropdownButton
+    v-if="store.mixtape !== '' && !(store.srcUrlSubset.length > 2 || store.srcUrlSubset === '-1')"
+    class="tab tab-width-standard tab-btn"
+  >
+    <DropdownContent>
+      <DropdownItem
+        v-for="folder in folderStore.folders"
+        :key="folder.id"
+        @click="patch(folder.id)"
+      >
+        {{ folder.name }}
+      </DropdownItem>
+      <DropdownItem @click="store.addFolderBoxView = true">add new folder</DropdownItem>
+    </DropdownContent>
+  </DropdownButton>
 </template>
 
-<script>
-import { directive } from 'vue3-click-away'
+<script lang="ts" setup>
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useFolderStore } from '@/stores/api/FolderStore'
 
-export default {
-  name: "AppDropdown",
-  provide() {
-    return {
-      sharedState: this.sharedState
-    };
-  },
-  data() {
-    return {
-      sharedState: {
-        active: false
-      }
-    };
-  },
-  methods: {
-    toggle() {
-      this.sharedState.active = !this.sharedState.active;
-    },
-    onClickAway() {
-      this.sharedState.active = false;
-    }
-  },
-  directives: {
-    ClickAway: directive
-  }
+import DropdownButton from '@/components/menus/dropdown/DropDownButton.vue'
+import DropdownContent from '@/components/menus/dropdown/DropDownContent.vue'
+import DropdownItem from '@/components/menus/dropdown/DropDownItem.vue'
+
+const store = GlobalStore()
+const folderStore = useFolderStore()
+
+function patch(folder_id: string) {
+  folderStore.patchFolder(folder_id, store.mixtape)
 }
 </script>
-

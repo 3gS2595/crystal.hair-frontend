@@ -47,6 +47,10 @@ export const GlobalStore = defineStore({
   }),
 
   actions: {
+     closeHeader() {
+      this.mixtape = ''
+      this.srcUrlSubset = this.currentTab === 2 ? '-1' : ''
+    },
     closeViewer () {
       this.lightBoxView = false
       this.lightBoxIndex = -1

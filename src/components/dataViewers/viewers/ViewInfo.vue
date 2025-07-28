@@ -1,7 +1,9 @@
 <template>
   <div class='lightbox-info'>
     <div class="infoCol">
-      <a class="infoBox" :href="modelValue.url" target="_blank"><a class="info-title">url: </a>{{convertUrl(modelValue.url)}}</a>
+      <a class="infoBox" :href="modelValue.url" target="_blank">
+        <span class="info-title">url: </span>{{convertUrl(modelValue.url)}}
+       </a>
       <div class="infoBox"><a class="info-title">description: </a>{{modelValue.description}}</div>
       <div class="infoBox"><a class="info-title">time_posted: </a>{{modelValue.time_posted}}</div>
       <div class="infoBox"><a class="info-title">created_at: </a>{{modelValue.created_at}}</div>
@@ -14,53 +16,39 @@
       <div class="infoBox"><a class="info-title">file_name: </a>{{modelValue.file_name}}</div>
       <div class="infoBox"><a class="info-title">file_type: </a>{{modelValue.file_type}}</div>
       <div class="infoBox"><a class="info-title">file_path: </a>{{modelValue.file_path}}</div>
-      <a class="infoBox" :href="modelValue.signed_url" target="_blank"><a class="info-title">file_link: </a>{{modelValue.signed_url}}</a>
+      <a class="infoBox" :href="modelValue.signed_url" target="_blank">
+        <span class="info-title">file_link: </span>{{modelValue.signed_url}}
+      </a>
       <div class="infoBox"><a class="info-title">id: </a>{{modelValue.id}}</div>
-      <div class="infoBox"><a class="info-title">src_url: </a>{{modelValue.src_url}}</div>
       <div class="infoBox"><a class="info-title">src_url_subset: </a>{{modelValue.src_url_subset_id}}</div>
       <div class="infoBox"></div>
       <div class="infoBox"></div>
-<!--
-      <div class="infoBox" v-if="modelValue.id !== null"><a class="info-title">id: </a>{{modelValue.id}}</div>
-      <a class="infoBox" v-if="modelValue.url !== null" :href="modelValue.url" target="_blank"><a class="info-title">url: </a>{{convertUrl(modelValue.url)}}</a>
-      <div class="infoBox" v-if="modelValue.description !== null"><a class="info-title">description: </a>{{modelValue.description}}</div>
-      <div class="infoBox" v-if="modelValue.author !== null"><a class="info-title">author: </a>{{modelValue.author}}</div>
-      <div class="infoBox" v-if="modelValue.key_words !== null"><a class="info-title">key_words: </a>{{modelValue.key_words}}</div>
-      <div class="infoBox" v-if="modelValue.hashtags.length > 0"><a class="info-title">hashtags: </a>{{modelValue.hashtags}}</div>
-      <div class="infoBox" v-if="modelValue.likes.length > 0"><a class="info-title">likes: </a> {{modelValue.likes}}</div>
-      <div class="infoBox" v-if="modelValue.reposts.length > 0"><a class="info-title">reposts: </a>{{modelValue.reposts}}</div>
-      <div class="infoBox" v-if="modelValue.file_name !== null"><a class="info-title">file_name: </a>{{modelValue.file_name}}</div>
-      <div class="infoBox" v-if="modelValue.file_type !== null"><a class="info-title">file_type: </a>{{modelValue.file_type}}</div>
-      <a class="infoBox" :href="modelValue.signed_url" target="_blank"><a class="info-title">file_link: </a>{{modelValue.signed_url}}</a>
-      <div class="infoBox" v-if="modelValue.time_posted !== null"><a class="info-title">time_posted: </a>{{modelValue.time_posted}}</div>
-      <div class="infoBox" v-if="modelValue.created_at !== null"><a class="info-title">created_at: </a>{{modelValue.created_at}}</div>
-      <div class="infoBox"></div>
-      <div class="infoBox"></div>
--->
+
     <a class='delete' style="margin-top:-.5px;" @click='deleteBlock(modelValue.id)'>Destroy Kernal</a>
     </div>
     <div class="mixCol">
       <div class="select-mix">
         <DataView class='dg-0' :value="mixes" :layout="list" >
-          <template #list="slotProps">
-            <div @click="useConnectionsStore().patchMixAddKernal(slotProps.data.id, modelValue.id)" class="dgb-0">
+          <template #list="slotProps" >
+            <div v-for="(item, index) in slotProps.items" :key="index"  @click="useConnectionsStore().patchMixAddKernal(item.id, modelValue.id)" class="dgb-0">
               <div class="dgb-0-txt">
-                <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(slotProps.data.id) }}</a>
-                <a class='descr' style="float:left;">{{ convertDate(slotProps.data.id) }}</a>
-                <a class='descr' style="float:right;">{{ blockCnt(slotProps.data.id) }} kernals</a>
+                <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(item.id) }}</a>
+                <a class='descr' style="float:left;">{{ convertDate(item.id) }}</a>
+                <a class='descr' style="float:right;">{{ blockCnt(item.id) }} kernals</a>
               </div>
             </div>
           </template>
         </DataView>
       </div>
       <div class="select-mix">
+
         <DataView class='dg-0' :value="mixesBelong" :layout="list" >
-          <template #list="slotProps">
-            <div @click="useConnectionsStore().patchMixRemKernal(slotProps.data.id, modelValue.id)" class="dgb-0">
+          <template #list="slotProps" >
+            <div v-for="(item, index) in slotProps.items" :key="index"  @click="useConnectionsStore().patchMixRemKernal(item.id, modelValue.id)" class="dgb-0">
               <div class='dgb-0-txt'>
-                <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(slotProps.data.id) }}</a>
-                <a class='descr' style="float:left;">{{ convertDate(slotProps.data.id) }}</a>
-                <a class='descr' style="float:right;">{{ blockCnt(slotProps.data.id) }} kernals</a>
+                <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(item.id) }}</a>
+                <a class='descr' style="float:left;">{{ convertDate(item.id) }}</a>
+                <a class='descr' style="float:right;">{{ blockCnt(item.id) }} kernals</a>
               </div>
             </div>
           </template>
@@ -84,6 +72,7 @@ const { connections_mix } = storeToRefs(useConnectionsStore())
 const { mixtapes } = storeToRefs(useMixtapeStore())
 const { kernals } = storeToRefs(useKernalStore())
 
+const list = ref('list')
 const props = withDefaults(defineProps<{
   modelValue: kernalType,
 }> (), {})
