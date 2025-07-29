@@ -6,7 +6,6 @@ const defaultState = <GlobalStoreType>{
   darkMode : false,
 
   // display toggles
-  uploadBoxView : false,
   lightBoxView : false,
   addSrcUrlSubset : false,
   editMixtapeBoxView : false,

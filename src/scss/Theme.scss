@@ -15,6 +15,7 @@
   --text-content: rgba(255, 255, 255, 0.86);
   --text-content-descr: rgba(255, 255, 255, 0.6);
   --text-login:#8a8a8a;
+  --text-tab-header: #3893ff;
 
   --tab-nav-icon:#886c27;
   --tab-media-icon:#bf603e;
@@ -30,16 +31,11 @@
   --box-margin: 4px;
   --tree-arrow: #ff668c;
 
+  .tab-icon {
+    filter: saturate(1.5) hue-rotate(168deg) !important;
+  }
   .mix-feed-icon {
     filter: saturate(1) hue-rotate(245deg);
-  }
-  .cgb-0{
-    .vue-load-image{
-      .thumbnail{
-        //filter: brightness(.85) contrast(1);
-      }
-    }
-
   }
 }
 

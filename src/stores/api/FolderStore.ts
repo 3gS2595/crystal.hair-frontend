@@ -56,7 +56,6 @@ export const useFolderStore = defineStore({
     },
 
     async patchFolder (folderId: string, mixId: string) {
-      console.log("HALFWAY")
       try {
         const fold = (await axios.patch( `${base}/` + folderId + '?new_mix_uuid=' + mixId, {}, auth.value)).data
         this.folders = this.folders.filter(i => i.id !== folderId);

@@ -62,7 +62,7 @@ const { treeData } = toRefs(props)
 
 // Function to check if a mixtape is in the user's feed
 const feedCheck = (mixtapeId: string): boolean => {
-  return userFeedStore.user_feed.feed_mixtape.includes(mixtapeId)
+  return userFeedStore.user_feed.feed_sources.includes(mixtapeId)
 }
 
 function blockCnt(content_id: string ): string {
@@ -83,6 +83,5 @@ const convertDate = (contentId: string): string => {
 // Methods
 function search(e: string ): void {
   store.srcUrlSubset = store.srcUrlSubset === e ? '-1' : e
-  console.log(e)
 }
 </script>

@@ -73,7 +73,7 @@
       <div
         v-if="store.mixtape !== ''"
         class="tab tab-active tab-width-standard media-active"
-        @click="() => (store.uploadBoxView = !store.uploadBoxView)"
+        @click="toggle"
       >
         <img
           class="tab-icon"
@@ -94,7 +94,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, watch, ref } from 'vue'
+import { computed, inject } from 'vue'
 import { storeToRefs } from 'pinia'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { useMixtapeStore } from '@/stores/api/MixtapeStore'
@@ -119,5 +119,10 @@ const mixtapeHeader = computed(() => {
   const srcSubsetObj = srcUrlSubsets.value.find((s) => s.id === store.srcUrlSubset)
   return mixtapeObj?.name || srcSubsetObj?.name || ''
 })
+
+const toggle_upload: any = inject('toggle_upload')
+function toggle() {
+  toggle_upload.value = !toggle_upload.value
+}
 </script>
 

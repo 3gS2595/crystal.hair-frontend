@@ -7,22 +7,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-
+import { ref, provide } from 'vue'
 import ContentModule from '@/components/dataGrids/ContentModule.vue'
 import LightBox from '@/components/dataViewers/LightBox.vue'
 import MediaPaneTabs from '@/components/tabs/MediaPaneTabs.vue'
 
 import { GlobalStore } from '@/stores/GlobalStore'
-
-// initialize store
 const store = GlobalStore()
 
-onMounted(() => {
-  if (window.innerWidth < 400) {
-    store.cgbWidth = 86
-    store.cgbWidthSized = 60
-  }
-})
+const toggle_upload = ref(false)
+provide('toggle_upload', toggle_upload)
 </script>
 

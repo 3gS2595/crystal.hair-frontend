@@ -12,6 +12,8 @@
 
     .tab {
       margin-left: var(--box-margin);
+      color: var(--text-tab-header);
+
     }
   }
   .tabs-r{
@@ -100,7 +102,6 @@
 }
 .advanced-pane{
     min-height: 6px;
-    margin-top: var(--edge-margin);
     margin-bottom: -4px;
     border: 1px solid var(--border-primary);
     margin-right: var(--edge-margin);

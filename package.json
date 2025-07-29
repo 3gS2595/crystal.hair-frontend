@@ -16,6 +16,7 @@
     "lodash-es": "^4.17.21",
     "overlayscrollbars": "latest",
     "overlayscrollbars-vue": "latest",
+    "pdfjs-dist": "^5.4.54",
     "pinia": "^2.1.4",
     "primeflex": "^4.0.0",
     "primevue": "^3.53.1",
@@ -26,7 +27,6 @@
     "vue-resizable": "^2.1.7",
     "vue-router": "^4.0.3",
     "vue3-click-away": "^1.2.4",
-    "vue3-pdf-app": "^1.0.3",
     "vue3-resizable": "^1.0.0-alpha.3"
   },
   "devDependencies": {

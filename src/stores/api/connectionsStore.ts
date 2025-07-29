@@ -6,7 +6,9 @@ import { SessionStore } from '@/stores/SessionStore'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { useMixtapeStore } from '@/stores/api/MixtapeStore'
 import { useKernalStore } from '@/stores/api/KernalStore'
-const url = SessionStore().getUrlRails + 'contents'
+
+const sessionStore = SessionStore()
+const url = sessionStore.getUrlRails + 'contents'
 const auth = computed({
   get() {return { headers: {"Authorization" : SessionStore().auth_token}}},
   set(){}

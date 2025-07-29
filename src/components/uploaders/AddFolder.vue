@@ -50,7 +50,6 @@ export default defineComponent({
   },
   mounted() {
     window.addEventListener('keyup', this.esc, true)
-    console.log('HELL(((((((999999LOOOOO')
   }
 })
 </script>

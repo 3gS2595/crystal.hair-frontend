@@ -49,7 +49,6 @@ const userFeedStore = useUserFeedStore()
 // Methods
 function search(e: string ): void {
   store.srcUrlSubset = store.srcUrlSubset === e ? '-1' : e
-  console.log(e)
 }
 
 function convertDate(datetime: string): string {

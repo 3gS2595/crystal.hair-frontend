@@ -1,29 +1,37 @@
 <template>
-  <div class ='upload-box'>
-    <div class='block'>
+  <div class="upload-box">
+    <div class="block">
       <div class="uploader">
-        <editor-content :editor="editor" id="textEditor" />
+        <EditorContent :editor="editor" id="textEditor" />
         <label id="fileSelect">
-            <button class="customFileInput file-upload input-standard text-main-0" onclick="document.getElementById('getFile').click()">upload</button>
-            <input type='file' id="getFile" style="display:none" @change="handleFileUpload( $event )">
+          <button
+            class="customFileInput file-upload input-standard text-main-0"
+            @click.prevent="triggerFileInput"
+          >
+            upload
+          </button>
+          <input
+              type="file"
+            id="getFile"
+            ref="fileInput"
+            style="display:none"
+            @change="handleFileUpload"
+          />
         </label>
       </div>
-      <div class='drag-container-1'>
-       <a class='option text-main-0 edit-opt' @click='close'>exit</a>
-       <a class='option text-main-0 edit-opt' @click='submitFile()'>submit</a>
+      <div class="drag-container-1">
+        <a class="option text-main-0 edit-opt" @click="close">exit</a>
+        <a class="option text-main-0 edit-opt" @click="submitFile">submit</a>
       </div>
-
     </div>
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts" setup>
 import type { kernalType } from '@/types/ApiTypes'
 import type { InputFileEvent } from '@/types/index'
-import type { UploadKernalState } from '@/types/index'
 
-import { defineComponent, type PropType, ref } from 'vue'
-import axios from 'axios'
+import { ref, onMounted, onBeforeUnmount, inject } from 'vue'
 
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
@@ -31,90 +39,98 @@ import { Editor, EditorContent } from '@tiptap/vue-3'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { useKernalStore } from '@/stores/api/KernalStore'
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    EditorContent
-  },
-  props: {
-    viewerData: {
-      type: Object as PropType<kernalType[]> ,
-      required: true
-    }
-  },
-  data(): UploadKernalState {
-    return {
-      file: null,
-      editor: null,
-      enteredText: ref(''),
-      editorEmpty: true
-    }
-  },
-  methods: {
-    handleFileUpload (event: InputFileEvent) {
-      const element = event.currentTarget as HTMLInputElement;
-      const fileList: FileList | null = element.files;
-      if (fileList && event) {
-        this.file = fileList[0]
-      }
-      this.submitFile()
-    },
-    async submitFile(){
-      console.log(this.editor.view.dom.innerText)
-      this.editorEmpty = false
-      let formData = new FormData();
-      if(this.file != null){
-        formData.append('file_type', this.file.type)
-        if (this.file.type.includes('pdf')) {
-          formData.append('pdf', this.file)
-          formData.set('file_type','.pdf');
-        } else {
-          formData.append('image', this.file)
-        }
-      }
-      if(GlobalStore().mixtape !== ''){
-        formData.append('mixtape', GlobalStore().mixtape)
-      }
-      if(this.editor.getHTML() !== "<p></p>"){
-        if(this.editor.view.dom.innerText.match(/([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm) && !this.editor.view.dom.innerText.includes(' ')){
-          console.log("winner")
-          formData.append('url', this.editor.view.dom.innerText)
-          formData.append('file_type', 'link')
-        } else {
-          formData.append('text', this.editor.view.dom.innerText)
-          formData.append('file_type', '.txt')
-        }
-      }
-      if(formData.has("file_type")){
-        GlobalStore().uploadBoxView = false
-        useKernalStore().addKernal(formData)
-      }
-    },
-    esc (e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        this.close()
-      }
-    },
-    close () {
-      GlobalStore().uploadBoxView = false
-      window.removeEventListener('keyup', this.esc, true)
-    }
-  },
-  mounted() {
-    window.addEventListener('keyup', this.esc, true)
-    this.editor = new Editor({
-      extensions: [
-        StarterKit
-      ],
-      content: this.enteredText.split("\n").join("<br />"),
-      onUpdate: () => {
-        this.editorEmpty = (this.editor.getHTML() !== "<p></p>") ? false : true
-      }
-    })
-  },
-  beforeUnmount() {
-    this.editor.destroy()
+const props = defineProps<{
+  viewerData: kernalType[]
+}>()
+
+// Refs and reactive state
+const file = ref<File | null>(null)
+const editor = ref<Editor | null>(null)
+const enteredText = ref('')
+const editorEmpty = ref(true)
+const fileInput = ref<HTMLInputElement | null>(null)
+const toggle_upload = inject('toggle_upload')
+
+function triggerFileInput() {
+  fileInput.value?.click()
+}
+
+function handleFileUpload(event: InputFileEvent) {
+  const element = event.currentTarget as HTMLInputElement
+  const fileList = element.files
+  if (fileList && fileList.length > 0) {
+    file.value = fileList[0]
   }
+  submitFile()
+}
+
+async function submitFile() {
+  if (!editor.value) return
+
+  editorEmpty.value = false
+  const formData = new FormData()
+
+  if (file.value != null) {
+    formData.append('file_type', file.value.type)
+    if (file.value.type.includes('pdf')) {
+      formData.append('pdf', file.value)
+      formData.set('file_type', '.pdf')
+    } else {
+      formData.append('image', file.value)
+    }
+  }
+
+  if (GlobalStore().mixtape !== '') {
+    formData.append('mixtape', GlobalStore().mixtape)
+  }
+
+  if (editor.value.getHTML() !== '<p></p>') {
+    const text = editor.value.view.dom.innerText
+    if (
+      text.match(
+        /([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/gm
+      ) &&
+      !text.includes(' ')
+    ) {
+      formData.append('url', text)
+      formData.append('file_type', 'link')
+    } else {
+      formData.append('text', text)
+      formData.append('file_type', '.txt')
+    }
+  }
+
+  if (formData.has('file_type')) {
+    GlobalStore().uploadBoxView = false
+    useKernalStore().addKernal(formData)
+  }
+}
+
+function esc(e: KeyboardEvent) {
+  if (e.key === 'Escape') {
+    close()
+  }
+}
+
+function close() {
+  toggle_upload.value = false
+  window.removeEventListener('keyup', esc, true)
+}
+
+onMounted(() => {
+  window.addEventListener('keyup', esc, true)
+  editor.value = new Editor({
+    extensions: [StarterKit],
+    content: enteredText.value.split('\n').join('<br />'),
+    onUpdate: () => {
+      if (!editor.value) return
+      editorEmpty.value = editor.value.getHTML() !== '<p></p>'
+    },
+  })
 })
 
+onBeforeUnmount(() => {
+  editor.value?.destroy()
+})
 </script>
+

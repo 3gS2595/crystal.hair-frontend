@@ -27,7 +27,6 @@ function darkToggle () {
     localStorage.setItem('darkModeBool', 'true')
     GlobalStore().darkMode = true
   }
-  console.log(GlobalStore().darkMode)
   darkSet()
 }
 

@@ -61,7 +61,6 @@ export const SessionStore = defineStore("session", {
       })
     },
     loginUser(payload: any) {
-      console.log(payload)
       new Promise((resolve, reject) => {
         axios
           .post(`${this.urlRails}users/sign_in`, payload)
@@ -96,7 +95,6 @@ export const SessionStore = defineStore("session", {
       })
     },
     loginUserWithToken(payload: any) {
-      console.log("loginUserWithToken storeSessions.js")
       const config = {
         headers: {
           Authorization: payload.auth_token,

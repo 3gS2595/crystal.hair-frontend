@@ -40,7 +40,11 @@ export const useSrcUrlSubsetStore = defineStore('srcUrlSubset', {
   actions: {
     async fetchSrcUrlSubsets() {
       try {
-      this.srcUrlSubsets = (await axios.get(base, auth.value)).data
+      const config = {
+          headers: { Authorization:  SessionStore().auth_token }
+      }
+      try { this.srcUrlSubsets  = (await axios.get(SessionStore().getUrlRails + 'src_url_subsets', config)).data }
+      catch (e) {console.error(e)}
 
       this.srcUrlTree = []
       this.srcUrlTree.push({text: "Feed", children: []})
@@ -55,8 +59,6 @@ export const useSrcUrlSubsetStore = defineStore('srcUrlSubset', {
       } catch (e) {
         console.error(e)
       }
-      console.log(this.srcUrlTree)
-      console.log(this.srcUrlSubsets)
     },
 
     async addSrcUrlSubset(url: string) {
