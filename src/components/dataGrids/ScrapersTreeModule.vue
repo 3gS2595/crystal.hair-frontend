@@ -1,7 +1,6 @@
 <template>
-  <AddMixtapeBox v-if="store.addMixtapeBoxView" />
-  <AddFolderBox v-if="store.addFolderBoxView" />
   <EditMixtapeBox v-if="store.editMixtapeBoxView" />
+  <AddSrcUrlSubset v-if='store.addSrcUrlSubset'/>
 
   <OverlayScrollbarsComponent defer>
     <Draggable ref="tree" id="tree" class="mtl-tree" v-model="treeData" :indent="15" treeLine>
@@ -46,9 +45,8 @@ import '@he-tree/vue/style/default.css'
 import '@he-tree/vue/style/material-design.css'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
 
-import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
 import EditMixtapeBox from '@/components/dataEditors/EditBox.vue'
-import AddFolderBox from '@/components/uploaders/AddFolder.vue'
+import AddSrcUrlSubset from '@/components/uploaders/AddSrcUrlSubset.vue'
 
 import { useConnectionsStore } from '@/stores/api/connectionsStore'
 import { useUserFeedStore } from '@/stores/api/UserFeedStore'

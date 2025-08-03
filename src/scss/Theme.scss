@@ -3,6 +3,7 @@
 }
 
 .theme-dark {
+  --base-spacing: 2px;
   --edge-margin: 2px;
   --color-scheme: dark;
   --background-primary: #111111;
@@ -18,7 +19,7 @@
   --text-tab-header: #3893ff;
 
   --tab-nav-icon:#886c27;
-  --tab-media-icon:#bf603e;
+  --tab-media-icon:#2f75c9;;
 
   --border-primary: #3f3f3f;
   --border-card: #3f3f3fb5;

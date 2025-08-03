@@ -1,6 +1,6 @@
 
 <template>
-  <div class="settings" v-click-away="onClickAway">
+  <div v-if="store.viewSettings" class="settings" v-click-away="onClickAway">
       <input
         id="global-search-input"
         class="input-standard text-main-0"
@@ -44,7 +44,7 @@
       >
         edit
       </a>
-
+      <a class="set-btn font-s-title" id="set-btn-3" @click="darkToggle()">night toggle</a>
       <a class="set-btn font-s-title" id="set-btn-3" @click="apiStore.logoutUser()">logout</a>
     </div>
   </div>
@@ -52,11 +52,12 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { storeToRefs } from 'pinia'
 
 import { ApiStore } from '@/stores/ApiStore'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { useUserFeedStore } from '@/stores/api/UserFeedStore'
+
+import { darkToggle } from '@/lib/DarkMode'
 
 // Stores
 const store = GlobalStore()

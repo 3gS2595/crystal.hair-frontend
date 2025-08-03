@@ -3,6 +3,16 @@
   <div class="tabs tabs-content">
     <div class="tabs-l">
       <div
+        v-if="store.mixtape !== ''"
+        class="tab tab-active tab-width-standard media-active"
+        @click="toggle"
+      >
+        <img
+          class="tab-icon"
+          src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"
+        />
+      </div>
+      <div
         v-if="currentTab === 1 && mixtapeHeader === ''"
         :class="{'tab-active media-active': store.feed === true}"
         class="tab tab-width-standard"
@@ -70,25 +80,7 @@
     </div>
 
     <div class="tabs-r">
-      <div
-        v-if="store.mixtape !== ''"
-        class="tab tab-active tab-width-standard media-active"
-        @click="toggle"
-      >
-        <img
-          class="tab-icon"
-          src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"
-        />
-      </div>
-      <div
-        class="tab tab-active tab-width-standard media-active"
-        @click="toggleExpand"
-      >
-        <img
-          class="tab-icon"
-          src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-new.png"
-        />
-      </div>
+
     </div>
   </div>
 </template>

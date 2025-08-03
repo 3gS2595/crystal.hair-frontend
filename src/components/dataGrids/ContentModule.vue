@@ -5,6 +5,7 @@
       class="contentView"
       :value="kernals"
       layout="grid"
+      dataKey="id"
       @drop.prevent="dragInFile"
       @dragenter.prevent
       @dragover.prevent

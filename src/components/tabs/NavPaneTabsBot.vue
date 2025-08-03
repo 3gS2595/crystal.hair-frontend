@@ -3,16 +3,6 @@
     <div class="tabs-l">
       <div
         class="tab tab-active tab-width-standard"
-        :class="{ 'tab-active': curOptionsTab === 1 }"
-        @click="darkToggle()"
-      >
-        <img
-          class="tab-icon"
-          src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/logout.png"
-        />
-      </div>
-      <div
-        class="tab tab-active tab-width-standard"
         :class="{ 'tab-active': store.viewSettings === true }"
         @click="store.viewSettings = !store.viewSettings"
       >
@@ -47,7 +37,6 @@ import { storeToRefs } from 'pinia'
 import { ApiStore } from '@/stores/ApiStore'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { stepContentFit } from '@/lib/ResizeContentGrid'
-import { darkToggle } from '@/lib/DarkMode'
 
 const store = GlobalStore()
 const apiStore = ApiStore()

@@ -11,6 +11,20 @@
   margin-right: 2px;
   margin-bottom: var(--edge-margin);
 
+  .pane-nav-body{
+    border: 1px solid var(--border-primary) !important;
+    margin-top: -4px;
+    .pane-nav-header{
+      background: var(--background-primary);
+      z-index: 10;
+      position: sticky;
+      padding: 2px;
+      input{
+        border: 1px solid var(--border-primary) !important;
+      }
+    }
+  }
+
   .data-grid-splitter{
     width: 100%;
     height:9px;
@@ -19,21 +33,30 @@
   }
 
   [data-overlayscrollbars~=host], [data-overlayscrollbars~=viewport] {
-    height: calc(100% + 6px) !important;
+    height: 100% !important;
     border: 1px solid var(--border-primary) !important;
-    margin-top: -4px;
+    border-top: 0px !important;
+    border-left: 0px !important;
   }
 
   .os-scrollbar-vertical {
     left: 0;
-    border-right: Main.$tableBorder!important;
-    border-top: Main.$tableBorder!important;
+    border-left: Main.$tableBorder!important;
+    border-top: 0!important;
+
+    .os-scrollbar-track {
+      margin-top: 2px;
+      margin-bottom: 2px;
+      border-right: 1px solid var(--border-primary) !important;
+      border-bottom: 1px solid var(--border-primary) !important;
+      border-top: 1px solid var(--border-primary) !important;
+      border-radius: 0 !important;
+    }
   }
 
   .os-scrollbar-vertical .os-scrollbar-handle {
       width: 2px!important;
       transition: none!important;
-      left: 1px;
   }
 
   .p-dataview-content{
@@ -57,7 +80,6 @@
 
   // Mixtape card
   .dgb-nav{
-    background: var(--background-tilt);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     cursor: pointer;
@@ -121,9 +143,13 @@
   .dgb-nav:last-child{
     margin-bottom: 4px;
   }
+}
 
-
-
+.tree-node{
+  padding-top:0px!important;
+}
+#tree > div > div:last-child{
+  padding-bottom:2px;
 }
 .mix-feed-icon{
   height:18px;
@@ -189,16 +215,17 @@
   }
 }
 .mtl-tree .tree-node {
-  margin-left: calc(2 * var(--box-margin))!important;
+  margin-left: 6px;
 }
 .has-children:first-child{
   margin-top:2px;
 }
 .has-children{
   max-width: 100%;
+  margin-right: 2px;
   border:1px solid var(--tree-arrow) !important;
-
   display: flex !important;
+
   .dgb-nav{
     border: none !important;
   }

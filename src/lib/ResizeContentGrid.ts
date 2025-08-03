@@ -9,7 +9,7 @@ function resizeContentFit () {
   const min_pane_left =(window.innerWidth < 400) ? 146 : GlobalStore().navWidth
   const cgb_width = GlobalStore().cgbWidth
   const scroll_width = 4
-  let cgb_margin = 4.2
+  let cgb_margin = 4
   if (GlobalStore().paneSize === 0 ){
     const max_cont_width = window.innerWidth - scroll_width - (cgb_margin + 2)
     const extra_width = max_cont_width % (cgb_width + (cgb_margin))
@@ -28,10 +28,11 @@ function resizeContentFit () {
   }
 }
 
+
 function stepContentFit (step: number) {
   const el = document.getElementById('app')
   const cgb_width = GlobalStore().cgbWidth
-  let cgb_margin =  4
+  let cgb_margin =  5.2
   let scroll_width = 4
   let min_pane_left =(window.innerWidth < 400) ? 146 : GlobalStore().navWidth
   if ( el != null) {

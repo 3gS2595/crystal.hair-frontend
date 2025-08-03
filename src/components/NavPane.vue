@@ -6,8 +6,6 @@
       <ScrapersTreeModule :treeData="srcUrlSubsetStore.srcUrlTree" v-if="currentTab === 2" />
     </div>
   </div>
-
-
   <div class="advanced-pane">
     <div class="advanced-pane-inner">
       <Settings />

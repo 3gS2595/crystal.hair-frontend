@@ -238,6 +238,9 @@
     margin:var(--box-margin);
     padding:var(--box-margin);
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
   .infoBox{
       width:100%;
@@ -245,6 +248,9 @@
       min-height: 16px;
       white-space: pre-wrap;
       display:block;
+      white-space: nowrap;
+      display: block;
+      text-overflow: ellipsis;
 
       .info-title{
         color: var(--text-header);
@@ -271,6 +277,7 @@
         .dgb-0:last-child{
           margin-bottom:40px;
         }
+
         .dgb-0{
           position: relative;
           cursor: pointer;
@@ -283,6 +290,11 @@
           margin-top:0;
           margin-bottom:1px;
 
+          #open-mix{
+            margin-left: 5px;
+            width:30px;
+          }
+
           .dgb-0-txt{
             cursor: pointer;
             width:100%;
@@ -290,6 +302,8 @@
             border:0;
             user-select: none;
             background:none;
+            overflow: hidden;
+
             .descr{
               color:var(--text-data-title);
               opacity:.50;

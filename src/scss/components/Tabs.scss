@@ -63,9 +63,9 @@
 }
 
 .tab-content-nav{
-    padding-bottom: var(--edge-margin);
     height: calc(100% + 6px) !important;
-    flex: 1;
+    display: flex;
+    flex-direction: column;
     min-height: 0;
 }
 
@@ -94,14 +94,14 @@
 
 .tab-width-standard {
   width: 25px;
-  padding-top:2px;
+  padding-top:var(--base-spacing);
 }
 
 .advanced-tabs{
   margin-bottom: var(--edge-margin);
 }
 .advanced-pane{
-    min-height: 6px;
+    min-height: 4px;
     margin-bottom: -4px;
     border: 1px solid var(--border-primary);
     margin-right: var(--edge-margin);

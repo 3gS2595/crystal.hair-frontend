@@ -3,44 +3,55 @@
   <AddFolderBox v-if="store.addFolderBoxView" />
   <EditMixtapeBox v-if="store.editMixtapeBoxView" />
 
-  <OverlayScrollbarsComponent defer>
-    <Draggable ref="tree" id="tree" class="mtl-tree" v-model="treeData" :indent="15" treeLine>
-      <template #default="{ node, stat }">
-        <div :class="{'has-children': stat.children.length}" style="width:100%;">
-          <OpenIcon
-            v-if="stat.children.length"
-            :open="stat.open"
-            class="mtl-mr"
-            @click="stat.open = !stat.open"
-          />
-          <div @click="search(node.id)" class="dgb-nav">
-            <div class="dgb-title">
-              <a class="title font-s-title text-main-0">
-                {{ node.text }}
-              </a>
-              <img
-                v-if="feedCheck(node.id)"
-                class="mix-feed-icon"
-                src="https://crystal-hair.nyc3.digitaloceanspaces.com/feed.png"
-              />
-            </div>
-            <div>
-              <a class="descr descr-r font-s-descr text-main-0" >
-                {{ convertDate(node.content_id) }}
-              </a>
-              <a class="descr descr-l font-s-descr text text-main-0">
-                {{ convertCount(blockCnt(node.content_id)) }}
-              </a>
+  <div class="pane-nav-body">
+    <div class="pane-nav-header">
+      <input
+        id="global-search-input"
+        class="input-standard text-main-0"
+        v-model="q"
+        placeholder="search"
+        @keyup.enter="search(q)"
+      />
+    </div>
+    </div>
+    <OverlayScrollbarsComponent defer>
+      <Draggable ref="tree" id="tree" class="mtl-tree" v-model="treeData" :indent="15" treeLine>
+        <template #default="{ node, stat }">
+          <div :class="{'has-children': stat.children.length}" style="width:100%;">
+            <OpenIcon
+              v-if="stat.children.length"
+              :open="stat.open"
+              class="mtl-mr"
+              @click="stat.open = !stat.open"
+            />
+            <div @click="open_mix(node.id)" class="dgb-nav">
+              <div class="dgb-title">
+                <a class="title font-s-title text-main-0">
+                  {{ node.text }}
+                </a>
+                <img
+                  v-if="feedCheck(node.id)"
+                  class="mix-feed-icon"
+                  src="https://crystal-hair.nyc3.digitaloceanspaces.com/feed.png"
+                />
+              </div>
+              <div>
+                <a class="descr descr-r font-s-descr text-main-0" >
+                  {{ convertDate(node.content_id) }}
+                </a>
+                <a class="descr descr-l font-s-descr text text-main-0">
+                  {{ convertCount(blockCnt(node.content_id)) }}
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </template>
-    </Draggable>
-  </OverlayScrollbarsComponent>
+        </template>
+      </Draggable>
+    </OverlayScrollbarsComponent>
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
+import { toRefs, ref } from 'vue'
 import { Draggable, OpenIcon } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import '@he-tree/vue/style/material-design.css'
@@ -91,7 +102,12 @@ const convertDate = (contentId: string): string => {
 }
 
 // Function to search for a mixtape by its ID
-function search(id: string) {
+function open_mix(id: string) {
   store.mixtape = store.mixtape === id ? '' : id
+}
+const q = ref('')
+function search(e: string) {
+  store.filter = e
+  q.value = ''
 }
 </script>

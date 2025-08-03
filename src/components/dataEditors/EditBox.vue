@@ -1,16 +1,47 @@
 <template>
   <div class='overlay'>
     <div class='edit-mixtape' v-click-away='close'>
-        <div class="add-mixtape-title" >
-          <a class="input-name text-main-0 edit-opt">id:</a>
-          <a class="input-standard text-main-0 edit-opt input-name-static" v-if="store.srcUrlSubset != ''">{{ title }}</a>
-          <input class="input-standard text-main-0 edit-opt" v-if="store.mixtape != ''" placeholder="null" v-model="title">
+      <div v-if="store.mixtape != ''" >
+        <div class="mixCol">
+          <div class="select-mix">
+            <DataView class='dg-0' :value="mixes" :layout="list" >
+              <template #list="slotProps" >
+                <div v-for="(item, index) in slotProps.items" :key="index"  @click="useConnectionsStore().patchMixAddKernal(item.id, modelValue.id)" class="dgb-0">
+                  <div class="dgb-0-txt">
+                    <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(item.id) }}</a>
+                    <a class='descr' style="float:left;">{{ convertDate(item.id) }}</a>
+                    <a class='descr' style="float:right;">{{ blockCnt(item.id) }} kernals</a>
+                  </div>
+                </div>
+              </template>
+            </DataView>
+          </div>
+          <div class="select-mix">
+
+            <DataView class='dg-0' :value="mixesBelong" :layout="list" >
+              <template #list="slotProps" >
+                <div v-for="(item, index) in slotProps.items" :key="index"  @click="useConnectionsStore().patchMixRemKernal(item.id, modelValue.id)" class="dgb-0">
+                  <div class='dgb-0-txt'>
+                    <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(item.id) }}</a>
+                    <a class='descr' style="float:left;">{{ convertDate(item.id) }}</a>
+                    <a class='descr' style="float:right;">{{ blockCnt(item.id) }} kernals</a>
+                  </div>
+                </div>
+              </template>
+            </DataView>
+          </div>
         </div>
-        <div class='add-mixtape-options'>
-          <a class="option text-main-0 edit-opt" @click="deleteMixSrc">delete</a>
-          <a class='option text-main-0 edit-opt' @click='close'>exit</a>
-          <a class='option text-main-0 edit-opt' v-if="store.mixtape != ''" @click='submitFile'>save</a>
-        </div>
+      </div>
+      <div class="add-mixtape-title" >
+        <a class="input-name text-main-0 edit-opt">id:</a>
+        <a class="input-standard text-main-0 edit-opt input-name-static" v-if="store.srcUrlSubset != ''">{{ title }}</a>
+        <input class="input-standard text-main-0 edit-opt" v-if="store.mixtape != ''" placeholder="null" v-model="title">
+      </div>
+      <div class='add-mixtape-options'>
+        <a class="option text-main-0 edit-opt" @click="deleteMixSrc">delete</a>
+        <a class='option text-main-0 edit-opt' @click='close'>exit</a>
+        <a class='option text-main-0 edit-opt' v-if="store.mixtape != ''" @click='submitFile'>save</a>
+      </div>
     </div>
   </div>
 </template>
