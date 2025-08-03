@@ -8,7 +8,7 @@
               <template #list="slotProps" >
                 <div v-for="(item, index) in slotProps.items" :key="index"  @click="useConnectionsStore().patchMixAddKernal(item.id, modelValue.id)" class="dgb-0">
                   <div class="dgb-0-txt">
-                    <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(item.id) }}</a>
+                    <a style="float:left; width:calc(100%); margin-bottom:var(--base-spacing);">{{ getName(item.id) }}</a>
                     <a class='descr' style="float:left;">{{ convertDate(item.id) }}</a>
                     <a class='descr' style="float:right;">{{ blockCnt(item.id) }} kernals</a>
                   </div>
@@ -22,7 +22,7 @@
               <template #list="slotProps" >
                 <div v-for="(item, index) in slotProps.items" :key="index"  @click="useConnectionsStore().patchMixRemKernal(item.id, modelValue.id)" class="dgb-0">
                   <div class='dgb-0-txt'>
-                    <a style="float:left; width:calc(100%); margin-bottom:2px;">{{ getName(item.id) }}</a>
+                    <a style="float:left; width:calc(100%); margin-bottom:var(--base-spacing);">{{ getName(item.id) }}</a>
                     <a class='descr' style="float:left;">{{ convertDate(item.id) }}</a>
                     <a class='descr' style="float:right;">{{ blockCnt(item.id) }} kernals</a>
                   </div>

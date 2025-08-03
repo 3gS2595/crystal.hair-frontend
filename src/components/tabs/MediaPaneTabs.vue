@@ -63,9 +63,6 @@
         @click="store.closeHeader"
       >{{ mixtapeHeader }}</a>
 
-      <Dropdown />
-      <AppendFolderBox />
-
       <a
         v-if="store.tags !== ''"
         class="tab tab-active current-dir"
@@ -91,9 +88,6 @@ import { storeToRefs } from 'pinia'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { useMixtapeStore } from '@/stores/api/MixtapeStore'
 import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
-
-import Dropdown from '@/components/menus/dropdown/Dropdown.vue'
-import AppendFolderBox from '@/components/menus/dropdown/AppendFolderBox.vue'
 
 import { openExpand, toggleExpand } from '@/lib/ResizeContentGrid'
 

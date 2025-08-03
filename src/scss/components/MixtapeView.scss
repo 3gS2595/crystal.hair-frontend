@@ -8,7 +8,7 @@
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
-  margin-right: 2px;
+  margin-right: var(--base-spacing);
   margin-bottom: var(--edge-margin);
 
   .pane-nav-body{
@@ -18,7 +18,7 @@
       background: var(--background-primary);
       z-index: 10;
       position: sticky;
-      padding: 2px;
+      padding: var(--base-spacing);
       input{
         border: 1px solid var(--border-primary) !important;
       }
@@ -45,8 +45,8 @@
     border-top: 0!important;
 
     .os-scrollbar-track {
-      margin-top: 2px;
-      margin-bottom: 2px;
+      margin-top: var(--base-spacing);
+      margin-bottom: var(--base-spacing);
       border-right: 1px solid var(--border-primary) !important;
       border-bottom: 1px solid var(--border-primary) !important;
       border-top: 1px solid var(--border-primary) !important;
@@ -55,7 +55,7 @@
   }
 
   .os-scrollbar-vertical .os-scrollbar-handle {
-      width: 2px!important;
+      width: var(--base-spacing)!important;
       transition: none!important;
   }
 
@@ -87,7 +87,7 @@
     padding-left: 1px;
     border: Main.$cardBorder;
     width: calc(100% - 8px);
-    margin: 2px;
+    margin: var(--base-spacing);
     margin-left: 6px;
     margin-bottom: 0px;
     display:flex;
@@ -106,9 +106,9 @@
       }
       img{
         float: right;
-        padding-top: 2px;
+        padding-top: var(--base-spacing);
         text-align: end;
-        padding-right: 2px;
+        padding-right: var(--base-spacing);
       }
     }
     .descr-r{
@@ -120,7 +120,7 @@
       float: right;
       text-align: end;
       width: 50%;
-      padding-right: 2px;
+      padding-right: var(--base-spacing);
     }
 
     .descr{
@@ -149,7 +149,7 @@
   padding-top:0px!important;
 }
 #tree > div > div:last-child{
-  padding-bottom:2px;
+  padding-bottom:var(--base-spacing);
 }
 .mix-feed-icon{
   height:18px;
@@ -164,7 +164,7 @@
   padding-left: 1px;
   border: Main.$cardBorder;
   width: calc(100% - 8px);
-  margin: 2px;
+  margin: var(--base-spacing);
   /* margin-top: 4px; */
   margin-left: 6px;
   margin-bottom: 0px;
@@ -205,7 +205,7 @@
 
 .he-tree__open-icon{
   // margin-top: 20px !important;
-  border: 2px var(--tree-arrow) solid;
+  border: var(--base-spacing) var(--tree-arrow) solid;
 }
 .vtlist-inner{
   div.tree-node:first-child{
@@ -218,11 +218,11 @@
   margin-left: 6px;
 }
 .has-children:first-child{
-  margin-top:2px;
+  margin-top:var(--base-spacing);
 }
 .has-children{
   max-width: 100%;
-  margin-right: 2px;
+  margin-right: var(--base-spacing);
   border:1px solid var(--tree-arrow) !important;
   display: flex !important;
 

@@ -79,6 +79,6 @@
 #main-r{
     display: flex;
     flex-direction: column;
-    margin-top:2px;
-    padding-bottom:2px;
+    margin-top:var(--base-spacing);
+    padding-bottom:var(--base-spacing);
 }

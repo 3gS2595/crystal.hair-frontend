@@ -13,7 +13,7 @@
     border-top: Main.$tableBorder!important;
   }
 .os-scrollbar-vertical .os-scrollbar-handle {
-    width: 2px!important;
+    width: var(--base-spacing)!important;
     transition: none!important;
     left: 1px;
 }
@@ -27,7 +27,7 @@
   }
   .p-dataview, .p-dataview-content{
     height: 100%;
-    padding-top: 2px;
+    padding-top: var(--base-spacing);
     z-index: 10;
     position: sticky;
     background: var(--background-primary);

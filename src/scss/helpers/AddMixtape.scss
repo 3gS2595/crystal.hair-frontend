@@ -15,9 +15,9 @@
       border: 1px solid var(--border-overlay);
       display: flex;
       padding-top: 1px;
-      margin: 2px;
+      margin: var(--base-spacing);
       margin-left: 6px;
-      margin-bottom: -2px;
+      margin-bottom: -var(--base-spacing);
 
       .add-mixtape-title{
         background: var(--background-lightbox);
@@ -37,7 +37,7 @@
         width:50%;
         text-align: center;
         font-size:13px;
-        padding:2px;
+        padding:var(--base-spacing);
       }
       .option:last-child{
         background: var(--background-lightbox);
