@@ -1,10 +1,13 @@
 http://3.130.240.169
 =======
-Centralized content stream for mapping ideas, and building knowledge, visualizing live scraping data coupled with research.
------------
+
+(out of date, will update on next UI release)
 ![Site Screenshot](https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/sitedemo.gif)
 
-Typescript, Vue, SCSS, Pinia, Devise, Three.js, Vue-force-graph, Vanilla-tilt.js, Tiptap, Vue3-pdf-app, Axios, Terser, http-server AWS-EC2
+Centralized content stream for mapping ideas, and building knowledge, visualizing live scraping data coupled with research.
+-----------
+
+Typescript, Vue3, SCSS, devise
 
 ## Features
 - Account authentication with Devise JWT session tokens.
