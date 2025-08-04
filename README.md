@@ -19,26 +19,23 @@ Typescript, Vue3, SCSS, devise
 - Functionality for the user to create and edit collections of content.
 - Data visualizes, in a manipulatable 3D rendered force graph.
 
-## to self/quickr notes/TODO
+## to self/quick notes/TODO
 
 - folders crud
 - rename srcurl and kernals back and front end, general restructure all remaining horrifics
 - scroll on scrape nav
-  - combine scrape/mix vue files
+- combine scrape/mix vue files
 - kernal info edit crud
 - fix text losing format on save
-
 - larger tab buttons
 - filetype filter/sort
 - soft delete/soft delete interface?/admin panel
 - mixtape/scrape nav custom oerdering/drag reorgnizing
 - seamless multiuser support
-
 - standardize styling between upload/add mix/src boxes
 - add force graph back in
-
 - add mix to folder and manage folders themzelves
 - 1 component passed different things?
-  folders its in folders its not
-  mixtapes it has mixtapes its not
-  flag for mix or fold managment?
+- folders its in folders its not
+- mixtapes it has mixtapes its not
+- flag for mix or fold managment?
