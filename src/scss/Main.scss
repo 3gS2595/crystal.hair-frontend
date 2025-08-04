@@ -1,18 +1,19 @@
 @use './Theme';
 
-html, body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  margin:0;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
 }
 
 .contentMain {
-  position:absolute;
+  position: absolute;
   height: calc(100% - 1px);
   width: calc(100% - 1px);
 
-  #main-l{
+  #main-l {
     position: relative;
     display: flex;
     flex-flow: column;
@@ -22,10 +23,10 @@ html, body{
 }
 
 .input-standard {
-  border:0;
-  outline:0;
-  background-color: rgba(0,0,0,0);
-  width:100%;
+  border: 0;
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
 }
 
 .input-standard::placeholder {
@@ -34,46 +35,44 @@ html, body{
 }
 
 // Text Colors
-.text-main-0{
+.text-main-0 {
   color: var(--text-data-title);
 }
 
-.text-main-1{
+.text-main-1 {
   color: var(--text-data-descr);
 }
 
-.text-content-0{
+.text-content-0 {
   color: var(--text-content-descr);
 }
-.overlay-blur{
-    background: var(--background-lightbox);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(1px);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 50;
-  .overlay-expand{
 
-  }
-}
-.os-scrollbar-horizontal{
-  display:none;
+.overlay-blur {
+  background: var(--background-lightbox);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(1px);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+
+  .overlay-expand {}
 }
 
-
+.os-scrollbar-horizontal {
+  display: none;
+}
 
 // Global Variables
 $tableBorder: 1px solid var(--border-primary);
 $cardBorder: 1px solid var(--border-card);
 $dropDownBorder: 3px solid var(--border-primary);
 
-$navH:33px;
-$devH:100dvh;
-$devW:100dvw;
+$navH: 33px;
+$devH: 100dvh;
+$devW: 100dvw;
 
 $fg-height: 95px;
 $tableBorder: 1px solid var(--border-primary);
 $cardBorder: 1px solid var(--border-card);
 $dropDownBorder: 3px solid var(--border-primary);
-

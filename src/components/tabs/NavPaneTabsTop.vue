@@ -48,40 +48,36 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { storeToRefs } from 'pinia'
-import { ApiStore } from '@/stores/ApiStore'
-import { GlobalStore } from '@/stores/GlobalStore'
+  import { ref } from 'vue'
+  import { storeToRefs } from 'pinia'
+  import { ApiStore } from '@/stores/ApiStore'
+  import { GlobalStore } from '@/stores/GlobalStore'
 
-const store = GlobalStore()
-const apiStore = ApiStore()
-const searchValue = ref('')
+  const store = GlobalStore()
+  const apiStore = ApiStore()
+  const searchValue = ref('')
 
-const { currentTab } = storeToRefs(store)
+  const { currentTab } = storeToRefs(store)
 
-function changeTab() {
-  store.srcUrlSubset = ''
-  store.mixtape = ''
-  if (
-    store.mixtape === '' &&
-    (store.srcUrlSubset === '-1' || store.srcUrlSubset === '')
-  ) {
-    if (currentTab.value === 1) {
-      store.srcUrlSubset = ''
-    } else if (currentTab.value === 2) {
-      store.srcUrlSubset = '-1'
+  function changeTab() {
+    store.srcUrlSubset = ''
+    store.mixtape = ''
+    if (store.mixtape === '' && (store.srcUrlSubset === '-1' || store.srcUrlSubset === '')) {
+      if (currentTab.value === 1) {
+        store.srcUrlSubset = ''
+      } else if (currentTab.value === 2) {
+        store.srcUrlSubset = '-1'
+      }
     }
   }
-}
 
-function setTab(tab: number) {
-  currentTab.value = tab
-  changeTab()
-}
+  function setTab(tab: number) {
+    currentTab.value = tab
+    changeTab()
+  }
 
-function search(e: string) {
-  store.filter = e
-  searchValue.value = ''
-}
+  function search(e: string) {
+    store.filter = e
+    searchValue.value = ''
+  }
 </script>
-

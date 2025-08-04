@@ -1,36 +1,35 @@
-
 // Cog wheel settings menu
 
-  .settings{
-    display:flex;
-    height: fit-content;
-    width: 100%;
-    flex-direction: column;
-    padding: var(--base-spacing);
+.settings {
+  display: flex;
+  height: fit-content;
+  width: 100%;
+  flex-direction: column;
+  padding: var(--base-spacing);
 
   .input-standard {
     border: 1px solid var(--border-primary);
     margin-bottom: var(--base-spacing);
-    outline:0;
-    background-color: rgba(0,0,0,0);
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0);
   }
 
   .input-standard::placeholder {
     color: var(--text-header);
   }
 
-    .options {
-      border: 1px solid var(--text-header);
+  .options {
+    border: 1px solid var(--text-header);
 
-      .set-btn{
-        padding: var(--box-margin);
-        color:var(--text-header);
-        display: block;
-        border-bottom: 1px solid var(--text-header);
-      }
-      .set-btn:last-child{
-        border-bottom: none;
-      }
+    .set-btn {
+      padding: var(--box-margin);
+      color: var(--text-header);
+      display: block;
+      border-bottom: 1px solid var(--text-header);
+    }
+
+    .set-btn:last-child {
+      border-bottom: none;
     }
   }
-
+}

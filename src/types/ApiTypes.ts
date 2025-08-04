@@ -9,7 +9,7 @@ export interface kernalType {
   size?: number,
   author?: string,
   time_posted?: Date,
-  time_scraped?: string,
+  time_scraped?: Date,
   description?: string,
   key_words?: string,
   hashtags?: string[],

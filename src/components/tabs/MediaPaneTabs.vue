@@ -14,7 +14,7 @@
       </div>
       <div
         v-if="currentTab === 1 && mixtapeHeader === ''"
-        :class="{'tab-active media-active': store.feed === true}"
+        :class="{ 'tab-active media-active': store.feed === true }"
         class="tab tab-width-standard"
         @click="store.feed = true"
       >
@@ -25,7 +25,7 @@
       </div>
       <div
         v-if="currentTab === 1 && mixtapeHeader === ''"
-        :class="{'tab-active media-active': store.feed === false}"
+        :class="{ 'tab-active media-active': store.feed === false }"
         class="tab tab-width-standard"
         @click="store.feed = false"
       >
@@ -36,7 +36,7 @@
       </div>
       <div
         v-if="currentTab === 2 && mixtapeHeader === ''"
-        :class="{'tab-active media-active': store.feed === true}"
+        :class="{ 'tab-active media-active': store.feed === true }"
         class="tab tab-width-standard"
         @click="store.feed = true"
       >
@@ -47,7 +47,7 @@
       </div>
       <div
         v-if="currentTab === 2 && mixtapeHeader === ''"
-        :class="{'tab-active media-active': store.feed === false}"
+        :class="{ 'tab-active media-active': store.feed === false }"
         class="tab tab-width-standard"
         @click="store.feed = false"
       >
@@ -57,58 +57,52 @@
         />
       </div>
 
-      <a
-        v-if="mixtapeHeader"
-        class="tab tab-active current-dir"
-        @click="store.closeHeader"
-      >{{ mixtapeHeader }}</a>
+      <a v-if="mixtapeHeader" class="tab tab-active current-dir" @click="store.closeHeader">{{
+        mixtapeHeader
+      }}</a>
 
-      <a
-        v-if="store.tags !== ''"
-        class="tab tab-active current-dir"
-        @click="store.tags = ''"
-      >{{ store.tags }}</a>
+      <a v-if="store.tags !== ''" class="tab tab-active current-dir" @click="store.tags = ''">{{
+        store.tags
+      }}</a>
 
       <a
         v-if="store.filter !== ''"
         class="tab tab-active current-dir"
         @click="() => (store.filter = '')"
-      >{{ store.filter }}</a>
+        >{{ store.filter }}</a
+      >
     </div>
 
-    <div class="tabs-r">
-
-    </div>
+    <div class="tabs-r"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, inject } from 'vue'
-import { storeToRefs } from 'pinia'
-import { GlobalStore } from '@/stores/GlobalStore'
-import { useMixtapeStore } from '@/stores/api/MixtapeStore'
-import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
+  import { computed, inject } from 'vue'
+  import { storeToRefs } from 'pinia'
+  import { GlobalStore } from '@/stores/GlobalStore'
+  import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+  import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 
-import { openExpand, toggleExpand } from '@/lib/ResizeContentGrid'
+  import { openExpand, toggleExpand } from '@/lib/ResizeContentGrid'
 
-// Pinia stores
-const store = GlobalStore()
-const { currentTab, mixtape, srcUrlSubset, mixtapes, srcUrlSubsets } = {
-  ...storeToRefs(store),
-  ...storeToRefs(useMixtapeStore()),
-  ...storeToRefs(useSrcUrlSubsetStore()),
-}
+  // Pinia stores
+  const store = GlobalStore()
+  const { currentTab, mixtape, srcUrlSubset, mixtapes, srcUrlSubsets } = {
+    ...storeToRefs(store),
+    ...storeToRefs(useMixtapeStore()),
+    ...storeToRefs(useSrcUrlSubsetStore()),
+  }
 
-// Watchers to update mixtapeHeader based on changes
-const mixtapeHeader = computed(() => {
-  const mixtapeObj = mixtapes.value.find((m) => m.id === store.mixtape)
-  const srcSubsetObj = srcUrlSubsets.value.find((s) => s.id === store.srcUrlSubset)
-  return mixtapeObj?.name || srcSubsetObj?.name || ''
-})
+  // Watchers to update mixtapeHeader based on changes
+  const mixtapeHeader = computed(() => {
+    const mixtapeObj = mixtapes.value.find(m => m.id === store.mixtape)
+    const srcSubsetObj = srcUrlSubsets.value.find(s => s.id === store.srcUrlSubset)
+    return mixtapeObj?.name || srcSubsetObj?.name || ''
+  })
 
-const toggle_upload: any = inject('toggle_upload')
-function toggle() {
-  toggle_upload.value = !toggle_upload.value
-}
+  const toggle_upload: any = inject('toggle_upload')
+  function toggle() {
+    toggle_upload.value = !toggle_upload.value
+  }
 </script>
-

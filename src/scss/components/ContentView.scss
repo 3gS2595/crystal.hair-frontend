@@ -1,25 +1,24 @@
-@use "../Main" as Main;
+@use '../Main' as Main;
 
-
-.contentView{
+.contentView {
   width: 100%;
-  margin-right:var(--edge-margin);
+  margin-right: var(--edge-margin);
   height: 100%;
 
-  .p-dataview-content{
+  .p-dataview-content {
     z-index: 10;
     position: absolute;
     background: var(--background-primary);
     width: 100%;
     min-height: 10px; // this causes tabs to overlap correctly, strange that 100% does not work
 
-    .grid{
+    .grid {
       display: flex;
       flex-wrap: wrap;
       margin-bottom: var(--box-margin);
       align-content: flex-start;
       background: var(--background-primary);
-      z-index: 10!important;
+      z-index: 10 !important;
       position: relative;
       margin-right: 4px;
       align-items: flex-start;
@@ -28,15 +27,15 @@
 }
 
 // Content card
-.cgb-0{
+.cgb-0 {
   margin-top: var(--box-margin);
   height: fit-content;
-  margin-right:var(--base-spacing);
+  margin-right: var(--base-spacing);
   margin-left: var(--base-spacing);
 
-  .cgb-0-txt{
+  .cgb-0-txt {
     padding: var(--box-margin);
-    margin:var(--base-spacing);
+    margin: var(--base-spacing);
     border: 1px solid var(--border-primary);
     width: 100%;
     height: 100%;
@@ -46,9 +45,10 @@
     white-space: pre-wrap;
   }
 
-  .vue-load-image{
+  .vue-load-image {
     display: flex;
     justify-content: flex-start;
+
     .thumbnail {
       border: 1px solid var(--border-primary);
       padding: var(--base-spacing);
@@ -56,77 +56,84 @@
       max-height: inherit;
       object-fit: contain;
     }
-    .loading{
-      max-height: 100%!important;
+
+    .loading {
+      max-height: 100% !important;
     }
   }
 
-  .cgb-0-info{
+  .cgb-0-info {
     border-top: Main.$cardBorder;
     color: var(--text-content-descr);
     max-width: 100%;
     overflow: hidden;
-    height: fit-content!important;
+    height: fit-content !important;
     padding: var(--base-spacing);
     white-space: nowrap;
     opacity: 0.8;
   }
 }
 
-.cont-load{
+.cont-load {
   display: flex;
   flex-direction: row-reverse;
 }
 
+.tab-content-kernal {
 
-
-
-.tab-content-kernal{
-  [data-overlayscrollbars=host], [data-overlayscrollbars=viewport] {
+  [data-overlayscrollbars='host'],
+  [data-overlayscrollbars='viewport'] {
     height: calc(100% + 4px) !important;
-    border: Main.$tableBorder!important;
+    border: Main.$tableBorder !important;
     margin-top: -4px;
   }
-.os-scrollbar-vertical {
-    border-left: Main.$tableBorder!important;
-}
+
+  .os-scrollbar-vertical {
+    border-left: Main.$tableBorder !important;
+  }
 }
 
-[data-overlayscrollbars~=host], [data-overlayscrollbars~=viewport] {
+[data-overlayscrollbars~='host'],
+[data-overlayscrollbars~='viewport'] {
   position: relative;
   overflow: scroll;
 }
 
-[data-overlayscrollbars-viewport]{
-    position: relative;
-    overflow: scroll;
-    height: 100%!important;
-    z-index:10;
+[data-overlayscrollbars-viewport] {
+  position: relative;
+  overflow: scroll;
+  height: 100% !important;
+  z-index: 10;
 }
+
 .os-theme-dark {
   --os-handle-bg: var(--scrollbar) !important;
 }
+
 .os-scrollbar .os-scrollbar-handle {
-    border-radius: 0!important;
-}
-.os-scrollbar-vertical .os-scrollbar-handle {
-    width: var(--base-spacing)!important;
-    transition: none!important;
+  border-radius: 0 !important;
 }
 
 .os-scrollbar-vertical .os-scrollbar-handle {
-    transition: none!important;
+  width: var(--base-spacing) !important;
+  transition: none !important;
 }
+
+.os-scrollbar-vertical .os-scrollbar-handle {
+  transition: none !important;
+}
+
 .os-scrollbar-vertical {
-    width: 4px!important;
-    height: 100%;
-        z-index: 10;
+  width: 4px !important;
+  height: 100%;
+  z-index: 10;
 }
+
 .os-scrollbar-track {
-    padding: 0 !important;
-    width: 3px!important;
-}
-.os-scrollbar-vertical {
-    padding: 0 !important;
+  padding: 0 !important;
+  width: 3px !important;
 }
 
+.os-scrollbar-vertical {
+  padding: 0 !important;
+}

@@ -1,84 +1,103 @@
 // content pane
-.splitpanes.default-theme .splitpanes__pane{
-    background-color: rgba(0,0,0,0);
+.splitpanes.default-theme .splitpanes__pane {
+  background-color: rgba(0, 0, 0, 0);
 }
 
 // middle segment
-.splitpanes.default-theme .splitpanes__splitter:before{
-    content: "";
-    height:20px;
-    max-width:0px;
-    background-color: rgba(0,0,0,0);
-    z-index: 1;
-}
-.default-theme.splitpanes--vertical>.splitpanes__splitter:before, .default-theme .splitpanes--vertical>.splitpanes__splitter:before{
-  margin-left:-10px;
-  height:100%;
+.splitpanes.default-theme .splitpanes__splitter:before {
+  content: '';
+  height: 20px;
+  max-width: 0px;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 1;
 }
 
-.default-theme.splitpanes--horizontal>.splitpanes__splitter:before, .default-theme .splitpanes--horizontal>.splitpanes__splitter:before{
-  margin-top:-10px;
-  width:100%;
+.default-theme.splitpanes--vertical>.splitpanes__splitter:before,
+.default-theme .splitpanes--vertical>.splitpanes__splitter:before {
+  margin-left: -10px;
+  height: 100%;
 }
+
+.default-theme.splitpanes--horizontal>.splitpanes__splitter:before,
+.default-theme .splitpanes--horizontal>.splitpanes__splitter:before {
+  margin-top: -10px;
+  width: 100%;
+}
+
 // slider section
 .splitpanes.default-theme .splitpanes__splitter {
-    background-color: rgba(0,0,0,0);
-    border-top: 0px dotted var(--border-primary);
+  background-color: rgba(0, 0, 0, 0);
+  border-top: 0px dotted var(--border-primary);
 }
-.default-theme.splitpanes--horizontal>.splitpanes__splitter, .default-theme .splitpanes--horizontal>.splitpanes__splitter {
-    display:grid;
-    height: 0px;
-    margin-top: -1px;
+
+.default-theme.splitpanes--horizontal>.splitpanes__splitter,
+.default-theme .splitpanes--horizontal>.splitpanes__splitter {
+  display: grid;
+  height: 0px;
+  margin-top: -1px;
 }
-.default-theme.splitpanes--vertical>.splitpanes__splitter, .default-theme .splitpanes--vertical>.splitpanes__splitter{
-  width:0px;
+
+.default-theme.splitpanes--vertical>.splitpanes__splitter,
+.default-theme .splitpanes--vertical>.splitpanes__splitter {
+  width: 0px;
 }
+
 .splitpanes {
-  height:100%;
+  height: 100%;
   display: flex;
   width: 100%;
   height: 100%;
+
   .splitpanes__pane {
-    transition: none!important;
-    animation-duration: 0!important;
+    transition: none !important;
+    animation-duration: 0 !important;
   }
 }
+
 .splitpanes__pane {
-    width: 100%;
-    height: 100%;
-    overflow: visible!important;
+  width: 100%;
+  height: 100%;
+  overflow: visible !important;
 }
+
 .splitpanes.default-theme .splitpanes__pane {
-    background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
 }
+
 .splitpanes.default-theme .splitpanes__splitter {
-    background-color: rgba(0, 0, 0, 0);
-    border-left: 0px solid var(--border-primary);
-    border-right: 0px solid var(--border-primary);
+  background-color: rgba(0, 0, 0, 0);
+  border-left: 0px solid var(--border-primary);
+  border-right: 0px solid var(--border-primary);
 }
+
 .splitpanes.default-theme .splitpanes__splitter {
-    box-sizing: border-box;
-    position: relative;
-    flex-shrink: 0;
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0;
 }
+
 .splitpanes--vertical>.splitpanes__splitter {
-    min-width: 1px;
-    cursor: col-resize;
+  min-width: 1px;
+  cursor: col-resize;
 }
+
 .splitpanes__splitter {
   touch-action: none;
 }
 
-.default-theme.splitpanes--horizontal > .splitpanes__splitter, .default-theme .splitpanes--horizontal > .splitpanes__splitter{
-  background-color:var(--background-primary);
+.default-theme.splitpanes--horizontal>.splitpanes__splitter,
+.default-theme .splitpanes--horizontal>.splitpanes__splitter {
+  background-color: var(--background-primary);
 }
+
 :root {
-    --sidebar-transition-duration: 0!important;
-    --sidebar-transition-timing-function: none!important;
+  --sidebar-transition-duration: 0 !important;
+  --sidebar-transition-timing-function: none !important;
 }
-#main-r{
-    display: flex;
-    flex-direction: column;
-    margin-top:var(--base-spacing);
-    padding-bottom:var(--base-spacing);
+
+#main-r {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--base-spacing);
+  padding-bottom: var(--base-spacing);
 }

@@ -6,3 +6,7 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+// Fix for NodeList iterable error in TypeScript
+interface NodeList extends Iterable<Node> {}
+interface NodeListOf<TNode extends Node> extends Iterable<TNode> {}

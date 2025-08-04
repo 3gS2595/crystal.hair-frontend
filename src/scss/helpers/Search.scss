@@ -1,13 +1,13 @@
-.search{
+.search {
   border: 1px solid var(--border-primary);
   margin: var(--base-spacing);
   margin-bottom: 0;
 
   .input-standard {
-    border:0;
-    outline:0;
-    background-color: rgba(0,0,0,0);
-    width:100%;
+    border: 0;
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
   }
 
   .input-standard::placeholder {

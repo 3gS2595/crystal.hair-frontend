@@ -30,6 +30,8 @@
     "vue3-resizable": "^1.0.0-alpha.3"
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
+    "@types/splitpanes": "^2.2.6",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vitejs/plugin-vue-jsx": "^5.0.1",
     "@vue/tsconfig": "^0.4.0",

@@ -1,32 +1,33 @@
-@use "../Main" as Main;
+@use '../Main' as Main;
 
-.forceGraph{
-  padding:var(--edge-margin);
+.forceGraph {
+  padding: var(--edge-margin);
   flex: 0 1 95px;
   margin-right: var(--edge-margin);
   margin-left: var(--edge-margin);
   border: Main.$tableBorder;
   position: relative;
 
-  .fg{
-    max-width:100%!important;
-    max-height:100%!important;
-    opacity:.8;
+  .fg {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    opacity: 0.8;
     border: Main.$tableBorder;
 
-    .scene-container{
-      max-width:100%!important;
-      width:100%!important;
-      height:Main.$fg-height!important;
+    .scene-container {
+      max-width: 100% !important;
+      width: 100% !important;
+      height: Main.$fg-height !important;
 
-      canvas{
-        max-width:100%!important;
-        width:100%!important;
-        height:Main.$fg-height!important;
+      canvas {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: Main.$fg-height !important;
       }
     }
   }
 }
+
 canvas {
-    aspect-ratio: auto 220 / 210!important;
+  aspect-ratio: auto 220 / 210 !important;
 }

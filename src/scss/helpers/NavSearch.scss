@@ -1,26 +1,25 @@
 @use '../Main' as Main;
 
-.nav{
+.nav {
   flex: 0 1 auto;
-  display:flex;
+  display: flex;
   border: Main.$tableBorder;
   margin-top: var(--box-margin);
   margin: var(--edge-margin);
-  height:29px;
+  height: 29px;
   background: var(--background-primary);
 
-  .navItem{
+  .navItem {
     font-size: 16px;
     text-align: center;
     cursor: pointer;
     max-width: 25px;
-    flex-grow:1;
-    border-right:1px solid var(--border-primary);
+    flex-grow: 1;
+    border-right: 1px solid var(--border-primary);
   }
+
   .input-search {
-    flex-grow:1;
-    width:33%;
+    flex-grow: 1;
+    width: 33%;
   }
 }
-
-

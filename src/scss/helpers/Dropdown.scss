@@ -1,17 +1,18 @@
-.dropdown-item{
+.dropdown-item {
   background: var(--background-lightbox);
   width: 100px;
   display: flex;
   height: 20px;
   border: 1px solid var(--border-primary);
 }
-.tab-btn{
-  height: 21px!important;
-  opacity: 1!important;
-  z-index: 15!important;
+
+.tab-btn {
+  height: 21px !important;
+  opacity: 1 !important;
+  z-index: 15 !important;
   background: var(--background-primary);
 
-  a{
+  a {
     color: var(--tab-media-icon);
   }
 }

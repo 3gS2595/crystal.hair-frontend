@@ -1,47 +1,53 @@
-@use "../Main" as Main;
+@use '../Main' as Main;
 
-.src-url-subset-view{
+.src-url-subset-view {
   height: calc(100% + 4px);
   margin-top: -4px;
   border: Main.$tableBorder;
-  [data-overlayscrollbars~=host], [data-overlayscrollbars~=viewport] {
-    height:100%;
+
+  [data-overlayscrollbars~='host'],
+  [data-overlayscrollbars~='viewport'] {
+    height: 100%;
   }
+
   .os-scrollbar-vertical {
     left: 0;
-    border-right: Main.$tableBorder!important;
-    border-top: Main.$tableBorder!important;
+    border-right: Main.$tableBorder !important;
+    border-top: Main.$tableBorder !important;
   }
-.os-scrollbar-vertical .os-scrollbar-handle {
-    width: var(--base-spacing)!important;
-    transition: none!important;
-    left: 1px;
-}
 
-  .p-dataview-content{
+  .os-scrollbar-vertical .os-scrollbar-handle {
+    width: var(--base-spacing) !important;
+    transition: none !important;
+    left: 1px;
+  }
+
+  .p-dataview-content {
     padding-top: 5px;
     padding-bottom: 4px;
     z-index: 10;
     position: sticky;
     background: var(--background-primary);
   }
-  .p-dataview, .p-dataview-content{
+
+  .p-dataview,
+  .p-dataview-content {
     height: 100%;
     padding-top: var(--base-spacing);
     z-index: 10;
     position: sticky;
     background: var(--background-primary);
 
-    .grid{
+    .grid {
       position: relative;
       z-index: 5;
-      max-height: calc(100% );
+      max-height: calc(100%);
       display: flex;
       flex-wrap: wrap;
     }
   }
 }
 
-.dgb-0:last-child{
+.dgb-0:last-child {
   margin-bottom: 40px;
 }

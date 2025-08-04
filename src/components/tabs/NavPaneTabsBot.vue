@@ -33,12 +33,12 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
-import { ApiStore } from '@/stores/ApiStore'
-import { GlobalStore } from '@/stores/GlobalStore'
-import { stepContentFit } from '@/lib/ResizeContentGrid'
+  import { storeToRefs } from 'pinia'
+  import { ApiStore } from '@/stores/ApiStore'
+  import { GlobalStore } from '@/stores/GlobalStore'
+  import { stepContentFit } from '@/lib/ResizeContentGrid'
 
-const store = GlobalStore()
-const apiStore = ApiStore()
-const { curOptionsTab } = storeToRefs(store)
+  const store = GlobalStore()
+  const apiStore = ApiStore()
+  const { curOptionsTab } = storeToRefs(store)
 </script>

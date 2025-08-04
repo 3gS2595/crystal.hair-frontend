@@ -1,55 +1,55 @@
 <template>
-  <div class='overlay' >
-    <div class='edit-mixtape' v-click-away='close'>
+  <div class="overlay">
+    <div class="edit-mixtape" v-click-away="close">
       <div class="add-mixtape-title">
         <a class="input-name text-main-0 edit-opt">id:</a>
-        <input class="input-standard text-main-0 edit-opt" placeholder="null" v-model="title">
+        <input class="input-standard text-main-0 edit-opt" placeholder="null" v-model="title" />
       </div>
-      <div class='add-mixtape-options'>
-        <a class="option text-main-0 edit-opt" @click='close'>exit</a>
-        <a class='option text-main-0 edit-opt' @click='submitFile()'>save</a>
+      <div class="add-mixtape-options">
+        <a class="option text-main-0 edit-opt" @click="close">exit</a>
+        <a class="option text-main-0 edit-opt" @click="submitFile()">save</a>
       </div>
     </div>
   </div>
 </template>
 
-<script lang='ts'>
-import type { AddMixtapeBoxState } from '@/types/index'
+<script lang="ts">
+  import type { AddMixtapeBoxState } from '@/types/index'
 
-import { defineComponent, type PropType, ref } from 'vue'
-import { directive } from 'vue3-click-away'
+  import { defineComponent, type PropType, ref } from 'vue'
+  import { directive } from 'vue3-click-away'
 
-import { GlobalStore } from '@/stores/GlobalStore'
-import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+  import { GlobalStore } from '@/stores/GlobalStore'
+  import { useMixtapeStore } from '@/stores/api/MixtapeStore'
 
-const store = GlobalStore()
-export default defineComponent({
-  data(): AddMixtapeBoxState {
-    return {
-      store: GlobalStore(),
-      title: ref("")
-    }
-  },
-  directives: {
-    ClickAway: directive
-  },
-  methods: {
-    submitFile () {
-      useMixtapeStore().addMixtape(this.title)
-      close()
-    },
-    esc (e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        this.close()
+  const store = GlobalStore()
+  export default defineComponent({
+    data(): AddMixtapeBoxState {
+      return {
+        store: GlobalStore(),
+        title: ref(''),
       }
     },
-    close () {
-      store.addMixtapeBoxView = false
-      window.removeEventListener('keyup', this.esc, true)
-    }
-  },
-  mounted() {
-    window.addEventListener('keyup', this.esc, true)
-  }
-})
+    directives: {
+      ClickAway: directive,
+    },
+    methods: {
+      submitFile() {
+        useMixtapeStore().addMixtape(this.title)
+        close()
+      },
+      esc(e: KeyboardEvent) {
+        if (e.key === 'Escape') {
+          this.close()
+        }
+      },
+      close() {
+        store.addMixtapeBoxView = false
+        window.removeEventListener('keyup', this.esc, true)
+      },
+    },
+    mounted() {
+      window.addEventListener('keyup', this.esc, true)
+    },
+  })
 </script>

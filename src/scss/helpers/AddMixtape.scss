@@ -1,47 +1,47 @@
 // Cog wheel settings menu
-  .add-mixtape{
-    background: var(--background-primary);
-    z-index: 20;
-    height: -moz-fit-content;
-    height: fit-content;
-    width: 100%;
+.add-mixtape {
+  background: var(--background-primary);
+  z-index: 20;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 100%;
+  position: relative;
+  padding-top: 1px;
+
+  .uploader {
+    background: var(--background-lightbox);
     position: relative;
+    border: 1px solid var(--border-overlay);
+    display: flex;
     padding-top: 1px;
+    margin: var(--base-spacing);
+    margin-left: 6px;
+    margin-bottom: -var(--base-spacing);
 
-
-    .uploader{
+    .add-mixtape-title {
       background: var(--background-lightbox);
-      position: relative;
-      border: 1px solid var(--border-overlay);
-      display: flex;
-      padding-top: 1px;
-      margin: var(--base-spacing);
-      margin-left: 6px;
-      margin-bottom: -var(--base-spacing);
-
-      .add-mixtape-title{
-        background: var(--background-lightbox);
-        width:100%;
-      }
-    }
-    .add-mixtape-options{
-      background: var(--background-lightbox);
-      color: var(--text-data-title);
       width: 100%;
-      display: flex;
-      width: fit-content;
-
-      .option{
-        background: var(--background-lightbox);
-        color: var(--text-data-title);
-        width:50%;
-        text-align: center;
-        font-size:13px;
-        padding:var(--base-spacing);
-      }
-      .option:last-child{
-        background: var(--background-lightbox);
-      }
     }
   }
 
+  .add-mixtape-options {
+    background: var(--background-lightbox);
+    color: var(--text-data-title);
+    width: 100%;
+    display: flex;
+    width: fit-content;
+
+    .option {
+      background: var(--background-lightbox);
+      color: var(--text-data-title);
+      width: 50%;
+      text-align: center;
+      font-size: 13px;
+      padding: var(--base-spacing);
+    }
+
+    .option:last-child {
+      background: var(--background-lightbox);
+    }
+  }
+}
