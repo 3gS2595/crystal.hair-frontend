@@ -1,6 +1,6 @@
 # http://3.130.240.169
 
-## Centralized content stream for mapping ideas, and building knowledge, visualizing live scraping data coupled with research.
+## Out of date README, will update on completion of current overhaul.  
 
 ![Site Screenshot](https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/sitedemo.gif)
 
@@ -23,7 +23,7 @@ Typescript, Vue3, SCSS, devise
 
 - folders crud
 - rename srcurl and kernals back and front end, general restructure all remaining horrifics
-- scroll on scrape nav
+- [X] scroll on scrape nav
 - combine scrape/mix vue files
 - kernal info edit crud
 - fix text losing format on save
@@ -39,3 +39,5 @@ Typescript, Vue3, SCSS, devise
 - folders its in folders its not
 - mixtapes it has mixtapes its not
 - flag for mix or fold managment?
+- overlay on error with debug ( for when implement live update/ creation of objects)
+- refactor overlays and tab reusablility
