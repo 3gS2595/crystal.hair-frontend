@@ -1,4 +1,9 @@
 <template>
+  <OverlayBox v-if="overlay_add_mix || overlay_add_src">
+    <AddMixtapeBox v-if="overlay_add_mix" />
+    <AddSrcUrlSubset v-if="overlay_add_src" />
+    <EditMixtapeBox v-if="store.editMixtapeBoxView" />
+  </OverlayBox>
   <div class="tabs tabs-content">
     <div class="tabs-l">
       <div
@@ -26,7 +31,7 @@
       <div
         class="tab tab-active tab-width-standard"
         v-if="currentTab === 1"
-        @click="store.addMixtapeBoxView = !store.addFolderBoxView"
+        @click="overlay_add_mix = !overlay_add_mix"
       >
         <img
           class="tab-icon"
@@ -36,7 +41,7 @@
       <div
         class="tab tab-active tab-width-standard"
         v-if="currentTab === 2"
-        @click="store.addSrcUrlSubset = !store.addSrcUrlSubset"
+        @click="overlay_add_src = !overlay_add_src"
       >
         <img
           class="tab-icon"
@@ -48,16 +53,22 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, provide } from 'vue'
   import { storeToRefs } from 'pinia'
-  import { ApiStore } from '@/stores/ApiStore'
   import { GlobalStore } from '@/stores/GlobalStore'
+  import AddMixtapeBox from '@/components/atoms/uploaders/AddMixtape.vue'
+  import AddSrcUrlSubset from '@/components/atoms/uploaders/AddSrcUrlSubset.vue'
+  import EditMixtapeBox from '@/components/molecules/EditBox.vue'
+  import OverlayBox from '@/components/atoms/OverlayBox.vue'
 
   const store = GlobalStore()
-  const apiStore = ApiStore()
-  const searchValue = ref('')
 
   const { currentTab } = storeToRefs(store)
+
+  const overlay_add_mix = ref(false)
+  provide('overlay_add_mix', overlay_add_mix)
+  const overlay_add_src = ref(false)
+  provide('overlay_add_src', overlay_add_src)
 
   function changeTab() {
     store.srcUrlSubset = ''
@@ -74,10 +85,5 @@
   function setTab(tab: number) {
     currentTab.value = tab
     changeTab()
-  }
-
-  function search(e: string) {
-    store.filter = e
-    searchValue.value = ''
   }
 </script>

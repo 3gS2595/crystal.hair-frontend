@@ -45,6 +45,7 @@ export const useSrcUrlSubsetStore = defineStore('srcUrlSubset', {
       }
       try { this.srcUrlSubsets  = (await axios.get(SessionStore().getUrlRails + 'src_url_subsets', config)).data }
       catch (e) {console.error(e)}
+        console.log(this.srcUrlSubsets[0])
 
       this.srcUrlTree = []
       this.srcUrlTree.push({text: "Feed", children: []})

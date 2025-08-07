@@ -55,24 +55,19 @@
 <script setup lang="ts">
   import { ref, computed, onMounted, onUnmounted, defineAsyncComponent } from 'vue'
   import { storeToRefs } from 'pinia'
-  import ViewText from './viewers/TextEditor.vue'
-  import ViewImg from './viewers/ViewImg.vue'
-  import ViewInfo from './viewers/ViewInfo.vue'
+  import ViewText from '@/components/atoms/viewers/ViewText.vue'
+  import ViewImg from '@/components/atoms/viewers/ViewImg.vue'
+  import ViewInfo from '@/components/atoms/viewers/ViewInfo.vue'
   import { GlobalStore } from '@/stores/GlobalStore'
   import { useKernalStore } from '@/stores/api/KernalStore'
 
   // Lazy-load the PDF viewer component
-  const ViewPdf = defineAsyncComponent(() => import('./viewers/ViewPdf.vue'))
+  const ViewPdf = defineAsyncComponent(() => import('@/components/atoms/viewers/ViewPdf.vue'))
 
   const store = GlobalStore()
   const { kernals } = storeToRefs(useKernalStore())
-  const { uploadBoxView } = storeToRefs(store)
 
   const viewInfo = ref(false)
-  const height = ref(window.innerHeight - 10)
-  const width = ref(window.innerWidth - 11)
-  const maxW = ref(window.innerWidth - 10)
-  const maxH = ref(window.innerHeight - 10)
 
   // Determine if current file is a PDF
   const isPdf = computed(() => {
@@ -97,22 +92,6 @@
     }
   }
 
-  const eHandler = () => {
-    maxW.value = window.innerWidth
-    maxH.value = window.innerHeight
-  }
-
-  const orientationChange = () => {
-    const orientation = window.orientation
-    if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-      width.value = window.innerWidth - 11
-      height.value = window.innerHeight - 10
-    } else {
-      width.value = window.innerWidth - 11
-      height.value = window.innerHeight - 10
-    }
-  }
-
   const keyIn = (e: KeyboardEvent) => {
     const isEditing = document.getElementsByClassName('tiptap')[0] === document.activeElement
     if (!isEditing) {
@@ -133,15 +112,10 @@
   }
 
   onMounted(() => {
-    window.addEventListener('resize', orientationChange)
-    window.addEventListener('orientationchange', orientationChange)
     window.addEventListener('keyup', keyIn, true)
-    orientationChange()
   })
 
   onUnmounted(() => {
-    window.removeEventListener('resize', orientationChange)
-    window.removeEventListener('orientationchange', orientationChange)
     window.removeEventListener('keyup', keyIn, true)
   })
 </script>

@@ -13,7 +13,6 @@
         />
       </div>
       <div
-        v-if="currentTab === 1 && mixtapeHeader === ''"
         :class="{ 'tab-active media-active': store.feed === true }"
         class="tab tab-width-standard"
         @click="store.feed = true"
@@ -24,29 +23,6 @@
         />
       </div>
       <div
-        v-if="currentTab === 1 && mixtapeHeader === ''"
-        :class="{ 'tab-active media-active': store.feed === false }"
-        class="tab tab-width-standard"
-        @click="store.feed = false"
-      >
-        <img
-          class="tab-icon tab-icon-media"
-          src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-settings.png"
-        />
-      </div>
-      <div
-        v-if="currentTab === 2 && mixtapeHeader === ''"
-        :class="{ 'tab-active media-active': store.feed === true }"
-        class="tab tab-width-standard"
-        @click="store.feed = true"
-      >
-        <img
-          class="tab-icon tab-icon-media"
-          src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/icon-src.png"
-        />
-      </div>
-      <div
-        v-if="currentTab === 2 && mixtapeHeader === ''"
         :class="{ 'tab-active media-active': store.feed === false }"
         class="tab tab-width-standard"
         @click="store.feed = false"
@@ -84,11 +60,9 @@
   import { useMixtapeStore } from '@/stores/api/MixtapeStore'
   import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 
-  import { openExpand, toggleExpand } from '@/lib/ResizeContentGrid'
-
   // Pinia stores
   const store = GlobalStore()
-  const { currentTab, mixtape, srcUrlSubset, mixtapes, srcUrlSubsets } = {
+  const { mixtapes, srcUrlSubsets } = {
     ...storeToRefs(store),
     ...storeToRefs(useMixtapeStore()),
     ...storeToRefs(useSrcUrlSubsetStore()),

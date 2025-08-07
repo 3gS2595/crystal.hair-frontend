@@ -15,21 +15,17 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
   import { storeToRefs } from 'pinia'
 
-  import MixtapeTreeModule from '@/components/dataGrids/MixtapeTreeModule.vue'
-  import ScrapersTreeModule from '@/components/dataGrids/ScrapersTreeModule.vue'
-  import NavPaneTabs from '@/components/tabs/NavPaneTabsTop.vue'
-  import AdvancedTabs from '@/components/tabs/NavPaneTabsBot.vue'
-  import Settings from '@/components/menus/Settings.vue'
+  import MixtapeTreeModule from '@/components/organisms/MixtapeTreeModule.vue'
+  import ScrapersTreeModule from '@/components/organisms/ScrapersTreeModule.vue'
+  import NavPaneTabs from '@/components/molecules/tabs/NavPaneTabsTop.vue'
+  import AdvancedTabs from '@/components/molecules/tabs/NavPaneTabsBot.vue'
+  import Settings from '@/components/molecules/Settings.vue'
 
   import { GlobalStore } from '@/stores/GlobalStore'
   import { useMixtapeStore } from '@/stores/api/MixtapeStore'
   import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
-
-  // Reactive search input
-  const q = ref('')
 
   // Access stores
   const store = GlobalStore()

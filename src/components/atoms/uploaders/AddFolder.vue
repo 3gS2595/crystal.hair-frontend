@@ -1,8 +1,7 @@
 <template>
-  <div class="overlay">
     <div class="edit-mixtape" v-click-away="close">
       <div class="add-mixtape-title">
-        <a class="input-name text-main-0 edit-opt">id:</a>
+        <a class="input-name text-main-0 edit-opt">folder:</a>
         <input class="input-standard text-main-0 edit-opt" placeholder="null" v-model="title" />
       </div>
       <div class="add-mixtape-options">
@@ -10,32 +9,28 @@
         <a class="option text-main-0 edit-opt" @click="submitFile()">save</a>
       </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
-  import type { AddMixtapeBoxState } from '@/types/index'
+  import type { AddFolderBoxState } from '@/types/index'
 
   import { defineComponent, type PropType, ref } from 'vue'
   import { directive } from 'vue3-click-away'
 
   import { GlobalStore } from '@/stores/GlobalStore'
-  import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+  import { useFolderStore } from '@/stores/api/FolderStore'
 
   const store = GlobalStore()
   export default defineComponent({
-    data(): AddMixtapeBoxState {
+    data(): AddFolderBoxState {
       return {
         store: GlobalStore(),
         title: ref(''),
       }
     },
-    directives: {
-      ClickAway: directive,
-    },
     methods: {
       submitFile() {
-        useMixtapeStore().addMixtape(this.title)
+        useFolderStore().addFolder(this.title)
         close()
       },
       esc(e: KeyboardEvent) {
@@ -44,7 +39,7 @@
         }
       },
       close() {
-        store.addMixtapeBoxView = false
+        store.addFolderBoxView = false
         window.removeEventListener('keyup', this.esc, true)
       },
     },

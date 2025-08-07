@@ -27,7 +27,7 @@
     () => props.modelValue,
     value => {
       if (!editor.value) return
-      const desc = value.description.split('\n').join('<br />')
+      const desc = value.description != undefined ? value.description.split('\n').join('<br />') : ''
       const isSame = editor.value.getHTML() === desc
       if (!isSame) editor.value.commands.setContent(desc, false)
     },
@@ -35,14 +35,14 @@
   )
 
   function saveKernal() {
-    if (!editor.value) return
+    if (!editor.value || !props.modelValue.id) return
     kernalStore.patchKernalDescr(props.modelValue.id, editor.value.view.dom.innerText)
   }
 
   onMounted(() => {
     editor.value = new Editor({
       extensions: [StarterKit],
-      content: props.modelValue.description.split('\n').join('<br />'),
+      content: props.modelValue. description? props.modelValue.description.split('\n').join('<br />') : '',
       onUpdate: () => {
         if (!editor.value) return
         const currentText = editor.value.view.dom.innerText

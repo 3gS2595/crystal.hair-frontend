@@ -1,9 +1,8 @@
-import { storeToRefs } from 'pinia'
+import type { kernalType } from '@/types/ApiTypes'
 
+import { storeToRefs } from 'pinia'
 import { GlobalStore } from '@/stores/GlobalStore'
 import { useKernalStore } from '@/stores/api/KernalStore'
-
-import type { kernalType } from '@/types/ApiTypes'
 
 function resizeContentFit () {
   const min_pane_left =(window.innerWidth < 400) ? 146 : GlobalStore().navWidth

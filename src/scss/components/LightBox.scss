@@ -168,10 +168,12 @@
 }
 
 #textEditor {
+  background: var(--background-primary);
   position: relative;
   min-height: 80%;
   max-height: calc(100cqh - 30px) !important;
   container-type: size;
+  box-shadow: 0 0 100px 100px var(--background-primary);
 
   .tiptap {
     position: relative;

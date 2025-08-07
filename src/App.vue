@@ -11,7 +11,7 @@
   import { onMounted } from 'vue'
   import { darkSet } from '@/lib/DarkMode'
 
-  import SessionManager from '@/components/sessionManager/SessionManager.vue'
+  import SessionManager from '@/components/templates/SessionManager.vue'
   import { SessionStore } from '@/stores/SessionStore'
 
   const sessionStore = SessionStore()

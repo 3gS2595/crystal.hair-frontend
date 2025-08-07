@@ -21,11 +21,11 @@
     "primeflex": "^4.0.0",
     "primevue": "^3.53.1",
     "splitpanes": "^3.1.5",
-    "vue": "^3.2.26",
+    "vue": "^3.5.18",
     "vue-force-graph": "^0.1.2",
     "vue-load-image": "^1.1.0",
     "vue-resizable": "^2.1.7",
-    "vue-router": "^4.0.3",
+    "vue-router": "^4.5.1",
     "vue3-click-away": "^1.2.4",
     "vue3-resizable": "^1.0.0-alpha.3"
   },
@@ -34,14 +34,16 @@
     "@types/splitpanes": "^2.2.6",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vitejs/plugin-vue-jsx": "^5.0.1",
+    "@vue/language-server": "^3.0.5",
     "@vue/tsconfig": "^0.4.0",
+    "@vue/typescript-plugin": "^3.0.5",
     "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.89.2",
     "sass-loader": "^13.3.2",
     "terser-webpack-plugin": "^5.3.10",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "vite": "^7.0.5",
-    "vue-tsc": "^3.0.3"
+    "vue-tsc": "^3.0.5"
   },
   "browserslist": [
     "> 1%",

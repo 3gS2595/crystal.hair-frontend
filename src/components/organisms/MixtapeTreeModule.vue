@@ -1,19 +1,6 @@
 <template>
-  <AddMixtapeBox v-if="store.addMixtapeBoxView" />
-  <AddFolderBox v-if="store.addFolderBoxView" />
-  <EditMixtapeBox v-if="store.editMixtapeBoxView" />
 
-  <div class="pane-nav-body">
-    <div class="pane-nav-header">
-      <input
-        id="global-search-input"
-        class="input-standard text-main-0"
-        v-model="q"
-        placeholder="search"
-        @keyup.enter="search(q)"
-      />
-    </div>
-  </div>
+  <Search />
   <OverlayScrollbarsComponent defer>
     <Draggable ref="tree" id="tree" class="mtl-tree" v-model="treeData" :indent="15" treeLine>
       <template #default="{ node, stat }">
@@ -36,7 +23,7 @@
               />
             </div>
             <div>
-              <a class="descr descr-r font-s-descr text-main-0">
+              <a class="descr descr-r fon@/components/atoms/t-s-descr text-main-0">
                 {{ convertDate(node.content_id) }}
               </a>
               <a class="descr descr-l font-s-descr text text-main-0">
@@ -57,9 +44,10 @@
   import '@he-tree/vue/style/material-design.css'
   import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
 
-  import AddMixtapeBox from '@/components/uploaders/AddMixtape.vue'
-  import EditMixtapeBox from '@/components/dataEditors/EditBox.vue'
-  import AddFolderBox from '@/components/uploaders/AddFolder.vue'
+
+  import type { contentType } from '@/types/ApiTypes'
+
+  import Search from '@/components/atoms/Search.vue'
 
   import { useConnectionsStore } from '@/stores/api/connectionsStore'
   import { useUserFeedStore } from '@/stores/api/UserFeedStore'
@@ -77,8 +65,8 @@
   }
 
   // Function to get the number of blocks in a mixtape
-  const blockCnt = (contentId: string): number | null => {
-    const content = connectionsStore.connections_mix.find(i => i.id === contentId)
+  const blockCnt = (content_id: string): number | null => {
+    const content = connectionsStore.connections_mix.find((i: contentType) => i.id === content_id)
     return content ? content.contains.length : null
   }
 
@@ -89,7 +77,7 @@
 
   // Convert date to a string in the format {DD: HH: MM}
   const convertDate = (contentId: string): string => {
-    const connection = connectionsStore.connections_mix.find(i => i.id === contentId)
+    const connection = connectionsStore.connections_mix.find((i: contentType) => i.id === contentId)
     if (connection?.updated_at) {
       const datetime = new Date(connection.updated_at)
       const now = new Date()
@@ -108,10 +96,5 @@
   // Function to search for a mixtape by its ID
   function open_mix(id: string) {
     store.mixtape = store.mixtape === id ? '' : id
-  }
-  const q = ref('')
-  function search(e: string) {
-    store.filter = e
-    q.value = ''
   }
 </script>

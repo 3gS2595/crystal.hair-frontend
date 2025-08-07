@@ -15,7 +15,9 @@
       />
     </template>
     <template v-slot:preloader>
-      <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif" />
+      <div style="height: 100%; display: flex; justify-content: center; align-items: center;">
+        <img style="max-height:200px;  opacity: 0.2;" src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif" />
+      </div>
     </template>
     <template v-slot:error>Image load fails</template>
   </vue-load-image>

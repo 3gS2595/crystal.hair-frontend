@@ -36,7 +36,7 @@ export const useMixtapeStore = defineStore('mixtapeStore', {
     async fetchMixtapes () {
       try {
         this.mixtapes = (await axios.get(base, auth.value)).data
-        console.log(this.mixtapes)
+        console.log(this.mixtapes[0])
         this.mixtapeTree = []
         if (useFolderStore().folders != null){
           for (const fold of useFolderStore().folders) {

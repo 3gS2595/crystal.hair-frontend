@@ -19,7 +19,6 @@
   </div>
 
   <div v-else id='login'>
-    <!-- <img class='login-overlay' src='https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/login-background.png'> -->
     <div class='login-ui'>
       <form @submit.prevent='onLogin' class='login-form'>
         <input class='login-form-email' type='text' v-model='loginEmail' placeholder='' autocapitalize="off" />
@@ -35,8 +34,8 @@
 </template>
 
 <script setup lang='ts'>
-import { SessionStore } from '@/stores/SessionStore'
 import { ref } from 'vue'
+import { SessionStore } from '@/stores/SessionStore'
 
 const sessionStore = SessionStore();
 const loginEmail = ref('');

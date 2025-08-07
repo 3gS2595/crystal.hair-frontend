@@ -7,9 +7,7 @@ const defaultState = <GlobalStoreType>{
 
   // display toggles
   lightBoxView : false,
-  addSrcUrlSubset : false,
   editMixtapeBoxView : false,
-  addMixtapeBoxView : false,
   addFolderBoxView : false,
   addMixToFolderView : false,
   viewSettings: false,

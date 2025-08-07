@@ -4,7 +4,7 @@
       <div v-if="store.mixtape != ''">
         <div class="mixCol">
           <div class="select-mix">
-            <DataView class="dg-0" :value="mixes" :layout="list">
+            <DataView class="dg-0" :value="mixes">
               <template #list="slotProps">
                 <div
                   v-for="(item, index) in slotProps.items"
