@@ -2,7 +2,7 @@
   <div v-if="sessionStore.isLoggedIn">
     <router-view />
   </div>
-  <div class="main" id="main" v-else>
+  <div v-else class="main" id="main">
     <SessionManager />
   </div>
 </template>
@@ -33,27 +33,27 @@
 </script>
 
 <style lang="scss">
-  @use '@/scss/Main';
-  @use '@/scss/Typography';
-  @use '@/scss/WebKit';
+  @use '@/styles/Main';
+  @use '@/styles/Typography';
+  @use '@/styles/WebKit';
 
-  @use '@/scss/components/Canvas';
-  @use '@/scss/components/SessionManager';
-  @use '@/scss/components/ContentView';
-  @use '@/scss/components/MixtapeView';
-  @use '@/scss/components/ScrapersView';
-  @use '@/scss/components/LightBox';
-  @use '@/scss/components/Tabs';
+  @use '@/styles/components/Canvas';
+  @use '@/styles/components/SessionManager';
+  @use '@/styles/components/ContentView';
+  @use '@/styles/components/MixtapeView';
+  @use '@/styles/components/ScrapersView';
+  @use '@/styles/components/LightBox';
+  @use '@/styles/components/Tabs';
 
-  @use '@/scss/helpers/SplitterPanel';
-  @use '@/scss/helpers/ProgressBar';
-  @use '@/scss/helpers/NavSearch';
-  @use '@/scss/helpers/Settings';
-  @use '@/scss/helpers/AddMixtape';
-  @use '@/scss/helpers/UploadBox';
-  @use '@/scss/helpers/EditView';
-  @use '@/scss/helpers/Search';
-  @use '@/scss/helpers/Dropdown';
+  @use '@/styles/helpers/SplitterPanel';
+  @use '@/styles/helpers/ProgressBar';
+  @use '@/styles/helpers/NavSearch';
+  @use '@/styles/helpers/Settings';
+  @use '@/styles/helpers/AddMixtape';
+  @use '@/styles/helpers/UploadBox';
+  @use '@/styles/helpers/EditView';
+  @use '@/styles/helpers/Search';
+  @use '@/styles/helpers/Dropdown';
 
   @import 'overlayscrollbars/overlayscrollbars.css';
   @import 'splitpanes/dist/splitpanes.css';

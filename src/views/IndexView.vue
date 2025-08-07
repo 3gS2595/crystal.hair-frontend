@@ -17,18 +17,18 @@
 </template>
 
 <script setup lang="ts">
-  import { onMounted } from 'vue'
+  import { onMounted, defineAsyncComponent } from 'vue'
   import { storeToRefs } from 'pinia'
   import { Splitpanes, Pane } from 'splitpanes'
 
   import { ApiStore } from '@/stores/ApiStore'
   import { GlobalStore } from '@/stores/GlobalStore'
 
-  import mediaPane from '@/components/templates/MediaPane.vue'
-  import navPane from '@/components/templates/NavPane.vue'
-  import EditMixtapeBox from '@/components/molecules/EditBox.vue'
-  import AddFolderBox from '@/components/atoms/uploaders/AddFolder.vue'
-  import OverlayBox from '@/components/atoms/OverlayBox.vue'
+  const mediaPane = defineAsyncComponent(() => import( '@/components/templates/MediaPane.vue'))
+  const navPane  = defineAsyncComponent(() => import( '@/components/templates/NavPane.vue'))
+  const EditMixtapeBox  = defineAsyncComponent(() => import( '@/components/molecules/EditBox.vue'))
+  const AddFolderBox  = defineAsyncComponent(() => import( '@/components/atoms/uploaders/AddFolder.vue'))
+  const OverlayBox  = defineAsyncComponent(() => import( '@/components/atoms/OverlayBox.vue'))
 
   const globalStore = GlobalStore()
   const { paneSize, paneSizeOffSet } = storeToRefs(globalStore)
