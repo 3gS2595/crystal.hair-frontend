@@ -21,9 +21,13 @@ Typescript, Vue3, SCSS, devise
 
 ## to self/quick notes/TODO
 
+- [X] scroll on scrape nav
+- [X] Refactor file tree into atomic design
+- [X] standardize styling between upload/add mix/src boxes
+- [X] refactor overlays and tab reusablility
+- [X] refactor nav tree for code reuse
 - folders crud
 - rename srcurl and kernals back and front end, general restructure all remaining horrifics
-- [X] scroll on scrape nav
 - combine scrape/mix vue files
 - kernal info edit crud
 - fix text losing format on save
@@ -32,7 +36,6 @@ Typescript, Vue3, SCSS, devise
 - soft delete/soft delete interface?/admin panel
 - mixtape/scrape nav custom oerdering/drag reorgnizing
 - seamless multiuser support
-- standardize styling between upload/add mix/src boxes
 - add force graph back in
 - add mix to folder and manage folders themzelves
 - 1 component passed different things?
@@ -40,4 +43,3 @@ Typescript, Vue3, SCSS, devise
 - mixtapes it has mixtapes its not
 - flag for mix or fold managment?
 - overlay on error with debug ( for when implement live update/ creation of objects)
-- refactor overlays and tab reusablility
