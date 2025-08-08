@@ -2,40 +2,46 @@
   <div class="pane-nav">
     <NavPaneTabs />
     <div class="tab-content-nav">
-      <MixtapeTreeModule :treeData="mixtapeStore.mixtapeTree" v-if="currentTab === 1" />
-      <ScrapersTreeModule :treeData="srcUrlSubsetStore.srcUrlTree" v-if="currentTab === 2" />
+      <NavTreeModule
+        v-if="currentTab === 1"
+        :treeData="mixtapeStore.mixtapeTree"
+        type="mixtape"
+      />
+      <NavTreeModule
+        v-if="currentTab === 2"
+        :treeData="srcUrlSubsetStore.srcUrlTree"
+        type="scraper"
+      />
     </div>
   </div>
   <div class="advanced-pane">
     <div class="advanced-pane-inner">
-      <Settings v-if="toggle_settings"/>
+      <Settings v-if="toggle_settings" />
     </div>
   </div>
   <AdvancedTabs />
 </template>
 
-<script lang="ts" setup>
-  import { ref, provide } from 'vue'
-  import { storeToRefs } from 'pinia'
+<script setup lang="ts">
+import { ref, provide } from 'vue'
+import { storeToRefs } from 'pinia'
 
-  import MixtapeTreeModule from '@/components/organisms/MixtapeTreeModule.vue'
-  import ScrapersTreeModule from '@/components/organisms/ScrapersTreeModule.vue'
-  import NavPaneTabs from '@/components/molecules/tabs/NavPaneTabsTop.vue'
-  import AdvancedTabs from '@/components/molecules/tabs/NavPaneTabsBot.vue'
-  import Settings from '@/components/molecules/tabs/Settings.vue'
+import NavTreeModule from '@/components/organisms/NavTreeModule.vue'
+import NavPaneTabs from '@/components/molecules/tabs/NavPaneTabsTop.vue'
+import AdvancedTabs from '@/components/molecules/tabs/NavPaneTabsBot.vue'
+import Settings from '@/components/molecules/tabs/Settings.vue'
 
-  import { GlobalStore } from '@/stores/GlobalStore'
-  import { useMixtapeStore } from '@/stores/api/MixtapeStore'
-  import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
+import { GlobalStore } from '@/stores/GlobalStore'
+import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 
-  // Access stores
-  const store = GlobalStore()
-  const mixtapeStore = useMixtapeStore()
-  const srcUrlSubsetStore = useSrcUrlSubsetStore()
+const store = GlobalStore()
+const mixtapeStore = useMixtapeStore()
+const srcUrlSubsetStore = useSrcUrlSubsetStore()
 
-  const { currentTab } = storeToRefs(store)
+const { currentTab } = storeToRefs(store)
 
-  const toggle_settings = ref(false)
-  provide('toggle_settings', toggle_settings)
-
+const toggle_settings = ref(false)
+provide('toggle_settings', toggle_settings)
 </script>
+
