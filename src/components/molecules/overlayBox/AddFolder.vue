@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import CreateApiItem from '@/components/atoms/CreateApiItem.vue'
-import { useFolderStore } from '@/stores/api/FolderStore'
+  import CreateApiItem from '@/components/atoms/CreateApiItem.vue'
+  import { useFolderStore } from '@/stores/api/FolderStore'
 
-const folderStore = useFolderStore()
+  const folderStore = useFolderStore()
 </script>

@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import CreateApiItem from '@/components/atoms/CreateApiItem.vue'
-import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+  import CreateApiItem from '@/components/atoms/CreateApiItem.vue'
+  import { useMixtapeStore } from '@/stores/api/MixtapeStore'
 
-const mixtapeStore = useMixtapeStore()
+  const mixtapeStore = useMixtapeStore()
 </script>

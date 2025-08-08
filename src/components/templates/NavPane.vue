@@ -23,25 +23,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide } from 'vue'
-import { storeToRefs } from 'pinia'
+  import { ref, provide } from 'vue'
+  import { storeToRefs } from 'pinia'
 
-import NavTreeModule from '@/components/organisms/NavTreeModule.vue'
-import NavPaneTabs from '@/components/molecules/tabs/NavPaneTabsTop.vue'
-import AdvancedTabs from '@/components/molecules/tabs/NavPaneTabsBot.vue'
-import Settings from '@/components/molecules/tabs/Settings.vue'
+  import NavTreeModule from '@/components/organisms/NavTreeModule.vue'
+  import NavPaneTabs from '@/components/molecules/tabs/NavPaneTabsTop.vue'
+  import AdvancedTabs from '@/components/molecules/tabs/NavPaneTabsBot.vue'
+  import Settings from '@/components/molecules/tabs/Settings.vue'
 
-import { GlobalStore } from '@/stores/GlobalStore'
-import { useMixtapeStore } from '@/stores/api/MixtapeStore'
-import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
+  import { GlobalStore } from '@/stores/GlobalStore'
+  import { useMixtapeStore } from '@/stores/api/MixtapeStore'
+  import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 
-const store = GlobalStore()
-const mixtapeStore = useMixtapeStore()
-const srcUrlSubsetStore = useSrcUrlSubsetStore()
+  const store = GlobalStore()
+  const mixtapeStore = useMixtapeStore()
+  const srcUrlSubsetStore = useSrcUrlSubsetStore()
 
-const { currentTab } = storeToRefs(store)
+  const { currentTab } = storeToRefs(store)
 
-const toggle_settings = ref(false)
-provide('toggle_settings', toggle_settings)
+  const toggle_settings = ref(false)
+  provide('toggle_settings', toggle_settings)
 </script>
 

@@ -16,48 +16,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { directive as clickAway } from 'vue3-click-away'
+  import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-const props = defineProps<{
-  label: string
-  placeholder?: string
-  onSubmit: (value: string) => void
-}>()
+  const props = defineProps<{
+    label: string
+    placeholder?: string
+    onSubmit: (value: string) => void
+  }>()
 
-const emit = defineEmits(['close'])
-const inputValue = ref('')
+  const emit = defineEmits(['close'])
+  const inputValue = ref('')
 
-function close() {
-  emit('close')
-  window.removeEventListener('keyup', escHandler, true)
-}
+  function close() {
+    emit('close')
+    window.removeEventListener('keyup', escHandler, true)
+  }
 
-function handleSubmit() {
-  props.onSubmit(inputValue.value)
-  close()
-}
-
-function escHandler(e: KeyboardEvent) {
-  if (e.key === 'Escape') {
+  function handleSubmit() {
+    props.onSubmit(inputValue.value)
     close()
   }
-}
 
-onMounted(() => {
-  window.addEventListener('keyup', escHandler, true)
-})
+  function escHandler(e: KeyboardEvent) {
+    if (e.key === 'Escape') {
+      close()
+    }
+  }
 
-onBeforeUnmount(() => {
-  window.removeEventListener('keyup', escHandler, true)
-})
+  onMounted(() => {
+    window.addEventListener('keyup', escHandler, true)
+  })
 
-defineExpose({ close })
+  onBeforeUnmount(() => {
+    window.removeEventListener('keyup', escHandler, true)
+  })
+
+  defineExpose({ close })
 </script>
 
-<script lang="ts">
-export default {
-  directives: { clickAway },
-}
-</script>
 

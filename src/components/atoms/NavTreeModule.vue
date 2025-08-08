@@ -35,47 +35,47 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
-import { Draggable, OpenIcon } from '@he-tree/vue'
-import '@he-tree/vue/style/default.css'
-import '@he-tree/vue/style/material-design.css'
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
+  import { toRefs } from 'vue'
+  import { Draggable, OpenIcon } from '@he-tree/vue'
+  import '@he-tree/vue/style/default.css'
+  import '@he-tree/vue/style/material-design.css'
+  import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
 
-import Search from '@/components/atoms/Search.vue'
+  import Search from '@/components/atoms/Search.vue'
 
-// Props
-interface Props {
-  treeData: any
-  feedCheck: (id: string) => boolean
-  getBlockCount: (node: any) => number | null
-  getDateValue: (node: any) => any
-  showDetails: (stat: any, node: any) => boolean
-  onNodeClick: (node: any) => void
-}
+  // Props
+  interface Props {
+    treeData: any
+    feedCheck: (id: string) => boolean
+    getBlockCount: (node: any) => number | null
+    getDateValue: (node: any) => any
+    showDetails: (stat: any, node: any) => boolean
+    onNodeClick: (node: any) => void
+  }
 
-const props = defineProps<Props>()
-const { treeData, feedCheck, getBlockCount, getDateValue, showDetails, onNodeClick } = toRefs(props)
+  const props = defineProps<Props>()
+  const { treeData, feedCheck, getBlockCount, getDateValue, showDetails, onNodeClick } = toRefs(props)
 
-// Utility methods
-const convertCount = (count: number | null): string => {
-  return count != null ? `{${count}}` : ' '
-}
+  // Utility methods
+  const convertCount = (count: number | null): string => {
+    return count != null ? `{${count}}` : ' '
+  }
 
-const convertDate = (dateVal: any): string => {
-  if (!dateVal) return ''
-  const datetime = new Date(dateVal)
-  const now = new Date()
-  const days = Math.floor((now.getTime() - datetime.getTime()) / (1000 * 60 * 60 * 24))
-  const hours = Math.floor((now.getTime() - datetime.getTime()) / (1000 * 60 * 60) - days * 24)
-  const minutes = Math.floor(
-    (now.getTime() - datetime.getTime()) / (1000 * 60) - hours * 60 - days * 24 * 60
-  )
-  return `{${days.toString().padStart(2, '0')}: ${hours.toString().padStart(2, '0')}: ${minutes
-    .toString()
-    .padStart(2, '0')}}`
-}
+  const convertDate = (dateVal: any): string => {
+    if (!dateVal) return ''
+    const datetime = new Date(dateVal)
+    const now = new Date()
+    const days = Math.floor((now.getTime() - datetime.getTime()) / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((now.getTime() - datetime.getTime()) / (1000 * 60 * 60) - days * 24)
+    const minutes = Math.floor(
+      (now.getTime() - datetime.getTime()) / (1000 * 60) - hours * 60 - days * 24 * 60
+    )
+    return `{${days.toString().padStart(2, '0')}: ${hours.toString().padStart(2, '0')}: ${minutes
+      .toString()
+      .padStart(2, '0')}}`
+  }
 
-function handleClick(node: any) {
-  onNodeClick.value(node)
-}
+  function handleClick(node: any) {
+    onNodeClick.value(node)
+  }
 </script>
