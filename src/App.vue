@@ -3,7 +3,7 @@
     <router-view />
   </div>
   <div v-else class="main" id="main">
-    <SessionManager />
+    <SignIn />
   </div>
 </template>
 
@@ -11,7 +11,7 @@
   import { onMounted } from 'vue'
   import { darkSet } from '@/lib/DarkMode'
 
-  import SessionManager from '@/components/templates/SessionManager.vue'
+  import SignIn from '@/components/templates/SignIn.vue'
   import { SessionStore } from '@/stores/SessionStore'
 
   const sessionStore = SessionStore()
@@ -38,7 +38,7 @@
   @use '@/styles/WebKit';
 
   @use '@/styles/components/Canvas';
-  @use '@/styles/components/SessionManager';
+  @use '@/styles/components/SignIn';
   @use '@/styles/components/ContentView';
   @use '@/styles/components/MixtapeView';
   @use '@/styles/components/ScrapersView';

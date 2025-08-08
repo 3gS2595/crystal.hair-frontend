@@ -1,24 +1,5 @@
 <template>
-  <div v-if='sessionStore.isLoggedIn'>
-    <table class='table'>
-      <thead class='thead-dark'>
-      <tr class='table-headers'>
-        <th scope='col'>ID</th>
-        <th scope='col'>name</th>
-        <th scope='col'>Token</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class='table-rows'>
-        <th class='table-row'>[{{ sessionStore.getUserID }}]</th>
-        <td class='table-row table-row-username'>{{ sessionStore.getUserEmail }}</td>
-        <td class='table-row'>{{ sessionStore.getAuthToken }}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div v-else id='login'>
+  <div id='login'>
     <div class='login-ui'>
       <form @submit.prevent='onLogin' class='login-form'>
         <input class='login-form-email' type='text' v-model='loginEmail' placeholder='' autocapitalize="off" />
@@ -28,7 +9,6 @@
           <img src="https://crystal-hair.nyc3.cdn.digitaloceanspaces.com/page-loader.gif" alt="Login" />
         </button>
       </form>
-
     </div>
   </div>
 </template>
