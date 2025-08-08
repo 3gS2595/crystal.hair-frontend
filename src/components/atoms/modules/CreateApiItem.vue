@@ -1,22 +1,25 @@
 <template>
-  <div class="edit-mixtape" v-click-away="close">
-    <div class="add-mixtape-title">
-      <a class="input-name text-main-0 edit-opt">{{ label }}</a>
-      <input
-        class="input-standard text-main-0 edit-opt"
-        :placeholder="placeholder"
-        v-model="inputValue"
-      />
+  <OverlayBox>
+    <div class="edit-mixtape" v-click-away="close">
+      <div class="add-mixtape-title">
+        <a class="input-name text-main-0 edit-opt">{{ label }}</a>
+        <input
+          class="input-standard text-main-0 edit-opt"
+          :placeholder="placeholder"
+          v-model="inputValue"
+        />
+      </div>
+      <div class="add-mixtape-options">
+        <a class="option text-main-0 edit-opt" @click="close">exit</a>
+        <a class="option text-main-0 edit-opt" @click="handleSubmit">save</a>
+      </div>
     </div>
-    <div class="add-mixtape-options">
-      <a class="option text-main-0 edit-opt" @click="close">exit</a>
-      <a class="option text-main-0 edit-opt" @click="handleSubmit">save</a>
-    </div>
-  </div>
+  </OverlayBox>
 </template>
 
 <script setup lang="ts">
   import { ref, onMounted, onBeforeUnmount } from 'vue'
+  import OverlayBox from '@/components/atoms/modules/OverlayBox.vue'
 
   const props = defineProps<{
     label: string

@@ -21,13 +21,13 @@ export const ApiStore = defineStore({
       await Promise.all([
         useUserFeedStore().fetchUserFeed(),
         useFolderStore().fetchFolders(),
-        useSrcUrlSubsetStore().fetchSrcUrlSubsets()
+        useSrcUrlSubsetStore().fetchSrcUrlSubsets(),
+        useConnectionsStore().fetchConnections()
       ])
       await Promise.all([
         useKernalStore().fetchKernals(),
         useMixtapeStore().fetchMixtapes()
       ])
-      useConnectionsStore().fetchConnections()
     },
 
     async update () {

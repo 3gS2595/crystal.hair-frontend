@@ -11,7 +11,7 @@
   import { onMounted } from 'vue'
   import { darkSet } from '@/lib/DarkMode'
 
-  import SignIn from '@/components/templates/SignIn.vue'
+  import SignIn from '@/components/atoms/SignIn.vue'
   import { SessionStore } from '@/stores/SessionStore'
 
   const sessionStore = SessionStore()

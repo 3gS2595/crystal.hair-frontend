@@ -16,6 +16,7 @@
   </div>
   <div class="advanced-pane">
     <div class="advanced-pane-inner">
+      <EditMixtapeBox v-if="overlay_edit"/>
       <Settings v-if="toggle_settings" />
     </div>
   </div>
@@ -26,6 +27,7 @@
   import { ref, provide } from 'vue'
   import { storeToRefs } from 'pinia'
 
+  import EditMixtapeBox from '@/components/molecules/overlayBox/EditBox.vue'
   import NavTreeModule from '@/components/organisms/NavTreeModule.vue'
   import NavPaneTabs from '@/components/molecules/tabs/NavPaneTabsTop.vue'
   import AdvancedTabs from '@/components/molecules/tabs/NavPaneTabsBot.vue'
@@ -43,5 +45,8 @@
 
   const toggle_settings = ref(false)
   provide('toggle_settings', toggle_settings)
+
+  const overlay_edit = ref(false)
+  provide('overlay_edit', overlay_edit)
 </script>
 

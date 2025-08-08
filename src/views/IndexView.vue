@@ -5,7 +5,7 @@
         <navPane />
       </pane>
       <pane :size="100 - (paneSize + paneSizeOffSet)" id="main-r">
-        <mediaPane />
+        <ContentPane />
       </pane>
     </splitpanes>
   </div>
@@ -19,7 +19,7 @@
   import { ApiStore } from '@/stores/ApiStore'
   import { GlobalStore } from '@/stores/GlobalStore'
 
-  const mediaPane = defineAsyncComponent(() => import( '@/components/templates/MediaPane.vue'))
+  const ContentPane = defineAsyncComponent(() => import( '@/components/templates/ContentPane.vue'))
   const navPane  = defineAsyncComponent(() => import( '@/components/templates/NavPane.vue'))
 
   const globalStore = GlobalStore()

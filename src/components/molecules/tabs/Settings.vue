@@ -1,15 +1,5 @@
 <template>
-   <OverlayBox v-if="overlay_edit">
-    <EditMixtapeBox v-if="overlay_edit" @close="handleOverlayClose" />
-  </OverlayBox>
   <div class="settings" v-click-away="onClickAway">
-    <input
-      id="global-search-input"
-      class="input-standard text-main-0"
-      v-model="q"
-      placeholder="search"
-      @keyup.enter="search(q)"
-    />
     <div class="options">
       <a
         class="set-btn font-s-title"
@@ -46,7 +36,7 @@
         class="set-btn font-s-title"
         id="set-btn-4"
         v-if="store.mixtape !== '' || store.srcUrlSubset.length > 2"
-        @click="overlay_edit = !overlay_edit"
+        @click="toggle_edit"
       >
         edit
       </a>
@@ -60,8 +50,6 @@
   import { ref, inject } from 'vue'
 
   // Import: Components
-  import OverlayBox from '@/components/atoms/OverlayBox.vue'
-  import EditMixtapeBox from '@/components/molecules/overlayBox/EditBox.vue'
 
   // Import: Composables
   import { darkToggle } from '@/lib/DarkMode'
@@ -76,20 +64,13 @@
   const apiStore = ApiStore()
   const userFeedStore = useUserFeedStore()
 
-  // Methods
-  const q = ref('')
-  function search(e: string) {
-    store.filter = e
-    q.value = ''
-  }
-
-  const overlay_edit = ref(false)
-  function handleOverlayClose() {
-    overlay_edit.value = false
-  }
-
-  const toggle_settings = inject('toggle_settings')
+  const toggle_settings: any = inject('toggle_settings')
   function onClickAway() {
     toggle_settings.value = false
   }
+  const overlay_edit = inject('overlay_edit')
+  function toggle_edit() {
+    overlay_edit.value = true
+  }
+
 </script>

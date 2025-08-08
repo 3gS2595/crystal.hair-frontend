@@ -20,26 +20,27 @@ Typescript, Vue3, SCSS, devise
 - Data visualizes, in a manipulatable 3D rendered force graph.
 
 ## to self/quick notes/TODO
+- folders crud
+  - manage mix's folder assignments
+  - manage folder contents
+- kernel info edit crud
+- filetype filter/sort
+- nav tree custom oerdering/drag reorgnizing
+- add force graph back in
+- admin panel to manage all users
+- soft delete/soft delete
 
+# Bugs TODO
 - [X] scroll on scrape nav
+- overlay on error with debug ( for when implement live update/ creation of objects)
+- fix text losing format on save
+- check any multiuser support issues
+
+# Refactor TODO
 - [X] Refactor file tree into atomic design
-- [X] standardize styling between upload/add mix/src boxes
 - [X] refactor overlays and tab reusablility
 - [X] refactor nav tree for code reuse
-- folders crud
+- [X] combine scrape/mix vue files
+- [X] standardize styling between upload/add mix/src boxes
 - rename srcurl and kernals back and front end, general restructure all remaining horrifics
-- combine scrape/mix vue files
-- kernal info edit crud
-- fix text losing format on save
 - larger tab buttons
-- filetype filter/sort
-- soft delete/soft delete interface?/admin panel
-- mixtape/scrape nav custom oerdering/drag reorgnizing
-- seamless multiuser support
-- add force graph back in
-- add mix to folder and manage folders themzelves
-- 1 component passed different things?
-- folders its in folders its not
-- mixtapes it has mixtapes its not
-- flag for mix or fold managment?
-- overlay on error with debug ( for when implement live update/ creation of objects)

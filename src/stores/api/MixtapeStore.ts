@@ -36,23 +36,29 @@ export const useMixtapeStore = defineStore('mixtapeStore', {
     async fetchMixtapes () {
       try {
         this.mixtapes = (await axios.get(base, auth.value)).data
-        console.log(this.mixtapes[0])
         this.mixtapeTree = []
         if (useFolderStore().folders != null){
+          // Track mix IDs already assigned to folders
+          const assignedMixIds = new Set()
+
           for (const fold of useFolderStore().folders) {
-            this.mixtapeTree.push({text: fold.name, children: []})
+            this.mixtapeTree.push({text: fold.name, folder_id: fold.id,  children: []})
             for (const mix of fold.contains) {
               if (this.mixtapes.findIndex(x => x.id === mix) != -1) {
                 let cur_mix = this.mixtapes[this.mixtapes.findIndex(x => x.id === mix)];
                 this.mixtapeTree[this.mixtapeTree.length - 1].children.push({text:cur_mix.name, id:cur_mix.id, content_id: cur_mix.content_id})
+                assignedMixIds.add(mix)
               }
             }
           }
-        }
-        this.mixtapeTree.push({text: 'mixtapes', children: []})
-        if (this.mixtapes != null){
-          for (const mix of this.mixtapes) {
-            this.mixtapeTree[this.mixtapeTree.length - 1].children.push({text: mix.name, id:mix.id, content_id: mix.content_id})
+          // Add 'mixtapes' folder with mixes NOT in any other folder
+          this.mixtapeTree.push({text: 'unclassifieds', children: []})
+          if (this.mixtapes != null){
+            for (const mix of this.mixtapes) {
+              if (!assignedMixIds.has(mix.id)) {
+                this.mixtapeTree[this.mixtapeTree.length - 1].children.push({text: mix.name, id:mix.id, content_id: mix.content_id})
+              }
+            }
           }
         }
       } catch (e) { console.error(e) }
@@ -90,3 +96,4 @@ export const useMixtapeStore = defineStore('mixtapeStore', {
     }
   }
 })
+

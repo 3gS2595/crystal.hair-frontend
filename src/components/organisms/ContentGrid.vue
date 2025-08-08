@@ -57,7 +57,6 @@
   import { GlobalStore } from '@/stores/GlobalStore'
   import { useKernalStore } from '@/stores/api/KernalStore'
 
-  import AddContentBox from '@/components/molecules/overlayBox/AddContent.vue'
   import { setSize, resizeContentFit } from '@/lib/ResizeContentGrid'
   import { dragInFile, pasteInFile } from '@/lib/UploadKernal'
 

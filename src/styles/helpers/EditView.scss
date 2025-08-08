@@ -13,8 +13,9 @@
   align-items: center;
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(34px);
-
-  .edit-mixtape {
+  #edit-mix-overlay{
+    display: flex;
+    flex-direction: column;
     background: var(--background-lightbox);
     border: 1px solid var(--border-overlay);
     height: fit-content;
@@ -22,6 +23,16 @@
     max-width: calc(100cqw - 2 * var(--box-margin));
     outline: 1px solid var(--scrollbar);
     outline-offset: var(--edge-margin);
+  }
+  #edit-folder-tree{
+    width: 50%;
+  }
+  .edit-mixtape {
+    border-top: 1px solid var(--border-overlay);
+    height: fit-content;
+    width: 500px;
+    max-width: calc(100cqw - 2 * var(--box-margin));
+    margin-top: var(--base-spacing);
 
     .add-mixtape-title {
       border-bottom: 1px solid var(--border-overlay);

@@ -45,16 +45,15 @@ export const useSrcUrlSubsetStore = defineStore('srcUrlSubset', {
       }
       try { this.srcUrlSubsets  = (await axios.get(SessionStore().getUrlRails + 'src_url_subsets', config)).data }
       catch (e) {console.error(e)}
-        console.log(this.srcUrlSubsets[0])
 
       this.srcUrlTree = []
       this.srcUrlTree.push({text: "Feed", children: []})
       this.srcUrlTree.push({text: "Last Updated", children: []})
       for (const sub of this.srcUrlSubsets) {
         if(userFeedStore.user_feed.feed_sources.includes(sub.id)){
-            this.srcUrlTree[this.srcUrlTree.length - 2].children.push({text:sub.name, id:sub.id, contents: sub.content_id, time_last_entry: sub.time_last_entry})
+            this.srcUrlTree[this.srcUrlTree.length - 2].children.push({text:sub.name, id:sub.id, content_id: sub.content_id, time_last_entry: sub.time_last_entry})
         }
-        this.srcUrlTree[this.srcUrlTree.length - 1].children.push({text:sub.name, id:sub.id, contents: sub.content_id, time_last_entry: sub.time_last_entry})
+        this.srcUrlTree[this.srcUrlTree.length - 1].children.push({text:sub.name, id:sub.id, content_id: sub.content_id, time_last_entry: sub.time_last_entry})
       }
 
       } catch (e) {

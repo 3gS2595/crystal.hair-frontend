@@ -1,4 +1,5 @@
 <template>
+  <Search />
   <NavTreeModule
     :treeData="treeData"
     :feedCheck="feedCheck"
@@ -10,10 +11,11 @@
 </template>
 
 <script setup lang="ts">
-  import NavTreeModule from '@/components/atoms/NavTreeModule.vue'
+  import NavTreeModule from '@/components/atoms/modules/NavTreeModule.vue'
   import { useConnectionsStore } from '@/stores/api/connectionsStore'
   import { useUserFeedStore } from '@/stores/api/UserFeedStore'
   import { GlobalStore } from '@/stores/GlobalStore'
+  import Search from '@/components/atoms/Search.vue'
 
   const props = defineProps<{ treeData: any; type: 'mixtape' | 'scraper' }>()
 
@@ -36,7 +38,8 @@
       const content = connectionsStore.connections_mix.find((i: any) => i.id === node.content_id)
       return content ? content.contains.length : null
     } else {
-      const content = connectionsStore.connections_src.find((i: any) => i.id === node.contents)
+      const content = connectionsStore.connections_src.find((i: any) => i.id === node.content_id)
+      console.log( content ? parseInt(content.contains, 10) : null)
       return content ? parseInt(content.contains, 10) : null
     }
   }

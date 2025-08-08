@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-  import CreateApiItem from '@/components/atoms/CreateApiItem.vue'
+  import CreateApiItem from '@/components/atoms/modules/CreateApiItem.vue'
   import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
 
   const srcUrlSubsetStore = useSrcUrlSubsetStore()

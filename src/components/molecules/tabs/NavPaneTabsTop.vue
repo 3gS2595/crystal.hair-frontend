@@ -1,8 +1,6 @@
 <template>
-   <OverlayBox v-if="overlay_add_mix || overlay_add_src">
-    <AddMixtapeBox v-if="overlay_add_mix" @close="handleOverlayClose" />
-    <AddSrcUrlSubset v-if="overlay_add_src" @close="handleOverlayClose" />
-  </OverlayBox>
+  <AddMixtapeBox v-if="overlay_add_mix" @close="handleOverlayClose" />
+  <AddSrcUrlSubset v-if="overlay_add_src" @close="handleOverlayClose" />
   <div class="tabs tabs-content">
     <div class="tabs-l">
       <div
@@ -57,7 +55,7 @@
   import { GlobalStore } from '@/stores/GlobalStore'
   import AddMixtapeBox from '@/components/molecules/overlayBox/AddMixtape.vue'
   import AddSrcUrlSubset from '@/components/molecules/overlayBox/AddSrcUrlSubset.vue'
-  import OverlayBox from '@/components/atoms/OverlayBox.vue'
+  import OverlayBox from '@/components/atoms/modules/OverlayBox.vue'
 
   const store = GlobalStore()
 
