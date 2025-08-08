@@ -30,7 +30,7 @@
 <script lang="ts" setup>
   import type { InputFileEvent } from '@/types/index'
 
-  import { ref, onMounted, onBeforeUnmount, inject } from 'vue'
+  import { ref, onMounted, onBeforeUnmount, defineEmits } from 'vue'
 
   import StarterKit from '@tiptap/starter-kit'
   import { Editor, EditorContent } from '@tiptap/vue-3'
@@ -44,7 +44,6 @@
   const enteredText = ref('')
   const editorEmpty = ref(true)
   const fileInput = ref<HTMLInputElement | null>(null)
-  const toggle_upload = inject('toggle_upload')
 
   function triggerFileInput() {
     fileInput.value?.click()
@@ -61,6 +60,7 @@
 
   async function submitFile() {
     if (!editor.value) return
+    close()
 
     editorEmpty.value = false
     const formData = new FormData()
@@ -105,8 +105,9 @@
     }
   }
 
+  const emit = defineEmits(['close'])
   function close() {
-    toggle_upload.value = false
+    emit('close')
     window.removeEventListener('keyup', esc, true)
   }
 
@@ -121,6 +122,7 @@
       },
     })
   })
+
 
   onBeforeUnmount(() => {
     editor.value?.destroy()

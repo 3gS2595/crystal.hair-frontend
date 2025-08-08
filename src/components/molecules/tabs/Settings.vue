@@ -1,5 +1,8 @@
 <template>
-  <div v-if="store.viewSettings" class="settings" v-click-away="onClickAway">
+   <OverlayBox v-if="overlay_edit">
+    <EditMixtapeBox v-if="overlay_edit" @close="handleOverlayClose" />
+  </OverlayBox>
+  <div class="settings" v-click-away="onClickAway">
     <input
       id="global-search-input"
       class="input-standard text-main-0"
@@ -43,7 +46,7 @@
         class="set-btn font-s-title"
         id="set-btn-4"
         v-if="store.mixtape !== '' || store.srcUrlSubset.length > 2"
-        @click="store.editMixtapeBoxView = !store.editMixtapeBoxView"
+        @click="overlay_edit = !overlay_edit"
       >
         edit
       </a>
@@ -54,13 +57,19 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, inject } from 'vue'
 
+  // Import: Components
+  import OverlayBox from '@/components/atoms/OverlayBox.vue'
+  import EditMixtapeBox from '@/components/molecules/overlayBox/EditBox.vue'
+
+  // Import: Composables
+  import { darkToggle } from '@/lib/DarkMode'
+
+  // Import: Pinia Stores
   import { ApiStore } from '@/stores/ApiStore'
   import { GlobalStore } from '@/stores/GlobalStore'
   import { useUserFeedStore } from '@/stores/api/UserFeedStore'
-
-  import { darkToggle } from '@/lib/DarkMode'
 
   // Stores
   const store = GlobalStore()
@@ -74,7 +83,13 @@
     q.value = ''
   }
 
+  const overlay_edit = ref(false)
+  function handleOverlayClose() {
+    overlay_edit.value = false
+  }
+
+  const toggle_settings = inject('toggle_settings')
   function onClickAway() {
-    store.viewSettings = false
+    toggle_settings.value = false
   }
 </script>

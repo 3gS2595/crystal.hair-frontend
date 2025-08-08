@@ -1,5 +1,4 @@
 <template>
-  <AddContentBox v-if="toggle_upload" />
   <OverlayScrollbarsComponent defer>
     <DataView
       class="contentView"
@@ -49,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-  import { onMounted, onUnmounted, inject } from 'vue'
+  import { onMounted, onUnmounted } from 'vue'
   import { storeToRefs } from 'pinia'
   import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
   import VueLoadImage from 'vue-load-image'
@@ -58,13 +57,12 @@
   import { GlobalStore } from '@/stores/GlobalStore'
   import { useKernalStore } from '@/stores/api/KernalStore'
 
-  import AddContentBox from '@/components/atoms/uploaders/AddContent.vue'
+  import AddContentBox from '@/components/molecules/overlayBox/AddContent.vue'
   import { setSize, resizeContentFit } from '@/lib/ResizeContentGrid'
   import { dragInFile, pasteInFile } from '@/lib/UploadKernal'
 
   // Props
   const props = defineProps<{ id: number }>()
-  const toggle_upload = inject('toggle_upload')
 
   // Reactive references
   const store = GlobalStore()

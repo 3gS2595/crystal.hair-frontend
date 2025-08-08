@@ -8,20 +8,21 @@
   </div>
   <div class="advanced-pane">
     <div class="advanced-pane-inner">
-      <Settings />
+      <Settings v-if="toggle_settings"/>
     </div>
   </div>
   <AdvancedTabs />
 </template>
 
 <script lang="ts" setup>
+  import { ref, provide } from 'vue'
   import { storeToRefs } from 'pinia'
 
   import MixtapeTreeModule from '@/components/organisms/MixtapeTreeModule.vue'
   import ScrapersTreeModule from '@/components/organisms/ScrapersTreeModule.vue'
   import NavPaneTabs from '@/components/molecules/tabs/NavPaneTabsTop.vue'
   import AdvancedTabs from '@/components/molecules/tabs/NavPaneTabsBot.vue'
-  import Settings from '@/components/molecules/Settings.vue'
+  import Settings from '@/components/molecules/tabs/Settings.vue'
 
   import { GlobalStore } from '@/stores/GlobalStore'
   import { useMixtapeStore } from '@/stores/api/MixtapeStore'
@@ -33,4 +34,8 @@
   const srcUrlSubsetStore = useSrcUrlSubsetStore()
 
   const { currentTab } = storeToRefs(store)
+
+  const toggle_settings = ref(false)
+  provide('toggle_settings', toggle_settings)
+
 </script>

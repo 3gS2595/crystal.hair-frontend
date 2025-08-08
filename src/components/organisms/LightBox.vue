@@ -55,14 +55,14 @@
 <script setup lang="ts">
   import { ref, computed, onMounted, onUnmounted, defineAsyncComponent } from 'vue'
   import { storeToRefs } from 'pinia'
-  import ViewText from '@/components/atoms/viewers/ViewText.vue'
-  import ViewImg from '@/components/atoms/viewers/ViewImg.vue'
-  import ViewInfo from '@/components/atoms/viewers/ViewInfo.vue'
+  import ViewText from '@/components/molecules/lightBox/ViewText.vue'
+  import ViewImg from '@/components/molecules/lightBox/ViewImg.vue'
+  import ViewInfo from '@/components/molecules/lightBox/ViewInfo.vue'
   import { GlobalStore } from '@/stores/GlobalStore'
   import { useKernalStore } from '@/stores/api/KernalStore'
 
   // Lazy-load the PDF viewer component
-  const ViewPdf = defineAsyncComponent(() => import('@/components/atoms/viewers/ViewPdf.vue'))
+  const ViewPdf = defineAsyncComponent(() => import('@/components/molecules/lightBox/ViewPdf.vue'))
 
   const store = GlobalStore()
   const { kernals } = storeToRefs(useKernalStore())

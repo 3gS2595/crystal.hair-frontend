@@ -1,8 +1,7 @@
 <template>
-  <OverlayBox v-if="overlay_add_mix || overlay_add_src">
-    <AddMixtapeBox v-if="overlay_add_mix" />
-    <AddSrcUrlSubset v-if="overlay_add_src" />
-    <EditMixtapeBox v-if="store.editMixtapeBoxView" />
+   <OverlayBox v-if="overlay_add_mix || overlay_add_src">
+    <AddMixtapeBox v-if="overlay_add_mix" @close="handleOverlayClose" />
+    <AddSrcUrlSubset v-if="overlay_add_src" @close="handleOverlayClose" />
   </OverlayBox>
   <div class="tabs tabs-content">
     <div class="tabs-l">
@@ -53,12 +52,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, provide } from 'vue'
+  import { ref } from 'vue'
   import { storeToRefs } from 'pinia'
   import { GlobalStore } from '@/stores/GlobalStore'
-  import AddMixtapeBox from '@/components/atoms/uploaders/AddMixtape.vue'
-  import AddSrcUrlSubset from '@/components/atoms/uploaders/AddSrcUrlSubset.vue'
-  import EditMixtapeBox from '@/components/molecules/EditBox.vue'
+  import AddMixtapeBox from '@/components/molecules/overlayBox/AddMixtape.vue'
+  import AddSrcUrlSubset from '@/components/molecules/overlayBox/AddSrcUrlSubset.vue'
   import OverlayBox from '@/components/atoms/OverlayBox.vue'
 
   const store = GlobalStore()
@@ -66,9 +64,11 @@
   const { currentTab } = storeToRefs(store)
 
   const overlay_add_mix = ref(false)
-  provide('overlay_add_mix', overlay_add_mix)
   const overlay_add_src = ref(false)
-  provide('overlay_add_src', overlay_add_src)
+  function handleOverlayClose() {
+    overlay_add_mix.value = false
+    overlay_add_src.value = false
+  }
 
   function changeTab() {
     store.srcUrlSubset = ''

@@ -1,11 +1,11 @@
 <template>
-  <!-- CONTENT PANE -->
+  <AddContentBox v-if="toggle_upload" @close="handleOverlayClose" />
   <div class="tabs tabs-content">
     <div class="tabs-l">
       <div
         v-if="store.mixtape !== ''"
         class="tab tab-active tab-width-standard media-active"
-        @click="toggle"
+        @click="toggle_upload = !toggle_upload"
       >
         <img
           class="tab-icon"
@@ -54,11 +54,12 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, inject } from 'vue'
+  import { computed, ref } from 'vue'
   import { storeToRefs } from 'pinia'
   import { GlobalStore } from '@/stores/GlobalStore'
   import { useMixtapeStore } from '@/stores/api/MixtapeStore'
   import { useSrcUrlSubsetStore } from '@/stores/api/SrcUrlSubsetStore'
+  import AddContentBox from '@/components/molecules/overlayBox/AddContent.vue'
 
   // Pinia stores
   const store = GlobalStore()
@@ -75,8 +76,8 @@
     return mixtapeObj?.name || srcSubsetObj?.name || ''
   })
 
-  const toggle_upload: any = inject('toggle_upload')
-  function toggle() {
-    toggle_upload.value = !toggle_upload.value
+  const toggle_upload = ref(false)
+  function handleOverlayClose() {
+    toggle_upload.value = false
   }
 </script>

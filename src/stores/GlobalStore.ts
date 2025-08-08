@@ -7,10 +7,6 @@ const defaultState = <GlobalStoreType>{
 
   // display toggles
   lightBoxView : false,
-  editMixtapeBoxView : false,
-  addFolderBoxView : false,
-  addMixToFolderView : false,
-  viewSettings: false,
   curOptionsTab: 0,
 
   // content grid & lightbox
